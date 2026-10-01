@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Little Blossoms - Students</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -20,96 +21,161 @@ body{
     color:#222;
 }
 
+/* HEADER */
+
 .header{
     background:linear-gradient(135deg,#ff72a7,#ff9a62);
     color:white;
-    padding:18px;
+    padding:18px 22px;
     display:flex;
     justify-content:space-between;
     align-items:center;
 }
 
+.header-left{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.logo{
+    width:45px;
+    height:45px;
+    border-radius:14px;
+    background:rgba(255,255,255,.2);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:bold;
+}
+
 .header h1{
-    font-size:21px;
+    font-size:20px;
 }
 
 .header small{
     opacity:.9;
 }
 
+.back-btn{
+    border:1px solid rgba(255,255,255,.5);
+    background:rgba(255,255,255,.18);
+    color:white;
+    padding:10px 15px;
+    border-radius:10px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+/* CONTAINER */
+
 .container{
     max-width:1200px;
     margin:auto;
-    padding:20px;
+    padding:22px;
 }
+
+/* TOP */
 
 .top{
     display:flex;
     justify-content:space-between;
     align-items:center;
-    margin-bottom:20px;
-    gap:10px;
+    gap:15px;
     flex-wrap:wrap;
+    margin-bottom:20px;
 }
 
-.back{
-    border:0;
-    background:white;
-    padding:11px 16px;
-    border-radius:10px;
-    cursor:pointer;
-    box-shadow:0 4px 15px #00000010;
+.top h2{
+    font-size:24px;
 }
 
-.add{
+.top p{
+    color:#777;
+    margin-top:5px;
+    font-size:14px;
+}
+
+.add-btn{
     border:0;
     background:linear-gradient(135deg,#ff72a7,#ff9a62);
     color:white;
-    padding:12px 18px;
-    border-radius:11px;
-    font-weight:bold;
+    padding:13px 20px;
+    border-radius:12px;
     cursor:pointer;
+    font-weight:bold;
+    font-size:14px;
 }
 
-.search{
-    width:100%;
-    padding:14px;
-    border:1px solid #ddd;
-    border-radius:12px;
-    outline:none;
-    margin-bottom:18px;
-    background:white;
-}
+/* STATS */
 
 .stats{
     display:grid;
     grid-template-columns:repeat(3,1fr);
-    gap:12px;
-    margin-bottom:18px;
+    gap:15px;
+    margin-bottom:20px;
 }
 
 .stat{
     background:white;
-    padding:18px;
-    border-radius:15px;
-    box-shadow:0 5px 20px #00000008;
-}
-
-.stat small{
-    color:#777;
-}
-
-.stat b{
-    display:block;
-    font-size:24px;
-    margin-top:6px;
-}
-
-.table-box{
-    background:white;
     border-radius:16px;
-    overflow:auto;
-    box-shadow:0 5px 25px #00000008;
+    padding:18px;
+    box-shadow:0 5px 20px rgba(0,0,0,.06);
+}
+
+.stat-title{
+    color:#777;
+    font-size:13px;
+    margin-bottom:8px;
+}
+
+.stat-value{
+    font-size:25px;
+    font-weight:bold;
+}
+
+/* TABLE PANEL */
+
+.panel{
+    background:white;
+    border-radius:18px;
+    padding:20px;
+    box-shadow:0 6px 25px rgba(0,0,0,.07);
+}
+
+.toolbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:12px;
+    margin-bottom:18px;
+    flex-wrap:wrap;
+}
+
+.search{
+    flex:1;
+    min-width:220px;
+    padding:12px 14px;
+    border:1px solid #ddd;
+    border-radius:11px;
+    outline:none;
+}
+
+.search:focus{
+    border-color:#ff72a7;
+}
+
+.filter{
+    padding:12px;
+    border:1px solid #ddd;
+    border-radius:11px;
+    outline:none;
+}
+
+/* TABLE */
+
+.table-wrap{
+    overflow-x:auto;
 }
 
 table{
@@ -119,101 +185,126 @@ table{
 }
 
 th{
-    background:#fff1f6;
-    padding:14px;
+    background:#fff5f8;
+    color:#555;
+    font-size:12px;
     text-align:left;
-    font-size:13px;
+    padding:13px 10px;
+    white-space:nowrap;
 }
 
 td{
-    padding:13px;
+    padding:13px 10px;
     border-bottom:1px solid #eee;
-    font-size:14px;
+    font-size:13px;
 }
 
-.badge{
+tr:hover td{
+    background:#fffafb;
+}
+
+.student-name{
+    font-weight:bold;
+}
+
+.status{
+    display:inline-block;
     padding:5px 9px;
     border-radius:20px;
-    font-size:12px;
+    font-size:11px;
+    font-weight:bold;
 }
 
 .active{
-    background:#dcfce7;
-    color:#15803d;
+    background:#e7f8ed;
+    color:#16803c;
 }
 
 .inactive{
-    background:#fee2e2;
-    color:#b91c1c;
+    background:#ffeaea;
+    color:#d63031;
 }
 
-.action{
+.action-btn{
     border:0;
-    padding:7px 10px;
+    padding:7px 9px;
     border-radius:8px;
     cursor:pointer;
     margin-right:4px;
 }
 
 .edit{
-    background:#e0f2fe;
-    color:#0369a1;
+    background:#e8f1ff;
+    color:#2563eb;
 }
 
 .delete{
-    background:#fee2e2;
+    background:#ffeaea;
     color:#dc2626;
 }
 
 /* MODAL */
 
 .modal{
-    display:none;
     position:fixed;
     inset:0;
-    background:#0008;
-    z-index:20;
+    background:rgba(0,0,0,.5);
+    display:none;
     align-items:center;
     justify-content:center;
-    padding:15px;
+    padding:20px;
+    z-index:1000;
+}
+
+.modal.show{
+    display:flex;
 }
 
 .modal-box{
-    background:white;
     width:100%;
     max-width:500px;
-    border-radius:20px;
-    padding:25px;
     max-height:90vh;
-    overflow:auto;
+    overflow-y:auto;
+    background:white;
+    border-radius:22px;
+    padding:25px;
 }
 
-.modal-head{
+.modal-header{
     display:flex;
     justify-content:space-between;
     align-items:center;
-    margin-bottom:15px;
+    margin-bottom:20px;
+}
+
+.modal-header h2{
+    font-size:20px;
 }
 
 .close{
     border:0;
-    background:#eee;
+    background:#f1f1f1;
     width:35px;
     height:35px;
     border-radius:50%;
     cursor:pointer;
-    font-size:18px;
+    font-size:20px;
 }
 
-label{
+.form-group{
+    margin-bottom:15px;
+}
+
+.form-group label{
     display:block;
-    margin-top:13px;
-    margin-bottom:6px;
-    font-size:14px;
+    font-size:13px;
     font-weight:bold;
+    margin-bottom:7px;
+    color:#444;
 }
 
-input,select,textarea{
+.form-group input,
+.form-group select{
     width:100%;
     padding:12px;
     border:1px solid #ddd;
@@ -222,36 +313,118 @@ input,select,textarea{
     font-size:14px;
 }
 
-textarea{
-    resize:vertical;
+.form-group input:focus,
+.form-group select:focus{
+    border-color:#ff72a7;
 }
 
-.save{
+.form-row{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+}
+
+.save-btn{
     width:100%;
-    margin-top:20px;
-    padding:13px;
     border:0;
+    padding:13px;
     border-radius:11px;
     background:linear-gradient(135deg,#ff72a7,#ff9a62);
     color:white;
-    font-weight:bold;
     font-size:15px;
+    font-weight:bold;
+    cursor:pointer;
+    margin-top:5px;
 }
 
-#message{
-    text-align:center;
-    margin-top:10px;
+.save-btn:disabled{
+    opacity:.6;
+}
+
+/* MESSAGE */
+
+.message{
+    display:none;
+    padding:12px;
+    border-radius:10px;
+    margin-bottom:15px;
     font-size:13px;
 }
 
-@media(max-width:600px){
+.message.success{
+    display:block;
+    background:#e9f9ef;
+    color:#15803d;
+}
+
+.message.error{
+    display:block;
+    background:#ffeaea;
+    color:#dc2626;
+}
+
+/* LOADING */
+
+.loading{
+    text-align:center;
+    padding:35px;
+    color:#888;
+}
+
+/* MOBILE */
+
+@media(max-width:700px){
+
+    .header{
+        padding:15px;
+    }
+
+    .header h1{
+        font-size:17px;
+    }
+
+    .header small{
+        font-size:10px;
+    }
+
+    .container{
+        padding:15px;
+    }
 
     .stats{
         grid-template-columns:1fr 1fr;
     }
 
-    .container{
-        padding:14px;
+    .stat{
+        padding:15px;
+    }
+
+    .stat-value{
+        font-size:21px;
+    }
+
+    .panel{
+        padding:15px;
+    }
+
+    .form-row{
+        grid-template-columns:1fr;
+    }
+}
+
+@media(max-width:450px){
+
+    .stats{
+        grid-template-columns:1fr;
+    }
+
+    .back-btn{
+        padding:8px 10px;
+        font-size:12px;
+    }
+
+    .add-btn{
+        width:100%;
     }
 }
 </style>
@@ -259,136 +432,382 @@ textarea{
 
 <body>
 
+<!-- HEADER -->
+
 <header class="header">
-    <div>
-        <h1>🌸 Little Blossoms</h1>
-        <small>Student Management</small>
+
+    <div class="header-left">
+
+        <div class="logo">
+            LB
+        </div>
+
+        <div>
+            <h1>Little Blossoms</h1>
+            <small>Student Management</small>
+        </div>
+
     </div>
+
+    <button
+        class="back-btn"
+        onclick="location.href='dashboard.html'"
+    >
+        ← Dashboard
+    </button>
+
 </header>
 
-<div class="container">
+
+<main class="container">
+
+    <!-- TOP -->
 
     <div class="top">
+
         <div>
             <h2>Students</h2>
-            <p style="color:#777;font-size:13px">
-                Manage all student records
+
+            <p>
+                Add and manage all Little Blossoms students.
             </p>
         </div>
 
-        <div>
-            <button class="back" onclick="location.href='dashboard.html'">
-                ← Dashboard
-            </button>
-
-            <button class="add" onclick="openAdd()">
-                + Add Student
-            </button>
-        </div>
-    </div>
-
-    <div class="stats">
-
-        <div class="stat">
-            <small>Total Students</small>
-            <b id="total">0</b>
-        </div>
-
-        <div class="stat">
-            <small>Active Students</small>
-            <b id="activeCount">0</b>
-        </div>
-
-        <div class="stat">
-            <small>Monthly Fee Potential</small>
-            <b id="monthlyTotal">₹0</b>
-        </div>
+        <button
+            class="add-btn"
+            onclick="openAddModal()"
+        >
+            + Add Student
+        </button>
 
     </div>
 
-    <input
-        class="search"
-        id="search"
-        placeholder="🔍 Search student, parent or mobile..."
-        oninput="renderStudents()"
-    >
 
-    <div class="table-box">
+    <!-- STATS -->
 
-        <table>
+    <section class="stats">
 
-            <thead>
-                <tr>
-                    <th>Student</th>
-                    <th>Parent</th>
-                    <th>Mobile</th>
-                    <th>Joining</th>
-                    <th>Registration</th>
-                    <th>Monthly Fee</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
+        <div class="stat">
 
-            <tbody id="studentList"></tbody>
+            <div class="stat-title">
+                Total Students
+            </div>
 
-        </table>
+            <div
+                class="stat-value"
+                id="totalStudents"
+            >
+                0
+            </div>
 
-    </div>
-
-</div>
+        </div>
 
 
-<!-- MODAL -->
+        <div class="stat">
 
-<div class="modal" id="modal">
+            <div class="stat-title">
+                Active Students
+            </div>
+
+            <div
+                class="stat-value"
+                id="activeStudents"
+            >
+                0
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-title">
+                Monthly Fees
+            </div>
+
+            <div
+                class="stat-value"
+                id="monthlyFees"
+            >
+                ₹0
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- STUDENT TABLE -->
+
+    <section class="panel">
+
+        <div class="toolbar">
+
+            <input
+                type="text"
+                id="search"
+                class="search"
+                placeholder="Search student, father name or mobile..."
+            >
+
+            <select
+                id="statusFilter"
+                class="filter"
+            >
+                <option value="All">
+                    All Students
+                </option>
+
+                <option value="Active">
+                    Active
+                </option>
+
+                <option value="Inactive">
+                    Inactive
+                </option>
+            </select>
+
+        </div>
+
+
+        <div class="table-wrap">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            Student
+                        </th>
+
+                        <th>
+                            Father Name
+                        </th>
+
+                        <th>
+                            Mobile
+                        </th>
+
+                        <th>
+                            Admission Date
+                        </th>
+
+                        <th>
+                            Monthly Fee
+                        </th>
+
+                        <th>
+                            Registration
+                        </th>
+
+                        <th>
+                            Status
+                        </th>
+
+                        <th>
+                            Actions
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody id="studentTable">
+
+                    <tr>
+                        <td
+                            colspan="8"
+                            class="loading"
+                        >
+                            Loading students...
+                        </td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<!-- ADD / EDIT MODAL -->
+
+<div
+    class="modal"
+    id="studentModal"
+>
 
     <div class="modal-box">
 
-        <div class="modal-head">
+        <div class="modal-header">
 
-            <h2 id="modalTitle">Add Student</h2>
+            <h2 id="modalTitle">
+                Add Student
+            </h2>
 
-            <button class="close" onclick="closeModal()">×</button>
+            <button
+                class="close"
+                onclick="closeModal()"
+            >
+                ×
+            </button>
 
         </div>
 
+
+        <div
+            id="message"
+            class="message"
+        ></div>
+
+
         <form id="studentForm">
 
-            <input type="hidden" id="studentId">
+            <input
+                type="hidden"
+                id="studentId"
+            >
 
-            <label>Student Name *</label>
-            <input id="studentName" required>
 
-            <label>Parent Name</label>
-            <input id="parentName">
+            <div class="form-group">
 
-            <label>Mobile Number</label>
-            <input id="mobile" type="tel">
+                <label>
+                    Student Name *
+                </label>
 
-            <label>Joining Date</label>
-            <input id="joiningDate" type="date" required>
+                <input
+                    type="text"
+                    id="studentName"
+                    placeholder="Enter student name"
+                    required
+                >
 
-            <label>Registration Fee</label>
-            <input id="registrationFee" type="number" min="0" step="0.01" value="0">
+            </div>
 
-            <label>Monthly Fee *</label>
-            <input id="monthlyFee" type="number" min="0" step="0.01" value="0" required>
 
-            <label>Status</label>
-            <select id="status">
-                <option value="Active">Active</option>
-                <option value="Inactive">Inactive</option>
-            </select>
+            <div class="form-group">
 
-            <label>Notes</label>
-            <textarea id="notes" rows="3"></textarea>
+                <label>
+                    Father Name
+                </label>
 
-            <button class="save" id="saveBtn">
+                <input
+                    type="text"
+                    id="fatherName"
+                    placeholder="Enter father name"
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Mobile Number
+                </label>
+
+                <input
+                    type="tel"
+                    id="mobile"
+                    placeholder="Enter mobile number"
+                >
+
+            </div>
+
+
+            <div class="form-row">
+
+                <div class="form-group">
+
+                    <label>
+                        Admission Date
+                    </label>
+
+                    <input
+                        type="date"
+                        id="admissionDate"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Status
+                    </label>
+
+                    <select id="status">
+
+                        <option value="Active">
+                            Active
+                        </option>
+
+                        <option value="Inactive">
+                            Inactive
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <div class="form-row">
+
+                <div class="form-group">
+
+                    <label>
+                        Monthly Fee
+                    </label>
+
+                    <input
+                        type="number"
+                        id="monthlyFee"
+                        min="0"
+                        step="0.01"
+                        value="0"
+                        placeholder="0"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Registration Fee
+                    </label>
+
+                    <input
+                        type="number"
+                        id="registrationFee"
+                        min="0"
+                        step="0.01"
+                        value="0"
+                        placeholder="0"
+                    >
+
+                </div>
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="save-btn"
+                id="saveBtn"
+            >
                 Save Student
             </button>
-
-            <div id="message"></div>
 
         </form>
 
@@ -399,15 +818,21 @@ textarea{
 
 <script>
 
-/* ================================
+/* =================================
    SUPABASE
-================================ */
+================================= */
 
 const SUPABASE_URL =
 "https://holelzxzhaiefaqezmce.supabase.co";
 
+/*
+IMPORTANT:
+Use the exact same Publishable Key
+as your index.html and login.html.
+*/
+
 const SUPABASE_KEY =
-"sb_publishable_KoCQClKL582rggMuDJXhYQ_UhHOB4xZ";
+"sb_publishable_KoCQClKL582rggMuDJhYQ_UhHOB4xZ";
 
 const supabaseClient =
 supabase.createClient(
@@ -415,402 +840,663 @@ supabase.createClient(
     SUPABASE_KEY
 );
 
+
+/* =================================
+   VARIABLES
+================================= */
+
 let students = [];
 
+const modal =
+document.getElementById("studentModal");
 
-/* ================================
-   LOGIN CHECK
-================================ */
+const form =
+document.getElementById("studentForm");
+
+const table =
+document.getElementById("studentTable");
+
+const search =
+document.getElementById("search");
+
+const statusFilter =
+document.getElementById("statusFilter");
+
+
+/* =================================
+   CHECK LOGIN
+================================= */
 
 async function checkLogin(){
 
     const {
-        data:{session}
-    } = await supabaseClient.auth.getSession();
+        data,
+        error
+    } =
+    await supabaseClient.auth.getSession();
 
-    if(!session){
 
-        location.href="login.html";
+    if(error){
+
+        alert(
+            "Session error: " +
+            error.message
+        );
+
+        location.href =
+            "login.html";
 
         return false;
+
     }
 
+
+    if(!data.session){
+
+        location.href =
+            "login.html";
+
+        return false;
+
+    }
+
+
     return true;
+
 }
 
 
-/* ================================
+/* =================================
    LOAD STUDENTS
-================================ */
+================================= */
 
 async function loadStudents(){
 
-    if(!(await checkLogin())) return;
+    table.innerHTML = `
+        <tr>
+            <td colspan="8" class="loading">
+                Loading students...
+            </td>
+        </tr>
+    `;
+
 
     const {
         data,
         error
-    } = await supabaseClient
+    } =
+    await supabaseClient
         .from("students")
         .select("*")
-        .order("student_name",{ascending:true});
+        .order(
+            "created_at",
+            {
+                ascending:false
+            }
+        );
+
 
     if(error){
 
-        alert(error.message);
-        return;
-    }
+        console.error(error);
 
-    students = data || [];
-
-    renderStudents();
-    updateStats();
-}
-
-
-/* ================================
-   RENDER
-================================ */
-
-function renderStudents(){
-
-    const search =
-        document.getElementById("search")
-        .value
-        .toLowerCase()
-        .trim();
-
-    const filtered =
-        students.filter(s =>
-
-            (s.student_name || "")
-                .toLowerCase()
-                .includes(search)
-
-            ||
-
-            (s.parent_name || "")
-                .toLowerCase()
-                .includes(search)
-
-            ||
-
-            (s.mobile || "")
-                .toLowerCase()
-                .includes(search)
-
-        );
-
-    const list =
-        document.getElementById("studentList");
-
-    if(filtered.length === 0){
-
-        list.innerHTML = `
+        table.innerHTML = `
             <tr>
-                <td colspan="8"
-                    style="text-align:center;padding:35px;color:#888">
-                    No students found
+                <td colspan="8" class="loading">
+                    Error loading students:
+                    ${escapeHtml(error.message)}
                 </td>
             </tr>
         `;
 
         return;
+
     }
 
-    list.innerHTML =
-        filtered.map(s => `
 
-        <tr>
+    students =
+        data || [];
 
-            <td>
-                <b>${escapeHtml(s.student_name)}</b>
-            </td>
 
-            <td>
-                ${escapeHtml(s.parent_name || "-")}
-            </td>
+    renderStudents();
 
-            <td>
-                ${escapeHtml(s.mobile || "-")}
-            </td>
+    updateStats();
 
-            <td>
-                ${formatDate(s.joining_date)}
-            </td>
-
-            <td>
-                ₹${Number(s.registration_fee || 0).toLocaleString("en-IN")}
-            </td>
-
-            <td>
-                <b>₹${Number(s.monthly_fee || 0).toLocaleString("en-IN")}</b>
-            </td>
-
-            <td>
-                <span class="badge ${
-                    s.status === "Active"
-                    ? "active"
-                    : "inactive"
-                }">
-                    ${s.status}
-                </span>
-            </td>
-
-            <td>
-
-                <button
-                    class="action edit"
-                    onclick="editStudent('${s.id}')">
-                    Edit
-                </button>
-
-                <button
-                    class="action delete"
-                    onclick="deleteStudent('${s.id}')">
-                    Delete
-                </button>
-
-            </td>
-
-        </tr>
-
-    `).join("");
 }
 
 
-/* ================================
-   STATS
-================================ */
+/* =================================
+   RENDER STUDENTS
+================================= */
+
+function renderStudents(){
+
+    const searchText =
+        search.value
+            .trim()
+            .toLowerCase();
+
+    const selectedStatus =
+        statusFilter.value;
+
+
+    const filtered =
+        students.filter(student => {
+
+            const matchesSearch =
+                !searchText ||
+                String(student.name || "")
+                    .toLowerCase()
+                    .includes(searchText) ||
+
+                String(student.father_name || "")
+                    .toLowerCase()
+                    .includes(searchText) ||
+
+                String(student.mobile || "")
+                    .toLowerCase()
+                    .includes(searchText);
+
+
+            const matchesStatus =
+                selectedStatus === "All" ||
+                student.status === selectedStatus;
+
+
+            return (
+                matchesSearch &&
+                matchesStatus
+            );
+
+        });
+
+
+    if(filtered.length === 0){
+
+        table.innerHTML = `
+            <tr>
+                <td colspan="8" class="loading">
+                    No students found.
+                </td>
+            </tr>
+        `;
+
+        return;
+
+    }
+
+
+    table.innerHTML =
+        filtered.map(student => {
+
+            const admissionDate =
+                student.admission_date
+                ? formatDate(student.admission_date)
+                : "-";
+
+
+            const statusClass =
+                student.status === "Active"
+                ? "active"
+                : "inactive";
+
+
+            return `
+
+                <tr>
+
+                    <td>
+                        <div class="student-name">
+                            ${escapeHtml(student.name)}
+                        </div>
+                    </td>
+
+                    <td>
+                        ${escapeHtml(student.father_name || "-")}
+                    </td>
+
+                    <td>
+                        ${escapeHtml(student.mobile || "-")}
+                    </td>
+
+                    <td>
+                        ${admissionDate}
+                    </td>
+
+                    <td>
+                        ₹${formatMoney(student.monthly_fee)}
+                    </td>
+
+                    <td>
+                        ₹${formatMoney(student.registration_fee)}
+                    </td>
+
+                    <td>
+                        <span class="status ${statusClass}">
+                            ${escapeHtml(student.status || "Active")}
+                        </span>
+                    </td>
+
+                    <td>
+
+                        <button
+                            class="action-btn edit"
+                            onclick="editStudent('${student.id}')"
+                        >
+                            Edit
+                        </button>
+
+                        <button
+                            class="action-btn delete"
+                            onclick="deleteStudent('${student.id}')"
+                        >
+                            Delete
+                        </button>
+
+                    </td>
+
+                </tr>
+
+            `;
+
+        }).join("");
+
+}
+
+
+/* =================================
+   UPDATE STATS
+================================= */
 
 function updateStats(){
+
+    const total =
+        students.length;
+
 
     const active =
         students.filter(
             s => s.status === "Active"
+        ).length;
+
+
+    const monthlyFees =
+        students
+            .filter(
+                s => s.status === "Active"
+            )
+            .reduce(
+                (sum,s) =>
+                    sum +
+                    Number(s.monthly_fee || 0),
+                0
+            );
+
+
+    document.getElementById(
+        "totalStudents"
+    ).textContent =
+        total;
+
+
+    document.getElementById(
+        "activeStudents"
+    ).textContent =
+        active;
+
+
+    document.getElementById(
+        "monthlyFees"
+    ).textContent =
+        "₹" +
+        monthlyFees.toLocaleString(
+            "en-IN"
         );
 
-    const monthly =
-        active.reduce(
-            (sum,s) =>
-            sum + Number(s.monthly_fee || 0),
-            0
-        );
-
-    document.getElementById("total")
-        .textContent = students.length;
-
-    document.getElementById("activeCount")
-        .textContent = active.length;
-
-    document.getElementById("monthlyTotal")
-        .textContent =
-        "₹" + monthly.toLocaleString("en-IN");
 }
 
 
-/* ================================
+/* =================================
    OPEN ADD
-================================ */
+================================= */
 
-function openAdd(){
+function openAddModal(){
 
-    document.getElementById("modalTitle")
-        .textContent = "Add Student";
+    form.reset();
 
-    document.getElementById("studentForm")
-        .reset();
 
-    document.getElementById("studentId")
-        .value = "";
+    document.getElementById(
+        "studentId"
+    ).value = "";
 
-    document.getElementById("joiningDate")
-        .value =
-        new Date().toISOString().split("T")[0];
 
-    document.getElementById("registrationFee")
-        .value = 0;
+    document.getElementById(
+        "modalTitle"
+    ).textContent =
+        "Add Student";
 
-    document.getElementById("monthlyFee")
-        .value = 0;
 
-    document.getElementById("status")
-        .value = "Active";
+    document.getElementById(
+        "saveBtn"
+    ).textContent =
+        "Save Student";
 
-    document.getElementById("message")
-        .textContent = "";
 
-    document.getElementById("modal")
-        .style.display = "flex";
+    document.getElementById(
+        "status"
+    ).value =
+        "Active";
+
+
+    document.getElementById(
+        "monthlyFee"
+    ).value =
+        "0";
+
+
+    document.getElementById(
+        "registrationFee"
+    ).value =
+        "0";
+
+
+    document.getElementById(
+        "admissionDate"
+    ).value =
+        new Date()
+            .toISOString()
+            .split("T")[0];
+
+
+    clearMessage();
+
+    modal.classList.add("show");
+
 }
 
 
-/* ================================
-   EDIT
-================================ */
+/* =================================
+   EDIT STUDENT
+================================= */
 
 function editStudent(id){
 
-    const s =
-        students.find(x => x.id === id);
+    const student =
+        students.find(
+            s => s.id === id
+        );
 
-    if(!s) return;
 
-    document.getElementById("modalTitle")
-        .textContent = "Edit Student";
+    if(!student){
 
-    document.getElementById("studentId")
-        .value = s.id;
+        alert(
+            "Student not found."
+        );
 
-    document.getElementById("studentName")
-        .value = s.student_name || "";
+        return;
 
-    document.getElementById("parentName")
-        .value = s.parent_name || "";
+    }
 
-    document.getElementById("mobile")
-        .value = s.mobile || "";
 
-    document.getElementById("joiningDate")
-        .value = s.joining_date || "";
+    document.getElementById(
+        "studentId"
+    ).value =
+        student.id;
 
-    document.getElementById("registrationFee")
-        .value = s.registration_fee || 0;
 
-    document.getElementById("monthlyFee")
-        .value = s.monthly_fee || 0;
+    document.getElementById(
+        "studentName"
+    ).value =
+        student.name || "";
 
-    document.getElementById("status")
-        .value = s.status || "Active";
 
-    document.getElementById("notes")
-        .value = s.notes || "";
+    document.getElementById(
+        "fatherName"
+    ).value =
+        student.father_name || "";
 
-    document.getElementById("message")
-        .textContent = "";
 
-    document.getElementById("modal")
-        .style.display = "flex";
+    document.getElementById(
+        "mobile"
+    ).value =
+        student.mobile || "";
+
+
+    document.getElementById(
+        "admissionDate"
+    ).value =
+        student.admission_date || "";
+
+
+    document.getElementById(
+        "monthlyFee"
+    ).value =
+        student.monthly_fee || 0;
+
+
+    document.getElementById(
+        "registrationFee"
+    ).value =
+        student.registration_fee || 0;
+
+
+    document.getElementById(
+        "status"
+    ).value =
+        student.status || "Active";
+
+
+    document.getElementById(
+        "modalTitle"
+    ).textContent =
+        "Edit Student";
+
+
+    document.getElementById(
+        "saveBtn"
+    ).textContent =
+        "Update Student";
+
+
+    clearMessage();
+
+    modal.classList.add("show");
+
 }
 
 
-/* ================================
-   SAVE
-================================ */
+/* =================================
+   SAVE STUDENT
+================================= */
 
-document.getElementById("studentForm")
-.addEventListener("submit", async function(e){
+form.addEventListener(
+    "submit",
+    async function(e){
 
-    e.preventDefault();
-
-    const saveBtn =
-        document.getElementById("saveBtn");
-
-    saveBtn.disabled = true;
-    saveBtn.textContent = "Saving...";
-
-    const id =
-        document.getElementById("studentId").value;
-
-    const studentData = {
-
-        student_name:
-            document.getElementById("studentName").value.trim(),
-
-        parent_name:
-            document.getElementById("parentName").value.trim(),
-
-        mobile:
-            document.getElementById("mobile").value.trim(),
-
-        joining_date:
-            document.getElementById("joiningDate").value,
-
-        registration_fee:
-            Number(document.getElementById("registrationFee").value || 0),
-
-        monthly_fee:
-            Number(document.getElementById("monthlyFee").value || 0),
-
-        status:
-            document.getElementById("status").value,
-
-        notes:
-            document.getElementById("notes").value.trim()
-    };
+        e.preventDefault();
 
 
-    let result;
+        const id =
+            document.getElementById(
+                "studentId"
+            ).value;
 
 
-    /* EDIT */
+        const studentData = {
 
-    if(id){
+            name:
+                document.getElementById(
+                    "studentName"
+                ).value.trim(),
 
-        result =
-            await supabaseClient
-            .from("students")
-            .update(studentData)
-            .eq("id",id);
+            father_name:
+                document.getElementById(
+                    "fatherName"
+                ).value.trim(),
+
+            mobile:
+                document.getElementById(
+                    "mobile"
+                ).value.trim(),
+
+            admission_date:
+                document.getElementById(
+                    "admissionDate"
+                ).value || null,
+
+            monthly_fee:
+                Number(
+                    document.getElementById(
+                        "monthlyFee"
+                    ).value || 0
+                ),
+
+            registration_fee:
+                Number(
+                    document.getElementById(
+                        "registrationFee"
+                    ).value || 0
+                ),
+
+            status:
+                document.getElementById(
+                    "status"
+                ).value
+
+        };
+
+
+        if(!studentData.name){
+
+            showMessage(
+                "Student name is required.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        const saveBtn =
+            document.getElementById(
+                "saveBtn"
+            );
+
+
+        saveBtn.disabled =
+            true;
+
+        saveBtn.textContent =
+            id
+            ? "Updating..."
+            : "Saving...";
+
+
+        let result;
+
+
+        if(id){
+
+            result =
+                await supabaseClient
+                    .from("students")
+                    .update(studentData)
+                    .eq("id",id);
+
+        }else{
+
+            result =
+                await supabaseClient
+                    .from("students")
+                    .insert(
+                        [studentData]
+                    );
+
+        }
+
+
+        if(result.error){
+
+            console.error(
+                result.error
+            );
+
+            showMessage(
+                result.error.message,
+                "error"
+            );
+
+            saveBtn.disabled =
+                false;
+
+            saveBtn.textContent =
+                id
+                ? "Update Student"
+                : "Save Student";
+
+            return;
+
+        }
+
+
+        showMessage(
+            id
+            ? "Student updated successfully."
+            : "Student added successfully.",
+            "success"
+        );
+
+
+        await loadStudents();
+
+
+        setTimeout(
+            () => {
+
+                closeModal();
+
+            },
+            500
+        );
+
 
     }
-
-    /* ADD */
-
-    else{
-
-        result =
-            await supabaseClient
-            .from("students")
-            .insert(studentData);
-
-    }
+);
 
 
-    if(result.error){
-
-        document.getElementById("message")
-            .style.color = "#dc2626";
-
-        document.getElementById("message")
-            .textContent =
-            result.error.message;
-
-        saveBtn.disabled = false;
-        saveBtn.textContent = "Save Student";
-
-        return;
-    }
-
-
-    closeModal();
-
-    await loadStudents();
-
-    saveBtn.disabled = false;
-    saveBtn.textContent = "Save Student";
-
-});
-
-
-/* ================================
-   DELETE
-================================ */
+/* =================================
+   DELETE STUDENT
+================================= */
 
 async function deleteStudent(id){
 
-    const s =
-        students.find(x => x.id === id);
+    const student =
+        students.find(
+            s => s.id === id
+        );
 
-    if(!s) return;
+
+    if(!student){
+
+        return;
+
+    }
+
 
     const confirmDelete =
         confirm(
-            `Delete ${s.student_name}?\n\n` +
-            `Student ke saath uske related fee records bhi delete ho sakte hain.`
+            "Delete " +
+            student.name +
+            "?\n\nThis action cannot be undone."
         );
 
-    if(!confirmDelete) return;
+
+    if(!confirmDelete){
+
+        return;
+
+    }
 
 
     const {
@@ -824,64 +1510,201 @@ async function deleteStudent(id){
 
     if(error){
 
-        alert(error.message);
+        alert(
+            "Delete failed:\n" +
+            error.message
+        );
+
         return;
+
     }
 
+
     await loadStudents();
+
 }
 
 
-/* ================================
-   MODAL CLOSE
-================================ */
+/* =================================
+   CLOSE MODAL
+================================= */
 
 function closeModal(){
 
-    document.getElementById("modal")
-        .style.display = "none";
+    modal.classList.remove(
+        "show"
+    );
+
+    clearMessage();
+
 }
 
 
-/* ================================
-   DATE
-================================ */
+/* =================================
+   CLICK OUTSIDE MODAL
+================================= */
+
+modal.addEventListener(
+    "click",
+    function(e){
+
+        if(e.target === modal){
+
+            closeModal();
+
+        }
+
+    }
+);
+
+
+/* =================================
+   SEARCH
+================================= */
+
+search.addEventListener(
+    "input",
+    renderStudents
+);
+
+
+statusFilter.addEventListener(
+    "change",
+    renderStudents
+);
+
+
+/* =================================
+   MESSAGE
+================================= */
+
+function showMessage(
+    text,
+    type
+){
+
+    const message =
+        document.getElementById(
+            "message"
+        );
+
+
+    message.textContent =
+        text;
+
+
+    message.className =
+        "message " +
+        type;
+
+}
+
+
+function clearMessage(){
+
+    const message =
+        document.getElementById(
+            "message"
+        );
+
+
+    message.textContent =
+        "";
+
+
+    message.className =
+        "message";
+
+}
+
+
+/* =================================
+   HELPERS
+================================= */
+
+function formatMoney(value){
+
+    return Number(
+        value || 0
+    ).toLocaleString(
+        "en-IN",
+        {
+            minimumFractionDigits:0,
+            maximumFractionDigits:2
+        }
+    );
+
+}
+
 
 function formatDate(date){
 
-    if(!date) return "-";
+    const parts =
+        date.split("-");
 
-    const d =
-        new Date(date + "T00:00:00");
 
-    return d.toLocaleDateString("en-IN",{
-        day:"2-digit",
-        month:"short",
-        year:"numeric"
-    });
+    if(parts.length !== 3){
+
+        return date;
+
+    }
+
+
+    return (
+        parts[2] +
+        "/" +
+        parts[1] +
+        "/" +
+        parts[0]
+    );
+
 }
 
-
-/* ================================
-   SECURITY
-================================ */
 
 function escapeHtml(value){
 
-    return String(value)
-        .replace(/&/g,"&amp;")
-        .replace(/</g,"&lt;")
-        .replace(/>/g,"&gt;")
-        .replace(/"/g,"&quot;")
-        .replace(/'/g,"&#039;");
+    return String(value || "")
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+        .replace(
+            /</g,
+            "&lt;"
+        )
+        .replace(
+            />/g,
+            "&gt;"
+        )
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
 }
 
 
-/* ================================
+/* =================================
    START
-================================ */
+================================= */
 
-loadStudents();
+(async function(){
+
+    const loggedIn =
+        await checkLogin();
+
+
+    if(loggedIn){
+
+        await loadStudents();
+
+    }
+
+})();
 
 </script>
 
