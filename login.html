@@ -162,7 +162,10 @@ const SUPABASE_KEY =
 "sb_publishable_KoCQClKL582rggMuDJXhYQ_UhHOB4xZ";
 
 const supabaseClient =
-supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+);
 
 
 const form = document.getElementById("loginForm");
