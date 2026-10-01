@@ -1,0 +1,1365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Little Blossoms - Fees</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    background:#f6f7fb;
+    color:#222;
+}
+
+.header{
+    background:linear-gradient(135deg,#ff72a7,#ff9a62);
+    color:white;
+    padding:18px 20px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.header h1{
+    font-size:21px;
+}
+
+.container{
+    max-width:1200px;
+    margin:auto;
+    padding:20px;
+}
+
+.top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:12px;
+    margin-bottom:20px;
+}
+
+.back{
+    border:0;
+    background:white;
+    padding:11px 16px;
+    border-radius:10px;
+    cursor:pointer;
+    box-shadow:0 4px 15px #0001;
+}
+
+.cards{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:14px;
+    margin-bottom:20px;
+}
+
+.card{
+    background:white;
+    padding:18px;
+    border-radius:16px;
+    box-shadow:0 5px 20px #0000000a;
+}
+
+.card small{
+    color:#777;
+}
+
+.card b{
+    display:block;
+    font-size:23px;
+    margin-top:7px;
+}
+
+.green{
+    color:#16a34a;
+}
+
+.orange{
+    color:#f97316;
+}
+
+.red{
+    color:#dc2626;
+}
+
+.form-box{
+    background:white;
+    padding:22px;
+    border-radius:18px;
+    box-shadow:0 5px 25px #0000000a;
+    margin-bottom:20px;
+}
+
+.form-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:15px;
+}
+
+label{
+    display:block;
+    font-size:13px;
+    font-weight:bold;
+    margin-bottom:6px;
+}
+
+input,select{
+    width:100%;
+    padding:12px;
+    border:1px solid #ddd;
+    border-radius:10px;
+    outline:none;
+    font-size:14px;
+    background:white;
+}
+
+input:focus,select:focus{
+    border-color:#ff72a7;
+}
+
+.full{
+    grid-column:1/-1;
+}
+
+.info{
+    background:#fff5f8;
+    padding:15px;
+    border-radius:12px;
+}
+
+.info-row{
+    display:flex;
+    justify-content:space-between;
+    padding:7px 0;
+}
+
+.save{
+    width:100%;
+    margin-top:18px;
+    padding:14px;
+    border:0;
+    border-radius:11px;
+    background:linear-gradient(135deg,#ff72a7,#ff9a62);
+    color:white;
+    font-size:15px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.table-box{
+    background:white;
+    border-radius:16px;
+    overflow:auto;
+    box-shadow:0 5px 25px #0000000a;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    min-width:950px;
+}
+
+th{
+    background:#fff1f6;
+    padding:13px;
+    text-align:left;
+    font-size:13px;
+}
+
+td{
+    padding:12px;
+    border-bottom:1px solid #eee;
+    font-size:13px;
+}
+
+.action{
+    border:0;
+    padding:7px 10px;
+    border-radius:7px;
+    cursor:pointer;
+}
+
+.edit{
+    background:#e0f2fe;
+    color:#0369a1;
+}
+
+.delete{
+    background:#fee2e2;
+    color:#dc2626;
+}
+
+#message{
+    text-align:center;
+    margin-top:12px;
+    font-size:13px;
+}
+
+@media(max-width:800px){
+
+    .cards{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .form-grid{
+        grid-template-columns:1fr;
+    }
+
+    .full{
+        grid-column:auto;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header class="header">
+    <div>
+        <h1>🌸 Little Blossoms</h1>
+        <small>Monthly Fee Management</small>
+    </div>
+</header>
+
+<div class="container">
+
+    <div class="top">
+        <div>
+            <h2>Monthly Fees</h2>
+            <p style="color:#777;font-size:13px">
+                Record and manage student fee payments
+            </p>
+        </div>
+
+        <button class="back"
+                onclick="location.href='dashboard.html'">
+            ← Dashboard
+        </button>
+    </div>
+
+
+    <!-- SUMMARY -->
+
+    <div class="cards">
+
+        <div class="card">
+            <small>MONTHLY DUE</small>
+            <b id="totalDue">₹0</b>
+        </div>
+
+        <div class="card">
+            <small>RECEIVED</small>
+            <b class="green" id="totalReceived">₹0</b>
+        </div>
+
+        <div class="card">
+            <small>PENDING</small>
+            <b class="orange" id="totalPending">₹0</b>
+        </div>
+
+        <div class="card">
+            <small>PAYMENTS</small>
+            <b id="paymentCount">0</b>
+        </div>
+
+    </div>
+
+
+    <!-- PAYMENT FORM -->
+
+    <div class="form-box">
+
+        <h3 id="formTitle">➕ Add Fee Payment</h3>
+
+        <br>
+
+        <div class="form-grid">
+
+            <div>
+                <label>Student *</label>
+
+                <select id="studentSelect"
+                        onchange="calculateFee()">
+
+                    <option value="">
+                        Select Student
+                    </option>
+
+                </select>
+            </div>
+
+
+            <div>
+                <label>Fee Month *</label>
+
+                <input
+                    type="month"
+                    id="feeMonth"
+                    onchange="calculateFee()"
+                >
+            </div>
+
+
+            <div class="full">
+
+                <div class="info">
+
+                    <div class="info-row">
+                        <span>Monthly Fee</span>
+                        <b id="monthlyFee">₹0</b>
+                    </div>
+
+                    <div class="info-row">
+                        <span>Previous Pending</span>
+                        <b class="orange"
+                           id="previousPending">
+                            ₹0
+                        </b>
+                    </div>
+
+                    <div class="info-row">
+                        <span>Total Due</span>
+                        <b id="currentDue">
+                            ₹0
+                        </b>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div>
+                <label>Paid Amount *</label>
+
+                <input
+                    type="number"
+                    id="paidAmount"
+                    min="0"
+                    step="0.01"
+                    value="0"
+                    oninput="calculateRemaining()"
+                >
+            </div>
+
+
+            <div>
+                <label>Payment Date</label>
+
+                <input
+                    type="date"
+                    id="paymentDate"
+                >
+            </div>
+
+
+            <div>
+                <label>Payment Method</label>
+
+                <select id="paymentMethod">
+
+                    <option>Cash</option>
+                    <option>UPI</option>
+                    <option>Bank Transfer</option>
+                    <option>Cheque</option>
+
+                </select>
+            </div>
+
+
+            <div>
+                <label>Remaining Pending</label>
+
+                <input
+                    id="remaining"
+                    value="₹0"
+                    readonly
+                >
+            </div>
+
+        </div>
+
+
+        <button class="save"
+                id="saveBtn"
+                onclick="savePayment()">
+            Save Fee Payment
+        </button>
+
+        <div id="message"></div>
+
+    </div>
+
+
+    <!-- HISTORY -->
+
+    <h3 style="margin-bottom:12px">
+        📋 Fee Payment History
+    </h3>
+
+    <div class="table-box">
+
+        <table>
+
+            <thead>
+
+                <tr>
+                    <th>Student</th>
+                    <th>Month</th>
+                    <th>Monthly Fee</th>
+                    <th>Paid</th>
+                    <th>Payment Date</th>
+                    <th>Method</th>
+                    <th>Action</th>
+                </tr>
+
+            </thead>
+
+            <tbody id="paymentList"></tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+
+<script>
+
+/* =====================================
+   SUPABASE
+===================================== */
+
+const SUPABASE_URL =
+"https://holelzxzhaiefaqezmce.supabase.co";
+
+const SUPABASE_KEY =
+"sb_publishable_KoCQClKL582rggMuDJXhYQ_UhHOB4xZ";
+
+const supabaseClient =
+supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+);
+
+
+let students = [];
+let payments = [];
+let editingId = null;
+
+
+/* =====================================
+   LOGIN
+===================================== */
+
+async function checkLogin(){
+
+    const {
+        data:{session}
+    } = await supabaseClient.auth.getSession();
+
+    if(!session){
+
+        location.href="login.html";
+
+        return false;
+    }
+
+    return true;
+}
+
+
+/* =====================================
+   START
+===================================== */
+
+async function init(){
+
+    if(!(await checkLogin())) return;
+
+    const now = new Date();
+
+    document.getElementById("feeMonth").value =
+        now.getFullYear() +
+        "-" +
+        String(now.getMonth()+1).padStart(2,"0");
+
+    document.getElementById("paymentDate").value =
+        now.toISOString().split("T")[0];
+
+    await loadStudents();
+    await loadPayments();
+    calculateFee();
+}
+
+
+/* =====================================
+   STUDENTS
+===================================== */
+
+async function loadStudents(){
+
+    const {data,error} =
+        await supabaseClient
+        .from("students")
+        .select("*")
+        .eq("status","Active")
+        .order("student_name");
+
+    if(error){
+
+        alert(error.message);
+        return;
+    }
+
+    students = data || [];
+
+    const select =
+        document.getElementById("studentSelect");
+
+    select.innerHTML =
+        `<option value="">Select Student</option>`;
+
+    students.forEach(s => {
+
+        const option =
+            document.createElement("option");
+
+        option.value = s.id;
+
+        option.textContent =
+            `${s.student_name} - ₹${Number(s.monthly_fee || 0).toLocaleString("en-IN")}`;
+
+        select.appendChild(option);
+
+    });
+}
+
+
+/* =====================================
+   PAYMENTS
+===================================== */
+
+async function loadPayments(){
+
+    const {data,error} =
+        await supabaseClient
+        .from("fee_payments")
+        .select("*")
+        .order("payment_date",{ascending:false});
+
+    if(error){
+
+        alert(error.message);
+        return;
+    }
+
+    payments = data || [];
+
+    renderPayments();
+    updateSummary();
+}
+
+
+/* =====================================
+   CALCULATE PREVIOUS PENDING
+===================================== */
+
+async function getPreviousPending(studentId,selectedMonth){
+
+    if(!studentId || !selectedMonth)
+        return 0;
+
+    const student =
+        students.find(s => s.id === studentId);
+
+    if(!student)
+        return 0;
+
+    const monthlyFee =
+        Number(student.monthly_fee || 0);
+
+    const selectedDate =
+        new Date(selectedMonth + "-01");
+
+    let previousDue = 0;
+    let previousPaid = 0;
+
+
+    /*
+       Calculate all previous months.
+    */
+
+    for(let i=0;i<24;i++){
+
+        const d =
+            new Date(
+                selectedDate.getFullYear(),
+                selectedDate.getMonth()-i-1,
+                1
+            );
+
+        const year =
+            d.getFullYear();
+
+        const month =
+            String(d.getMonth()+1).padStart(2,"0");
+
+        const monthString =
+            `${year}-${month}-01`;
+
+
+        /*
+           Stop when we reach before
+           student's joining month.
+        */
+
+        if(student.joining_date){
+
+            const joining =
+                new Date(
+                    student.joining_date
+                );
+
+            const joiningMonth =
+                new Date(
+                    joining.getFullYear(),
+                    joining.getMonth(),
+                    1
+                );
+
+            if(d < joiningMonth)
+                break;
+        }
+
+
+        previousDue += monthlyFee;
+
+
+        const monthPayments =
+            payments.filter(p => {
+
+                if(p.student_id !== studentId)
+                    return false;
+
+                const pMonth =
+                    String(p.fee_month)
+                    .substring(0,7);
+
+                return pMonth ===
+                    monthString.substring(0,7);
+            });
+
+
+        previousPaid +=
+            monthPayments.reduce(
+                (sum,p) =>
+                sum + Number(p.amount || 0),
+                0
+            );
+    }
+
+
+    return Math.max(
+        0,
+        previousDue - previousPaid
+    );
+}
+
+
+/* =====================================
+   CALCULATE CURRENT
+===================================== */
+
+async function calculateFee(){
+
+    const studentId =
+        document.getElementById("studentSelect").value;
+
+    const month =
+        document.getElementById("feeMonth").value;
+
+    const student =
+        students.find(
+            s => s.id === studentId
+        );
+
+    if(!student){
+
+        document.getElementById("monthlyFee")
+            .textContent="₹0";
+
+        document.getElementById("previousPending")
+            .textContent="₹0";
+
+        document.getElementById("currentDue")
+            .textContent="₹0";
+
+        calculateRemaining();
+
+        return;
+    }
+
+
+    const monthlyFee =
+        Number(student.monthly_fee || 0);
+
+
+    const previousPending =
+        await getPreviousPending(
+            studentId,
+            month
+        );
+
+
+    /*
+       If editing an existing payment,
+       don't count that payment as
+       previous payment.
+    */
+
+    let currentPaid = 0;
+
+    if(editingId){
+
+        const oldPayment =
+            payments.find(
+                p => p.id === editingId
+            );
+
+        if(oldPayment){
+
+            currentPaid =
+                Number(oldPayment.amount || 0);
+        }
+    }
+
+
+    /*
+       Current month already paid
+       excluding edited payment.
+    */
+
+    const currentMonthPaid =
+        payments
+        .filter(p => {
+
+            if(p.student_id !== studentId)
+                return false;
+
+            if(editingId &&
+               p.id === editingId)
+                return false;
+
+            return String(p.fee_month)
+                .substring(0,7) === month;
+
+        })
+        .reduce(
+            (sum,p) =>
+            sum + Number(p.amount || 0),
+            0
+        );
+
+
+    const totalDue =
+        monthlyFee +
+        previousPending;
+
+    const alreadyPaid =
+        currentMonthPaid;
+
+    document.getElementById("monthlyFee")
+        .textContent =
+        money(monthlyFee);
+
+    document.getElementById("previousPending")
+        .textContent =
+        money(previousPending);
+
+    document.getElementById("currentDue")
+        .textContent =
+        money(totalDue);
+
+    /*
+       If adding new payment, show
+       current remaining after current
+       month payments.
+    */
+
+    if(!editingId){
+
+        document.getElementById("paidAmount")
+            .value = 0;
+
+    }else{
+
+        document.getElementById("paidAmount")
+            .value = currentPaid;
+
+    }
+
+    calculateRemaining(
+        totalDue,
+        alreadyPaid
+    );
+}
+
+
+/* =====================================
+   REMAINING
+===================================== */
+
+function calculateRemaining(
+    totalDueParam=null,
+    alreadyPaid=0
+){
+
+    const totalText =
+        document.getElementById("currentDue")
+        .textContent
+        .replace(/[₹,]/g,"");
+
+    const totalDue =
+        totalDueParam !== null
+        ? Number(totalDueParam)
+        : Number(totalText || 0);
+
+
+    const paid =
+        Number(
+            document.getElementById("paidAmount").value || 0
+        );
+
+
+    const remaining =
+        Math.max(
+            0,
+            totalDue -
+            alreadyPaid -
+            paid
+        );
+
+
+    document.getElementById("remaining")
+        .value =
+        money(remaining);
+}
+
+
+/* =====================================
+   SAVE PAYMENT
+===================================== */
+
+async function savePayment(){
+
+    const studentId =
+        document.getElementById("studentSelect").value;
+
+    const feeMonth =
+        document.getElementById("feeMonth").value;
+
+    const amount =
+        Number(
+            document.getElementById("paidAmount").value || 0
+        );
+
+    const paymentDate =
+        document.getElementById("paymentDate").value;
+
+    const paymentMethod =
+        document.getElementById("paymentMethod").value;
+
+
+    if(!studentId){
+
+        showMessage(
+            "Please select a student.",
+            "red"
+        );
+
+        return;
+    }
+
+    if(!feeMonth){
+
+        showMessage(
+            "Please select fee month.",
+            "red"
+        );
+
+        return;
+    }
+
+    if(amount <= 0){
+
+        showMessage(
+            "Paid amount should be greater than 0.",
+            "red"
+        );
+
+        return;
+    }
+
+
+    const saveBtn =
+        document.getElementById("saveBtn");
+
+    saveBtn.disabled = true;
+    saveBtn.textContent = "Saving...";
+
+
+    const data = {
+
+        student_id:studentId,
+
+        fee_month:
+            feeMonth + "-01",
+
+        amount:amount,
+
+        payment_date:paymentDate,
+
+        payment_method:paymentMethod
+
+    };
+
+
+    let result;
+
+
+    if(editingId){
+
+        result =
+            await supabaseClient
+            .from("fee_payments")
+            .update(data)
+            .eq("id",editingId);
+
+    }else{
+
+        result =
+            await supabaseClient
+            .from("fee_payments")
+            .insert(data);
+
+    }
+
+
+    if(result.error){
+
+        showMessage(
+            result.error.message,
+            "red"
+        );
+
+        saveBtn.disabled = false;
+        saveBtn.textContent = "Save Fee Payment";
+
+        return;
+    }
+
+
+    showMessage(
+        "Fee payment saved successfully.",
+        "green"
+    );
+
+
+    resetForm();
+
+    await loadPayments();
+
+    saveBtn.disabled = false;
+    saveBtn.textContent = "Save Fee Payment";
+}
+
+
+/* =====================================
+   RENDER HISTORY
+===================================== */
+
+function renderPayments(){
+
+    const list =
+        document.getElementById("paymentList");
+
+
+    if(payments.length === 0){
+
+        list.innerHTML = `
+        <tr>
+            <td colspan="7"
+                style="text-align:center;padding:30px;color:#888">
+                No fee payments found.
+            </td>
+        </tr>`;
+
+        return;
+    }
+
+
+    list.innerHTML =
+        payments.map(p => {
+
+            const student =
+                students.find(
+                    s => s.id === p.student_id
+                );
+
+            const name =
+                student
+                ? student.student_name
+                : "Unknown";
+
+
+            const monthly =
+                student
+                ? Number(student.monthly_fee || 0)
+                : 0;
+
+
+            return `
+
+            <tr>
+
+                <td>
+                    <b>${escapeHtml(name)}</b>
+                </td>
+
+                <td>
+                    ${formatMonth(p.fee_month)}
+                </td>
+
+                <td>
+                    ${money(monthly)}
+                </td>
+
+                <td class="green">
+                    <b>${money(p.amount)}</b>
+                </td>
+
+                <td>
+                    ${formatDate(p.payment_date)}
+                </td>
+
+                <td>
+                    ${escapeHtml(p.payment_method || "Cash")}
+                </td>
+
+                <td>
+
+                    <button
+                        class="action edit"
+                        onclick="editPayment('${p.id}')">
+                        Edit
+                    </button>
+
+                    <button
+                        class="action delete"
+                        onclick="deletePayment('${p.id}')">
+                        Delete
+                    </button>
+
+                </td>
+
+            </tr>
+
+            `;
+
+        }).join("");
+}
+
+
+/* =====================================
+   SUMMARY
+===================================== */
+
+function updateSummary(){
+
+    const selected =
+        document.getElementById("feeMonth").value;
+
+    if(!selected) return;
+
+
+    const monthPayments =
+        payments.filter(p =>
+            String(p.fee_month)
+            .substring(0,7) === selected
+        );
+
+
+    let due = 0;
+
+
+    students
+    .filter(s => s.status === "Active")
+    .forEach(s => {
+
+        due += Number(
+            s.monthly_fee || 0
+        );
+
+    });
+
+
+    const received =
+        monthPayments.reduce(
+            (sum,p) =>
+            sum + Number(p.amount || 0),
+            0
+        );
+
+
+    const pending =
+        Math.max(
+            0,
+            due - received
+        );
+
+
+    document.getElementById("totalDue")
+        .textContent =
+        money(due);
+
+    document.getElementById("totalReceived")
+        .textContent =
+        money(received);
+
+    document.getElementById("totalPending")
+        .textContent =
+        money(pending);
+
+    document.getElementById("paymentCount")
+        .textContent =
+        monthPayments.length;
+}
+
+
+/* =====================================
+   EDIT PAYMENT
+===================================== */
+
+function editPayment(id){
+
+    const p =
+        payments.find(
+            x => x.id === id
+        );
+
+    if(!p) return;
+
+
+    editingId = id;
+
+
+    document.getElementById("formTitle")
+        .textContent =
+        "✏️ Edit Fee Payment";
+
+
+    document.getElementById("studentSelect")
+        .value =
+        p.student_id;
+
+
+    document.getElementById("feeMonth")
+        .value =
+        String(p.fee_month)
+        .substring(0,7);
+
+
+    document.getElementById("paidAmount")
+        .value =
+        p.amount;
+
+
+    document.getElementById("paymentDate")
+        .value =
+        p.payment_date;
+
+
+    document.getElementById("paymentMethod")
+        .value =
+        p.payment_method || "Cash";
+
+
+    calculateFee();
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+}
+
+
+/* =====================================
+   DELETE
+===================================== */
+
+async function deletePayment(id){
+
+    if(!confirm(
+        "Are you sure you want to delete this payment?"
+    )) return;
+
+
+    const {error} =
+        await supabaseClient
+        .from("fee_payments")
+        .delete()
+        .eq("id",id);
+
+
+    if(error){
+
+        alert(error.message);
+        return;
+    }
+
+
+    await loadPayments();
+}
+
+
+/* =====================================
+   RESET
+===================================== */
+
+function resetForm(){
+
+    editingId = null;
+
+    document.getElementById("formTitle")
+        .textContent =
+        "➕ Add Fee Payment";
+
+    document.getElementById("studentSelect")
+        .value = "";
+
+    document.getElementById("paidAmount")
+        .value = 0;
+
+    document.getElementById("monthlyFee")
+        .textContent = "₹0";
+
+    document.getElementById("previousPending")
+        .textContent = "₹0";
+
+    document.getElementById("currentDue")
+        .textContent = "₹0";
+
+    document.getElementById("remaining")
+        .value = "₹0";
+
+    document.getElementById("message")
+        .textContent = "";
+}
+
+
+/* =====================================
+   MESSAGE
+===================================== */
+
+function showMessage(text,color){
+
+    const el =
+        document.getElementById("message");
+
+    el.textContent = text;
+
+    el.style.color =
+        color === "red"
+        ? "#dc2626"
+        : "#16a34a";
+}
+
+
+/* =====================================
+   HELPERS
+===================================== */
+
+function money(value){
+
+    return "₹" +
+        Number(value || 0)
+        .toLocaleString("en-IN",{
+            maximumFractionDigits:2
+        });
+}
+
+
+function formatDate(date){
+
+    if(!date) return "-";
+
+    return new Date(date + "T00:00:00")
+        .toLocaleDateString("en-IN",{
+            day:"2-digit",
+            month:"short",
+            year:"numeric"
+        });
+}
+
+
+function formatMonth(date){
+
+    if(!date) return "-";
+
+    return new Date(date + "T00:00:00")
+        .toLocaleDateString("en-IN",{
+            month:"long",
+            year:"numeric"
+        });
+}
+
+
+function escapeHtml(value){
+
+    return String(value)
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+}
+
+
+/* =====================================
+   MONTH CHANGE
+===================================== */
+
+document.getElementById("feeMonth")
+.addEventListener("change",async function(){
+
+    editingId = null;
+
+    await calculateFee();
+
+    updateSummary();
+
+});
+
+
+/* =====================================
+   START
+===================================== */
+
+init();
+
+</script>
+
+</body>
+</html>
