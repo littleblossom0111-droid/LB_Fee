@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Little Blossoms</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:Arial,sans-serif;
+    background:linear-gradient(135deg,#667eea,#764ba2);
+}
+
+.box{
+    width:90%;
+    max-width:420px;
+    background:#fff;
+    padding:40px 25px;
+    border-radius:24px;
+    text-align:center;
+    box-shadow:0 15px 40px rgba(0,0,0,.2);
+}
+
+.logo{
+    font-size:55px;
+    margin-bottom:10px;
+}
+
+h1{
+    margin:0;
+    color:#333;
+    font-size:28px;
+}
+
+p{
+    color:#777;
+    margin:10px 0 25px;
+}
+
+.loader{
+    width:42px;
+    height:42px;
+    margin:20px auto;
+    border:4px solid #eee;
+    border-top:4px solid #667eea;
+    border-radius:50%;
+    animation:spin 1s linear infinite;
+}
+
+#error{
+    display:none;
+    color:#d63031;
+    background:#ffeaea;
+    padding:12px;
+    border-radius:10px;
+    font-size:14px;
+}
+
+@keyframes spin{
+    to{
+        transform:rotate(360deg);
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="box">
+
+    <div class="logo">🌸</div>
+
+    <h1>Little Blossoms</h1>
+
+    <p>School Fee Management System</p>
+
+    <div class="loader"></div>
+
+    <div id="status">
+        Checking login...
+    </div>
+
+    <div id="error"></div>
+
+</div>
+
+<script>
+
+const SUPABASE_URL =
+"https://holelzxzhaiefaqezmce.supabase.co";
+
+const SUPABASE_KEY =
+"sb_publishable_KoCQClKL582rggMuDJhYQ_UhHOB4xZ";
+
+const supabaseClient =
+supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+);
+
+
+async function start(){
+
+    try{
+
+        const {
+            data,
+            error
+        } =
+        await supabaseClient.auth.getSession();
+
+
+        if(error){
+            throw error;
+        }
+
+
+        if(data.session){
+
+            document.getElementById("status")
+                .innerText =
+                "Opening Dashboard...";
+
+            window.location.replace(
+                "dashboard.html"
+            );
+
+        }else{
+
+            document.getElementById("status")
+                .innerText =
+                "Opening Login...";
+
+            window.location.replace(
+                "login.html"
+            );
+
+        }
+
+    }catch(error){
+
+        document.querySelector(".loader")
+            .style.display="none";
+
+        document.getElementById("status")
+            .style.display="none";
+
+        const box =
+            document.getElementById("error");
+
+        box.style.display="block";
+
+        box.innerText =
+            "Error: " +
+            (error.message || "Unable to connect");
+
+    }
+
+}
+
+
+start();
+
+</script>
+
+</body>
+</html>
