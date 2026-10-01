@@ -1158,75 +1158,63 @@ logoutBtn.addEventListener(
 
 async function loadDashboard(){
 
-    /*
-       At this stage the dashboard UI
-       works independently.
+    try {
 
-       Once your Supabase tables are
-       created, these functions can
-       load real records.
-    */
+        // STUDENTS COUNT
+        const {
+            count,
+            error: studentError
+        } = await supabaseClient
+            .from("students")
+            .select("*", {
+                count: "exact",
+                head: true
+            });
 
-    setText(
-        "studentCount",
-        "0"
-    );
+        if(studentError){
+            throw studentError;
+        }
 
-    setMoney(
-        "feesReceived",
-        0
-    );
-
-    setMoney(
-        "registrationFees",
-        0
-    );
-
-    setMoney(
-        "expenses",
-        0
-    );
-
-    setMoney(
-        "pendingFees",
-        0
-    );
-
-    setMoney(
-        "currentBalance",
-        0
-    );
+        // Show total students
+        setText(
+            "studentCount",
+            count || 0
+        );
 
 
-    setMoney(
-        "openingBalance",
-        0
-    );
+        // Default financial values for now
+        setMoney("feesReceived", 0);
+        setMoney("registrationFees", 0);
+        setMoney("expenses", 0);
+        setMoney("pendingFees", 0);
+        setMoney("currentBalance", 0);
 
-    setMoney(
-        "summaryFees",
-        0
-    );
+        setMoney("openingBalance", 0);
+        setMoney("summaryFees", 0);
+        setMoney("summaryRegistration", 0);
+        setMoney("summaryInvestment", 0);
+        setMoney("summaryExpenses", 0);
+        setMoney("closingBalance", 0);
 
-    setMoney(
-        "summaryRegistration",
-        0
-    );
 
-    setMoney(
-        "summaryInvestment",
-        0
-    );
+    } catch(error){
 
-    setMoney(
-        "summaryExpenses",
-        0
-    );
+        console.error(
+            "Dashboard error:",
+            error
+        );
 
-    setMoney(
-        "closingBalance",
-        0
-    );
+        setText(
+            "studentCount",
+            "0"
+        );
+
+        alert(
+            "Dashboard data load error: " +
+            error.message
+        );
+
+    }
 
 }
 
