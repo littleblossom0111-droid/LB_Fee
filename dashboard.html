@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Little Blossoms - Dashboard</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    background:#f6f7fb;
+    color:#222;
+}
+
+/* HEADER */
+.header{
+    background:linear-gradient(135deg,#ff72a7,#ff9a62);
+    color:white;
+    padding:20px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.header h1{
+    font-size:22px;
+}
+
+.header small{
+    opacity:.9;
+}
+
+.logout{
+    background:rgba(255,255,255,.2);
+    color:white;
+    border:1px solid rgba(255,255,255,.4);
+    padding:9px 14px;
+    border-radius:10px;
+    cursor:pointer;
+}
+
+/* CONTAINER */
+.container{
+    max-width:1200px;
+    margin:auto;
+    padding:20px;
+}
+
+/* TOP */
+.topbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:20px;
+    gap:15px;
+    flex-wrap:wrap;
+}
+
+.month-box{
+    background:white;
+    padding:10px 14px;
+    border-radius:12px;
+    box-shadow:0 5px 20px rgba(0,0,0,.06);
+}
+
+.month-box input{
+    border:0;
+    outline:0;
+    font-size:15px;
+}
+
+/* CARDS */
+.cards{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:15px;
+}
+
+.card{
+    background:white;
+    border-radius:18px;
+    padding:20px;
+    box-shadow:0 6px 25px rgba(0,0,0,.07);
+}
+
+.card-title{
+    color:#777;
+    font-size:13px;
+    margin-bottom:10px;
+}
+
+.card-value{
+    font-size:25px;
+    font-weight:bold;
+}
+
+.students{
+    border-left:5px solid #7c5cff;
+}
+
+.fees{
+    border-left:5px solid #16a34a;
+}
+
+.registration{
+    border-left:5px solid #f59e0b;
+}
+
+.expenses{
+    border-left:5px solid #ef4444;
+}
+
+.pending{
+    border-left:5px solid #f97316;
+}
+
+.balance{
+    border-left:5px solid #0ea5e9;
+}
+
+/* SUMMARY */
+.summary{
+    margin-top:20px;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+}
+
+.panel{
+    background:white;
+    padding:20px;
+    border-radius:18px;
+    box-shadow:0 6px 25px rgba(0,0,0,.07);
+}
+
+.panel h2{
+    font-size:18px;
+    margin-bottom:15px;
+}
+
+.row{
+    display:flex;
+    justify-content:space-between;
+    padding:12px 0;
+    border-bottom:1px
