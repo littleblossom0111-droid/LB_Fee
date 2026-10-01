@@ -1,0 +1,1189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Little Blossoms - Expenses</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+*{box-sizing:border-box}
+
+body{
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:#f5f7fb;
+    color:#222;
+}
+
+.header{
+    background:linear-gradient(135deg,#e84393,#d63031);
+    color:white;
+    padding:22px;
+}
+
+.header h1{
+    margin:0;
+    font-size:25px;
+}
+
+.header p{
+    margin:6px 0 0;
+    opacity:.9;
+}
+
+.container{
+    max-width:1100px;
+    margin:25px auto;
+    padding:0 15px;
+}
+
+.back{
+    display:inline-block;
+    margin-bottom:15px;
+    text-decoration:none;
+    color:#d63031;
+    font-weight:bold;
+}
+
+.cards{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:15px;
+    margin-bottom:20px;
+}
+
+.card{
+    background:white;
+    border-radius:15px;
+    padding:20px;
+    box-shadow:0 5px 20px #0000000d;
+}
+
+.card small{
+    color:#777;
+}
+
+.card h2{
+    margin:8px 0 0;
+    color:#d63031;
+}
+
+.formbox,
+.history{
+    background:white;
+    padding:22px;
+    border-radius:15px;
+    box-shadow:0 5px 20px #0000000d;
+    margin-bottom:20px;
+}
+
+.formbox h2,
+.history h2{
+    margin-top:0;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:15px;
+}
+
+.field label{
+    display:block;
+    font-size:14px;
+    font-weight:bold;
+    margin-bottom:6px;
+}
+
+input,select,textarea{
+    width:100%;
+    padding:12px;
+    border:1px solid #ddd;
+    border-radius:9px;
+    outline:none;
+    font-size:15px;
+}
+
+textarea{
+    min-height:80px;
+    resize:vertical;
+}
+
+input:focus,
+select:focus,
+textarea:focus{
+    border-color:#d63031;
+}
+
+.full{
+    grid-column:1/-1;
+}
+
+button{
+    border:0;
+    padding:12px 18px;
+    border-radius:9px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.save{
+    background:#d63031;
+    color:white;
+}
+
+.cancel{
+    background:#ddd;
+    margin-left:8px;
+}
+
+.filters{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+    margin-bottom:15px;
+}
+
+.tablewrap{
+    overflow-x:auto;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    min-width:800px;
+}
+
+th,td{
+    padding:12px;
+    border-bottom:1px solid #eee;
+    text-align:left;
+}
+
+th{
+    background:#fff4f4;
+}
+
+.action button{
+    padding:7px 10px;
+    font-size:12px;
+}
+
+.edit{
+    background:#0984e3;
+    color:white;
+}
+
+.delete{
+    background:#d63031;
+    color:white;
+}
+
+#message{
+    margin-bottom:15px;
+    padding:12px;
+    border-radius:8px;
+    display:none;
+}
+
+.success{
+    background:#dff9e8;
+    color:#18743c;
+}
+
+.error{
+    background:#ffe2e2;
+    color:#b00020;
+}
+
+.totalBox{
+    background:#fff4f4;
+    border-radius:10px;
+    padding:15px;
+    margin-bottom:15px;
+    display:flex;
+    justify-content:space-between;
+    font-weight:bold;
+}
+
+@media(max-width:700px){
+
+    .cards,
+    .grid,
+    .filters{
+        grid-template-columns:1fr;
+    }
+
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+    <h1>🌸 Little Blossoms</h1>
+    <p>Expense Management</p>
+</div>
+
+<div class="container">
+
+<a href="dashboard.html" class="back">
+    ← Back to Dashboard
+</a>
+
+<div id="message"></div>
+
+
+<!-- CARDS -->
+
+<div class="cards">
+
+    <div class="card">
+        <small>Selected Month Expense</small>
+        <h2 id="monthExpense">₹0</h2>
+    </div>
+
+    <div class="card">
+        <small>Total All Expenses</small>
+        <h2 id="allExpense">₹0</h2>
+    </div>
+
+    <div class="card">
+        <small>Total Transactions</small>
+        <h2 id="transactionCount">0</h2>
+    </div>
+
+</div>
+
+
+<!-- ADD EXPENSE -->
+
+<div class="formbox">
+
+<h2 id="formTitle">➕ Add Expense</h2>
+
+<div class="grid">
+
+    <div class="field">
+        <label>Expense Date</label>
+        <input type="date" id="expenseDate">
+    </div>
+
+
+    <div class="field">
+        <label>Category</label>
+
+        <select id="category">
+
+            <option value="">Select Category</option>
+
+            <option>Rent</option>
+            <option>Electricity</option>
+            <option>Water</option>
+            <option>Salary</option>
+            <option>Teacher Salary</option>
+            <option>Cleaning</option>
+            <option>Stationery</option>
+            <option>Food</option>
+            <option>Maintenance</option>
+            <option>Transport</option>
+            <option>Marketing</option>
+            <option>Dance Class</option>
+            <option>Other</option>
+
+        </select>
+
+    </div>
+
+
+    <div class="field">
+        <label>Amount</label>
+
+        <input
+            type="number"
+            id="amount"
+            min="0"
+            step="0.01"
+            placeholder="Enter expense amount">
+    </div>
+
+
+    <div class="field">
+        <label>Payment Method</label>
+
+        <select id="paymentMethod">
+
+            <option>Cash</option>
+            <option>UPI</option>
+            <option>Bank Transfer</option>
+            <option>Cheque</option>
+            <option>Other</option>
+
+        </select>
+
+    </div>
+
+
+    <div class="field full">
+        <label>Description</label>
+
+        <input
+            type="text"
+            id="description"
+            placeholder="Example: Electricity bill for September">
+    </div>
+
+
+    <div class="field full">
+        <label>Notes</label>
+
+        <textarea
+            id="notes"
+            placeholder="Optional notes"></textarea>
+    </div>
+
+</div>
+
+<br>
+
+<button
+    class="save"
+    id="saveBtn"
+    onclick="saveExpense()">
+
+    Save Expense
+
+</button>
+
+<button
+    class="cancel"
+    id="cancelBtn"
+    onclick="cancelEdit()"
+    style="display:none">
+
+    Cancel
+
+</button>
+
+</div>
+
+
+<!-- HISTORY -->
+
+<div class="history">
+
+<h2>📋 Expense History</h2>
+
+
+<div class="filters">
+
+    <input
+        type="text"
+        id="search"
+        placeholder="Search category / description..."
+        oninput="renderHistory()">
+
+    <input
+        type="month"
+        id="filterMonth"
+        onchange="renderHistory()">
+
+</div>
+
+
+<div class="totalBox">
+
+    <span>Filtered Total</span>
+
+    <span id="filteredTotal">
+        ₹0
+    </span>
+
+</div>
+
+
+<div class="tablewrap">
+
+<table>
+
+<thead>
+
+<tr>
+    <th>Date</th>
+    <th>Category</th>
+    <th>Description</th>
+    <th>Amount</th>
+    <th>Payment Method</th>
+    <th>Action</th>
+</tr>
+
+</thead>
+
+<tbody id="historyBody"></tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</div>
+
+
+<script>
+
+const SUPABASE_URL =
+"https://holelzxzhaiefaqezmce.supabase.co";
+
+const SUPABASE_KEY =
+"sb_publishable_KoCQClKL582rggMuDJXhYQ_UhHOB4xZ";
+
+const supabaseClient =
+supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+);
+
+
+let expenses = [];
+
+let editingId = null;
+
+
+// =========================
+// AUTH
+// =========================
+
+async function checkLogin(){
+
+    const {
+        data:{session}
+    } =
+    await supabaseClient.auth.getSession();
+
+    if(!session){
+
+        window.location.href =
+            "login.html";
+
+        return false;
+    }
+
+    return true;
+}
+
+
+// =========================
+// INIT
+// =========================
+
+async function init(){
+
+    if(!(await checkLogin())) return;
+
+    const today =
+        new Date();
+
+    const todayString =
+        today.toISOString().split("T")[0];
+
+    document.getElementById("expenseDate").value =
+        todayString;
+
+
+    const monthString =
+        todayString.substring(0,7);
+
+    document.getElementById("filterMonth").value =
+        monthString;
+
+
+    await loadExpenses();
+
+    updateCards();
+
+    renderHistory();
+}
+
+init();
+
+
+// =========================
+// LOAD EXPENSES
+// =========================
+
+async function loadExpenses(){
+
+    const {
+        data,
+        error
+    } =
+    await supabaseClient
+    .from("expenses")
+    .select("*")
+    .order(
+        "expense_date",
+        {ascending:false}
+    );
+
+
+    if(error){
+
+        showMessage(
+            error.message,
+            "error"
+        );
+
+        return;
+    }
+
+
+    expenses =
+        data || [];
+}
+
+
+// =========================
+// SAVE EXPENSE
+// =========================
+
+async function saveExpense(){
+
+    const expenseDate =
+        document.getElementById("expenseDate").value;
+
+    const category =
+        document.getElementById("category").value;
+
+    const amount =
+        Number(
+            document.getElementById("amount").value || 0
+        );
+
+    const paymentMethod =
+        document.getElementById("paymentMethod").value;
+
+    const description =
+        document.getElementById("description").value.trim();
+
+    const notes =
+        document.getElementById("notes").value.trim();
+
+
+    if(!expenseDate){
+
+        showMessage(
+            "Expense date select karo.",
+            "error"
+        );
+
+        return;
+    }
+
+
+    if(!category){
+
+        showMessage(
+            "Category select karo.",
+            "error"
+        );
+
+        return;
+    }
+
+
+    if(amount <= 0){
+
+        showMessage(
+            "Valid expense amount enter karo.",
+            "error"
+        );
+
+        return;
+    }
+
+
+    const payload = {
+
+        expense_date:expenseDate,
+
+        category:category,
+
+        description:description,
+
+        amount:amount,
+
+        payment_method:paymentMethod,
+
+        notes:notes
+
+    };
+
+
+    let error;
+
+
+    if(editingId){
+
+        const result =
+            await supabaseClient
+            .from("expenses")
+            .update(payload)
+            .eq("id",editingId);
+
+        error =
+            result.error;
+
+    }else{
+
+        const result =
+            await supabaseClient
+            .from("expenses")
+            .insert(payload);
+
+        error =
+            result.error;
+    }
+
+
+    if(error){
+
+        showMessage(
+            error.message,
+            "error"
+        );
+
+        return;
+    }
+
+
+    showMessage(
+
+        editingId
+        ? "Expense updated successfully."
+        : "Expense saved successfully.",
+
+        "success"
+
+    );
+
+
+    cancelEdit();
+
+
+    await loadExpenses();
+
+    updateCards();
+
+    renderHistory();
+}
+
+
+// =========================
+// EDIT
+// =========================
+
+function editExpense(id){
+
+    const expense =
+        expenses.find(
+            e => e.id === id
+        );
+
+
+    if(!expense) return;
+
+
+    editingId =
+        id;
+
+
+    document.getElementById("formTitle")
+        .textContent =
+        "✏️ Edit Expense";
+
+
+    document.getElementById("expenseDate")
+        .value =
+        expense.expense_date;
+
+
+    document.getElementById("category")
+        .value =
+        expense.category;
+
+
+    document.getElementById("amount")
+        .value =
+        expense.amount;
+
+
+    document.getElementById("paymentMethod")
+        .value =
+        expense.payment_method ||
+        "Cash";
+
+
+    document.getElementById("description")
+        .value =
+        expense.description ||
+        "";
+
+
+    document.getElementById("notes")
+        .value =
+        expense.notes ||
+        "";
+
+
+    document.getElementById("cancelBtn")
+        .style.display =
+        "inline-block";
+
+
+    window.scrollTo({
+
+        top:0,
+
+        behavior:"smooth"
+
+    });
+
+}
+
+
+// =========================
+// DELETE
+// =========================
+
+async function deleteExpense(id){
+
+    if(!confirm(
+        "Ye expense delete karna hai?"
+    )) return;
+
+
+    const {
+        error
+    } =
+    await supabaseClient
+    .from("expenses")
+    .delete()
+    .eq("id",id);
+
+
+    if(error){
+
+        showMessage(
+            error.message,
+            "error"
+        );
+
+        return;
+    }
+
+
+    showMessage(
+        "Expense deleted successfully.",
+        "success"
+    );
+
+
+    await loadExpenses();
+
+    updateCards();
+
+    renderHistory();
+}
+
+
+// =========================
+// CANCEL
+// =========================
+
+function cancelEdit(){
+
+    editingId =
+        null;
+
+
+    document.getElementById("formTitle")
+        .textContent =
+        "➕ Add Expense";
+
+
+    const today =
+        new Date()
+        .toISOString()
+        .split("T")[0];
+
+
+    document.getElementById("expenseDate")
+        .value =
+        today;
+
+
+    document.getElementById("category")
+        .value =
+        "";
+
+
+    document.getElementById("amount")
+        .value =
+        "";
+
+
+    document.getElementById("paymentMethod")
+        .value =
+        "Cash";
+
+
+    document.getElementById("description")
+        .value =
+        "";
+
+
+    document.getElementById("notes")
+        .value =
+        "";
+
+
+    document.getElementById("cancelBtn")
+        .style.display =
+        "none";
+}
+
+
+// =========================
+// CARDS
+// =========================
+
+function updateCards(){
+
+    const month =
+        document.getElementById("filterMonth").value;
+
+
+    const monthExpenses =
+        expenses.filter(e => {
+
+            return e.expense_date
+                .startsWith(month);
+
+        });
+
+
+    const monthTotal =
+        monthExpenses.reduce(
+
+            (sum,e) =>
+            sum + Number(e.amount || 0),
+
+            0
+
+        );
+
+
+    const allTotal =
+        expenses.reduce(
+
+            (sum,e) =>
+            sum + Number(e.amount || 0),
+
+            0
+
+        );
+
+
+    document.getElementById("monthExpense")
+        .textContent =
+        money(monthTotal);
+
+
+    document.getElementById("allExpense")
+        .textContent =
+        money(allTotal);
+
+
+    document.getElementById("transactionCount")
+        .textContent =
+        expenses.length;
+}
+
+
+// =========================
+// HISTORY
+// =========================
+
+function renderHistory(){
+
+    const body =
+        document.getElementById(
+            "historyBody"
+        );
+
+
+    const search =
+        document.getElementById(
+            "search"
+        )
+        .value
+        .toLowerCase();
+
+
+    const month =
+        document.getElementById(
+            "filterMonth"
+        ).value;
+
+
+    let list =
+        [...expenses];
+
+
+    list =
+        list.filter(e => {
+
+            const text = (
+
+                (e.category || "") +
+                " " +
+                (e.description || "") +
+                " " +
+                (e.notes || "")
+
+            ).toLowerCase();
+
+
+            const matchesSearch =
+                !search ||
+                text.includes(search);
+
+
+            const matchesMonth =
+                !month ||
+                e.expense_date
+                    .startsWith(month);
+
+
+            return (
+                matchesSearch &&
+                matchesMonth
+            );
+
+        });
+
+
+    const filteredTotal =
+        list.reduce(
+
+            (sum,e) =>
+            sum + Number(e.amount || 0),
+
+            0
+
+        );
+
+
+    document.getElementById(
+        "filteredTotal"
+    ).textContent =
+        money(filteredTotal);
+
+
+    if(!list.length){
+
+        body.innerHTML = `
+
+            <tr>
+
+                <td
+                    colspan="6"
+                    style="text-align:center">
+
+                    No expenses found
+
+                </td>
+
+            </tr>
+
+        `;
+
+        updateCards();
+
+        return;
+    }
+
+
+    body.innerHTML =
+
+        list.map(e => {
+
+            return `
+
+            <tr>
+
+                <td>
+                    ${formatDate(e.expense_date)}
+                </td>
+
+                <td>
+                    <strong>
+                        ${escapeHtml(
+                            e.category || ""
+                        )}
+                    </strong>
+                </td>
+
+                <td>
+                    ${escapeHtml(
+                        e.description || "-"
+                    )}
+                </td>
+
+                <td>
+                    <strong>
+                        ${money(e.amount)}
+                    </strong>
+                </td>
+
+                <td>
+                    ${escapeHtml(
+                        e.payment_method || ""
+                    )}
+                </td>
+
+                <td class="action">
+
+                    <button
+                        class="edit"
+                        onclick="editExpense('${e.id}')">
+
+                        Edit
+
+                    </button>
+
+                    <button
+                        class="delete"
+                        onclick="deleteExpense('${e.id}')">
+
+                        Delete
+
+                    </button>
+
+                </td>
+
+            </tr>
+
+            `;
+
+        }).join("");
+
+
+    updateCards();
+}
+
+
+// =========================
+// FILTER MONTH CHANGE
+// =========================
+
+document.getElementById("filterMonth")
+.addEventListener(
+    "change",
+    function(){
+
+        renderHistory();
+
+    }
+);
+
+
+// =========================
+// HELPERS
+// =========================
+
+function money(value){
+
+    return "₹" +
+
+        Number(value || 0)
+        .toLocaleString(
+            "en-IN",
+            {
+                minimumFractionDigits:0,
+                maximumFractionDigits:2
+            }
+        );
+}
+
+
+function formatDate(date){
+
+    if(!date) return "-";
+
+
+    const d =
+        new Date(
+            date + "T00:00:00"
+        );
+
+
+    return d.toLocaleDateString(
+        "en-IN"
+    );
+}
+
+
+function escapeHtml(value){
+
+    return String(value)
+
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+}
+
+
+function showMessage(
+    text,
+    type
+){
+
+    const box =
+        document.getElementById(
+            "message"
+        );
+
+
+    box.textContent =
+        text;
+
+
+    box.className =
+        type;
+
+
+    box.style.display =
+        "block";
+
+
+    setTimeout(
+        () => {
+
+            box.style.display =
+                "none";
+
+        },
+        3500
+    );
+}
+
+</script>
+
+</body>
+</html>
