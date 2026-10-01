@@ -69,10 +69,6 @@ body{
     font-weight:bold;
 }
 
-.logout:hover{
-    background:rgba(255,255,255,.3);
-}
-
 /* CONTAINER */
 
 .container{
@@ -81,7 +77,7 @@ body{
     padding:22px;
 }
 
-/* TOPBAR */
+/* TOP */
 
 .topbar{
     display:flex;
@@ -93,32 +89,32 @@ body{
 }
 
 .welcome h2{
-    font-size:24px;
+    font-size:28px;
     margin-bottom:5px;
 }
 
 .welcome p{
     color:#777;
-    font-size:14px;
 }
 
 .month-box{
     background:white;
-    padding:11px 14px;
-    border-radius:12px;
+    padding:13px 16px;
+    border-radius:14px;
     box-shadow:0 5px 20px rgba(0,0,0,.06);
 }
 
 .month-box label{
+    display:block;
     font-size:12px;
     color:#777;
-    margin-right:8px;
+    margin-bottom:5px;
 }
 
 .month-box input{
     border:0;
     outline:0;
-    font-size:15px;
+    font-size:16px;
     color:#333;
 }
 
@@ -141,12 +137,12 @@ body{
 
 .card-title{
     color:#777;
-    font-size:13px;
+    font-size:14px;
     margin-bottom:10px;
 }
 
 .card-value{
-    font-size:26px;
+    font-size:27px;
     font-weight:bold;
 }
 
@@ -154,13 +150,13 @@ body{
     position:absolute;
     right:18px;
     top:18px;
-    width:40px;
-    height:40px;
+    width:42px;
+    height:42px;
     border-radius:12px;
     display:flex;
     align-items:center;
     justify-content:center;
-    font-size:20px;
+    font-size:21px;
 }
 
 .students{
@@ -214,8 +210,8 @@ body{
 /* QUICK ACTIONS */
 
 .quick-title{
-    margin:28px 0 14px;
-    font-size:19px;
+    margin:30px 0 15px;
+    font-size:20px;
 }
 
 .quick-actions{
@@ -227,7 +223,7 @@ body{
 .action{
     background:white;
     border:0;
-    padding:18px 12px;
+    padding:18px 14px;
     border-radius:16px;
     box-shadow:0 6px 22px rgba(0,0,0,.06);
     cursor:pointer;
@@ -237,18 +233,17 @@ body{
 
 .action:hover{
     transform:translateY(-3px);
-    box-shadow:0 10px 28px rgba(0,0,0,.1);
 }
 
 .action-icon{
-    width:42px;
-    height:42px;
+    width:43px;
+    height:43px;
     border-radius:12px;
     background:#fff0f5;
     display:flex;
     align-items:center;
     justify-content:center;
-    font-size:20px;
+    font-size:21px;
     margin-bottom:10px;
 }
 
@@ -263,7 +258,7 @@ body{
     color:#888;
 }
 
-/* PANELS */
+/* SUMMARY */
 
 .summary{
     margin-top:22px;
@@ -307,7 +302,7 @@ body{
 /* TRANSACTIONS */
 
 .transaction-list{
-    max-height:330px;
+    max-height:340px;
     overflow-y:auto;
 }
 
@@ -317,11 +312,6 @@ body{
     align-items:center;
     padding:13px 0;
     border-bottom:1px solid #eee;
-    gap:10px;
-}
-
-.transaction:last-child{
-    border-bottom:0;
 }
 
 .transaction-left{
@@ -367,7 +357,22 @@ body{
     text-align:center;
     color:#999;
     padding:30px 10px;
-    font-size:14px;
+}
+
+/* STATUS */
+
+.status-box{
+    margin-top:18px;
+    background:white;
+    border-radius:14px;
+    padding:12px 15px;
+    font-size:13px;
+    color:#777;
+    display:none;
+}
+
+.status-box.show{
+    display:block;
 }
 
 /* LOADING */
@@ -441,6 +446,10 @@ body{
         padding:15px;
     }
 
+    .welcome h2{
+        font-size:25px;
+    }
+
     .topbar{
         align-items:stretch;
     }
@@ -455,7 +464,6 @@ body{
 
     .month-box input{
         width:100%;
-        margin-top:5px;
     }
 
     .cards{
@@ -468,15 +476,15 @@ body{
     }
 
     .card-value{
-        font-size:21px;
+        font-size:20px;
     }
 
     .card-icon{
         width:32px;
         height:32px;
         font-size:16px;
-        right:12px;
-        top:12px;
+        right:10px;
+        top:10px;
     }
 
     .quick-actions{
@@ -488,11 +496,14 @@ body{
         padding:14px 10px;
     }
 
+    .summary{
+        gap:15px;
+    }
+
     .panel{
         padding:15px;
     }
 }
-
 </style>
 </head>
 
@@ -501,17 +512,10 @@ body{
 <!-- LOADING -->
 
 <div id="loading">
-
     <div class="loader-box">
-
         <div class="spinner"></div>
-
-        <div>
-            Loading Dashboard...
-        </div>
-
+        <div>Loading Dashboard...</div>
     </div>
-
 </div>
 
 
@@ -541,7 +545,6 @@ body{
 
 <main class="container">
 
-
     <!-- TOP -->
 
     <div class="topbar">
@@ -556,12 +559,9 @@ body{
 
         </div>
 
-
         <div class="month-box">
 
-            <label>
-                Select Month
-            </label>
+            <label>Select Month</label>
 
             <input
                 type="month"
@@ -576,7 +576,6 @@ body{
     <!-- CARDS -->
 
     <section class="cards">
-
 
         <div class="card students">
 
@@ -706,279 +705,165 @@ body{
         Quick Actions
     </h2>
 
-
     <section class="quick-actions">
 
+        <button class="action"
+            onclick="openPage('students.html')">
 
-        <button
-            class="action"
-            onclick="openPage('students.html')"
-        >
+            <div class="action-icon">👧</div>
 
-            <div class="action-icon">
-                👧
-            </div>
+            <strong>Students</strong>
 
-            <strong>
-                Students
-            </strong>
-
-            <span>
-                Add & manage students
-            </span>
+            <span>Add & manage students</span>
 
         </button>
 
 
-        <button
-            class="action"
-            onclick="openPage('fees.html')"
-        >
+        <button class="action"
+            onclick="openPage('fees.html')">
 
-            <div class="action-icon">
-                💰
-            </div>
+            <div class="action-icon">💰</div>
 
-            <strong>
-                Fee Collection
-            </strong>
+            <strong>Fee Collection</strong>
 
-            <span>
-                Collect & track fees
-            </span>
+            <span>Collect & track fees</span>
 
         </button>
 
 
-        <button
-            class="action"
-            onclick="openPage('registration.html')"
-        >
+        <button class="action"
+            onclick="openPage('registration.html')">
 
-            <div class="action-icon">
-                📝
-            </div>
+            <div class="action-icon">📝</div>
 
-            <strong>
-                Registration
-            </strong>
+            <strong>Registration</strong>
 
-            <span>
-                Registration records
-            </span>
+            <span>Registration records</span>
 
         </button>
 
 
-        <button
-            class="action"
-            onclick="openPage('expenses.html')"
-        >
+        <button class="action"
+            onclick="openPage('expenses.html')">
 
-            <div class="action-icon">
-                💸
-            </div>
+            <div class="action-icon">💸</div>
 
-            <strong>
-                Expenses
-            </strong>
+            <strong>Expenses</strong>
 
-            <span>
-                Manage school expenses
-            </span>
+            <span>Manage school expenses</span>
 
         </button>
 
 
-        <button
-            class="action"
-            onclick="openPage('investment.html')"
-        >
+        <button class="action"
+            onclick="openPage('investment.html')">
 
-            <div class="action-icon">
-                📈
-            </div>
+            <div class="action-icon">📈</div>
 
-            <strong>
-                Investment
-            </strong>
+            <strong>Investment</strong>
 
-            <span>
-                Track investments
-            </span>
+            <span>Track investments</span>
 
         </button>
 
 
-        <button
-            class="action"
-            onclick="openPage('dance-classes.html')"
-        >
+        <button class="action"
+            onclick="openPage('dance-classes.html')">
 
-            <div class="action-icon">
-                💃
-            </div>
+            <div class="action-icon">💃</div>
 
-            <strong>
-                Dance Classes
-            </strong>
+            <strong>Dance Classes</strong>
 
-            <span>
-                Manage dance classes
-            </span>
+            <span>Manage dance classes</span>
 
         </button>
 
 
-        <button
-            class="action"
-            onclick="openPage('summary.html')"
-        >
+        <button class="action"
+            onclick="openPage('summary.html')">
 
-            <div class="action-icon">
-                📊
-            </div>
+            <div class="action-icon">📊</div>
 
-            <strong>
-                Monthly Summary
-            </strong>
+            <strong>Monthly Summary</strong>
 
-            <span>
-                Complete financial summary
-            </span>
+            <span>Complete financial summary</span>
 
         </button>
 
 
-        <button
-            class="action"
-            onclick="openPage('settings.html')"
-        >
+        <button class="action"
+            onclick="openPage('settings.html')">
 
-            <div class="action-icon">
-                ⚙️
-            </div>
+            <div class="action-icon">⚙️</div>
 
-            <strong>
-                Settings
-            </strong>
+            <strong>Settings</strong>
 
-            <span>
-                System settings
-            </span>
+            <span>System settings</span>
 
         </button>
 
     </section>
 
 
+    <!-- STATUS -->
+
+    <div
+        id="statusBox"
+        class="status-box">
+    </div>
+
+
     <!-- SUMMARY -->
 
     <section class="summary">
 
-
         <div class="panel">
 
-            <h2>
-                Financial Overview
-            </h2>
-
+            <h2>Financial Overview</h2>
 
             <div class="row">
-
-                <span>
-                    Opening Balance
-                </span>
-
-                <strong id="openingBalance">
-                    ₹0
-                </strong>
-
+                <span>Opening Balance</span>
+                <strong id="openingBalance">₹0</strong>
             </div>
 
-
             <div class="row">
-
-                <span>
-                    Fees Received
-                </span>
-
-                <strong id="summaryFees">
-                    ₹0
-                </strong>
-
+                <span>Fees Received</span>
+                <strong id="summaryFees">₹0</strong>
             </div>
 
-
             <div class="row">
-
-                <span>
-                    Registration
-                </span>
-
-                <strong id="summaryRegistration">
-                    ₹0
-                </strong>
-
+                <span>Registration</span>
+                <strong id="summaryRegistration">₹0</strong>
             </div>
 
-
             <div class="row">
-
-                <span>
-                    Investment
-                </span>
-
-                <strong id="summaryInvestment">
-                    ₹0
-                </strong>
-
+                <span>Investment</span>
+                <strong id="summaryInvestment">₹0</strong>
             </div>
 
-
             <div class="row">
-
-                <span>
-                    Expenses
-                </span>
-
-                <strong id="summaryExpenses">
-                    ₹0
-                </strong>
-
+                <span>Expenses</span>
+                <strong id="summaryExpenses">₹0</strong>
             </div>
 
-
             <div class="row">
-
-                <span>
-                    Closing Balance
-                </span>
-
-                <strong id="closingBalance">
-                    ₹0
-                </strong>
-
+                <span>Closing Balance</span>
+                <strong id="closingBalance">₹0</strong>
             </div>
 
         </div>
 
 
-        <!-- RECENT TRANSACTIONS -->
-
         <div class="panel">
 
-            <h2>
-                Recent Transactions
-            </h2>
+            <h2>Recent Transactions</h2>
 
             <div
                 class="transaction-list"
-                id="transactionList"
-            >
+                id="transactionList">
 
                 <div class="empty">
-                    No transactions available
+                    Loading transactions...
                 </div>
 
             </div>
@@ -992,21 +877,15 @@ body{
 
 <script>
 
-/* ================================
+/* =====================================================
    SUPABASE
-================================ */
+===================================================== */
 
 const SUPABASE_URL =
 "https://holelzxzhaiefaqezmce.supabase.co";
 
-/*
- IMPORTANT:
- Use the EXACT SAME Publishable Key
- in index.html, login.html and this file.
-*/
-
 const SUPABASE_KEY =
-"sb_publishable_KoCQClKL582rggMuDJhYQ_UhHOB4xZ";
+"sb_publishable_KoCQClKL582rggMuDJXhYQ_UhHOB4xZ";
 
 const supabaseClient =
 supabase.createClient(
@@ -1015,9 +894,9 @@ supabase.createClient(
 );
 
 
-/* ================================
+/* =====================================================
    ELEMENTS
-================================ */
+===================================================== */
 
 const loading =
 document.getElementById("loading");
@@ -1028,23 +907,25 @@ document.getElementById("logoutBtn");
 const monthPicker =
 document.getElementById("monthPicker");
 
+const statusBox =
+document.getElementById("statusBox");
 
-/* ================================
+
+/* =====================================================
    DEFAULT MONTH
-================================ */
+===================================================== */
 
-const now =
-new Date();
+const today = new Date();
 
 monthPicker.value =
-now.getFullYear() +
+today.getFullYear() +
 "-" +
-String(now.getMonth()+1).padStart(2,"0");
+String(today.getMonth()+1).padStart(2,"0");
 
 
-/* ================================
-   PAGE NAVIGATION
-================================ */
+/* =====================================================
+   NAVIGATION
+===================================================== */
 
 function openPage(page){
 
@@ -1053,9 +934,756 @@ function openPage(page){
 }
 
 
-/* ================================
-   CHECK LOGIN
-================================ */
+/* =====================================================
+   MONEY
+===================================================== */
+
+function money(value){
+
+    return "₹" +
+        Number(value || 0)
+        .toLocaleString("en-IN");
+
+}
+
+
+function setMoney(id,value){
+
+    const el =
+        document.getElementById(id);
+
+    if(el){
+        el.textContent =
+            money(value);
+    }
+
+}
+
+
+function setText(id,value){
+
+    const el =
+        document.getElementById(id);
+
+    if(el){
+        el.textContent =
+            value;
+    }
+
+}
+
+
+/* =====================================================
+   FIND VALUE FROM FLEXIBLE COLUMN NAMES
+===================================================== */
+
+function getValue(row,names){
+
+    for(const name of names){
+
+        if(
+            row[name] !== undefined &&
+            row[name] !== null &&
+            row[name] !== ""
+        ){
+
+            const number =
+                Number(row[name]);
+
+            if(!isNaN(number)){
+                return number;
+            }
+
+        }
+
+    }
+
+    return 0;
+
+}
+
+
+/* =====================================================
+   FIND DATE
+===================================================== */
+
+function getDate(row){
+
+    const names = [
+        "date",
+        "payment_date",
+        "fee_date",
+        "expense_date",
+        "registration_date",
+        "investment_date",
+        "created_at"
+    ];
+
+    for(const name of names){
+
+        if(row[name]){
+
+            const d =
+                new Date(row[name]);
+
+            if(!isNaN(d)){
+                return d;
+            }
+
+        }
+
+    }
+
+    return null;
+
+}
+
+
+/* =====================================================
+   MONTH FILTER
+===================================================== */
+
+function isSelectedMonth(row){
+
+    const date =
+        getDate(row);
+
+    if(!date){
+        return true;
+    }
+
+    const selected =
+        monthPicker.value;
+
+    const month =
+        date.getFullYear() +
+        "-" +
+        String(
+            date.getMonth()+1
+        ).padStart(2,"0");
+
+    return month === selected;
+
+}
+
+
+/* =====================================================
+   FETCH TABLE
+===================================================== */
+
+async function getTable(tableName){
+
+    try{
+
+        const {
+            data,
+            error
+        } =
+        await supabaseClient
+        .from(tableName)
+        .select("*");
+
+        if(error){
+
+            console.warn(
+                tableName,
+                error.message
+            );
+
+            return [];
+
+        }
+
+        return data || [];
+
+    }catch(error){
+
+        console.warn(
+            tableName,
+            error
+        );
+
+        return [];
+
+    }
+
+}
+
+
+/* =====================================================
+   LOAD DASHBOARD
+===================================================== */
+
+async function loadDashboard(){
+
+    statusBox.classList.remove("show");
+
+    /*
+       Load all available tables.
+       If any table doesn't exist,
+       dashboard will still open.
+    */
+
+    const [
+        students,
+        fees,
+        registrations,
+        expenses,
+        investments
+    ] =
+    await Promise.all([
+
+        getTable("students"),
+
+        getTable("fees"),
+
+        getTable("registrations"),
+
+        getTable("expenses"),
+
+        getTable("investments")
+
+    ]);
+
+
+    /* ================================================
+       STUDENTS
+    ================================================= */
+
+    setText(
+        "studentCount",
+        students.length
+    );
+
+
+    /* ================================================
+       MONTH DATA
+    ================================================= */
+
+    const monthFees =
+        fees.filter(isSelectedMonth);
+
+    const monthRegistrations =
+        registrations.filter(isSelectedMonth);
+
+    const monthExpenses =
+        expenses.filter(isSelectedMonth);
+
+    const monthInvestments =
+        investments.filter(isSelectedMonth);
+
+
+    /* ================================================
+       FEES
+    ================================================= */
+
+    let totalFees = 0;
+
+    monthFees.forEach(row => {
+
+        totalFees +=
+            getValue(row,[
+                "amount",
+                "fee_amount",
+                "paid_amount",
+                "payment",
+                "fees",
+                "monthly_fee"
+            ]);
+
+    });
+
+
+    /* ================================================
+       REGISTRATION
+    ================================================= */
+
+    let totalRegistration = 0;
+
+    monthRegistrations.forEach(row => {
+
+        totalRegistration +=
+            getValue(row,[
+                "amount",
+                "registration_fee",
+                "registration_amount",
+                "paid_amount",
+                "fee"
+            ]);
+
+    });
+
+
+    /*
+       Sometimes registration fee may
+       be stored directly in students table.
+    */
+
+    if(
+        monthRegistrations.length === 0
+    ){
+
+        students
+        .filter(isSelectedMonth)
+        .forEach(row => {
+
+            totalRegistration +=
+                getValue(row,[
+                    "registration_fee",
+                    "registration_amount"
+                ]);
+
+        });
+
+    }
+
+
+    /* ================================================
+       EXPENSES
+    ================================================= */
+
+    let totalExpenses = 0;
+
+    monthExpenses.forEach(row => {
+
+        totalExpenses +=
+            getValue(row,[
+                "amount",
+                "expense_amount",
+                "paid_amount",
+                "cost",
+                "total"
+            ]);
+
+    });
+
+
+    /* ================================================
+       INVESTMENT
+    ================================================= */
+
+    let totalInvestment = 0;
+
+    monthInvestments.forEach(row => {
+
+        totalInvestment +=
+            getValue(row,[
+                "amount",
+                "investment_amount",
+                "paid_amount",
+                "total"
+            ]);
+
+    });
+
+
+    /* ================================================
+       PENDING
+    ================================================= */
+
+    let pending = 0;
+
+    students.forEach(row => {
+
+        pending +=
+            getValue(row,[
+                "pending_fee",
+                "pending",
+                "due_amount",
+                "balance",
+                "fee_pending"
+            ]);
+
+    });
+
+
+    /* ================================================
+       OPENING BALANCE
+    ================================================= */
+
+    let openingBalance = 0;
+
+    /*
+       If a settings/balance table exists,
+       try reading it.
+    */
+
+    const balanceRows =
+        await getTable("balances");
+
+    if(balanceRows.length){
+
+        const selected =
+            balanceRows.find(
+                row =>
+                    String(
+                        row.month || ""
+                    ) === monthPicker.value
+            );
+
+        if(selected){
+
+            openingBalance =
+                getValue(selected,[
+                    "opening_balance",
+                    "opening",
+                    "balance"
+                ]);
+
+        }
+
+    }
+
+
+    /* ================================================
+       CLOSING BALANCE
+    ================================================= */
+
+    const closingBalance =
+        openingBalance +
+        totalFees +
+        totalRegistration +
+        totalInvestment -
+        totalExpenses;
+
+
+    /* ================================================
+       UPDATE CARDS
+    ================================================= */
+
+    setMoney(
+        "feesReceived",
+        totalFees
+    );
+
+    setMoney(
+        "registrationFees",
+        totalRegistration
+    );
+
+    setMoney(
+        "expenses",
+        totalExpenses
+    );
+
+    setMoney(
+        "pendingFees",
+        pending
+    );
+
+    setMoney(
+        "currentBalance",
+        closingBalance
+    );
+
+
+    /* ================================================
+       FINANCIAL OVERVIEW
+    ================================================= */
+
+    setMoney(
+        "openingBalance",
+        openingBalance
+    );
+
+    setMoney(
+        "summaryFees",
+        totalFees
+    );
+
+    setMoney(
+        "summaryRegistration",
+        totalRegistration
+    );
+
+    setMoney(
+        "summaryInvestment",
+        totalInvestment
+    );
+
+    setMoney(
+        "summaryExpenses",
+        totalExpenses
+    );
+
+    setMoney(
+        "closingBalance",
+        closingBalance
+    );
+
+
+    /* ================================================
+       RECENT TRANSACTIONS
+    ================================================= */
+
+    showTransactions(
+        monthFees,
+        monthRegistrations,
+        monthExpenses,
+        monthInvestments
+    );
+
+
+    /*
+       Inform only if some tables are missing.
+       No popup.
+    */
+
+    const available = [];
+
+    if(students.length)
+        available.push("Students");
+
+    if(fees.length)
+        available.push("Fees");
+
+    if(monthExpenses.length)
+        available.push("Expenses");
+
+    if(
+        monthRegistrations.length
+    )
+        available.push("Registration");
+
+    if(
+        monthInvestments.length
+    )
+        available.push("Investment");
+
+
+    if(available.length === 0){
+
+        statusBox.textContent =
+            "Dashboard connected. No financial records found for the selected month.";
+
+        statusBox.classList.add("show");
+
+    }
+
+}
+
+
+/* =====================================================
+   TRANSACTIONS
+===================================================== */
+
+function showTransactions(
+    fees,
+    registrations,
+    expenses,
+    investments
+){
+
+    const list =
+        document.getElementById(
+            "transactionList"
+        );
+
+    let transactions = [];
+
+
+    fees.forEach(row => {
+
+        transactions.push({
+
+            type:"Fee",
+
+            icon:"💰",
+
+            date:getDate(row),
+
+            amount:getValue(row,[
+                "amount",
+                "fee_amount",
+                "paid_amount",
+                "payment",
+                "fees",
+                "monthly_fee"
+            ]),
+
+            income:true
+
+        });
+
+    });
+
+
+    registrations.forEach(row => {
+
+        transactions.push({
+
+            type:"Registration",
+
+            icon:"📝",
+
+            date:getDate(row),
+
+            amount:getValue(row,[
+                "amount",
+                "registration_fee",
+                "registration_amount",
+                "paid_amount",
+                "fee"
+            ]),
+
+            income:true
+
+        });
+
+    });
+
+
+    investments.forEach(row => {
+
+        transactions.push({
+
+            type:"Investment",
+
+            icon:"📈",
+
+            date:getDate(row),
+
+            amount:getValue(row,[
+                "amount",
+                "investment_amount",
+                "paid_amount",
+                "total"
+            ]),
+
+            income:true
+
+        });
+
+    });
+
+
+    expenses.forEach(row => {
+
+        transactions.push({
+
+            type:"Expense",
+
+            icon:"💸",
+
+            date:getDate(row),
+
+            amount:getValue(row,[
+                "amount",
+                "expense_amount",
+                "paid_amount",
+                "cost",
+                "total"
+            ]),
+
+            income:false
+
+        });
+
+    });
+
+
+    transactions.sort(
+        (a,b) =>
+            (b.date?.getTime() || 0) -
+            (a.date?.getTime() || 0)
+    );
+
+
+    transactions =
+        transactions.slice(0,20);
+
+
+    if(transactions.length === 0){
+
+        list.innerHTML = `
+            <div class="empty">
+                No transactions available
+            </div>
+        `;
+
+        return;
+
+    }
+
+
+    list.innerHTML =
+        transactions.map(t => {
+
+            const date =
+                t.date
+                ? t.date.toLocaleDateString(
+                    "en-IN"
+                )
+                : "";
+
+            return `
+
+                <div class="transaction">
+
+                    <div class="transaction-left">
+
+                        <div class="transaction-icon">
+                            ${t.icon}
+                        </div>
+
+                        <div>
+
+                            <div class="transaction-name">
+                                ${escapeHTML(t.type)}
+                            </div>
+
+                            <div class="transaction-date">
+                                ${date}
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="transaction-amount ${
+                        t.income
+                        ? "income"
+                        : "outcome"
+                    }">
+
+                        ${
+                            t.income
+                            ? "+"
+                            : "-"
+                        }
+
+                        ${money(t.amount)}
+
+                    </div>
+
+                </div>
+
+            `;
+
+        }).join("");
+
+}
+
+
+/* =====================================================
+   HTML SAFETY
+===================================================== */
+
+function escapeHTML(value){
+
+    return String(value || "")
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+
+}
+
+
+/* =====================================================
+   LOGIN CHECK
+===================================================== */
 
 async function checkSession(){
 
@@ -1065,12 +1693,20 @@ async function checkSession(){
             data,
             error
         } =
-        await supabaseClient.auth.getSession();
+        await supabaseClient
+        .auth
+        .getSession();
 
 
         if(error){
 
-            throw error;
+            console.error(error);
+
+            window.location.replace(
+                "login.html"
+            );
+
+            return;
 
         }
 
@@ -1090,15 +1726,24 @@ async function checkSession(){
             "none";
 
 
-        loadDashboard();
+        await loadDashboard();
 
 
     }catch(error){
 
-        console.error(error);
+        console.error(
+            "Session error:",
+            error
+        );
 
-        window.location.replace(
-            "login.html"
+        loading.style.display =
+            "none";
+
+        statusBox.textContent =
+            "Unable to load account session.";
+
+        statusBox.classList.add(
+            "show"
         );
 
     }
@@ -1106,16 +1751,15 @@ async function checkSession(){
 }
 
 
-/* ================================
+/* =====================================================
    LOGOUT
-================================ */
+===================================================== */
 
 logoutBtn.addEventListener(
     "click",
     async function(){
 
-        logoutBtn.disabled =
-            true;
+        logoutBtn.disabled = true;
 
         logoutBtn.textContent =
             "Logging out...";
@@ -1124,7 +1768,9 @@ logoutBtn.addEventListener(
         const {
             error
         } =
-        await supabaseClient.auth.signOut();
+        await supabaseClient
+        .auth
+        .signOut();
 
 
         if(error){
@@ -1152,140 +1798,28 @@ logoutBtn.addEventListener(
 );
 
 
-/* ================================
-   LOAD DASHBOARD
-================================ */
-
-async function loadDashboard(){
-
-    try {
-
-        // STUDENTS COUNT
-        const {
-            count,
-            error: studentError
-        } = await supabaseClient
-            .from("students")
-            .select("*", {
-                count: "exact",
-                head: true
-            });
-
-        if(studentError){
-            throw studentError;
-        }
-
-        // Show total students
-        setText(
-            "studentCount",
-            count || 0
-        );
-
-
-        // Default financial values for now
-        setMoney("feesReceived", 0);
-        setMoney("registrationFees", 0);
-        setMoney("expenses", 0);
-        setMoney("pendingFees", 0);
-        setMoney("currentBalance", 0);
-
-        setMoney("openingBalance", 0);
-        setMoney("summaryFees", 0);
-        setMoney("summaryRegistration", 0);
-        setMoney("summaryInvestment", 0);
-        setMoney("summaryExpenses", 0);
-        setMoney("closingBalance", 0);
-
-
-    } catch(error){
-
-        console.error(
-            "Dashboard error:",
-            error
-        );
-
-        setText(
-            "studentCount",
-            "0"
-        );
-
-        alert(
-            "Dashboard data load error: " +
-            error.message
-        );
-
-    }
-
-}
-
-
-/* ================================
-   HELPERS
-================================ */
-
-function setText(
-    id,
-    value
-){
-
-    const element =
-        document.getElementById(id);
-
-    if(element){
-
-        element.textContent =
-            value;
-
-    }
-
-}
-
-
-function setMoney(
-    id,
-    value
-){
-
-    const element =
-        document.getElementById(id);
-
-    if(element){
-
-        element.textContent =
-            "₹" +
-            Number(value || 0)
-                .toLocaleString("en-IN");
-
-    }
-
-}
-
-
-/* ================================
+/* =====================================================
    MONTH CHANGE
-================================ */
+===================================================== */
 
 monthPicker.addEventListener(
     "change",
-    function(){
+    async function(){
 
-        /*
-          Later this will reload
-          month-specific Supabase data.
-        */
-
-        loadDashboard();
+        await loadDashboard();
 
     }
 );
 
 
-/* ================================
+/* =====================================================
    AUTH STATE
-================================ */
+===================================================== */
 
-supabaseClient.auth.onAuthStateChange(
-    function(event, session){
+supabaseClient
+.auth
+.onAuthStateChange(
+    function(event){
 
         if(
             event === "SIGNED_OUT"
@@ -1301,9 +1835,9 @@ supabaseClient.auth.onAuthStateChange(
 );
 
 
-/* ================================
+/* =====================================================
    START
-================================ */
+===================================================== */
 
 checkSession();
 
