@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Little Blossoms - Students</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    background:#f6f7fb;
+    color:#222;
+}
+
+.header{
+    background:linear-gradient(135deg,#ff72a7,#ff9a62);
+    color:white;
+    padding:18px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.header h1{
+    font-size:21px;
+}
+
+.header small{
+    opacity:.9;
+}
+
+.container{
+    max-width:1200px;
+    margin:auto;
+    padding:20px;
+}
+
+.top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:20px;
+    gap:10px;
+    flex-wrap:wrap;
+}
+
+.back{
+    border:0;
+    background:white;
+    padding:11px 16px;
+    border-radius:10px;
+    cursor:pointer;
+    box-shadow:0 4px 15px #00000010;
+}
+
+.add{
+    border:0;
+    background:linear-gradient(135deg,#ff72a7,#ff9a62);
+    color:white;
+    padding:12px 18px;
+    border-radius:11px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.search{
+    width:100%;
+    padding:14px;
+    border:1px solid #ddd;
+    border-radius:12px;
+    outline:none;
+    margin-bottom:18px;
+    background:white;
+}
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:12px;
+    margin-bottom:18px;
+}
+
+.stat{
+    background:white;
+    padding:18px;
+    border-radius:15px;
+    box-shadow:0 5px 20px #00000008;
+}
+
+.stat small{
+    color:#777;
+}
+
+.stat b{
+    display:block;
+    font-size:24px;
+    margin-top:6px;
+}
+
+.table-box{
+    background:white;
+    border-radius:16px;
+    overflow:auto;
+    box-shadow:0 5px 25px #00000008;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    min-width:850px;
+}
+
+th{
+    background:#fff1f6;
+    padding:14px;
+    text-align:left;
+    font-size:13px;
+}
+
+td{
+    padding:13px;
+    border-bottom:1px solid #eee;
+    font-size:14px;
+}
+
+.badge{
+    padding:5px 9px;
+    border-radius:20px;
+    font-size:12px;
+}
+
+.active{
+    background:#dcfce7;
+    color:#15803d;
+}
+
+.inactive{
+    background:#fee2e2;
+    color:#b91c1c;
+}
+
+.action{
+    border:0;
+    padding:7px 10px;
+    border-radius:8px;
+    cursor:pointer;
+    margin-right:4px;
+}
+
+.edit{
+    background:#e0f2fe;
+    color:#0369a1;
+}
+
+.delete{
+    background:#fee2e2;
+    color:#dc2626;
+}
+
+/* MODAL */
+
+.modal{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:#0008;
+    z-index:20;
+    align-items:center;
+    justify-content:center;
+    padding:15px;
+}
+
+.modal-box{
+    background:white;
+    width:100%;
+    max-width:500px;
+    border-radius:20px;
+    padding:25px;
+    max-height:90vh;
+    overflow:auto;
+}
+
+.modal-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:15px;
+}
+
+.close{
+    border:0;
+    background:#eee;
+    width:35px;
+    height:35px;
+    border-radius:50%;
+    cursor:pointer;
+    font-size:18px;
+}
+
+label{
+    display:block;
+    margin-top:13px;
+    margin-bottom:6px;
+    font-size:14px;
+    font-weight:bold;
+}
+
+input,select,textarea{
+    width:100%;
+    padding:12px;
+    border:1px solid #ddd;
+    border-radius:10px;
+    outline:none;
+    font-size:14px;
+}
+
+textarea{
+    resize:vertical;
+}
+
+.save{
+    width:100%;
+    margin-top:20px;
+    padding:13px;
+    border:0;
+    border-radius:11px;
+    background:linear-gradient(135deg,#ff72a7,#ff9a62);
+    color:white;
+    font-weight:bold;
+    font-size:15px;
+}
+
+#message{
+    text-align:center;
+    margin-top:10px;
+    font-size:13px;
+}
+
+@media(max-width:600px){
+
+    .stats{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .container{
+        padding:14px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header class="header">
+    <div>
+        <h1>🌸 Little Blossoms</h1>
+        <small>Student Management</small>
+    </div>
+</header>
+
+<div class="container">
+
+    <div class="top">
+        <div>
+            <h2>Students</h2>
+            <p style="color:#777;font-size:13px">
+                Manage all student records
+            </p>
+        </div>
+
+        <div>
+            <button class="back" onclick="location.href='dashboard.html'">
+                ← Dashboard
+            </button>
+
+            <button class="add" onclick="openAdd()">
+                + Add Student
+            </button>
+        </div>
+    </div>
+
+    <div class="stats">
+
+        <div class="stat">
+            <small>Total Students</small>
+            <b id="total">0</b>
+        </div>
+
+        <div class="stat">
+            <small>Active Students</small>
+            <b id="activeCount">0</b>
+        </div>
+
+        <div class="stat">
+            <small>Monthly Fee Potential</small>
+            <b id="monthlyTotal">₹0</b>
+        </div>
+
+    </div>
+
+    <input
+        class="search"
+        id="search"
+        placeholder="🔍 Search student, parent or mobile..."
+        oninput="renderStudents()"
+    >
+
+    <div class="table-box">
+
+        <table>
+
+            <thead>
+                <tr>
+                    <th>Student</th>
+                    <th>Parent</th>
+                    <th>Mobile</th>
+                    <th>Joining</th>
+                    <th>Registration</th>
+                    <th>Monthly Fee</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+
+            <tbody id="studentList"></tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+
+<!-- MODAL -->
+
+<div class="modal" id="modal">
+
+    <div class="modal-box">
+
+        <div class="modal-head">
+
+            <h2 id="modalTitle">Add Student</h2>
+
+            <button class="close" onclick="closeModal()">×</button>
+
+        </div>
+
+        <form id="studentForm">
+
+            <input type="hidden" id="studentId">
+
+            <label>Student Name *</label>
+            <input id="studentName" required>
+
+            <label>Parent Name</label>
+            <input id="parentName">
+
+            <label>Mobile Number</label>
+            <input id="mobile" type="tel">
+
+            <label>Joining Date</label>
+            <input id="joiningDate" type="date" required>
+
+            <label>Registration Fee</label>
+            <input id="registrationFee" type="number" min="0" step="0.01" value="0">
+
+            <label>Monthly Fee *</label>
+            <input id="monthlyFee" type="number" min="0" step="0.01" value="0" required>
+
+            <label>Status</label>
+            <select id="status">
+                <option value="Active">Active</option>
+                <option value="Inactive">Inactive</option>
+            </select>
+
+            <label>Notes</label>
+            <textarea id="notes" rows="3"></textarea>
+
+            <button class="save" id="saveBtn">
+                Save Student
+            </button>
+
+            <div id="message"></div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<script>
+
+/* ================================
+   SUPABASE
+================================ */
+
+const SUPABASE_URL =
+"https://holelzxzhaiefaqezmce.supabase.co";
+
+const SUPABASE_KEY =
+"sb_publishable_KoCQClKL582rggMuDJXhYQ_UhHOB4xZ";
+
+const supabaseClient =
+supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+);
+
+let students = [];
+
+
+/* ================================
+   LOGIN CHECK
+================================ */
+
+async function checkLogin(){
+
+    const {
+        data:{session}
+    } = await supabaseClient.auth.getSession();
+
+    if(!session){
+
+        location.href="login.html";
+
+        return false;
+    }
+
+    return true;
+}
+
+
+/* ================================
+   LOAD STUDENTS
+================================ */
+
+async function loadStudents(){
+
+    if(!(await checkLogin())) return;
+
+    const {
+        data,
+        error
+    } = await supabaseClient
+        .from("students")
+        .select("*")
+        .order("student_name",{ascending:true});
+
+    if(error){
+
+        alert(error.message);
+        return;
+    }
+
+    students = data || [];
+
+    renderStudents();
+    updateStats();
+}
+
+
+/* ================================
+   RENDER
+================================ */
+
+function renderStudents(){
+
+    const search =
+        document.getElementById("search")
+        .value
+        .toLowerCase()
+        .trim();
+
+    const filtered =
+        students.filter(s =>
+
+            (s.student_name || "")
+                .toLowerCase()
+                .includes(search)
+
+            ||
+
+            (s.parent_name || "")
+                .toLowerCase()
+                .includes(search)
+
+            ||
+
+            (s.mobile || "")
+                .toLowerCase()
+                .includes(search)
+
+        );
+
+    const list =
+        document.getElementById("studentList");
+
+    if(filtered.length === 0){
+
+        list.innerHTML = `
+            <tr>
+                <td colspan="8"
+                    style="text-align:center;padding:35px;color:#888">
+                    No students found
+                </td>
+            </tr>
+        `;
+
+        return;
+    }
+
+    list.innerHTML =
+        filtered.map(s => `
+
+        <tr>
+
+            <td>
+                <b>${escapeHtml(s.student_name)}</b>
+            </td>
+
+            <td>
+                ${escapeHtml(s.parent_name || "-")}
+            </td>
+
+            <td>
+                ${escapeHtml(s.mobile || "-")}
+            </td>
+
+            <td>
+                ${formatDate(s.joining_date)}
+            </td>
+
+            <td>
+                ₹${Number(s.registration_fee || 0).toLocaleString("en-IN")}
+            </td>
+
+            <td>
+                <b>₹${Number(s.monthly_fee || 0).toLocaleString("en-IN")}</b>
+            </td>
+
+            <td>
+                <span class="badge ${
+                    s.status === "Active"
+                    ? "active"
+                    : "inactive"
+                }">
+                    ${s.status}
+                </span>
+            </td>
+
+            <td>
+
+                <button
+                    class="action edit"
+                    onclick="editStudent('${s.id}')">
+                    Edit
+                </button>
+
+                <button
+                    class="action delete"
+                    onclick="deleteStudent('${s.id}')">
+                    Delete
+                </button>
+
+            </td>
+
+        </tr>
+
+    `).join("");
+}
+
+
+/* ================================
+   STATS
+================================ */
+
+function updateStats(){
+
+    const active =
+        students.filter(
+            s => s.status === "Active"
+        );
+
+    const monthly =
+        active.reduce(
+            (sum,s) =>
+            sum + Number(s.monthly_fee || 0),
+            0
+        );
+
+    document.getElementById("total")
+        .textContent = students.length;
+
+    document.getElementById("activeCount")
+        .textContent = active.length;
+
+    document.getElementById("monthlyTotal")
+        .textContent =
+        "₹" + monthly.toLocaleString("en-IN");
+}
+
+
+/* ================================
+   OPEN ADD
+================================ */
+
+function openAdd(){
+
+    document.getElementById("modalTitle")
+        .textContent = "Add Student";
+
+    document.getElementById("studentForm")
+        .reset();
+
+    document.getElementById("studentId")
+        .value = "";
+
+    document.getElementById("joiningDate")
+        .value =
+        new Date().toISOString().split("T")[0];
+
+    document.getElementById("registrationFee")
+        .value = 0;
+
+    document.getElementById("monthlyFee")
+        .value = 0;
+
+    document.getElementById("status")
+        .value = "Active";
+
+    document.getElementById("message")
+        .textContent = "";
+
+    document.getElementById("modal")
+        .style.display = "flex";
+}
+
+
+/* ================================
+   EDIT
+================================ */
+
+function editStudent(id){
+
+    const s =
+        students.find(x => x.id === id);
+
+    if(!s) return;
+
+    document.getElementById("modalTitle")
+        .textContent = "Edit Student";
+
+    document.getElementById("studentId")
+        .value = s.id;
+
+    document.getElementById("studentName")
+        .value = s.student_name || "";
+
+    document.getElementById("parentName")
+        .value = s.parent_name || "";
+
+    document.getElementById("mobile")
+        .value = s.mobile || "";
+
+    document.getElementById("joiningDate")
+        .value = s.joining_date || "";
+
+    document.getElementById("registrationFee")
+        .value = s.registration_fee || 0;
+
+    document.getElementById("monthlyFee")
+        .value = s.monthly_fee || 0;
+
+    document.getElementById("status")
+        .value = s.status || "Active";
+
+    document.getElementById("notes")
+        .value = s.notes || "";
+
+    document.getElementById("message")
+        .textContent = "";
+
+    document.getElementById("modal")
+        .style.display = "flex";
+}
+
+
+/* ================================
+   SAVE
+================================ */
+
+document.getElementById("studentForm")
+.addEventListener("submit", async function(e){
+
+    e.preventDefault();
+
+    const saveBtn =
+        document.getElementById("saveBtn");
+
+    saveBtn.disabled = true;
+    saveBtn.textContent = "Saving...";
+
+    const id =
+        document.getElementById("studentId").value;
+
+    const studentData = {
+
+        student_name:
+            document.getElementById("studentName").value.trim(),
+
+        parent_name:
+            document.getElementById("parentName").value.trim(),
+
+        mobile:
+            document.getElementById("mobile").value.trim(),
+
+        joining_date:
+            document.getElementById("joiningDate").value,
+
+        registration_fee:
+            Number(document.getElementById("registrationFee").value || 0),
+
+        monthly_fee:
+            Number(document.getElementById("monthlyFee").value || 0),
+
+        status:
+            document.getElementById("status").value,
+
+        notes:
+            document.getElementById("notes").value.trim()
+    };
+
+
+    let result;
+
+
+    /* EDIT */
+
+    if(id){
+
+        result =
+            await supabaseClient
+            .from("students")
+            .update(studentData)
+            .eq("id",id);
+
+    }
+
+    /* ADD */
+
+    else{
+
+        result =
+            await supabaseClient
+            .from("students")
+            .insert(studentData);
+
+    }
+
+
+    if(result.error){
+
+        document.getElementById("message")
+            .style.color = "#dc2626";
+
+        document.getElementById("message")
+            .textContent =
+            result.error.message;
+
+        saveBtn.disabled = false;
+        saveBtn.textContent = "Save Student";
+
+        return;
+    }
+
+
+    closeModal();
+
+    await loadStudents();
+
+    saveBtn.disabled = false;
+    saveBtn.textContent = "Save Student";
+
+});
+
+
+/* ================================
+   DELETE
+================================ */
+
+async function deleteStudent(id){
+
+    const s =
+        students.find(x => x.id === id);
+
+    if(!s) return;
+
+    const confirmDelete =
+        confirm(
+            `Delete ${s.student_name}?\n\n` +
+            `Student ke saath uske related fee records bhi delete ho sakte hain.`
+        );
+
+    if(!confirmDelete) return;
+
+
+    const {
+        error
+    } =
+    await supabaseClient
+        .from("students")
+        .delete()
+        .eq("id",id);
+
+
+    if(error){
+
+        alert(error.message);
+        return;
+    }
+
+    await loadStudents();
+}
+
+
+/* ================================
+   MODAL CLOSE
+================================ */
+
+function closeModal(){
+
+    document.getElementById("modal")
+        .style.display = "none";
+}
+
+
+/* ================================
+   DATE
+================================ */
+
+function formatDate(date){
+
+    if(!date) return "-";
+
+    const d =
+        new Date(date + "T00:00:00");
+
+    return d.toLocaleDateString("en-IN",{
+        day:"2-digit",
+        month:"short",
+        year:"numeric"
+    });
+}
+
+
+/* ================================
+   SECURITY
+================================ */
+
+function escapeHtml(value){
+
+    return String(value)
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+}
+
+
+/* ================================
+   START
+================================ */
+
+loadStudents();
+
+</script>
+
+</body>
+</html>
