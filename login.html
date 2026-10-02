@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -9,82 +10,127 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
+
+/* =========================
+   RESET
+========================= */
+
 *{
     box-sizing:border-box;
     margin:0;
     padding:0;
-    font-family:Arial,sans-serif;
+    font-family:Arial, Helvetica, sans-serif;
 }
+
+
+/* =========================
+   BODY / BACKGROUND
+========================= */
 
 body{
     min-height:100vh;
+    width:100%;
+
     display:flex;
     align-items:center;
     justify-content:center;
-    padding:20px;
-    position:relative;
-    overflow:hidden;
 
-    /* Background Photo */
+    padding:20px;
+
+    /* BACKGROUND PHOTO */
     background-image:
         linear-gradient(
-            rgba(0,0,0,.30),
-            rgba(0,0,0,.30)
+            rgba(0,0,0,0.10),
+            rgba(0,0,0,0.10)
         ),
         url("daivik1.png");
 
     background-size:cover;
-    background-position:center;
+    background-position:center center;
     background-repeat:no-repeat;
     background-attachment:fixed;
+
+    position:relative;
+    overflow-x:hidden;
 }
 
-/* Premium soft overlay */
+
+/* Extra soft overlay */
 body::before{
     content:"";
-    position:absolute;
+    position:fixed;
     inset:0;
+
     background:
-        radial-gradient(
-            circle at top left,
-            rgba(255,255,255,.18),
-            transparent 35%
-        ),
-        radial-gradient(
-            circle at bottom right,
-            rgba(255,255,255,.12),
-            transparent 35%
+        linear-gradient(
+            135deg,
+            rgba(255,255,255,0.05),
+            rgba(0,0,0,0.08)
         );
+
     pointer-events:none;
+    z-index:0;
 }
 
-/* Login Card */
+
+/* =========================
+   LOGIN BOX
+========================= */
+
 .login-box{
+
     position:relative;
     z-index:2;
 
     width:92%;
-    max-width:400px;
+    max-width:420px;
 
-    background:rgba(255,255,255,.94);
+    padding:32px 28px 28px;
 
-    padding:35px 28px;
-
-    border-radius:24px;
-
-    border:1px solid rgba(255,255,255,.7);
-
-    box-shadow:
-        0 20px 60px rgba(0,0,0,.30),
-        0 5px 20px rgba(0,0,0,.10);
+    /* Glass effect */
+    background:rgba(255,255,255,0.70);
 
     backdrop-filter:blur(10px);
     -webkit-backdrop-filter:blur(10px);
+
+    border:1px solid rgba(255,255,255,0.70);
+
+    border-radius:30px;
+
+    box-shadow:
+        0 25px 70px rgba(0,0,0,0.28),
+        inset 0 1px 0 rgba(255,255,255,0.70);
+
+    animation:boxIn .6s ease;
 }
 
+
+/* =========================
+   ANIMATION
+========================= */
+
+@keyframes boxIn{
+
+    from{
+        opacity:0;
+        transform:translateY(25px) scale(.97);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0) scale(1);
+    }
+}
+
+
+/* =========================
+   LOGO
+========================= */
+
 .logo{
-    width:75px;
-    height:75px;
+
+    width:78px;
+    height:78px;
 
     margin:0 auto 15px;
 
@@ -94,11 +140,13 @@ body::before{
     align-items:center;
     justify-content:center;
 
-    background:linear-gradient(
-        135deg,
-        #ff7eb3,
-        #65c7f7
-    );
+    background:
+        linear-gradient(
+            135deg,
+            #ff5fa2,
+            #b678e8,
+            #45bdf5
+        );
 
     color:white;
 
@@ -106,106 +154,115 @@ body::before{
     font-weight:bold;
 
     box-shadow:
-        0 8px 25px rgba(255,114,167,.35);
+        0 10px 25px rgba(214,82,170,.35);
+
+    border:3px solid rgba(255,255,255,.75);
 }
+
+
+/* =========================
+   TITLE
+========================= */
 
 h1{
+
     text-align:center;
-    color:#333;
-    font-size:25px;
+
+    color:#222;
+
+    font-size:28px;
+
+    font-weight:700;
+
+    letter-spacing:-.5px;
 }
+
 
 .subtitle{
+
     text-align:center;
-    color:#888;
+
+    color:#666;
+
     margin:8px 0 28px;
+
+    font-size:16px;
 }
+
+
+/* =========================
+   LABEL
+========================= */
 
 label{
+
     display:block;
+
     margin:15px 0 7px;
-    color:#444;
+
+    color:#333;
+
     font-weight:600;
+
+    font-size:15px;
 }
 
+
+/* =========================
+   INPUT
+========================= */
+
 input{
+
     width:100%;
 
-    padding:14px;
+    padding:15px 16px;
 
-    border:1px solid #ddd;
+    border:1px solid rgba(120,120,120,.25);
 
-    border-radius:12px;
+    border-radius:14px;
 
     outline:none;
 
     font-size:15px;
 
-    background:rgba(255,255,255,.95);
+    color:#333;
 
-    transition:.2s;
+    background:rgba(255,255,255,.82);
+
+    transition:.25s;
 }
+
+
+input::placeholder{
+    color:#888;
+}
+
 
 input:focus{
+
     border-color:#ff72a7;
 
-    box-shadow:
-        0 0 0 3px rgba(255,114,167,.12);
-}
-
-button{
-    width:100%;
-
-    margin-top:24px;
-
-    padding:14px;
-
-    border:0;
-
-    border-radius:12px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #ff72a7,
-            #ff9a62
-        );
-
-    color:white;
-
-    font-size:16px;
-
-    font-weight:bold;
-
-    cursor:pointer;
+    background:white;
 
     box-shadow:
-        0 8px 20px rgba(255,114,167,.25);
-
-    transition:.2s;
+        0 0 0 4px rgba(255,114,167,.12);
 }
 
-button:hover{
-    transform:translateY(-1px);
 
-    box-shadow:
-        0 10px 25px rgba(255,114,167,.35);
-}
-
-button:disabled{
-    opacity:.6;
-    cursor:not-allowed;
-    transform:none;
-}
+/* =========================
+   FORGOT PASSWORD
+========================= */
 
 .forgot{
+
     display:block;
 
     text-align:right;
 
     margin-top:12px;
 
-    color:#e85d93;
+    color:#e84f91;
 
     font-size:14px;
 
@@ -216,11 +273,84 @@ button:disabled{
     cursor:pointer;
 }
 
+
 .forgot:hover{
     text-decoration:underline;
 }
 
+
+/* =========================
+   LOGIN BUTTON
+========================= */
+
+button{
+
+    width:100%;
+
+    margin-top:24px;
+
+    padding:15px;
+
+    border:0;
+
+    border-radius:14px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ff4f9a,
+            #ff7b6b,
+            #ff9b55
+        );
+
+    color:white;
+
+    font-size:17px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    box-shadow:
+        0 10px 25px rgba(255,92,130,.28);
+
+    transition:
+        transform .2s,
+        box-shadow .2s,
+        opacity .2s;
+}
+
+
+button:hover{
+
+    transform:translateY(-2px);
+
+    box-shadow:
+        0 14px 30px rgba(255,92,130,.35);
+}
+
+
+button:active{
+    transform:scale(.98);
+}
+
+
+button:disabled{
+
+    opacity:.65;
+
+    cursor:not-allowed;
+
+    transform:none;
+}
+
+
+/* =========================
+   MESSAGE
+========================= */
+
 #message{
+
     margin-top:15px;
 
     text-align:center;
@@ -228,35 +358,179 @@ button:disabled{
     font-size:14px;
 
     line-height:1.5;
+
+    min-height:20px;
 }
+
+
+/* =========================
+   FOOTER
+========================= */
 
 .footer{
+
     text-align:center;
 
-    margin-top:25px;
+    margin-top:24px;
 
-    color:#999;
+    color:#777;
 
     font-size:12px;
+
+    font-weight:500;
 }
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:480px){
+
+    body{
+
+        padding:15px;
+
+        background-position:center center;
+    }
+
+
+    .login-box{
+
+        width:94%;
+
+        padding:28px 22px 24px;
+
+        border-radius:28px;
+
+        background:rgba(255,255,255,0.68);
+    }
+
+
+    .logo{
+
+        width:72px;
+        height:72px;
+
+        font-size:28px;
+    }
+
+
+    h1{
+
+        font-size:26px;
+    }
+
+
+    .subtitle{
+
+        font-size:15px;
+
+        margin-bottom:24px;
+    }
+
+
+    input{
+
+        padding:14px;
+    }
+
+
+    button{
+
+        padding:15px;
+    }
+
+}
+
+
+/* =========================
+   VERY SMALL MOBILE
+========================= */
+
+@media(max-height:700px){
+
+    .login-box{
+
+        padding-top:22px;
+        padding-bottom:20px;
+    }
+
+
+    .logo{
+
+        width:65px;
+        height:65px;
+
+        margin-bottom:10px;
+    }
+
+
+    h1{
+        font-size:24px;
+    }
+
+
+    .subtitle{
+        margin-bottom:18px;
+    }
+
+
+    label{
+        margin-top:12px;
+    }
+
+
+    button{
+        margin-top:20px;
+    }
+}
+
 </style>
+
 </head>
+
 
 <body>
 
+
+<!-- =========================
+     LOGIN BOX
+========================= -->
+
 <div class="login-box">
 
-    <div class="logo">LB</div>
 
-    <h1>Little Blossoms</h1>
+    <!-- LOGO -->
+
+    <div class="logo">
+        LB
+    </div>
+
+
+    <!-- TITLE -->
+
+    <h1>
+        Little Blossoms
+    </h1>
+
 
     <div class="subtitle">
         Management System
     </div>
 
+
+    <!-- LOGIN FORM -->
+
     <form id="loginForm">
 
-        <label>Email</label>
+
+        <!-- EMAIL -->
+
+        <label for="email">
+            Email
+        </label>
+
 
         <input
             type="email"
@@ -266,7 +540,13 @@ button:disabled{
             required
         >
 
-        <label>Password</label>
+
+        <!-- PASSWORD -->
+
+        <label for="password">
+            Password
+        </label>
+
 
         <input
             type="password"
@@ -276,12 +556,18 @@ button:disabled{
             required
         >
 
+
+        <!-- FORGOT PASSWORD -->
+
         <a
             href="reset-password.html"
             class="forgot"
         >
             Forgot Password?
         </a>
+
+
+        <!-- LOGIN -->
 
         <button
             type="submit"
@@ -290,17 +576,31 @@ button:disabled{
             Login
         </button>
 
+
     </form>
 
+
+    <!-- MESSAGE -->
+
     <div id="message"></div>
+
+
+    <!-- FOOTER -->
 
     <div class="footer">
         Little Blossoms Preschool & Day Care
     </div>
 
+
 </div>
 
+
+
 <script>
+
+/* =========================
+   SUPABASE CONFIG
+========================= */
 
 const SUPABASE_URL =
 "https://holelzxzhaiefaqezmce.supabase.co";
@@ -308,11 +608,19 @@ const SUPABASE_URL =
 const SUPABASE_KEY =
 "sb_publishable_KoCQClKL582rggMuDJXhYQ_UhHOB4xZ";
 
+
+/* CREATE SUPABASE CLIENT */
+
 const supabaseClient =
 supabase.createClient(
     SUPABASE_URL,
     SUPABASE_KEY
 );
+
+
+/* =========================
+   ELEMENTS
+========================= */
 
 const form =
 document.getElementById("loginForm");
@@ -324,86 +632,127 @@ const message =
 document.getElementById("message");
 
 
+/* =========================
+   LOGIN
+========================= */
+
 form.addEventListener(
     "submit",
     async function(e){
 
-    e.preventDefault();
+        e.preventDefault();
 
-    const email =
-        document
-        .getElementById("email")
-        .value
-        .trim();
 
-    const password =
-        document
-        .getElementById("password")
-        .value;
+        const email =
+            document
+            .getElementById("email")
+            .value
+            .trim();
 
-    button.disabled = true;
 
-    button.textContent =
-        "Logging in...";
+        const password =
+            document
+            .getElementById("password")
+            .value;
 
-    message.textContent = "";
 
-    try{
+        /* BUTTON LOADING */
 
-        const { data, error } =
-            await supabaseClient.auth
-            .signInWithPassword({
-                email: email,
-                password: password
-            });
+        button.disabled = true;
 
-        if(error){
+        button.textContent =
+            "Logging in...";
+
+
+        message.textContent = "";
+
+
+        try{
+
+
+            /* SUPABASE LOGIN */
+
+            const { data, error } =
+                await supabaseClient
+                .auth
+                .signInWithPassword({
+
+                    email: email,
+
+                    password: password
+
+                });
+
+
+            /* ERROR */
+
+            if(error){
+
+                message.style.color =
+                    "#e53935";
+
+                message.textContent =
+                    error.message;
+
+
+                button.disabled = false;
+
+                button.textContent =
+                    "Login";
+
+                return;
+            }
+
+
+            /* SUCCESS */
+
+            message.style.color =
+                "#16a34a";
+
+            message.textContent =
+                "Login successful...";
+
+
+            /* DASHBOARD */
+
+            setTimeout(
+                function(){
+
+                    window.location.href =
+                        "dashboard.html";
+
+                },
+                700
+            );
+
+
+        }
+
+        catch(err){
+
+            console.error(err);
+
 
             message.style.color =
                 "#e53935";
 
+
             message.textContent =
-                error.message;
+                "Something went wrong. Please try again.";
+
 
             button.disabled = false;
 
             button.textContent =
                 "Login";
 
-            return;
         }
 
-        message.style.color =
-            "#16a34a";
-
-        message.textContent =
-            "Login successful...";
-
-        setTimeout(() => {
-
-            window.location.href =
-                "dashboard.html";
-
-        },700);
-
     }
-    catch(err){
-
-        message.style.color =
-            "#e53935";
-
-        message.textContent =
-            "Something went wrong. Please try again.";
-
-        button.disabled = false;
-
-        button.textContent =
-            "Login";
-    }
-
-});
+);
 
 </script>
+
 
 </body>
 </html>
