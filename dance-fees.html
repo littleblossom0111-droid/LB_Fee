@@ -1,0 +1,3228 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Little Blossoms | Dance Fee Collection</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+
+<style>
+
+:root{
+
+    --pink:#ec4899;
+    --purple:#8b5cf6;
+    --cyan:#06b6d4;
+    --green:#16a34a;
+    --red:#ef4444;
+    --orange:#f59e0b;
+
+    --bg:#f7f7fb;
+    --card:#fff;
+    --text:#18181b;
+    --muted:#71717a;
+    --border:#ececf2;
+
+    --shadow:0 12px 35px rgba(24,18,40,.07);
+
+}
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+
+    font-family:"DM Sans",Arial,sans-serif;
+
+    background:
+
+    radial-gradient(
+        circle at 0 0,
+        rgba(236,72,153,.10),
+        transparent 28%
+    ),
+
+    radial-gradient(
+        circle at 100% 0,
+        rgba(139,92,246,.10),
+        transparent 25%
+    ),
+
+    var(--bg);
+
+    color:var(--text);
+
+    min-height:100vh;
+
+}
+
+button,
+input,
+select{
+
+    font:inherit;
+
+}
+
+button{
+
+    cursor:pointer;
+
+}
+
+
+/* HEADER */
+
+.header{
+
+    position:sticky;
+
+    top:0;
+
+    z-index:50;
+
+    background:rgba(255,255,255,.94);
+
+    backdrop-filter:blur(18px);
+
+    border-bottom:1px solid rgba(0,0,0,.06);
+
+    padding:14px 26px;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    gap:15px;
+
+}
+
+.brand{
+
+    display:flex;
+    align-items:center;
+    gap:12px;
+
+}
+
+.logo{
+
+    width:46px;
+    height:46px;
+
+    border-radius:15px;
+
+    background:linear-gradient(
+        135deg,
+        var(--pink),
+        var(--purple)
+    );
+
+    color:white;
+
+    display:grid;
+    place-items:center;
+
+    font-weight:800;
+
+    box-shadow:
+    0 10px 25px rgba(236,72,153,.25);
+
+}
+
+.brand h1{
+
+    font:
+    700 20px
+    "Playfair Display",
+    serif;
+
+}
+
+.brand small{
+
+    display:block;
+
+    color:#888;
+
+    font-size:10px;
+
+}
+
+.header-actions{
+
+    display:flex;
+
+    gap:9px;
+
+}
+
+.btn{
+
+    border:0;
+
+    border-radius:11px;
+
+    padding:10px 14px;
+
+    font-weight:700;
+
+}
+
+.back-btn{
+
+    background:#f3f4f6;
+
+    color:#374151;
+
+}
+
+.refresh-btn{
+
+    background:#f3f4f6;
+
+    color:#374151;
+
+}
+
+.logout-btn{
+
+    background:#fff1f2;
+
+    color:#e11d48;
+
+}
+
+
+/* MAIN */
+
+.container{
+
+    max-width:1350px;
+
+    margin:auto;
+
+    padding:28px 24px 50px;
+
+}
+
+
+/* HERO */
+
+.hero{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    gap:20px;
+
+    margin-bottom:22px;
+
+}
+
+.hero-left{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:15px;
+
+}
+
+.hero-icon{
+
+    width:64px;
+
+    height:64px;
+
+    border-radius:20px;
+
+    display:grid;
+
+    place-items:center;
+
+    font-size:30px;
+
+    background:linear-gradient(
+        135deg,
+        #ecfeff,
+        #cffafe
+    );
+
+}
+
+.hero h2{
+
+    font:
+    700 34px
+    "Playfair Display",
+    serif;
+
+}
+
+.hero p{
+
+    color:var(--muted);
+
+    font-size:13px;
+
+    margin-top:4px;
+
+}
+
+
+/* MONTH SELECT */
+
+.month-box{
+
+    display:flex;
+
+    gap:8px;
+
+    align-items:center;
+
+}
+
+.month-box select{
+
+    border:1px solid #e5e7eb;
+
+    background:white;
+
+    border-radius:11px;
+
+    padding:11px 13px;
+
+    outline:none;
+
+    font-weight:700;
+
+}
+
+
+/* STATS */
+
+.stats{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(4,1fr);
+
+    gap:15px;
+
+    margin-bottom:25px;
+
+}
+
+.stat{
+
+    background:white;
+
+    border:1px solid rgba(0,0,0,.04);
+
+    border-radius:19px;
+
+    padding:18px;
+
+    box-shadow:var(--shadow);
+
+}
+
+.stat-label{
+
+    font-size:10px;
+
+    color:#777;
+
+    font-weight:800;
+
+    text-transform:uppercase;
+
+    letter-spacing:.7px;
+
+}
+
+.stat-value{
+
+    font-size:25px;
+
+    font-weight:800;
+
+    margin-top:13px;
+
+}
+
+.stat-sub{
+
+    font-size:10px;
+
+    color:#aaa;
+
+    margin-top:4px;
+
+}
+
+.stat.students{
+
+    border-top:3px solid var(--cyan);
+
+}
+
+.stat.expected{
+
+    border-top:3px solid var(--purple);
+
+}
+
+.stat.collected{
+
+    border-top:3px solid var(--green);
+
+}
+
+.stat.pending{
+
+    border-top:3px solid var(--orange);
+
+}
+
+
+/* PANEL */
+
+.panel{
+
+    background:white;
+
+    border:1px solid var(--border);
+
+    border-radius:21px;
+
+    box-shadow:var(--shadow);
+
+    padding:20px;
+
+}
+
+.panel-head{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    gap:15px;
+
+    margin-bottom:17px;
+
+}
+
+.panel-title h3{
+
+    font-size:17px;
+
+}
+
+.panel-title p{
+
+    color:#999;
+
+    font-size:10px;
+
+    margin-top:3px;
+
+}
+
+.search{
+
+    width:280px;
+
+    border:1px solid #e5e7eb;
+
+    outline:none;
+
+    border-radius:11px;
+
+    padding:10px 12px;
+
+    background:#fafafa;
+
+    font-size:12px;
+
+}
+
+.search:focus{
+
+    border-color:#c084fc;
+
+    background:white;
+
+}
+
+
+/* TABLE */
+
+.table-wrap{
+
+    width:100%;
+
+    overflow-x:auto;
+
+}
+
+table{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+    min-width:1050px;
+
+}
+
+thead th{
+
+    text-align:left;
+
+    font-size:9px;
+
+    text-transform:uppercase;
+
+    letter-spacing:.6px;
+
+    color:#999;
+
+    padding:11px 10px;
+
+    background:#fafafa;
+
+    border-bottom:1px solid #eee;
+
+}
+
+tbody td{
+
+    padding:13px 10px;
+
+    border-bottom:1px solid #f1f1f4;
+
+    font-size:11px;
+
+}
+
+tbody tr:hover{
+
+    background:#fcfcff;
+
+}
+
+
+/* STUDENT */
+
+.student-cell{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+}
+
+.avatar{
+
+    width:38px;
+
+    height:38px;
+
+    border-radius:12px;
+
+    background:linear-gradient(
+        135deg,
+        #fce7f3,
+        #ede9fe
+    );
+
+    display:grid;
+
+    place-items:center;
+
+    font-weight:800;
+
+    color:#7c3aed;
+
+}
+
+.student-name{
+
+    font-weight:800;
+
+    font-size:12px;
+
+}
+
+.student-father{
+
+    color:#aaa;
+
+    font-size:9px;
+
+    margin-top:2px;
+
+}
+
+
+/* BADGES */
+
+.badge{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    padding:5px 9px;
+
+    border-radius:8px;
+
+    font-size:9px;
+
+    font-weight:800;
+
+}
+
+.badge.paid{
+
+    background:#ecfdf5;
+
+    color:#15803d;
+
+}
+
+.badge.partial{
+
+    background:#fff7ed;
+
+    color:#c2410c;
+
+}
+
+.badge.pending{
+
+    background:#fff1f2;
+
+    color:#be123c;
+
+}
+
+
+/* FEE */
+
+.fee{
+
+    font-weight:800;
+
+    color:#7c3aed;
+
+}
+
+.paid-money{
+
+    font-weight:800;
+
+    color:#15803d;
+
+}
+
+.pending-money{
+
+    font-weight:800;
+
+    color:#dc2626;
+
+}
+
+
+/* ACTION */
+
+.collect-btn{
+
+    border:0;
+
+    border-radius:9px;
+
+    padding:8px 11px;
+
+    background:linear-gradient(
+        135deg,
+        var(--pink),
+        var(--purple)
+    );
+
+    color:white;
+
+    font-size:10px;
+
+    font-weight:800;
+
+}
+
+.view-btn{
+
+    border:0;
+
+    border-radius:9px;
+
+    padding:8px 11px;
+
+    background:#f3f4f6;
+
+    color:#374151;
+
+    font-size:10px;
+
+    font-weight:800;
+
+}
+
+.action-group{
+
+    display:flex;
+
+    gap:6px;
+
+}
+
+
+/* EMPTY */
+
+.empty{
+
+    text-align:center;
+
+    padding:50px 15px;
+
+    color:#aaa;
+
+    font-size:12px;
+
+}
+
+.empty-icon{
+
+    font-size:35px;
+
+    margin-bottom:8px;
+
+}
+
+
+/* MODAL */
+
+.modal{
+
+    position:fixed;
+
+    inset:0;
+
+    z-index:1000;
+
+    display:none;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:18px;
+
+    background:rgba(15,23,42,.50);
+
+    backdrop-filter:blur(7px);
+
+}
+
+.modal.show{
+
+    display:flex;
+
+}
+
+.modal-box{
+
+    width:min(560px,100%);
+
+    max-height:92vh;
+
+    overflow:auto;
+
+    background:white;
+
+    border-radius:24px;
+
+    padding:24px;
+
+    box-shadow:0 25px 80px rgba(0,0,0,.23);
+
+}
+
+.modal-head{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:flex-start;
+
+    margin-bottom:20px;
+
+}
+
+.modal-head h3{
+
+    font:
+    700 21px
+    "Playfair Display",
+    serif;
+
+}
+
+.modal-head p{
+
+    color:#999;
+
+    font-size:10px;
+
+    margin-top:4px;
+
+}
+
+.close{
+
+    width:35px;
+
+    height:35px;
+
+    border:0;
+
+    border-radius:10px;
+
+    background:#f4f4f5;
+
+    color:#555;
+
+    font-size:19px;
+
+}
+
+.form-grid{
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:13px;
+
+}
+
+.form-group.full{
+
+    grid-column:1/-1;
+
+}
+
+.form-group label{
+
+    display:block;
+
+    font-size:9px;
+
+    font-weight:800;
+
+    color:#666;
+
+    text-transform:uppercase;
+
+    letter-spacing:.6px;
+
+    margin-bottom:6px;
+
+}
+
+.form-group input,
+.form-group select{
+
+    width:100%;
+
+    border:1px solid #e5e7eb;
+
+    outline:none;
+
+    border-radius:12px;
+
+    padding:12px 13px;
+
+    background:#fafafa;
+
+    font-size:12px;
+
+}
+
+.form-group input:focus,
+.form-group select:focus{
+
+    border-color:#c084fc;
+
+    background:white;
+
+    box-shadow:
+    0 0 0 3px rgba(168,85,247,.08);
+
+}
+
+.info-box{
+
+    grid-column:1/-1;
+
+    background:#faf5ff;
+
+    border:1px solid #ede9fe;
+
+    border-radius:12px;
+
+    padding:12px;
+
+}
+
+.info-row{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    margin:4px 0;
+
+    font-size:11px;
+
+}
+
+.info-row strong{
+
+    color:#7c3aed;
+
+}
+
+.modal-actions{
+
+    display:flex;
+
+    gap:10px;
+
+    margin-top:21px;
+
+}
+
+.modal-actions button{
+
+    flex:1;
+
+    border:0;
+
+    border-radius:12px;
+
+    padding:12px;
+
+    font-weight:800;
+
+}
+
+.cancel{
+
+    background:#f4f4f5;
+
+    color:#555;
+
+}
+
+.save{
+
+    background:linear-gradient(
+        135deg,
+        var(--pink),
+        var(--purple)
+    );
+
+    color:white;
+
+}
+
+.save:disabled{
+
+    opacity:.6;
+
+}
+
+
+/* TOAST */
+
+.toast{
+
+    position:fixed;
+
+    right:22px;
+
+    bottom:22px;
+
+    z-index:2000;
+
+    background:#18181b;
+
+    color:white;
+
+    padding:13px 17px;
+
+    border-radius:12px;
+
+    font-size:11px;
+
+    font-weight:700;
+
+    box-shadow:0 15px 40px rgba(0,0,0,.20);
+
+    transform:translateY(20px);
+
+    opacity:0;
+
+    pointer-events:none;
+
+    transition:.25s;
+
+}
+
+.toast.show{
+
+    transform:translateY(0);
+
+    opacity:1;
+
+}
+
+
+/* LOADING */
+
+.loading{
+
+    position:fixed;
+
+    inset:0;
+
+    z-index:3000;
+
+    background:rgba(247,247,251,.97);
+
+    display:grid;
+
+    place-items:center;
+
+}
+
+.loader{
+
+    text-align:center;
+
+}
+
+.loader-logo{
+
+    width:58px;
+
+    height:58px;
+
+    border-radius:18px;
+
+    display:grid;
+
+    place-items:center;
+
+    margin:auto;
+
+    color:white;
+
+    font-weight:800;
+
+    background:linear-gradient(
+        135deg,
+        var(--pink),
+        var(--purple)
+    );
+
+}
+
+.spinner{
+
+    width:27px;
+
+    height:27px;
+
+    border:3px solid #eee;
+
+    border-top-color:var(--pink);
+
+    border-radius:50%;
+
+    animation:spin .8s linear infinite;
+
+    margin:15px auto 0;
+
+}
+
+@keyframes spin{
+
+    to{
+        transform:rotate(360deg);
+    }
+
+}
+
+.loader p{
+
+    font-size:11px;
+
+    color:#777;
+
+    margin-top:10px;
+
+}
+
+
+/* RESPONSIVE */
+
+@media(max-width:900px){
+
+    .stats{
+
+        grid-template-columns:1fr 1fr;
+
+    }
+
+}
+
+@media(max-width:600px){
+
+    .header{
+
+        padding:12px 14px;
+
+    }
+
+    .brand h1{
+
+        font-size:17px;
+
+    }
+
+    .brand small{
+
+        font-size:8px;
+
+    }
+
+    .header-actions .refresh-btn{
+
+        display:none;
+
+    }
+
+    .btn{
+
+        padding:8px 10px;
+
+        font-size:10px;
+
+    }
+
+    .container{
+
+        padding:20px 13px 35px;
+
+    }
+
+    .hero{
+
+        display:block;
+
+    }
+
+    .hero-left{
+
+        margin-bottom:15px;
+
+    }
+
+    .hero h2{
+
+        font-size:28px;
+
+    }
+
+    .month-box{
+
+        width:100%;
+
+    }
+
+    .month-box select{
+
+        width:100%;
+
+    }
+
+    .stats{
+
+        grid-template-columns:1fr 1fr;
+
+        gap:9px;
+
+    }
+
+    .stat{
+
+        padding:14px;
+
+    }
+
+    .stat-value{
+
+        font-size:19px;
+
+    }
+
+    .panel{
+
+        padding:15px;
+
+    }
+
+    .panel-head{
+
+        display:block;
+
+    }
+
+    .search{
+
+        width:100%;
+
+        margin-top:12px;
+
+    }
+
+    .form-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .form-group.full,
+    .info-box{
+
+        grid-column:auto;
+
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- LOADING -->
+
+<div class="loading" id="loading">
+
+    <div class="loader">
+
+        <div class="loader-logo">
+            LB
+        </div>
+
+        <div class="spinner"></div>
+
+        <p>
+            Loading Dance Fees...
+        </p>
+
+    </div>
+
+</div>
+
+
+<!-- HEADER -->
+
+<header class="header">
+
+    <div class="brand">
+
+        <div class="logo">
+            LB
+        </div>
+
+        <div>
+
+            <h1>
+                Little Blossoms
+            </h1>
+
+            <small>
+                Dance Fee Management
+            </small>
+
+        </div>
+
+    </div>
+
+
+    <div class="header-actions">
+
+        <button
+            class="btn back-btn"
+            onclick="goDanceStudents()">
+
+            ← Dance Students
+
+        </button>
+
+
+        <button
+            class="btn refresh-btn"
+            onclick="loadData()">
+
+            ↻ Refresh
+
+        </button>
+
+
+        <button
+            class="btn logout-btn"
+            onclick="logout()">
+
+            Logout
+
+        </button>
+
+    </div>
+
+</header>
+
+
+<main class="container">
+
+
+    <!-- HERO -->
+
+    <section class="hero">
+
+        <div class="hero-left">
+
+            <div class="hero-icon">
+                💰
+            </div>
+
+            <div>
+
+                <h2>
+                    Dance Fee Collection
+                </h2>
+
+                <p>
+                    Monthly fee collection for Dance Classes.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="month-box">
+
+            <select id="monthSelect"></select>
+
+            <select id="yearSelect"></select>
+
+        </div>
+
+    </section>
+
+
+    <!-- STATS -->
+
+    <section class="stats">
+
+
+        <div class="stat students">
+
+            <div class="stat-label">
+                Active Students
+            </div>
+
+            <div
+                class="stat-value"
+                id="totalStudents">
+
+                0
+
+            </div>
+
+            <div class="stat-sub">
+                Dance students
+            </div>
+
+        </div>
+
+
+        <div class="stat expected">
+
+            <div class="stat-label">
+                Expected
+            </div>
+
+            <div
+                class="stat-value"
+                id="expectedAmount">
+
+                ₹0
+
+            </div>
+
+            <div class="stat-sub">
+                Monthly fees
+            </div>
+
+        </div>
+
+
+        <div class="stat collected">
+
+            <div class="stat-label">
+                Collected
+            </div>
+
+            <div
+                class="stat-value"
+                id="collectedAmount">
+
+                ₹0
+
+            </div>
+
+            <div class="stat-sub">
+                Fees received
+            </div>
+
+        </div>
+
+
+        <div class="stat pending">
+
+            <div class="stat-label">
+                Pending
+            </div>
+
+            <div
+                class="stat-value"
+                id="pendingAmount">
+
+                ₹0
+
+            </div>
+
+            <div class="stat-sub">
+                Remaining amount
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- TABLE -->
+
+    <section class="panel">
+
+
+        <div class="panel-head">
+
+            <div class="panel-title">
+
+                <h3>
+                    Monthly Dance Fees
+                </h3>
+
+                <p>
+                    Collect and manage student fees month-wise.
+                </p>
+
+            </div>
+
+
+            <input
+                class="search"
+                id="searchInput"
+                type="search"
+                placeholder="Search student, father name or mobile...">
+
+        </div>
+
+
+        <div class="table-wrap">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            Student
+                        </th>
+
+                        <th>
+                            Batch
+                        </th>
+
+                        <th>
+                            Monthly Fee
+                        </th>
+
+                        <th>
+                            Paid
+                        </th>
+
+                        <th>
+                            Balance
+                        </th>
+
+                        <th>
+                            Status
+                        </th>
+
+                        <th>
+                            Payment Date
+                        </th>
+
+                        <th>
+                            Actions
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody id="feeTable"></tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<!-- PAYMENT MODAL -->
+
+<div
+    class="modal"
+    id="feeModal">
+
+    <div class="modal-box">
+
+
+        <div class="modal-head">
+
+            <div>
+
+                <h3 id="modalTitle">
+                    Collect Dance Fee
+                </h3>
+
+                <p>
+                    Record monthly dance class payment.
+                </p>
+
+            </div>
+
+
+            <button
+                class="close"
+                onclick="closeModal()">
+
+                ×
+
+            </button>
+
+        </div>
+
+
+        <input
+            type="hidden"
+            id="paymentId">
+
+
+        <input
+            type="hidden"
+            id="paymentStudentId">
+
+
+        <div class="form-grid">
+
+
+            <div class="info-box">
+
+                <div class="info-row">
+
+                    <span>
+                        Student
+                    </span>
+
+                    <strong id="infoStudent">
+                        -
+                    </strong>
+
+                </div>
+
+
+                <div class="info-row">
+
+                    <span>
+                        Month
+                    </span>
+
+                    <strong id="infoMonth">
+                        -
+                    </strong>
+
+                </div>
+
+
+                <div class="info-row">
+
+                    <span>
+                        Monthly Fee
+                    </span>
+
+                    <strong id="infoFee">
+                        ₹0
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Amount Paid *
+                </label>
+
+                <input
+                    type="number"
+                    id="amountPaid"
+                    min="0"
+                    step="1"
+                    placeholder="Enter amount">
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Payment Date
+                </label>
+
+                <input
+                    type="date"
+                    id="paymentDate">
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Payment Mode
+                </label>
+
+                <select id="paymentMode">
+
+                    <option value="Cash">
+                        Cash
+                    </option>
+
+                    <option value="UPI">
+                        UPI
+                    </option>
+
+                    <option value="Bank">
+                        Bank Transfer
+                    </option>
+
+                    <option value="Other">
+                        Other
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Status
+                </label>
+
+                <select id="paymentStatus">
+
+                    <option value="Paid">
+                        Paid
+                    </option>
+
+                    <option value="Partial">
+                        Partial
+                    </option>
+
+                    <option value="Pending">
+                        Pending
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group full">
+
+                <label>
+                    Remark
+                </label>
+
+                <input
+                    type="text"
+                    id="remark"
+                    placeholder="Optional remark">
+
+            </div>
+
+
+        </div>
+
+
+        <div class="modal-actions">
+
+            <button
+                class="cancel"
+                onclick="closeModal()">
+
+                Cancel
+
+            </button>
+
+
+            <button
+                class="save"
+                id="saveBtn"
+                onclick="savePayment()">
+
+                Save Payment
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- TOAST -->
+
+<div
+    class="toast"
+    id="toast">
+
+    Saved successfully.
+
+</div>
+
+
+<script>
+
+/* =========================================================
+   SUPABASE
+========================================================= */
+
+const SUPABASE_URL =
+"https://holelzxzhaiefaqezmce.supabase.co";
+
+const SUPABASE_KEY =
+"sb_publishable_KoCQClKL582rggMuDJXhYQ_UhHOB4xZ";
+
+const db =
+supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+);
+
+
+/* =========================================================
+   VARIABLES
+========================================================= */
+
+const $ =
+id =>
+document.getElementById(id);
+
+let students = [];
+
+let payments = [];
+
+let currentMonth =
+new Date().getMonth() + 1;
+
+let currentYear =
+new Date().getFullYear();
+
+
+/* =========================================================
+   HELPERS
+========================================================= */
+
+function money(value){
+
+    return "₹" +
+    Number(value || 0)
+    .toLocaleString(
+        "en-IN",
+        {
+            maximumFractionDigits:2
+        }
+    );
+
+}
+
+
+function today(){
+
+    const d =
+    new Date();
+
+    return (
+        d.getFullYear()
+        +
+        "-"
+        +
+        String(
+            d.getMonth()+1
+        ).padStart(2,"0")
+        +
+        "-"
+        +
+        String(
+            d.getDate()
+        ).padStart(2,"0")
+    );
+
+}
+
+
+function escapeHTML(value){
+
+    return String(
+        value ?? ""
+    )
+    .replace(
+        /[&<>"']/g,
+        function(m){
+
+            return {
+
+                "&":"&amp;",
+                "<":"&lt;",
+                ">":"&gt;",
+                '"':"&quot;",
+                "'":"&#039;"
+
+            }[m];
+
+        }
+    );
+
+}
+
+
+function formatDate(value){
+
+    if(!value)
+        return "-";
+
+    const d =
+    new Date(value);
+
+    if(isNaN(d))
+        return value;
+
+    return d.toLocaleDateString(
+        "en-IN"
+    );
+
+}
+
+
+function getMonthName(month){
+
+    return new Date(
+        2000,
+        month - 1,
+        1
+    ).toLocaleString(
+        "en-IN",
+        {
+            month:"long"
+        }
+    );
+
+}
+
+
+/* =========================================================
+   MONTH / YEAR
+========================================================= */
+
+function setupMonthYear(){
+
+    const month =
+    $("monthSelect");
+
+    month.innerHTML = "";
+
+    for(
+        let i = 1;
+        i <= 12;
+        i++
+    ){
+
+        const option =
+        document.createElement(
+            "option"
+        );
+
+        option.value =
+        i;
+
+        option.textContent =
+        getMonthName(i);
+
+        if(i === currentMonth)
+            option.selected = true;
+
+        month.appendChild(
+            option
+        );
+
+    }
+
+
+    const year =
+    $("yearSelect");
+
+    year.innerHTML = "";
+
+    for(
+        let y = currentYear - 2;
+        y <= currentYear + 2;
+        y++
+    ){
+
+        const option =
+        document.createElement(
+            "option"
+        );
+
+        option.value =
+        y;
+
+        option.textContent =
+        y;
+
+        if(y === currentYear)
+            option.selected = true;
+
+        year.appendChild(
+            option
+        );
+
+    }
+
+}
+
+
+$("monthSelect")
+.addEventListener(
+    "change",
+    async function(){
+
+        currentMonth =
+        Number(this.value);
+
+        await loadPayments();
+
+    }
+);
+
+
+$("yearSelect")
+.addEventListener(
+    "change",
+    async function(){
+
+        currentYear =
+        Number(this.value);
+
+        await loadPayments();
+
+    }
+);
+
+
+/* =========================================================
+   SESSION
+========================================================= */
+
+async function checkSession(){
+
+    const {
+        data,
+        error
+    } =
+    await db.auth.getSession();
+
+
+    if(
+        error ||
+        !data.session
+    ){
+
+        location.replace(
+            "login.html"
+        );
+
+        return false;
+
+    }
+
+    return true;
+
+}
+
+
+/* =========================================================
+   LOAD STUDENTS
+========================================================= */
+
+async function loadStudents(){
+
+    const {
+        data,
+        error
+    } =
+    await db
+    .from(
+        "dance_students"
+    )
+    .select("*")
+    .order(
+        "name",
+        {
+            ascending:true
+        }
+    );
+
+
+    if(error)
+        throw error;
+
+
+    students =
+    (data || [])
+    .filter(
+        student =>
+        String(
+            student.status ||
+            "Active"
+        ).toLowerCase()
+        ===
+        "active"
+    );
+
+}
+
+
+/* =========================================================
+   LOAD PAYMENTS
+========================================================= */
+
+async function loadPayments(){
+
+    const {
+        data,
+        error
+    } =
+    await db
+    .from(
+        "dance_fee_collections"
+    )
+    .select("*")
+    .eq(
+        "fee_month",
+        currentMonth
+    )
+    .eq(
+        "fee_year",
+        currentYear
+    );
+
+
+    if(error)
+        throw error;
+
+
+    payments =
+    data || [];
+
+
+    renderTable();
+
+    updateStats();
+
+}
+
+
+/* =========================================================
+   GET PAYMENT
+========================================================= */
+
+function getPayment(studentId){
+
+    return payments.find(
+        payment =>
+        String(
+            payment.student_id
+        )
+        ===
+        String(studentId)
+    );
+
+}
+
+
+/* =========================================================
+   STATS
+========================================================= */
+
+function updateStats(){
+
+    const expected =
+    students.reduce(
+        (
+            total,
+            student
+        ) => {
+
+            return total +
+            Number(
+                student.monthly_fee || 0
+            );
+
+        },
+        0
+    );
+
+
+    const collected =
+    payments.reduce(
+        (
+            total,
+            payment
+        ) => {
+
+            return total +
+            Number(
+                payment.amount_paid || 0
+            );
+
+        },
+        0
+    );
+
+
+    const pending =
+    Math.max(
+        expected - collected,
+        0
+    );
+
+
+    $("totalStudents")
+    .textContent =
+    students.length;
+
+
+    $("expectedAmount")
+    .textContent =
+    money(expected);
+
+
+    $("collectedAmount")
+    .textContent =
+    money(collected);
+
+
+    $("pendingAmount")
+    .textContent =
+    money(pending);
+
+}
+
+
+/* =========================================================
+   RENDER TABLE
+========================================================= */
+
+function renderTable(){
+
+    const tbody =
+    $("feeTable");
+
+
+    const query =
+    $("searchInput")
+    .value
+    .trim()
+    .toLowerCase();
+
+
+    let list =
+    students;
+
+
+    if(query){
+
+        list =
+        students.filter(
+            student => {
+
+                return (
+
+                    String(
+                        student.name || ""
+                    )
+                    .toLowerCase()
+                    .includes(query)
+
+                    ||
+
+                    String(
+                        student.father_name || ""
+                    )
+                    .toLowerCase()
+                    .includes(query)
+
+                    ||
+
+                    String(
+                        student.mobile || ""
+                    )
+                    .toLowerCase()
+                    .includes(query)
+
+                    ||
+
+                    String(
+                        student.batch || ""
+                    )
+                    .toLowerCase()
+                    .includes(query)
+
+                );
+
+            }
+        );
+
+    }
+
+
+    if(!list.length){
+
+        tbody.innerHTML = `
+
+            <tr>
+
+                <td colspan="8">
+
+                    <div class="empty">
+
+                        <div class="empty-icon">
+                            💃
+                        </div>
+
+                        No active dance students found.
+
+                    </div>
+
+                </td>
+
+            </tr>
+
+        `;
+
+        return;
+
+    }
+
+
+    tbody.innerHTML =
+    list.map(
+        student => {
+
+            const payment =
+            getPayment(
+                student.id
+            );
+
+
+            const monthlyFee =
+            Number(
+                student.monthly_fee || 0
+            );
+
+
+            const paid =
+            payment
+            ?
+            Number(
+                payment.amount_paid || 0
+            )
+            :
+            0;
+
+
+            const balance =
+            Math.max(
+                monthlyFee - paid,
+                0
+            );
+
+
+            let status =
+            "Pending";
+
+
+            if(
+                paid >= monthlyFee &&
+                monthlyFee > 0
+            ){
+
+                status =
+                "Paid";
+
+            }
+            else if(
+                paid > 0
+            ){
+
+                status =
+                "Partial";
+
+            }
+
+
+            const initial =
+            String(
+                student.name || "S"
+            )
+            .trim()
+            .charAt(0)
+            .toUpperCase();
+
+
+            return `
+
+            <tr>
+
+                <td>
+
+                    <div class="student-cell">
+
+                        <div class="avatar">
+
+                            ${escapeHTML(initial)}
+
+                        </div>
+
+                        <div>
+
+                            <div class="student-name">
+
+                                ${escapeHTML(
+                                    student.name
+                                )}
+
+                            </div>
+
+                            <div class="student-father">
+
+                                ${
+                                    student.father_name
+                                    ?
+                                    "Father: " +
+                                    escapeHTML(
+                                        student.father_name
+                                    )
+                                    :
+                                    escapeHTML(
+                                        student.mobile || ""
+                                    )
+                                }
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </td>
+
+
+                <td>
+
+                    ${
+                        student.batch
+                        ?
+                        escapeHTML(
+                            student.batch
+                        )
+                        :
+                        "-"
+                    }
+
+                </td>
+
+
+                <td>
+
+                    <span class="fee">
+
+                        ${money(monthlyFee)}
+
+                    </span>
+
+                </td>
+
+
+                <td>
+
+                    <span class="paid-money">
+
+                        ${money(paid)}
+
+                    </span>
+
+                </td>
+
+
+                <td>
+
+                    <span class="${
+                        balance > 0
+                        ?
+                        "pending-money"
+                        :
+                        "paid-money"
+                    }">
+
+                        ${money(balance)}
+
+                    </span>
+
+                </td>
+
+
+                <td>
+
+                    <span class="badge ${
+                        status === "Paid"
+                        ?
+                        "paid"
+                        :
+                        status === "Partial"
+                        ?
+                        "partial"
+                        :
+                        "pending"
+                    }">
+
+                        ${
+                            status === "Paid"
+                            ?
+                            "● Paid"
+                            :
+                            status === "Partial"
+                            ?
+                            "● Partial"
+                            :
+                            "● Pending"
+                        }
+
+                    </span>
+
+                </td>
+
+
+                <td>
+
+                    ${
+                        payment
+                        ?
+                        formatDate(
+                            payment.payment_date
+                        )
+                        :
+                        "-"
+                    }
+
+                </td>
+
+
+                <td>
+
+                    <div class="action-group">
+
+                        <button
+                            class="collect-btn"
+                            onclick="openPaymentModal(
+                                '${student.id}'
+                            )">
+
+                            ${
+                                payment
+                                ?
+                                "Edit Fee"
+                                :
+                                "Collect"
+                            }
+
+                        </button>
+
+
+                        ${
+                            payment
+                            ?
+                            `
+                            <button
+                                class="view-btn"
+                                onclick="deletePayment(
+                                    '${payment.id}'
+                                )">
+
+                                Delete
+
+                            </button>
+                            `
+                            :
+                            ""
+                        }
+
+                    </div>
+
+                </td>
+
+            </tr>
+
+            `;
+
+        }
+    )
+    .join("");
+
+}
+
+
+/* =========================================================
+   SEARCH
+========================================================= */
+
+$("searchInput")
+.addEventListener(
+    "input",
+    renderTable
+);
+
+
+/* =========================================================
+   OPEN PAYMENT MODAL
+========================================================= */
+
+function openPaymentModal(studentId){
+
+    const student =
+    students.find(
+        item =>
+        String(item.id)
+        ===
+        String(studentId)
+    );
+
+
+    if(!student)
+        return;
+
+
+    const payment =
+    getPayment(studentId);
+
+
+    $("paymentId")
+    .value =
+    payment
+    ?
+    payment.id
+    :
+    "";
+
+
+    $("paymentStudentId")
+    .value =
+    student.id;
+
+
+    $("infoStudent")
+    .textContent =
+    student.name;
+
+
+    $("infoMonth")
+    .textContent =
+    getMonthName(
+        currentMonth
+    )
+    +
+    " " +
+    currentYear;
+
+
+    $("infoFee")
+    .textContent =
+    money(
+        student.monthly_fee
+    );
+
+
+    $("amountPaid")
+    .value =
+    payment
+    ?
+    payment.amount_paid
+    :
+    student.monthly_fee || "";
+
+
+    $("paymentDate")
+    .value =
+    payment
+    ?
+    payment.payment_date || today()
+    :
+    today();
+
+
+    $("paymentMode")
+    .value =
+    payment
+    ?
+    payment.payment_mode || "Cash"
+    :
+    "Cash";
+
+
+    $("paymentStatus")
+    .value =
+    payment
+    ?
+    payment.status || "Paid"
+    :
+    "Paid";
+
+
+    $("remark")
+    .value =
+    payment
+    ?
+    payment.remark || ""
+    :
+    "";
+
+
+    $("modalTitle")
+    .textContent =
+    payment
+    ?
+    "Edit Dance Fee"
+    :
+    "Collect Dance Fee";
+
+
+    $("saveBtn")
+    .textContent =
+    payment
+    ?
+    "Update Payment"
+    :
+    "Save Payment";
+
+
+    $("feeModal")
+    .classList.add(
+        "show"
+    );
+
+
+    setTimeout(
+        () =>
+        $("amountPaid").focus(),
+        100
+    );
+
+}
+
+
+/* =========================================================
+   CLOSE MODAL
+========================================================= */
+
+function closeModal(){
+
+    $("feeModal")
+    .classList.remove(
+        "show"
+    );
+
+}
+
+
+/* =========================================================
+   SAVE PAYMENT
+========================================================= */
+
+async function savePayment(){
+
+    const paymentId =
+    $("paymentId").value;
+
+
+    const studentId =
+    $("paymentStudentId").value;
+
+
+    const student =
+    students.find(
+        item =>
+        String(item.id)
+        ===
+        String(studentId)
+    );
+
+
+    if(!student)
+        return;
+
+
+    const monthlyFee =
+    Number(
+        student.monthly_fee || 0
+    );
+
+
+    const amountPaid =
+    Number(
+        $("amountPaid")
+        .value || 0
+    );
+
+
+    const paymentDate =
+    $("paymentDate").value;
+
+
+    const paymentMode =
+    $("paymentMode").value;
+
+
+    let status =
+    $("paymentStatus").value;
+
+
+    const remark =
+    $("remark").value.trim();
+
+
+    if(amountPaid < 0){
+
+        alert(
+            "Amount cannot be negative."
+        );
+
+        return;
+
+    }
+
+
+    if(
+        amountPaid > 0 &&
+        amountPaid < monthlyFee
+    ){
+
+        status =
+        "Partial";
+
+    }
+    else if(
+        amountPaid >= monthlyFee &&
+        monthlyFee > 0
+    ){
+
+        status =
+        "Paid";
+
+    }
+    else if(
+        amountPaid === 0
+    ){
+
+        status =
+        "Pending";
+
+    }
+
+
+    const payload = {
+
+        student_id:
+        student.id,
+
+        student_name:
+        student.name,
+
+        fee_month:
+        currentMonth,
+
+        fee_year:
+        currentYear,
+
+        monthly_fee:
+        monthlyFee,
+
+        amount_paid:
+        amountPaid,
+
+        payment_date:
+        paymentDate || null,
+
+        payment_mode:
+        paymentMode,
+
+        status:
+        status,
+
+        remark:
+        remark || null
+
+    };
+
+
+    const button =
+    $("saveBtn");
+
+
+    button.disabled =
+    true;
+
+
+    button.textContent =
+    paymentId
+    ?
+    "Updating..."
+    :
+    "Saving...";
+
+
+    try{
+
+        let result;
+
+
+        if(paymentId){
+
+            result =
+            await db
+            .from(
+                "dance_fee_collections"
+            )
+            .update(
+                payload
+            )
+            .eq(
+                "id",
+                paymentId
+            );
+
+        }
+        else{
+
+            result =
+            await db
+            .from(
+                "dance_fee_collections"
+            )
+            .insert(
+                payload
+            );
+
+        }
+
+
+        if(result.error)
+            throw result.error;
+
+
+        closeModal();
+
+
+        showToast(
+            paymentId
+            ?
+            "Dance fee updated successfully."
+            :
+            "Dance fee collected successfully."
+        );
+
+
+        await loadPayments();
+
+    }
+    catch(error){
+
+        console.error(
+            "Save Dance Fee:",
+            error
+        );
+
+
+        alert(
+            "Unable to save fee.\n\n"
+            +
+            error.message
+        );
+
+    }
+    finally{
+
+        button.disabled =
+        false;
+
+        button.textContent =
+        paymentId
+        ?
+        "Update Payment"
+        :
+        "Save Payment";
+
+    }
+
+}
+
+
+/* =========================================================
+   DELETE PAYMENT
+========================================================= */
+
+async function deletePayment(id){
+
+    const yes =
+    confirm(
+        "Delete this dance fee payment?"
+    );
+
+
+    if(!yes)
+        return;
+
+
+    try{
+
+        const {
+            error
+        } =
+        await db
+        .from(
+            "dance_fee_collections"
+        )
+        .delete()
+        .eq(
+            "id",
+            id
+        );
+
+
+        if(error)
+            throw error;
+
+
+        showToast(
+            "Payment deleted."
+        );
+
+
+        await loadPayments();
+
+    }
+    catch(error){
+
+        console.error(
+            error
+        );
+
+
+        alert(
+            "Unable to delete payment.\n\n"
+            +
+            error.message
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+function goDanceStudents(){
+
+    location.href =
+    "dance-classes.html";
+
+}
+
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+let toastTimer;
+
+
+function showToast(message){
+
+    const toast =
+    $("toast");
+
+    toast.textContent =
+    message;
+
+    toast.classList.add(
+        "show"
+    );
+
+
+    clearTimeout(
+        toastTimer
+    );
+
+
+    toastTimer =
+    setTimeout(
+        () => {
+
+            toast.classList.remove(
+                "show"
+            );
+
+        },
+        2500
+    );
+
+}
+
+
+/* =========================================================
+   MODAL CLICK
+========================================================= */
+
+$("feeModal")
+.addEventListener(
+    "click",
+    function(event){
+
+        if(
+            event.target ===
+            $("feeModal")
+        ){
+
+            closeModal();
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   ESC
+========================================================= */
+
+document.addEventListener(
+    "keydown",
+    function(event){
+
+        if(
+            event.key === "Escape"
+        ){
+
+            closeModal();
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   LOGOUT
+========================================================= */
+
+async function logout(){
+
+    await db.auth.signOut();
+
+    location.replace(
+        "login.html"
+    );
+
+}
+
+
+/* =========================================================
+   AUTH
+========================================================= */
+
+db.auth.onAuthStateChange(
+    event => {
+
+        if(
+            event ===
+            "SIGNED_OUT"
+        ){
+
+            location.replace(
+                "login.html"
+            );
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   START
+========================================================= */
+
+(async function(){
+
+    try{
+
+        const loggedIn =
+        await checkSession();
+
+
+        if(!loggedIn)
+            return;
+
+
+        setupMonthYear();
+
+
+        await loadStudents();
+
+
+        await loadPayments();
+
+
+        $("loading")
+        .style.display =
+        "none";
+
+    }
+    catch(error){
+
+        console.error(
+            error
+        );
+
+
+        $("loading")
+        .style.display =
+        "none";
+
+
+        alert(
+            "Unable to load Dance Fee system.\n\n"
+            +
+            error.message
+        );
+
+    }
+
+})();
+
+</script>
+
+</body>
+</html>
