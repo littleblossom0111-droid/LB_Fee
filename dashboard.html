@@ -10,13 +10,29 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
 
 <style>
 
-/* =====================================================
-   GLOBAL
-===================================================== */
+:root{
+    --pink:#ec4899;
+    --purple:#8b5cf6;
+    --green:#16a34a;
+    --red:#ef4444;
+    --orange:#f59e0b;
+    --blue:#0ea5e9;
+
+    --bg:#f7f7fb;
+    --text:#18181b;
+    --muted:#71717a;
+    --border:#ececf2;
+
+    --card:#ffffff;
+
+    --shadow:
+    0 12px 35px rgba(24,18,40,.07);
+}
 
 *{
     box-sizing:border-box;
@@ -24,918 +40,939 @@
     padding:0;
 }
 
-:root{
-    --pink:#ec4899;
-    --pink-dark:#db2777;
-    --purple:#8b5cf6;
-    --orange:#fb923c;
-    --green:#16a34a;
-    --red:#ef4444;
-    --blue:#0ea5e9;
-
-    --bg:#f7f7fb;
-    --card:#ffffff;
-    --text:#18181b;
-    --muted:#71717a;
-    --border:#ececf2;
-
-    --shadow:0 10px 35px rgba(25,20,40,.07);
-}
-
 body{
+    font-family:"DM Sans",Arial,sans-serif;
+
     background:
-        radial-gradient(
-            circle at 0% 0%,
-            rgba(236,72,153,.08),
-            transparent 30%
-        ),
-        var(--bg);
+    radial-gradient(
+        circle at 0 0,
+        rgba(236,72,153,.09),
+        transparent 28%
+    ),
+    radial-gradient(
+        circle at 100% 0,
+        rgba(139,92,246,.08),
+        transparent 24%
+    ),
+    var(--bg);
 
     color:var(--text);
-    font-family:"DM Sans",Arial,sans-serif;
     min-height:100vh;
 }
 
-
-/* =====================================================
-   LOADING
-===================================================== */
-
-#loading{
-    position:fixed;
-    inset:0;
-    background:#f7f7fb;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    z-index:99999;
+button,
+input{
+    font:inherit;
 }
 
-.loader-box{
-    background:white;
-    width:280px;
-    padding:32px 25px;
-    border-radius:24px;
-    text-align:center;
-    box-shadow:0 20px 60px rgba(0,0,0,.12);
-}
-
-.loader-logo{
-    width:60px;
-    height:60px;
-    margin:auto auto 18px;
-
-    border-radius:18px;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    background:linear-gradient(
-        135deg,
-        #ec4899,
-        #8b5cf6
-    );
-
-    color:white;
-    font-weight:700;
-    font-size:20px;
-
-    box-shadow:0 10px 25px rgba(236,72,153,.25);
-}
-
-.spinner{
-    width:30px;
-    height:30px;
-
-    border:3px solid #f0eaf0;
-    border-top-color:var(--pink);
-
-    border-radius:50%;
-
-    animation:spin .8s linear infinite;
-
-    margin:auto;
-}
-
-.loader-text{
-    margin-top:14px;
-    color:#71717a;
-    font-size:13px;
-}
-
-@keyframes spin{
-    to{
-        transform:rotate(360deg);
-    }
-}
-
-
-/* =====================================================
-   HEADER
-===================================================== */
+/* HEADER */
 
 .header{
+
     position:sticky;
     top:0;
-    z-index:100;
 
-    background:rgba(255,255,255,.88);
-    backdrop-filter:blur(18px);
-
-    border-bottom:1px solid rgba(0,0,0,.06);
-
-    padding:15px 28px;
-
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-
-    gap:20px;
-}
-
-.header-left{
-    display:flex;
-    align-items:center;
-    gap:13px;
-}
-
-.header-logo{
-    width:48px;
-    height:48px;
-
-    border-radius:16px;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    color:white;
-    font-size:14px;
-    font-weight:700;
+    z-index:50;
 
     background:
-        linear-gradient(
-            135deg,
-            #ec4899,
-            #8b5cf6
-        );
+    rgba(255,255,255,.92);
 
-    box-shadow:
-        0 8px 20px rgba(236,72,153,.25);
+    backdrop-filter:blur(18px);
+
+    border-bottom:
+    1px solid rgba(0,0,0,.06);
+
+    padding:
+    14px 26px;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    gap:16px;
 }
 
-.brand-name{
-    font-family:"Playfair Display",serif;
-    font-size:20px;
-    font-weight:700;
-}
-
-.brand-subtitle{
-    color:#888;
-    font-size:11px;
-    margin-top:2px;
-}
-
-.header-right{
+.brand{
     display:flex;
     align-items:center;
     gap:12px;
 }
 
-.admin-badge{
-    background:#faf5ff;
-    border:1px solid #eee4ff;
+.logo{
 
-    padding:8px 13px;
-    border-radius:12px;
-
-    color:#7c3aed;
-    font-size:12px;
-    font-weight:600;
-}
-
-.logout{
-    border:0;
-
-    background:#fff1f2;
-    color:#e11d48;
-
-    padding:10px 15px;
-
-    border-radius:11px;
-
-    cursor:pointer;
-
-    font-weight:600;
-
-    transition:.2s;
-}
-
-.logout:hover{
-    background:#ffe4e6;
-    transform:translateY(-1px);
-}
-
-
-/* =====================================================
-   MAIN
-===================================================== */
-
-.container{
-    max-width:1280px;
-    margin:auto;
-    padding:30px 25px 50px;
-}
-
-
-/* =====================================================
-   WELCOME
-===================================================== */
-
-.hero{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-
-    gap:20px;
-    margin-bottom:25px;
-}
-
-.hero-title{
-    font-family:"Playfair Display",serif;
-    font-size:32px;
-    letter-spacing:-.5px;
-}
-
-.hero-subtitle{
-    color:var(--muted);
-    margin-top:6px;
-    font-size:14px;
-}
-
-.month-box{
-    background:white;
-    border:1px solid var(--border);
-
-    padding:11px 15px;
+    width:46px;
+    height:46px;
 
     border-radius:15px;
 
-    box-shadow:0 5px 20px rgba(0,0,0,.04);
+    background:
+    linear-gradient(
+        135deg,
+        var(--pink),
+        var(--purple)
+    );
 
-    min-width:190px;
-}
+    color:white;
 
-.month-label{
-    display:block;
-    font-size:10px;
-    color:#999;
-    text-transform:uppercase;
-    letter-spacing:1px;
-    margin-bottom:4px;
-}
-
-.month-box input{
-    width:100%;
-    border:0;
-    outline:0;
-
-    background:transparent;
-
-    color:#27272a;
-
-    font-size:15px;
-    font-weight:600;
-}
-
-
-/* =====================================================
-   STAT CARDS
-===================================================== */
-
-.cards{
     display:grid;
-    grid-template-columns:
-        repeat(3,1fr);
 
-    gap:16px;
+    place-items:center;
+
+    font-weight:800;
+
+    box-shadow:
+    0 10px 25px
+    rgba(236,72,153,.25);
 }
 
-.card{
-    position:relative;
-    overflow:hidden;
+.brand h1{
+
+    font:
+    700 20px
+    "Playfair Display",
+    serif;
+}
+
+.brand small{
+
+    color:#888;
+
+    font-size:10px;
+}
+
+.header-actions{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+}
+
+.badge{
+
+    padding:
+    8px 12px;
+
+    border-radius:12px;
+
+    background:#faf5ff;
+
+    color:#7c3aed;
+
+    border:
+    1px solid #eee4ff;
+
+    font-size:11px;
+
+    font-weight:700;
+}
+
+.btn{
+
+    border:0;
+
+    border-radius:11px;
+
+    padding:
+    10px 14px;
+
+    cursor:pointer;
+
+    font-weight:700;
+}
+
+.logout{
+
+    background:#fff1f2;
+
+    color:#e11d48;
+}
+
+.refresh{
+
+    background:#f3f4f6;
+
+    color:#374151;
+}
+
+/* MAIN */
+
+.container{
+
+    max-width:1280px;
+
+    margin:auto;
+
+    padding:
+    28px 24px 50px;
+}
+
+/* HERO */
+
+.hero{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    gap:18px;
+
+    margin-bottom:22px;
+}
+
+.hero h2{
+
+    font:
+    700 34px
+    "Playfair Display",
+    serif;
+}
+
+.hero p{
+
+    color:var(--muted);
+
+    font-size:13px;
+
+    margin-top:5px;
+}
+
+.month{
 
     background:white;
 
-    border:1px solid rgba(0,0,0,.04);
+    border:
+    1px solid var(--border);
+
+    padding:
+    10px 14px;
+
+    border-radius:15px;
+
+    box-shadow:
+    0 5px 20px
+    rgba(0,0,0,.04);
+}
+
+.month label{
+
+    display:block;
+
+    font-size:9px;
+
+    color:#999;
+
+    text-transform:uppercase;
+
+    letter-spacing:1px;
+
+    margin-bottom:3px;
+}
+
+.month input{
+
+    border:0;
+
+    outline:0;
+
+    font-weight:700;
+
+    color:#333;
+
+    background:transparent;
+}
+
+/* STAT CARDS */
+
+.grid{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(3,1fr);
+
+    gap:15px;
+}
+
+.card{
+
+    background:
+    var(--card);
+
+    border:
+    1px solid rgba(0,0,0,.04);
 
     border-radius:20px;
 
-    padding:21px;
+    padding:19px;
 
-    min-height:135px;
+    min-height:130px;
 
     box-shadow:var(--shadow);
 
-    transition:
-        transform .25s,
-        box-shadow .25s;
+    position:relative;
+
+    overflow:hidden;
 }
 
-.card:hover{
-    transform:translateY(-4px);
+.card:after{
 
-    box-shadow:
-        0 18px 45px rgba(25,20,40,.10);
-}
-
-.card::after{
     content:"";
 
     position:absolute;
 
     width:90px;
+
     height:90px;
 
     right:-35px;
+
     bottom:-40px;
 
     border-radius:50%;
 
     background:currentColor;
 
-    opacity:.045;
+    opacity:.04;
 }
 
-.card-top{
+.topline{
+
     display:flex;
+
     justify-content:space-between;
-    align-items:flex-start;
-}
 
-.card-title{
-    color:#777;
-    font-size:12px;
-    font-weight:600;
-
-    text-transform:uppercase;
-    letter-spacing:.7px;
-}
-
-.card-icon{
-    width:42px;
-    height:42px;
-
-    border-radius:13px;
-
-    display:flex;
     align-items:center;
-    justify-content:center;
-
-    font-size:19px;
 }
 
-.card-value{
-    margin-top:15px;
-
-    font-size:27px;
-    font-weight:700;
-
-    letter-spacing:-.6px;
-}
-
-.card-footer{
-    margin-top:7px;
+.label{
 
     font-size:11px;
+
+    color:#777;
+
+    font-weight:700;
+
+    text-transform:uppercase;
+
+    letter-spacing:.6px;
+}
+
+.icon{
+
+    width:40px;
+
+    height:40px;
+
+    border-radius:12px;
+
+    display:grid;
+
+    place-items:center;
+
+    font-size:18px;
+
+    background:#f7f7fa;
+}
+
+.value{
+
+    font-size:26px;
+
+    font-weight:800;
+
+    margin-top:15px;
+
+    letter-spacing:-.5px;
+}
+
+.sub{
+
+    font-size:10px;
+
     color:#aaa;
+
+    margin-top:5px;
 }
 
-
-/* CARD COLORS */
-
-.card.students{
-    border-top:3px solid #8b5cf6;
+.students{
+    border-top:3px solid var(--purple);
 }
 
-.card.students .card-icon{
-    background:#f1edff;
+.fees{
+    border-top:3px solid var(--green);
 }
 
-.card.fees{
-    border-top:3px solid #16a34a;
+.registration{
+    border-top:3px solid var(--orange);
 }
 
-.card.fees .card-icon{
-    background:#eaf8ef;
+.expenses{
+    border-top:3px solid var(--red);
 }
 
-.card.registration{
-    border-top:3px solid #f59e0b;
-}
-
-.card.registration .card-icon{
-    background:#fff6df;
-}
-
-.card.expenses{
-    border-top:3px solid #ef4444;
-}
-
-.card.expenses .card-icon{
-    background:#ffeded;
-}
-
-.card.pending{
+.pending{
     border-top:3px solid #f97316;
 }
 
-.card.pending .card-icon{
-    background:#fff0e6;
+.balance{
+    border-top:3px solid var(--blue);
 }
 
-.card.balance{
-    border-top:3px solid #0ea5e9;
-}
-
-.card.balance .card-icon{
-    background:#e9f8ff;
-}
-
-
-/* =====================================================
-   SECTION TITLE
-===================================================== */
-
-.section-header{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-
-    margin:34px 0 15px;
-}
+/* SECTION */
 
 .section-title{
-    font-size:18px;
-    font-weight:700;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:end;
+
+    margin:
+    30px 0 13px;
 }
 
-.section-subtitle{
+.section-title h3{
+
+    font-size:17px;
+}
+
+.section-title span{
+
+    font-size:11px;
+
     color:#999;
-    font-size:12px;
 }
 
+/* QUICK */
 
-/* =====================================================
-   QUICK ACTIONS
-===================================================== */
+.quick{
 
-.quick-actions{
     display:grid;
 
     grid-template-columns:
-        repeat(4,1fr);
+    repeat(4,1fr);
 
-    gap:14px;
+    gap:12px;
 }
 
 .action{
-    position:relative;
 
     background:white;
 
-    border:1px solid var(--border);
+    border:
+    1px solid var(--border);
 
-    border-radius:18px;
+    border-radius:17px;
 
-    padding:17px;
+    padding:15px;
 
     text-align:left;
 
     cursor:pointer;
 
     box-shadow:
-        0 6px 22px rgba(0,0,0,.045);
+    0 6px 22px
+    rgba(0,0,0,.04);
 
-    transition:.25s;
+    transition:.2s;
 }
 
 .action:hover{
-    transform:translateY(-4px);
 
-    border-color:#f5c6dc;
+    transform:
+    translateY(-3px);
 
     box-shadow:
-        0 14px 35px rgba(236,72,153,.11);
+    0 14px 30px
+    rgba(236,72,153,.1);
 }
 
-.action-icon{
-    width:43px;
-    height:43px;
+.action b{
 
-    border-radius:13px;
+    display:block;
 
-    display:flex;
-    align-items:center;
-    justify-content:center;
+    font-size:13px;
+
+    margin-top:9px;
+}
+
+.action small{
+
+    color:#999;
+
+    font-size:10px;
+}
+
+.action .aicon{
+
+    width:38px;
+
+    height:38px;
+
+    border-radius:12px;
 
     background:#fff2f7;
 
-    font-size:20px;
+    display:grid;
 
-    margin-bottom:12px;
+    place-items:center;
+
+    font-size:18px;
 }
 
-.action strong{
-    display:block;
+/* BOTTOM */
 
-    font-size:14px;
-    font-weight:700;
+.bottom{
 
-    color:#27272a;
-
-    margin-bottom:4px;
-}
-
-.action span{
-    color:#999;
-    font-size:11px;
-}
-
-
-/* =====================================================
-   BOTTOM GRID
-===================================================== */
-
-.bottom-grid{
     display:grid;
 
     grid-template-columns:
-        .95fr 1.05fr;
+    .95fr 1.05fr;
 
-    gap:18px;
+    gap:16px;
 
-    margin-top:18px;
+    margin-top:16px;
 }
 
-
-/* =====================================================
-   PANEL
-===================================================== */
-
 .panel{
+
     background:white;
 
-    border:1px solid var(--border);
+    border:
+    1px solid var(--border);
 
     border-radius:20px;
 
-    padding:21px;
+    padding:20px;
 
     box-shadow:var(--shadow);
 }
 
-.panel-header{
+.panel-head{
+
     display:flex;
+
     justify-content:space-between;
+
     align-items:center;
 
-    margin-bottom:14px;
+    margin-bottom:12px;
 }
 
-.panel-title{
-    font-size:16px;
-    font-weight:700;
+.panel-head h3{
+
+    font-size:15px;
 }
 
-.panel-badge{
+.tag{
+
     font-size:10px;
 
-    padding:6px 9px;
+    padding:
+    6px 9px;
 
     border-radius:8px;
 
     background:#faf5ff;
-    color:#8b5cf6;
 
-    font-weight:600;
-}
+    color:#7c3aed;
 
-
-/* =====================================================
-   FINANCIAL ROW
-===================================================== */
-
-.financial-row{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-
-    padding:13px 0;
-
-    border-bottom:1px solid #f1f1f4;
-
-    font-size:13px;
-}
-
-.financial-row:last-child{
-    border-bottom:0;
-}
-
-.financial-label{
-    color:#777;
-}
-
-.financial-value{
-    font-weight:600;
-}
-
-.closing-row{
-    margin-top:5px;
-
-    padding:17px 13px;
-
-    border-radius:14px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #fff2f8,
-            #f5f1ff
-        );
-
-    border:0;
-}
-
-.closing-row .financial-label{
-    color:#555;
-    font-weight:600;
-}
-
-.closing-row .financial-value{
-    color:#c026d3;
-    font-size:19px;
-}
-
-
-/* =====================================================
-   TRANSACTIONS
-===================================================== */
-
-.transaction-list{
-    max-height:355px;
-    overflow-y:auto;
-    padding-right:3px;
-}
-
-.transaction-list::-webkit-scrollbar{
-    width:5px;
-}
-
-.transaction-list::-webkit-scrollbar-thumb{
-    background:#ddd;
-    border-radius:10px;
-}
-
-.transaction{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-
-    padding:12px 2px;
-
-    border-bottom:1px solid #f1f1f4;
-}
-
-.transaction:last-child{
-    border-bottom:0;
-}
-
-.transaction-left{
-    display:flex;
-    align-items:center;
-    gap:11px;
-}
-
-.transaction-icon{
-    width:38px;
-    height:38px;
-
-    border-radius:11px;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    background:#f7f7fa;
-
-    font-size:17px;
-}
-
-.transaction-name{
-    font-size:13px;
-    font-weight:600;
-}
-
-.transaction-date{
-    font-size:10px;
-    color:#aaa;
-    margin-top:3px;
-}
-
-.transaction-amount{
-    font-size:13px;
     font-weight:700;
 }
 
+/* FINANCIAL */
+
+.row{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:12px 0;
+
+    border-bottom:
+    1px solid #f1f1f4;
+
+    font-size:12px;
+}
+
+.row:last-child{
+    border-bottom:0;
+}
+
+.row span{
+    color:#777;
+}
+
+.row strong{
+    font-weight:700;
+}
+
+.closing{
+
+    margin-top:6px;
+
+    padding:
+    15px 12px;
+
+    border-radius:13px;
+
+    background:
+    linear-gradient(
+        135deg,
+        #fff2f8,
+        #f5f1ff
+    );
+
+    font-size:13px;
+}
+
+.closing strong{
+
+    font-size:18px;
+
+    color:#a21caf;
+}
+
+/* TRANSACTIONS */
+
+.transactions{
+
+    max-height:365px;
+
+    overflow:auto;
+}
+
+.tx{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:
+    11px 2px;
+
+    border-bottom:
+    1px solid #f1f1f4;
+}
+
+.tx:last-child{
+    border-bottom:0;
+}
+
+.txleft{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+}
+
+.txicon{
+
+    width:36px;
+
+    height:36px;
+
+    border-radius:11px;
+
+    background:#f7f7fa;
+
+    display:grid;
+
+    place-items:center;
+}
+
+.txname{
+
+    font-size:12px;
+
+    font-weight:700;
+}
+
+.txdate{
+
+    font-size:9px;
+
+    color:#aaa;
+
+    margin-top:3px;
+}
+
 .income{
-    color:#16a34a;
+    color:var(--green);
 }
 
 .outcome{
-    color:#ef4444;
+    color:var(--red);
 }
 
 .empty{
+
     text-align:center;
 
     color:#aaa;
 
-    padding:50px 10px;
+    padding:45px 10px;
 
-    font-size:13px;
+    font-size:12px;
 }
 
+/* STATUS */
 
-/* =====================================================
-   STATUS
-===================================================== */
+.status{
 
-.status-box{
     display:none;
 
-    margin-top:18px;
+    margin-top:15px;
+
+    padding:
+    11px 14px;
+
+    border-radius:12px;
 
     background:white;
 
-    border:1px solid #eee;
+    border:
+    1px solid var(--border);
 
-    border-radius:14px;
+    font-size:11px;
 
-    padding:13px 16px;
+    color:#666;
+}
+
+.status.show{
+    display:block;
+}
+
+/* LOADING */
+
+.loading{
+
+    position:fixed;
+
+    inset:0;
+
+    background:
+    rgba(247,247,251,.96);
+
+    z-index:999;
+
+    display:grid;
+
+    place-items:center;
+}
+
+.loader{
+
+    background:white;
+
+    border-radius:22px;
+
+    padding:
+    28px 34px;
+
+    text-align:center;
+
+    box-shadow:
+    0 20px 60px
+    rgba(0,0,0,.12);
+}
+
+.loader .logo{
+
+    margin:
+    auto auto 14px;
+}
+
+.spinner{
+
+    width:28px;
+
+    height:28px;
+
+    border:
+    3px solid #eee;
+
+    border-top-color:
+    var(--pink);
+
+    border-radius:50%;
+
+    animation:
+    spin .8s linear infinite;
+
+    margin:auto;
+}
+
+@keyframes spin{
+
+    to{
+        transform:rotate(360deg);
+    }
+}
+
+.loader p{
+
+    margin-top:10px;
 
     color:#777;
 
     font-size:12px;
 }
 
-.status-box.show{
-    display:block;
-}
-
-
-/* =====================================================
-   MOBILE
-===================================================== */
+/* TABLET */
 
 @media(max-width:950px){
 
-    .cards{
+    .grid{
         grid-template-columns:
-            repeat(2,1fr);
+        repeat(2,1fr);
     }
 
-    .quick-actions{
+    .quick{
         grid-template-columns:
-            repeat(2,1fr);
+        repeat(2,1fr);
     }
 
-    .bottom-grid{
+    .bottom{
         grid-template-columns:1fr;
     }
 }
 
+/* MOBILE */
 
 @media(max-width:600px){
 
     .header{
-        padding:13px 15px;
+
+        padding:
+        12px 14px;
     }
 
-    .header-logo{
-        width:42px;
-        height:42px;
-    }
-
-    .brand-name{
+    .brand h1{
         font-size:17px;
     }
 
-    .brand-subtitle{
-        font-size:9px;
+    .brand small{
+        font-size:8px;
     }
 
-    .admin-badge{
+    .badge{
         display:none;
     }
 
-    .logout{
-        padding:9px 11px;
+    .logout,
+    .refresh{
+
+        padding:
+        8px 10px;
+
         font-size:11px;
     }
 
     .container{
-        padding:22px 14px 35px;
+
+        padding:
+        20px 13px 35px;
     }
 
     .hero{
+
         display:block;
     }
 
-    .hero-title{
+    .hero h2{
         font-size:28px;
     }
 
-    .hero-subtitle{
-        font-size:12px;
-    }
+    .month{
 
-    .month-box{
-        margin-top:17px;
-        width:100%;
-    }
-
-    .cards{
-        gap:10px;
-    }
-
-    .card{
-        min-height:125px;
-        padding:15px;
-        border-radius:17px;
-    }
-
-    .card-title{
-        font-size:10px;
-    }
-
-    .card-value{
-        font-size:20px;
         margin-top:14px;
     }
 
-    .card-icon{
-        width:34px;
-        height:34px;
-        font-size:16px;
+    .grid{
+
+        gap:9px;
     }
 
-    .card-footer{
-        font-size:9px;
-    }
+    .card{
 
-    .quick-actions{
-        gap:10px;
-    }
+        padding:14px;
 
-    .action{
-        padding:14px 12px;
+        min-height:120px;
+
         border-radius:16px;
     }
 
-    .action-icon{
-        width:37px;
-        height:37px;
-        font-size:17px;
-    }
-
-    .action strong{
-        font-size:12px;
-    }
-
-    .action span{
+    .label{
         font-size:9px;
     }
 
-    .panel{
-        padding:16px;
-        border-radius:17px;
+    .value{
+
+        font-size:20px;
+
+        margin-top:12px;
     }
 
-    .financial-row{
-        font-size:12px;
+    .icon{
+
+        width:34px;
+
+        height:34px;
+
+        font-size:15px;
+    }
+
+    .quick{
+
+        gap:9px;
+    }
+
+    .action{
+
+        padding:
+        13px 11px;
+    }
+
+    .bottom{
+
+        margin-top:12px;
+    }
+
+    .panel{
+
+        padding:15px;
+
+        border-radius:17px;
     }
 }
 
+@media(max-width:390px){
 
-@media(max-width:380px){
+    .grid{
+        grid-template-columns:
+        1fr 1fr;
+    }
 
-    .card-value{
+    .value{
         font-size:18px;
     }
 
-    .hero-title{
+    .hero h2{
         font-size:25px;
     }
 }
@@ -945,65 +982,69 @@ body{
 
 <body>
 
+<!-- LOADING -->
 
-<!-- =====================================================
-     LOADING
-===================================================== -->
+<div class="loading" id="loading">
 
-<div id="loading">
+    <div class="loader">
 
-    <div class="loader-box">
-
-        <div class="loader-logo">
+        <div class="logo">
             LB
         </div>
 
         <div class="spinner"></div>
 
-        <div class="loader-text">
+        <p>
             Loading Little Blossoms...
-        </div>
+        </p>
 
     </div>
 
 </div>
 
 
-<!-- =====================================================
-     HEADER
-===================================================== -->
+<!-- HEADER -->
 
 <header class="header">
 
-    <div class="header-left">
+    <div class="brand">
 
-        <div class="header-logo">
+        <div class="logo">
             LB
         </div>
 
         <div>
 
-            <div class="brand-name">
+            <h1>
                 Little Blossoms
-            </div>
+            </h1>
 
-            <div class="brand-subtitle">
+            <small>
                 School Management System
-            </div>
+            </small>
 
         </div>
 
     </div>
 
 
-    <div class="header-right">
+    <div class="header-actions">
 
-        <div class="admin-badge">
+        <span class="badge">
             ✨ Administrator
-        </div>
+        </span>
 
         <button
-            class="logout"
+            class="btn refresh"
+            id="refreshBtn">
+
+            ↻ Refresh
+
+        </button>
+
+
+        <button
+            class="btn logout"
             id="logoutBtn">
 
             Logout
@@ -1015,9 +1056,7 @@ body{
 </header>
 
 
-<!-- =====================================================
-     MAIN
-===================================================== -->
+<!-- MAIN -->
 
 <main class="container">
 
@@ -1028,22 +1067,22 @@ body{
 
         <div>
 
-            <h1 class="hero-title">
+            <h2>
                 Dashboard
-            </h1>
+            </h2>
 
-            <p class="hero-subtitle">
-                Welcome back! Here's your school overview.
+            <p>
+                All school entries, collections and expenses in one place.
             </p>
 
         </div>
 
 
-        <div class="month-box">
+        <div class="month">
 
-            <span class="month-label">
+            <label>
                 Viewing Month
-            </span>
+            </label>
 
             <input
                 type="month"
@@ -1054,182 +1093,216 @@ body{
     </section>
 
 
-    <!-- =================================================
-         STAT CARDS
-    ================================================= -->
+    <!-- STAT CARDS -->
 
-    <section class="cards">
+    <section class="grid">
 
+
+        <!-- STUDENTS -->
 
         <div class="card students">
 
-            <div class="card-top">
+            <div class="topline">
 
-                <div class="card-title">
-                    Total Students
-                </div>
+                <span class="label">
+                    Active Students
+                </span>
 
-                <div class="card-icon">
+                <span class="icon">
                     👧
-                </div>
+                </span>
 
             </div>
 
+
             <div
-                class="card-value"
+                class="value"
                 id="studentCount">
 
                 0
 
             </div>
 
-            <div class="card-footer">
-                Active student records
+
+            <div class="sub">
+
+                Current active students
+
             </div>
 
         </div>
 
 
+        <!-- FEES -->
+
         <div class="card fees">
 
-            <div class="card-top">
+            <div class="topline">
 
-                <div class="card-title">
+                <span class="label">
                     Fees Received
-                </div>
+                </span>
 
-                <div class="card-icon">
+                <span class="icon">
                     💰
-                </div>
+                </span>
 
             </div>
 
+
             <div
-                class="card-value"
+                class="value"
                 id="feesReceived">
 
                 ₹0
 
             </div>
 
-            <div class="card-footer">
-                Selected month collection
+
+            <div class="sub">
+
+                Selected month
+
             </div>
 
         </div>
 
 
+        <!-- REGISTRATION -->
+
         <div class="card registration">
 
-            <div class="card-top">
+            <div class="topline">
 
-                <div class="card-title">
+                <span class="label">
                     Registration
-                </div>
+                </span>
 
-                <div class="card-icon">
+                <span class="icon">
                     📝
-                </div>
+                </span>
 
             </div>
 
+
             <div
-                class="card-value"
+                class="value"
                 id="registrationFees">
 
                 ₹0
 
             </div>
 
-            <div class="card-footer">
-                Registration collection
+
+            <div class="sub">
+
+                Selected month
+
             </div>
 
         </div>
 
 
+        <!-- EXPENSE -->
+
         <div class="card expenses">
 
-            <div class="card-top">
+            <div class="topline">
 
-                <div class="card-title">
+                <span class="label">
                     Expenses
-                </div>
+                </span>
 
-                <div class="card-icon">
+                <span class="icon">
                     💸
-                </div>
+                </span>
 
             </div>
 
+
             <div
-                class="card-value"
+                class="value"
                 id="expenses">
 
                 ₹0
 
             </div>
 
-            <div class="card-footer">
-                School expenses
+
+            <div class="sub">
+
+                Selected month
+
             </div>
 
         </div>
 
 
+        <!-- PENDING -->
+
         <div class="card pending">
 
-            <div class="card-top">
+            <div class="topline">
 
-                <div class="card-title">
+                <span class="label">
                     Pending Fees
-                </div>
+                </span>
 
-                <div class="card-icon">
+                <span class="icon">
                     ⏳
-                </div>
+                </span>
 
             </div>
 
+
             <div
-                class="card-value"
+                class="value"
                 id="pendingFees">
 
                 ₹0
 
             </div>
 
-            <div class="card-footer">
-                Outstanding amount
+
+            <div class="sub">
+
+                Outstanding up to selected month
+
             </div>
 
         </div>
 
 
+        <!-- BALANCE -->
+
         <div class="card balance">
 
-            <div class="card-top">
+            <div class="topline">
 
-                <div class="card-title">
-                    Current Balance
-                </div>
+                <span class="label">
+                    Closing Balance
+                </span>
 
-                <div class="card-icon">
+                <span class="icon">
                     🏦
-                </div>
+                </span>
 
             </div>
 
+
             <div
-                class="card-value"
+                class="value"
                 id="currentBalance">
 
                 ₹0
 
             </div>
 
-            <div class="card-footer">
-                Estimated closing balance
+
+            <div class="sub">
+
+                Opening + income − expenses
+
             </div>
 
         </div>
@@ -1237,224 +1310,185 @@ body{
     </section>
 
 
-    <!-- =================================================
-         QUICK ACTIONS
-    ================================================= -->
+    <!-- QUICK ACTION -->
 
-    <div class="section-header">
+    <div class="section-title">
 
         <div>
 
-            <div class="section-title">
+            <h3>
                 Quick Actions
-            </div>
+            </h3>
 
-            <div class="section-subtitle">
-                Manage your school from one place
-            </div>
+            <span>
+                Manage Little Blossoms from one place
+            </span>
 
         </div>
 
     </div>
 
 
-    <section class="quick-actions">
+    <section class="quick">
 
 
         <button
             class="action"
-            onclick="openPage('students.html')">
+            onclick="go('students.html')">
 
-            <div class="action-icon">
+            <div class="aicon">
                 👧
             </div>
 
-            <strong>
+            <b>
                 Students
-            </strong>
+            </b>
 
-            <span>
+            <small>
                 Add & manage students
-            </span>
+            </small>
 
         </button>
 
 
         <button
             class="action"
-            onclick="openPage('fees.html')">
+            onclick="go('fee.html')">
 
-            <div class="action-icon">
+            <div class="aicon">
                 💰
             </div>
 
-            <strong>
+            <b>
                 Fee Collection
-            </strong>
+            </b>
 
-            <span>
+            <small>
                 Collect & track fees
-            </span>
+            </small>
 
         </button>
 
 
         <button
             class="action"
-            onclick="openPage('registration.html')">
+            onclick="go('registration.html')">
 
-            <div class="action-icon">
+            <div class="aicon">
                 📝
             </div>
 
-            <strong>
+            <b>
                 Registration
-            </strong>
+            </b>
 
-            <span>
-                Registration records
-            </span>
+            <small>
+                Registration payments
+            </small>
 
         </button>
 
 
         <button
             class="action"
-            onclick="openPage('expenses.html')">
+            onclick="go('expenses.html')">
 
-            <div class="action-icon">
+            <div class="aicon">
                 💸
             </div>
 
-            <strong>
+            <b>
                 Expenses
-            </strong>
+            </b>
 
-            <span>
+            <small>
                 Manage expenses
-            </span>
+            </small>
 
         </button>
 
 
         <button
             class="action"
-            onclick="openPage('investment.html')">
+            onclick="go('monthly-summary.html')">
 
-            <div class="action-icon">
-                📈
-            </div>
-
-            <strong>
-                Investment
-            </strong>
-
-            <span>
-                Track investments
-            </span>
-
-        </button>
-
-
-        <button
-            class="action"
-            onclick="openPage('dance-classes.html')">
-
-            <div class="action-icon">
-                💃
-            </div>
-
-            <strong>
-                Dance Classes
-            </strong>
-
-            <span>
-                Manage dance classes
-            </span>
-
-        </button>
-
-
-        <button
-            class="action"
-            onclick="openPage('summary.html')">
-
-            <div class="action-icon">
+            <div class="aicon">
                 📊
             </div>
 
-            <strong>
+            <b>
                 Monthly Summary
-            </strong>
+            </b>
 
-            <span>
-                Complete financial summary
-            </span>
+            <small>
+                Complete month report
+            </small>
 
         </button>
 
 
         <button
             class="action"
-            onclick="openPage('settings.html')">
+            onclick="location.reload()">
 
-            <div class="action-icon">
-                ⚙️
+            <div class="aicon">
+                🔄
             </div>
 
-            <strong>
-                Settings
-            </strong>
+            <b>
+                Refresh Data
+            </b>
 
-            <span>
-                System settings
-            </span>
+            <small>
+                Reload from Supabase
+            </small>
 
         </button>
+
 
     </section>
 
 
-    <!-- STATUS -->
-
     <div
         id="statusBox"
-        class="status-box">
+        class="status">
     </div>
 
 
-    <!-- =================================================
-         BOTTOM
-    ================================================= -->
+    <!-- BOTTOM -->
 
-    <section class="bottom-grid">
+    <section class="bottom">
 
 
         <!-- FINANCIAL -->
 
         <div class="panel">
 
-            <div class="panel-header">
 
-                <div class="panel-title">
+            <div class="panel-head">
+
+                <h3>
                     Financial Overview
-                </div>
+                </h3>
 
-                <div class="panel-badge">
+                <span
+                    class="tag"
+                    id="monthTag">
+
                     Monthly
-                </div>
+
+                </span>
 
             </div>
 
 
-            <div class="financial-row">
+            <div class="row">
 
-                <span class="financial-label">
+                <span>
                     Opening Balance
                 </span>
 
                 <strong
-                    class="financial-value"
                     id="openingBalance">
 
                     ₹0
@@ -1464,14 +1498,13 @@ body{
             </div>
 
 
-            <div class="financial-row">
+            <div class="row">
 
-                <span class="financial-label">
+                <span>
                     Fees Received
                 </span>
 
                 <strong
-                    class="financial-value"
                     id="summaryFees">
 
                     ₹0
@@ -1481,14 +1514,13 @@ body{
             </div>
 
 
-            <div class="financial-row">
+            <div class="row">
 
-                <span class="financial-label">
+                <span>
                     Registration
                 </span>
 
                 <strong
-                    class="financial-value"
                     id="summaryRegistration">
 
                     ₹0
@@ -1498,14 +1530,13 @@ body{
             </div>
 
 
-            <div class="financial-row">
+            <div class="row">
 
-                <span class="financial-label">
+                <span>
                     Investment
                 </span>
 
                 <strong
-                    class="financial-value"
                     id="summaryInvestment">
 
                     ₹0
@@ -1515,14 +1546,13 @@ body{
             </div>
 
 
-            <div class="financial-row">
+            <div class="row">
 
-                <span class="financial-label">
+                <span>
                     Expenses
                 </span>
 
                 <strong
-                    class="financial-value"
                     id="summaryExpenses">
 
                     ₹0
@@ -1532,14 +1562,13 @@ body{
             </div>
 
 
-            <div class="financial-row closing-row">
+            <div class="row closing">
 
-                <span class="financial-label">
+                <span>
                     Closing Balance
                 </span>
 
                 <strong
-                    class="financial-value"
                     id="closingBalance">
 
                     ₹0
@@ -1548,6 +1577,7 @@ body{
 
             </div>
 
+
         </div>
 
 
@@ -1555,41 +1585,47 @@ body{
 
         <div class="panel">
 
-            <div class="panel-header">
 
-                <div class="panel-title">
+            <div class="panel-head">
+
+                <h3>
                     Recent Transactions
-                </div>
+                </h3>
 
-                <div class="panel-badge">
+                <span class="tag">
                     Latest 20
-                </div>
+                </span>
 
             </div>
 
 
             <div
-                class="transaction-list"
+                class="transactions"
                 id="transactionList">
 
                 <div class="empty">
+
                     Loading transactions...
+
                 </div>
 
             </div>
 
+
         </div>
 
+
     </section>
+
 
 </main>
 
 
 <script>
 
-/* =====================================================
+/* ============================================================
    SUPABASE
-===================================================== */
+============================================================ */
 
 const SUPABASE_URL =
 "https://holelzxzhaiefaqezmce.supabase.co";
@@ -1597,254 +1633,162 @@ const SUPABASE_URL =
 const SUPABASE_KEY =
 "sb_publishable_KoCQClKL582rggMuDJXhYQ_UhHOB4xZ";
 
-const supabaseClient =
+const db =
 supabase.createClient(
     SUPABASE_URL,
     SUPABASE_KEY
 );
 
 
-/* =====================================================
-   ELEMENTS
-===================================================== */
+/* ============================================================
+   HELPERS
+============================================================ */
 
-const loading =
-document.getElementById("loading");
+const $ =
+id => document.getElementById(id);
 
-const logoutBtn =
-document.getElementById("logoutBtn");
-
-const monthPicker =
-document.getElementById("monthPicker");
-
-const statusBox =
-document.getElementById("statusBox");
-
-
-/* =====================================================
-   DEFAULT MONTH
-===================================================== */
-
-const today =
-new Date();
-
-monthPicker.value =
-today.getFullYear() +
-"-" +
-String(
-    today.getMonth() + 1
-).padStart(2,"0");
-
-
-/* =====================================================
-   NAVIGATION
-===================================================== */
-
-function openPage(page){
-
-    window.location.href =
-        page;
-
-}
-
-
-/* =====================================================
-   MONEY
-===================================================== */
 
 function money(value){
 
     return "₹" +
-        Number(value || 0)
-        .toLocaleString(
-            "en-IN"
-        );
-
-}
-
-
-function setMoney(id,value){
-
-    const el =
-        document.getElementById(id);
-
-    if(el){
-
-        el.textContent =
-            money(value);
-
-    }
-
-}
-
-
-function setText(id,value){
-
-    const el =
-        document.getElementById(id);
-
-    if(el){
-
-        el.textContent =
-            value;
-
-    }
-
-}
-
-
-/* =====================================================
-   FLEXIBLE VALUE
-===================================================== */
-
-function getValue(row,names){
-
-    for(
-        const name of names
-    ){
-
-        if(
-            row[name] !== undefined &&
-            row[name] !== null &&
-            row[name] !== ""
-        ){
-
-            const number =
-                Number(row[name]);
-
-            if(!isNaN(number)){
-
-                return number;
-
-            }
-
+    Number(value || 0)
+    .toLocaleString(
+        "en-IN",
+        {
+            maximumFractionDigits:2
         }
-
-    }
-
-    return 0;
+    );
 
 }
 
 
-/* =====================================================
-   DATE
-===================================================== */
+function monthNow(){
 
-function getDate(row){
+    const d = new Date();
 
-    const names = [
-
-        "date",
-        "payment_date",
-        "fee_date",
-        "expense_date",
-        "registration_date",
-        "investment_date",
-        "created_at"
-
-    ];
-
-
-    for(
-        const name of names
-    ){
-
-        if(row[name]){
-
-            const d =
-                new Date(
-                    row[name]
-                );
-
-            if(
-                !isNaN(
-                    d.getTime()
-                )
-            ){
-
-                return d;
-
-            }
-
-        }
-
-    }
-
-    return null;
+    return d.getFullYear()
+    + "-"
+    + String(
+        d.getMonth()+1
+    ).padStart(2,"0");
 
 }
 
 
-/* =====================================================
-   MONTH FILTER
-===================================================== */
+function monthOf(value){
 
-function isSelectedMonth(row){
+    if(!value)
+        return "";
 
-    const date =
-        getDate(row);
-
-    if(!date){
-
-        return true;
-
-    }
-
-    const selected =
-        monthPicker.value;
-
-    const month =
-        date.getFullYear() +
-        "-" +
-        String(
-            date.getMonth() + 1
-        ).padStart(2,"0");
-
-    return month === selected;
+    return String(value).slice(0,7);
 
 }
 
 
-/* =====================================================
-   FETCH TABLE
-===================================================== */
+function dateOf(row){
 
-async function getTable(
-    tableName
-){
+    return (
+        row.payment_date ||
+        row.expense_date ||
+        row.date ||
+        row.investment_date ||
+        row.created_at ||
+        null
+    );
 
-    try{
-
-        const {
-            data,
-            error
-        } =
-        await supabaseClient
-        .from(tableName)
-        .select("*");
+}
 
 
-        if(error){
+function formatDate(value){
 
-            console.warn(
-                tableName,
-                error.message
+    if(!value)
+        return "";
+
+    const d =
+    new Date(value);
+
+    if(isNaN(d))
+        return String(value);
+
+    return d.toLocaleDateString(
+        "en-IN"
+    );
+
+}
+
+
+function sum(rows){
+
+    return rows.reduce(
+        (total,row) => {
+
+            return total +
+            Number(
+                row.amount ||
+                row.fee_amount ||
+                row.paid_amount ||
+                row.investment_amount ||
+                0
             );
 
-            return [];
+        },
+        0
+    );
+
+}
+
+
+function escapeHTML(value){
+
+    return String(
+        value ?? ""
+    )
+    .replace(
+        /[&<>"']/g,
+        function(m){
+
+            return {
+
+                "&":"&amp;",
+                "<":"&lt;",
+                ">":"&gt;",
+                '"':"&quot;",
+                "'":"&#039;"
+
+            }[m];
 
         }
+    );
+
+}
 
 
-        return data || [];
+function go(page){
 
-    }
+    location.href = page;
 
-    catch(error){
+}
 
-        console.warn(
-            tableName,
+
+/* ============================================================
+   SUPABASE TABLE READER
+============================================================ */
+
+async function table(name){
+
+    const {
+        data,
+        error
+    } =
+    await db
+    .from(name)
+    .select("*");
+
+
+    if(error){
+
+        console.error(
+            name,
             error
         );
 
@@ -1852,92 +1796,571 @@ async function getTable(
 
     }
 
+
+    return data || [];
+
 }
 
 
-/* =====================================================
+/* ============================================================
+   LOGIN CHECK
+============================================================ */
+
+async function checkSession(){
+
+    const {
+        data,
+        error
+    } =
+    await db.auth.getSession();
+
+
+    if(
+        error ||
+        !data.session
+    ){
+
+        location.replace(
+            "login.html"
+        );
+
+        return false;
+
+    }
+
+
+    return true;
+
+}
+
+
+/* ============================================================
+   PENDING FEE CALCULATION
+============================================================ */
+
+function calculatePending(
+    students,
+    fees,
+    selectedMonth
+){
+
+    let pending = 0;
+
+
+    const end =
+    new Date(
+        selectedMonth +
+        "-01T00:00:00"
+    );
+
+
+    students.forEach(
+        student => {
+
+
+            const monthlyFee =
+            Number(
+                student.monthly_fee || 0
+            );
+
+
+            if(!monthlyFee)
+                return;
+
+
+            const startRaw =
+            student.admission_date ||
+            student.joining_date;
+
+
+            if(!startRaw)
+                return;
+
+
+            const start =
+            new Date(
+                String(startRaw)
+                .slice(0,7)
+                + "-01T00:00:00"
+            );
+
+
+            if(
+                isNaN(start) ||
+                start > end
+            )
+                return;
+
+
+            let due = 0;
+
+
+            const cursor =
+            new Date(start);
+
+
+            while(
+                cursor <= end
+            ){
+
+                due += monthlyFee;
+
+                cursor.setMonth(
+                    cursor.getMonth()+1
+                );
+
+            }
+
+
+            const paid =
+            fees
+            .filter(
+                payment => {
+
+                    return (
+
+                        payment.student_id
+                        ===
+                        student.id
+
+                    &&
+                        monthOf(
+                            payment.fee_month ||
+                            payment.payment_date
+                        )
+                        <=
+                        selectedMonth
+
+                    );
+
+                }
+            )
+            .reduce(
+                (total,payment) => {
+
+                    return total +
+                    Number(
+                        payment.amount || 0
+                    );
+
+                },
+                0
+            );
+
+
+            pending +=
+            Math.max(
+                0,
+                due-paid
+            );
+
+
+        }
+    );
+
+
+    return pending;
+
+}
+
+
+/* ============================================================
    LOAD DASHBOARD
-===================================================== */
+============================================================ */
 
 async function loadDashboard(){
 
-    statusBox.classList.remove(
-        "show"
-    );
+    try{
+
+        const selectedMonth =
+        $("monthPicker").value
+        ||
+        monthNow();
 
 
-    const [
-        students,
-        fees,
-        registrations,
-        expenses,
-        investments
-    ] =
-    await Promise.all([
-
-        getTable("students"),
-
-        getTable("fees"),
-
-        getTable("registrations"),
-
-        getTable("expenses"),
-
-        getTable("investments")
-
-    ]);
+        $("monthTag")
+        .textContent =
+        selectedMonth;
 
 
-    /* STUDENTS */
+        /* LOAD ALL DATA */
 
-    setText(
-        "studentCount",
-        students.length
-    );
+        const [
+
+            students,
+            fees,
+            registrations,
+            expenses,
+            investments
+
+        ] =
+        await Promise.all([
+
+            table("students"),
+
+            table("fee_payments"),
+
+            table(
+                "registration_payments"
+            ),
+
+            table("expenses"),
+
+            table("investments")
+
+        ]);
 
 
-    /* MONTH */
+        /* ACTIVE STUDENTS */
 
-    const monthFees =
+        const activeStudents =
+        students.filter(
+            student => {
+
+                return String(
+                    student.status ||
+                    "Active"
+                ).toLowerCase()
+                ===
+                "active";
+
+            }
+        );
+
+
+        /* MONTH DATA */
+
+        const monthlyFees =
         fees.filter(
-            isSelectedMonth
+            payment => {
+
+                return monthOf(
+                    payment.fee_month ||
+                    payment.payment_date
+                )
+                ===
+                selectedMonth;
+
+            }
         );
 
-    const monthRegistrations =
+
+        const monthlyRegistration =
         registrations.filter(
-            isSelectedMonth
+            payment => {
+
+                return monthOf(
+                    payment.payment_date
+                )
+                ===
+                selectedMonth;
+
+            }
         );
 
-    const monthExpenses =
+
+        const monthlyExpenses =
         expenses.filter(
-            isSelectedMonth
+            expense => {
+
+                return monthOf(
+                    expense.expense_date
+                )
+                ===
+                selectedMonth;
+
+            }
         );
 
-    const monthInvestments =
+
+        const monthlyInvestments =
         investments.filter(
-            isSelectedMonth
+            investment => {
+
+                return monthOf(
+                    investment.investment_date ||
+                    investment.date ||
+                    investment.created_at
+                )
+                ===
+                selectedMonth;
+
+            }
         );
+
+
+        /* TOTALS */
+
+        const totalFees =
+        sum(monthlyFees);
+
+
+        const totalRegistration =
+        sum(monthlyRegistration);
+
+
+        const totalExpenses =
+        sum(monthlyExpenses);
+
+
+        const totalInvestment =
+        sum(monthlyInvestments);
+
+
+        /* PENDING */
+
+        const pending =
+        calculatePending(
+            students,
+            fees,
+            selectedMonth
+        );
+
+
+        /* OPENING BALANCE */
+
+        function beforeSelectedMonth(row){
+
+            const date =
+            dateOf(row);
+
+            if(!date)
+                return false;
+
+            return (
+                monthOf(date)
+                <
+                selectedMonth
+            );
+
+        }
+
+
+        const previousFees =
+        sum(
+            fees.filter(
+                beforeSelectedMonth
+            )
+        );
+
+
+        const previousRegistration =
+        sum(
+            registrations.filter(
+                beforeSelectedMonth
+            )
+        );
+
+
+        const previousInvestment =
+        sum(
+            investments.filter(
+                beforeSelectedMonth
+            )
+        );
+
+
+        const previousExpenses =
+        sum(
+            expenses.filter(
+                beforeSelectedMonth
+            )
+        );
+
+
+        const openingBalance =
+
+        previousFees +
+
+        previousRegistration +
+
+        previousInvestment -
+
+        previousExpenses;
+
+
+        /* CLOSING BALANCE */
+
+        const closingBalance =
+
+        openingBalance +
+
+        totalFees +
+
+        totalRegistration +
+
+        totalInvestment -
+
+        totalExpenses;
+
+
+        /* DISPLAY */
+
+        $("studentCount")
+        .textContent =
+        activeStudents.length;
+
+
+        $("feesReceived")
+        .textContent =
+        money(totalFees);
+
+
+        $("registrationFees")
+        .textContent =
+        money(totalRegistration);
+
+
+        $("expenses")
+        .textContent =
+        money(totalExpenses);
+
+
+        $("pendingFees")
+        .textContent =
+        money(pending);
+
+
+        $("currentBalance")
+        .textContent =
+        money(closingBalance);
+
+
+        /* FINANCIAL */
+
+        $("openingBalance")
+        .textContent =
+        money(openingBalance);
+
+
+        $("summaryFees")
+        .textContent =
+        money(totalFees);
+
+
+        $("summaryRegistration")
+        .textContent =
+        money(totalRegistration);
+
+
+        $("summaryInvestment")
+        .textContent =
+        money(totalInvestment);
+
+
+        $("summaryExpenses")
+        .textContent =
+        money(totalExpenses);
+
+
+        $("closingBalance")
+        .textContent =
+        money(closingBalance);
+
+
+        /* TRANSACTIONS */
+
+        showTransactions(
+
+            monthlyFees,
+
+            monthlyRegistration,
+
+            monthlyExpenses,
+
+            monthlyInvestments,
+
+            students
+
+        );
+
+
+    }
+    catch(error){
+
+        console.error(
+            "Dashboard Error:",
+            error
+        );
+
+
+        $("statusBox")
+        .textContent =
+        "Unable to load dashboard data. Check Supabase connection and table names.";
+
+
+        $("statusBox")
+        .classList.add("show");
+
+    }
+
+}
+
+
+/* ============================================================
+   RECENT TRANSACTIONS
+============================================================ */
+
+function showTransactions(
+
+    fees,
+    registrations,
+    expenses,
+    investments,
+    students
+
+){
+
+    const transactions = [];
+
+
+    function studentName(
+        studentId
+    ){
+
+        const student =
+        students.find(
+            s => s.id === studentId
+        );
+
+
+        return (
+            student?.name ||
+            student?.student_name ||
+            "Student"
+        );
+
+    }
 
 
     /* FEES */
 
-    let totalFees = 0;
+    fees.forEach(
+        payment => {
 
-    monthFees.forEach(
-        row => {
+            transactions.push({
 
-            totalFees +=
-                getValue(
-                    row,
-                    [
-                        "amount",
-                        "fee_amount",
-                        "paid_amount",
-                        "payment",
-                        "fees",
-                        "monthly_fee"
-                    ]
-                );
+                type:
+                "Fee • "
+                +
+                studentName(
+                    payment.student_id
+                ),
+
+                icon:"💰",
+
+                date:
+                payment.payment_date ||
+                payment.fee_month,
+
+                amount:
+                Number(
+                    payment.amount || 0
+                ),
+
+                income:true
+
+            });
 
         }
     );
@@ -1945,73 +2368,31 @@ async function loadDashboard(){
 
     /* REGISTRATION */
 
-    let totalRegistration = 0;
+    registrations.forEach(
+        payment => {
 
-    monthRegistrations.forEach(
-        row => {
+            transactions.push({
 
-            totalRegistration +=
-                getValue(
-                    row,
-                    [
-                        "amount",
-                        "registration_fee",
-                        "registration_amount",
-                        "paid_amount",
-                        "fee"
-                    ]
-                );
+                type:
+                "Registration • "
+                +
+                studentName(
+                    payment.student_id
+                ),
 
-        }
-    );
+                icon:"📝",
 
+                date:
+                payment.payment_date,
 
-    /* FALLBACK REGISTRATION */
+                amount:
+                Number(
+                    payment.amount || 0
+                ),
 
-    if(
-        monthRegistrations.length === 0
-    ){
+                income:true
 
-        students
-        .filter(
-            isSelectedMonth
-        )
-        .forEach(
-            row => {
-
-                totalRegistration +=
-                    getValue(
-                        row,
-                        [
-                            "registration_fee",
-                            "registration_amount"
-                        ]
-                    );
-
-            }
-        );
-
-    }
-
-
-    /* EXPENSES */
-
-    let totalExpenses = 0;
-
-    monthExpenses.forEach(
-        row => {
-
-            totalExpenses +=
-                getValue(
-                    row,
-                    [
-                        "amount",
-                        "expense_amount",
-                        "paid_amount",
-                        "cost",
-                        "total"
-                    ]
-                );
+            });
 
         }
     );
@@ -2019,293 +2400,26 @@ async function loadDashboard(){
 
     /* INVESTMENT */
 
-    let totalInvestment = 0;
-
-    monthInvestments.forEach(
-        row => {
-
-            totalInvestment +=
-                getValue(
-                    row,
-                    [
-                        "amount",
-                        "investment_amount",
-                        "paid_amount",
-                        "total"
-                    ]
-                );
-
-        }
-    );
-
-
-    /* PENDING */
-
-    let pending = 0;
-
-    students.forEach(
-        row => {
-
-            pending +=
-                getValue(
-                    row,
-                    [
-                        "pending_fee",
-                        "pending",
-                        "due_amount",
-                        "balance",
-                        "fee_pending"
-                    ]
-                );
-
-        }
-    );
-
-
-    /* OPENING */
-
-    let openingBalance = 0;
-
-    const balanceRows =
-        await getTable(
-            "balances"
-        );
-
-
-    if(
-        balanceRows.length
-    ){
-
-        const selected =
-            balanceRows.find(
-                row =>
-                    String(
-                        row.month || ""
-                    ) ===
-                    monthPicker.value
-            );
-
-
-        if(selected){
-
-            openingBalance =
-                getValue(
-                    selected,
-                    [
-                        "opening_balance",
-                        "opening",
-                        "balance"
-                    ]
-                );
-
-        }
-
-    }
-
-
-    /* CLOSING */
-
-    const closingBalance =
-        openingBalance +
-        totalFees +
-        totalRegistration +
-        totalInvestment -
-        totalExpenses;
-
-
-    /* UPDATE */
-
-    setMoney(
-        "feesReceived",
-        totalFees
-    );
-
-    setMoney(
-        "registrationFees",
-        totalRegistration
-    );
-
-    setMoney(
-        "expenses",
-        totalExpenses
-    );
-
-    setMoney(
-        "pendingFees",
-        pending
-    );
-
-    setMoney(
-        "currentBalance",
-        closingBalance
-    );
-
-
-    /* FINANCIAL */
-
-    setMoney(
-        "openingBalance",
-        openingBalance
-    );
-
-    setMoney(
-        "summaryFees",
-        totalFees
-    );
-
-    setMoney(
-        "summaryRegistration",
-        totalRegistration
-    );
-
-    setMoney(
-        "summaryInvestment",
-        totalInvestment
-    );
-
-    setMoney(
-        "summaryExpenses",
-        totalExpenses
-    );
-
-    setMoney(
-        "closingBalance",
-        closingBalance
-    );
-
-
-    /* TRANSACTIONS */
-
-    showTransactions(
-        monthFees,
-        monthRegistrations,
-        monthExpenses,
-        monthInvestments
-    );
-
-
-    /* STATUS */
-
-    if(
-        students.length === 0 &&
-        fees.length === 0 &&
-        registrations.length === 0 &&
-        expenses.length === 0 &&
-        investments.length === 0
-    ){
-
-        statusBox.textContent =
-            "Dashboard connected. No records found yet.";
-
-        statusBox.classList.add(
-            "show"
-        );
-
-    }
-
-}
-
-
-/* =====================================================
-   TRANSACTIONS
-===================================================== */
-
-function showTransactions(
-    fees,
-    registrations,
-    expenses,
-    investments
-){
-
-    const list =
-        document.getElementById(
-            "transactionList"
-        );
-
-
-    let transactions = [];
-
-
-    fees.forEach(
-        row => {
-
-            transactions.push({
-
-                type:"Fee",
-
-                icon:"💰",
-
-                date:getDate(row),
-
-                amount:getValue(
-                    row,
-                    [
-                        "amount",
-                        "fee_amount",
-                        "paid_amount",
-                        "payment",
-                        "fees",
-                        "monthly_fee"
-                    ]
-                ),
-
-                income:true
-
-            });
-
-        }
-    );
-
-
-    registrations.forEach(
-        row => {
-
-            transactions.push({
-
-                type:"Registration",
-
-                icon:"📝",
-
-                date:getDate(row),
-
-                amount:getValue(
-                    row,
-                    [
-                        "amount",
-                        "registration_fee",
-                        "registration_amount",
-                        "paid_amount",
-                        "fee"
-                    ]
-                ),
-
-                income:true
-
-            });
-
-        }
-    );
-
-
     investments.forEach(
-        row => {
+        investment => {
 
             transactions.push({
 
-                type:"Investment",
+                type:
+                "Investment",
 
                 icon:"📈",
 
-                date:getDate(row),
+                date:
+                investment.investment_date ||
+                investment.date ||
+                investment.created_at,
 
-                amount:getValue(
-                    row,
-                    [
-                        "amount",
-                        "investment_amount",
-                        "paid_amount",
-                        "total"
-                    ]
+                amount:
+                Number(
+                    investment.amount ||
+                    investment.investment_amount ||
+                    0
                 ),
 
                 income:true
@@ -2316,26 +2430,29 @@ function showTransactions(
     );
 
 
+    /* EXPENSE */
+
     expenses.forEach(
-        row => {
+        expense => {
 
             transactions.push({
 
-                type:"Expense",
+                type:
+                "Expense • "
+                +
+                (
+                    expense.category ||
+                    "School Expense"
+                ),
 
                 icon:"💸",
 
-                date:getDate(row),
+                date:
+                expense.expense_date,
 
-                amount:getValue(
-                    row,
-                    [
-                        "amount",
-                        "expense_amount",
-                        "paid_amount",
-                        "cost",
-                        "total"
-                    ]
+                amount:
+                Number(
+                    expense.amount || 0
                 ),
 
                 income:false
@@ -2346,28 +2463,39 @@ function showTransactions(
     );
 
 
+    /* SORT */
+
     transactions.sort(
-        (a,b) =>
-            (b.date?.getTime() || 0) -
-            (a.date?.getTime() || 0)
+        (a,b) => {
+
+            return new Date(
+                b.date || 0
+            )
+            -
+            new Date(
+                a.date || 0
+            );
+
+        }
     );
 
 
-    transactions =
-        transactions.slice(
-            0,
-            20
-        );
+    const latest =
+    transactions.slice(
+        0,
+        20
+    );
 
 
-    if(
-        transactions.length === 0
-    ){
+    if(!latest.length){
 
-        list.innerHTML = `
-            <div class="empty">
-                No transactions available
-            </div>
+        $("transactionList")
+        .innerHTML =
+
+        `
+        <div class="empty">
+            No transactions for this month
+        </div>
         `;
 
         return;
@@ -2375,221 +2503,114 @@ function showTransactions(
     }
 
 
-    list.innerHTML =
-        transactions
-        .map(
-            t => {
+    $("transactionList")
+    .innerHTML =
 
-                const date =
-                    t.date
-                    ? t.date.toLocaleDateString(
-                        "en-IN"
-                    )
-                    : "";
+    latest
+    .map(
+        transaction => {
 
+            return `
 
-                return `
+            <div class="tx">
 
-                    <div class="transaction">
+                <div class="txleft">
 
-                        <div class="transaction-left">
+                    <div class="txicon">
+                        ${transaction.icon}
+                    </div>
 
-                            <div class="transaction-icon">
-                                ${t.icon}
-                            </div>
+                    <div>
 
-                            <div>
+                        <div class="txname">
 
-                                <div class="transaction-name">
-                                    ${escapeHTML(t.type)}
-                                </div>
-
-                                <div class="transaction-date">
-                                    ${date}
-                                </div>
-
-                            </div>
+                            ${
+                                escapeHTML(
+                                    transaction.type
+                                )
+                            }
 
                         </div>
 
-                        <div class="transaction-amount ${
-                            t.income
-                            ? "income"
-                            : "outcome"
-                        }">
+                        <div class="txdate">
 
                             ${
-                                t.income
-                                ? "+"
-                                : "-"
+                                escapeHTML(
+                                    formatDate(
+                                        transaction.date
+                                    )
+                                )
                             }
-
-                            ${money(t.amount)}
 
                         </div>
 
                     </div>
 
-                `;
-
-            }
-        )
-        .join("");
-
-}
+                </div>
 
 
-/* =====================================================
-   HTML SAFETY
-===================================================== */
+                <strong
+                    class="${
+                        transaction.income
+                        ?
+                        "income"
+                        :
+                        "outcome"
+                    }">
 
-function escapeHTML(value){
+                    ${
+                        transaction.income
+                        ?
+                        "+"
+                        :
+                        "-"
+                    }
 
-    return String(
-        value || ""
-    )
-    .replace(
-        /&/g,
-        "&amp;"
-    )
-    .replace(
-        /</g,
-        "&lt;"
-    )
-    .replace(
-        />/g,
-        "&gt;"
-    )
-    .replace(
-        /"/g,
-        "&quot;"
-    )
-    .replace(
-        /'/g,
-        "&#039;"
-    );
+                    ${
+                        money(
+                            transaction.amount
+                        )
+                    }
 
-}
+                </strong>
 
+            </div>
 
-/* =====================================================
-   SESSION
-===================================================== */
-
-async function checkSession(){
-
-    try{
-
-        const {
-            data,
-            error
-        } =
-        await supabaseClient
-        .auth
-        .getSession();
-
-
-        if(error){
-
-            console.error(error);
-
-            window.location.replace(
-                "login.html"
-            );
-
-            return;
+            `;
 
         }
-
-
-        if(
-            !data.session
-        ){
-
-            window.location.replace(
-                "login.html"
-            );
-
-            return;
-
-        }
-
-
-        loading.style.display =
-            "none";
-
-
-        await loadDashboard();
-
-    }
-
-    catch(error){
-
-        console.error(
-            "Session error:",
-            error
-        );
-
-
-        loading.style.display =
-            "none";
-
-
-        statusBox.textContent =
-            "Unable to load account session.";
-
-
-        statusBox.classList.add(
-            "show"
-        );
-
-    }
+    )
+    .join("");
 
 }
 
 
-/* =====================================================
-   LOGOUT
-===================================================== */
+/* ============================================================
+   EVENTS
+============================================================ */
 
-logoutBtn.addEventListener(
+$("monthPicker")
+.addEventListener(
+    "change",
+    loadDashboard
+);
+
+
+$("refreshBtn")
+.addEventListener(
     "click",
-    async function(){
-
-        logoutBtn.disabled =
-            true;
-
-        logoutBtn.textContent =
-            "Logging out...";
+    loadDashboard
+);
 
 
-        const {
-            error
-        } =
-        await supabaseClient
-        .auth
-        .signOut();
+$("logoutBtn")
+.addEventListener(
+    "click",
+    async () => {
 
+        await db.auth.signOut();
 
-        if(error){
-
-            alert(
-                error.message
-            );
-
-
-            logoutBtn.disabled =
-                false;
-
-            logoutBtn.textContent =
-                "Logout";
-
-            return;
-
-        }
-
-
-        window.location.replace(
+        location.replace(
             "login.html"
         );
 
@@ -2597,34 +2618,19 @@ logoutBtn.addEventListener(
 );
 
 
-/* =====================================================
-   MONTH CHANGE
-===================================================== */
-
-monthPicker.addEventListener(
-    "change",
-    async function(){
-
-        await loadDashboard();
-
-    }
-);
-
-
-/* =====================================================
+/* ============================================================
    AUTH STATE
-===================================================== */
+============================================================ */
 
-supabaseClient
-.auth
-.onAuthStateChange(
-    function(event){
+db.auth.onAuthStateChange(
+    (event) => {
 
         if(
-            event === "SIGNED_OUT"
+            event ===
+            "SIGNED_OUT"
         ){
 
-            window.location.replace(
+            location.replace(
                 "login.html"
             );
 
@@ -2634,11 +2640,33 @@ supabaseClient
 );
 
 
-/* =====================================================
+/* ============================================================
    START
-===================================================== */
+============================================================ */
 
-checkSession();
+(async function(){
+
+    $("monthPicker")
+    .value =
+    monthNow();
+
+
+    const loggedIn =
+    await checkSession();
+
+
+    if(!loggedIn)
+        return;
+
+
+    $("loading")
+    .style.display =
+    "none";
+
+
+    await loadDashboard();
+
+})();
 
 </script>
 
