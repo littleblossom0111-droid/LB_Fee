@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -15,7 +16,12 @@
 
 <style>
 
+/* =========================================================
+   ROOT
+========================================================= */
+
 :root{
+
     --pink:#ec4899;
     --purple:#8b5cf6;
     --green:#16a34a;
@@ -32,6 +38,7 @@
 
     --shadow:
     0 12px 35px rgba(24,18,40,.07);
+
 }
 
 *{
@@ -41,23 +48,32 @@
 }
 
 body{
-    font-family:"DM Sans",Arial,sans-serif;
+
+    font-family:
+    "DM Sans",
+    Arial,
+    sans-serif;
 
     background:
+
     radial-gradient(
         circle at 0 0,
         rgba(236,72,153,.09),
         transparent 28%
     ),
+
     radial-gradient(
         circle at 100% 0,
         rgba(139,92,246,.08),
         transparent 24%
     ),
+
     var(--bg);
 
     color:var(--text);
+
     min-height:100vh;
+
 }
 
 button,
@@ -70,39 +86,62 @@ button{
     cursor:pointer;
 }
 
-/* HEADER */
+
+/* =========================================================
+   HEADER
+========================================================= */
 
 .header{
+
     position:sticky;
+
     top:0;
+
     z-index:50;
 
-    background:rgba(255,255,255,.92);
-    backdrop-filter:blur(18px);
+    background:
+    rgba(255,255,255,.92);
 
-    border-bottom:1px solid rgba(0,0,0,.06);
+    backdrop-filter:
+    blur(18px);
 
-    padding:14px 26px;
+    border-bottom:
+    1px solid rgba(0,0,0,.06);
+
+    padding:
+    14px 26px;
 
     display:flex;
-    justify-content:space-between;
+
+    justify-content:
+    space-between;
+
     align-items:center;
+
     gap:16px;
+
 }
 
 .brand{
+
     display:flex;
+
     align-items:center;
+
     gap:12px;
+
 }
 
 .logo{
+
     width:46px;
+
     height:46px;
 
     border-radius:15px;
 
     background:
+
     linear-gradient(
         135deg,
         var(--pink),
@@ -112,6 +151,7 @@ button{
     color:white;
 
     display:grid;
+
     place-items:center;
 
     font-weight:800;
@@ -119,259 +159,469 @@ button{
     box-shadow:
     0 10px 25px
     rgba(236,72,153,.25);
+
 }
 
 .brand h1{
+
     font:
     700 20px
     "Playfair Display",
     serif;
+
 }
 
 .brand small{
+
     color:#888;
+
     font-size:10px;
+
 }
 
 .header-actions{
+
     display:flex;
+
     align-items:center;
+
     gap:10px;
+
 }
 
 .badge{
-    padding:8px 12px;
+
+    padding:
+    8px 12px;
+
     border-radius:12px;
 
     background:#faf5ff;
+
     color:#7c3aed;
 
-    border:1px solid #eee4ff;
+    border:
+    1px solid #eee4ff;
 
     font-size:11px;
+
     font-weight:700;
+
 }
 
 .btn{
+
     border:0;
+
     border-radius:11px;
-    padding:10px 14px;
+
+    padding:
+    10px 14px;
+
     font-weight:700;
+
 }
 
 .logout{
+
     background:#fff1f2;
+
     color:#e11d48;
+
 }
 
 .refresh{
+
     background:#f3f4f6;
+
     color:#374151;
+
 }
 
-/* MAIN */
+
+/* =========================================================
+   MAIN
+========================================================= */
 
 .container{
+
     max-width:1280px;
+
     margin:auto;
-    padding:28px 24px 50px;
+
+    padding:
+    28px 24px 50px;
+
 }
 
-/* HERO */
+
+/* =========================================================
+   HERO
+========================================================= */
 
 .hero{
+
     display:flex;
-    justify-content:space-between;
+
+    justify-content:
+    space-between;
+
     align-items:center;
+
     gap:18px;
+
     margin-bottom:22px;
+
 }
 
 .hero h2{
+
     font:
     700 34px
     "Playfair Display",
     serif;
+
 }
 
 .hero p{
+
     color:var(--muted);
+
     font-size:13px;
+
     margin-top:5px;
+
 }
 
 .month{
-    background:white;
-    border:1px solid var(--border);
 
-    padding:10px 14px;
+    background:white;
+
+    border:
+    1px solid var(--border);
+
+    padding:
+    10px 14px;
+
     border-radius:15px;
 
     box-shadow:
-    0 5px 20px rgba(0,0,0,.04);
+    0 5px 20px
+    rgba(0,0,0,.04);
+
 }
 
 .month label{
+
     display:block;
 
     font-size:9px;
+
     color:#999;
 
     text-transform:uppercase;
+
     letter-spacing:1px;
 
     margin-bottom:3px;
+
 }
 
 .month input{
+
     border:0;
+
     outline:0;
 
     font-weight:700;
+
     color:#333;
+
     background:transparent;
+
 }
 
-/* STAT CARDS */
+
+/* =========================================================
+   STAT CARDS
+========================================================= */
 
 .grid{
+
     display:grid;
-    grid-template-columns:repeat(3,1fr);
+
+    grid-template-columns:
+    repeat(3,1fr);
+
     gap:15px;
+
 }
 
 .card{
-    background:var(--card);
 
-    border:1px solid rgba(0,0,0,.04);
+    background:
+    var(--card);
+
+    border:
+    1px solid rgba(0,0,0,.04);
+
     border-radius:20px;
 
     padding:19px;
+
     min-height:130px;
 
-    box-shadow:var(--shadow);
+    box-shadow:
+    var(--shadow);
 
     position:relative;
+
     overflow:hidden;
+
+    transition:
+    transform .2s ease,
+    box-shadow .2s ease;
+
+}
+
+.card:hover{
+
+    transform:
+    translateY(-3px);
+
+    box-shadow:
+    0 18px 40px
+    rgba(24,18,40,.10);
+
 }
 
 .card:after{
+
     content:"";
 
     position:absolute;
 
     width:90px;
+
     height:90px;
 
     right:-35px;
+
     bottom:-40px;
 
     border-radius:50%;
 
     background:currentColor;
+
     opacity:.04;
+
 }
 
 .topline{
+
     display:flex;
-    justify-content:space-between;
+
+    justify-content:
+    space-between;
+
     align-items:center;
+
 }
 
 .label{
+
     font-size:11px;
+
     color:#777;
 
     font-weight:700;
 
     text-transform:uppercase;
+
     letter-spacing:.6px;
+
 }
 
 .icon{
+
     width:40px;
+
     height:40px;
 
     border-radius:12px;
 
     display:grid;
+
     place-items:center;
 
     font-size:18px;
 
     background:#f7f7fa;
+
 }
 
 .value{
+
     font-size:26px;
+
     font-weight:800;
 
     margin-top:15px;
 
     letter-spacing:-.5px;
+
 }
 
 .sub{
+
     font-size:10px;
+
     color:#aaa;
+
     margin-top:5px;
+
 }
 
+
+/* CARD COLORS */
+
 .students{
-    border-top:3px solid var(--purple);
+    border-top:
+    3px solid var(--purple);
 }
 
 .fees{
-    border-top:3px solid var(--green);
+    border-top:
+    3px solid var(--green);
 }
 
 .registration{
-    border-top:3px solid var(--orange);
+    border-top:
+    3px solid var(--orange);
 }
 
 .expenses{
-    border-top:3px solid var(--red);
+    border-top:
+    3px solid var(--red);
 }
 
 .pending{
-    border-top:3px solid #f97316;
+    border-top:
+    3px solid #f97316;
 }
 
 .balance{
-    border-top:3px solid var(--blue);
+    border-top:
+    3px solid var(--blue);
 }
 
-/* SECTION */
+
+/* =========================================================
+   DANCE CARD
+========================================================= */
+
+.dance-card{
+
+    border-top:
+    3px solid #06b6d4;
+
+    cursor:pointer;
+
+}
+
+.dance-card .icon{
+
+    background:
+    linear-gradient(
+        135deg,
+        #ecfeff,
+        #cffafe
+    );
+
+}
+
+.dance-card .dance-title{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:7px;
+
+}
+
+.dance-card .dance-dot{
+
+    width:7px;
+
+    height:7px;
+
+    border-radius:50%;
+
+    background:#06b6d4;
+
+    box-shadow:
+    0 0 0 4px
+    rgba(6,182,212,.10);
+
+}
+
+
+/* =========================================================
+   SECTION
+========================================================= */
 
 .section-title{
+
     display:flex;
-    justify-content:space-between;
+
+    justify-content:
+    space-between;
+
     align-items:end;
 
-    margin:30px 0 13px;
+    margin:
+    30px 0 13px;
+
 }
 
 .section-title h3{
+
     font-size:17px;
+
 }
 
 .section-title span{
+
     font-size:11px;
+
     color:#999;
+
 }
 
-/* QUICK */
+
+/* =========================================================
+   QUICK ACTIONS
+========================================================= */
 
 .quick{
+
     display:grid;
-    grid-template-columns:repeat(4,1fr);
+
+    grid-template-columns:
+    repeat(4,1fr);
+
     gap:12px;
+
 }
 
 .action{
+
     background:white;
 
-    border:1px solid var(--border);
+    border:
+    1px solid var(--border);
+
     border-radius:17px;
 
     padding:15px;
@@ -379,32 +629,46 @@ button{
     text-align:left;
 
     box-shadow:
-    0 6px 22px rgba(0,0,0,.04);
+    0 6px 22px
+    rgba(0,0,0,.04);
 
     transition:.2s;
+
 }
 
 .action:hover{
-    transform:translateY(-3px);
+
+    transform:
+    translateY(-3px);
 
     box-shadow:
     0 14px 30px
-    rgba(236,72,153,.1);
+    rgba(236,72,153,.10);
+
 }
 
 .action b{
+
     display:block;
+
     font-size:13px;
+
     margin-top:9px;
+
 }
 
 .action small{
+
     color:#999;
+
     font-size:10px;
+
 }
 
 .action .aicon{
+
     width:38px;
+
     height:38px;
 
     border-radius:12px;
@@ -412,14 +676,34 @@ button{
     background:#fff2f7;
 
     display:grid;
+
     place-items:center;
 
     font-size:18px;
+
 }
 
-/* BOTTOM */
+
+/* DANCE QUICK ACTION */
+
+.action.dance-action .aicon{
+
+    background:
+    linear-gradient(
+        135deg,
+        #ecfeff,
+        #cffafe
+    );
+
+}
+
+
+/* =========================================================
+   BOTTOM
+========================================================= */
 
 .bottom{
+
     display:grid;
 
     grid-template-columns:
@@ -428,36 +712,50 @@ button{
     gap:16px;
 
     margin-top:16px;
+
 }
 
 .panel{
+
     background:white;
 
-    border:1px solid var(--border);
+    border:
+    1px solid var(--border);
+
     border-radius:20px;
 
     padding:20px;
 
-    box-shadow:var(--shadow);
+    box-shadow:
+    var(--shadow);
+
 }
 
 .panel-head{
+
     display:flex;
 
-    justify-content:space-between;
+    justify-content:
+    space-between;
+
     align-items:center;
 
     margin-bottom:12px;
+
 }
 
 .panel-head h3{
+
     font-size:15px;
+
 }
 
 .tag{
+
     font-size:10px;
 
-    padding:6px 9px;
+    padding:
+    6px 9px;
 
     border-radius:8px;
 
@@ -466,51 +764,74 @@ button{
     color:#7c3aed;
 
     font-weight:700;
+
 }
 
-/* FINANCIAL */
+
+/* =========================================================
+   FINANCIAL
+========================================================= */
 
 .row{
+
     display:flex;
 
-    justify-content:space-between;
+    justify-content:
+    space-between;
+
     align-items:center;
 
-    padding:12px 0;
+    padding:
+    12px 0;
 
-    border-bottom:1px solid #f1f1f4;
+    border-bottom:
+    1px solid #f1f1f4;
 
     font-size:12px;
+
 }
 
 .row:last-child{
+
     border-bottom:0;
+
 }
 
 .row span{
+
     color:#777;
+
 }
 
 .row strong{
+
     font-weight:700;
+
 }
 
 .positive{
+
     color:var(--green);
+
 }
 
 .negative{
+
     color:var(--red);
+
 }
 
 .closing{
+
     margin-top:6px;
 
-    padding:15px 12px;
+    padding:
+    15px 12px;
 
     border-radius:13px;
 
     background:
+
     linear-gradient(
         135deg,
         #fff2f8,
@@ -518,43 +839,67 @@ button{
     );
 
     font-size:13px;
+
 }
 
 .closing strong{
+
     font-size:18px;
+
     color:#a21caf;
+
 }
 
-/* TRANSACTIONS */
+
+/* =========================================================
+   TRANSACTIONS
+========================================================= */
 
 .transactions{
+
     max-height:365px;
+
     overflow:auto;
+
 }
 
 .tx{
+
     display:flex;
 
-    justify-content:space-between;
+    justify-content:
+    space-between;
+
     align-items:center;
 
-    padding:11px 2px;
+    padding:
+    11px 2px;
 
-    border-bottom:1px solid #f1f1f4;
+    border-bottom:
+    1px solid #f1f1f4;
+
 }
 
 .tx:last-child{
+
     border-bottom:0;
+
 }
 
 .txleft{
+
     display:flex;
+
     align-items:center;
+
     gap:10px;
+
 }
 
 .txicon{
+
     width:36px;
+
     height:36px;
 
     border-radius:11px;
@@ -562,29 +907,43 @@ button{
     background:#f7f7fa;
 
     display:grid;
+
     place-items:center;
+
 }
 
 .txname{
+
     font-size:12px;
+
     font-weight:700;
+
 }
 
 .txdate{
+
     font-size:9px;
+
     color:#aaa;
+
     margin-top:3px;
+
 }
 
 .income{
+
     color:var(--green);
+
 }
 
 .outcome{
+
     color:var(--red);
+
 }
 
 .empty{
+
     text-align:center;
 
     color:#aaa;
@@ -592,35 +951,51 @@ button{
     padding:45px 10px;
 
     font-size:12px;
+
 }
 
-/* STATUS */
+
+/* =========================================================
+   STATUS
+========================================================= */
 
 .status{
+
     display:none;
 
     margin-top:15px;
 
-    padding:11px 14px;
+    padding:
+    11px 14px;
 
     border-radius:12px;
 
     background:white;
 
-    border:1px solid var(--border);
+    border:
+    1px solid var(--border);
 
     font-size:11px;
+
     color:#666;
+
 }
 
 .status.show{
+
     display:block;
+
 }
 
-/* LOADING */
+
+/* =========================================================
+   LOADING
+========================================================= */
 
 .loading{
+
     position:fixed;
+
     inset:0;
 
     background:
@@ -629,58 +1004,81 @@ button{
     z-index:999;
 
     display:grid;
+
     place-items:center;
+
 }
 
 .loader{
+
     background:white;
 
     border-radius:22px;
 
-    padding:28px 34px;
+    padding:
+    28px 34px;
 
     text-align:center;
 
     box-shadow:
-    0 20px 60px rgba(0,0,0,.12);
+    0 20px 60px
+    rgba(0,0,0,.12);
+
 }
 
 .loader .logo{
-    margin:auto auto 14px;
+
+    margin:
+    auto auto 14px;
+
 }
 
 .spinner{
+
     width:28px;
+
     height:28px;
 
-    border:3px solid #eee;
+    border:
+    3px solid #eee;
 
-    border-top-color:var(--pink);
+    border-top-color:
+    var(--pink);
 
     border-radius:50%;
 
-    animation:spin .8s linear infinite;
+    animation:
+    spin .8s linear infinite;
 
     margin:auto;
+
 }
 
 @keyframes spin{
+
     to{
         transform:rotate(360deg);
     }
+
 }
 
 .loader p{
+
     margin-top:10px;
 
     color:#777;
 
     font-size:12px;
+
 }
 
-/* MODAL */
+
+/* =========================================================
+   MODAL
+========================================================= */
 
 .modal{
+
     position:fixed;
 
     inset:0;
@@ -690,22 +1088,34 @@ button{
     background:
     rgba(15,23,42,.48);
 
-    backdrop-filter:blur(7px);
+    backdrop-filter:
+    blur(7px);
 
     display:none;
 
     align-items:center;
+
     justify-content:center;
 
     padding:18px;
+
 }
 
 .modal.show{
+
     display:flex;
+
 }
 
 .modal-box{
-    width:min(460px,100%);
+
+    width:
+    min(460px,100%);
+
+    max-height:
+    90vh;
+
+    overflow:auto;
 
     background:white;
 
@@ -714,51 +1124,75 @@ button{
     padding:24px;
 
     box-shadow:
-    0 25px 80px rgba(0,0,0,.22);
+    0 25px 80px
+    rgba(0,0,0,.22);
 
     animation:
     modalIn .2s ease;
+
 }
 
 @keyframes modalIn{
+
     from{
+
         opacity:0;
-        transform:translateY(10px) scale(.98);
+
+        transform:
+        translateY(10px)
+        scale(.98);
+
     }
 
     to{
+
         opacity:1;
+
         transform:none;
+
     }
+
 }
 
 .modal-head{
+
     display:flex;
 
-    justify-content:space-between;
+    justify-content:
+    space-between;
+
     align-items:flex-start;
 
     gap:15px;
 
     margin-bottom:20px;
+
 }
 
 .modal-head h3{
+
     font-size:20px;
 
     font-family:
     "Playfair Display",
     serif;
+
 }
 
 .modal-head p{
+
     font-size:11px;
+
     color:#999;
+
     margin-top:4px;
+
 }
 
 .close{
+
     width:34px;
+
     height:34px;
 
     border:0;
@@ -770,13 +1204,17 @@ button{
     color:#555;
 
     font-size:18px;
+
 }
 
 .form-group{
+
     margin-bottom:15px;
+
 }
 
 .form-group label{
+
     display:block;
 
     font-size:10px;
@@ -790,27 +1228,33 @@ button{
     letter-spacing:.6px;
 
     margin-bottom:6px;
+
 }
 
 .form-group input,
 .form-group select{
+
     width:100%;
 
-    border:1px solid #e5e7eb;
+    border:
+    1px solid #e5e7eb;
 
     outline:none;
 
     border-radius:12px;
 
-    padding:12px 13px;
+    padding:
+    12px 13px;
 
     background:#fafafa;
 
     font-size:13px;
+
 }
 
 .form-group input:focus,
 .form-group select:focus{
+
     border-color:#c084fc;
 
     background:white;
@@ -818,18 +1262,24 @@ button{
     box-shadow:
     0 0 0 3px
     rgba(168,85,247,.08);
+
 }
 
 .type-options{
+
     display:grid;
 
-    grid-template-columns:1fr 1fr;
+    grid-template-columns:
+    1fr 1fr;
 
     gap:10px;
+
 }
 
 .type-option{
-    border:1px solid #e5e7eb;
+
+    border:
+    1px solid #e5e7eb;
 
     background:#fafafa;
 
@@ -842,9 +1292,11 @@ button{
     transition:.2s;
 
     text-align:left;
+
 }
 
 .type-option.active{
+
     border-color:#c084fc;
 
     background:#faf5ff;
@@ -852,15 +1304,19 @@ button{
     box-shadow:
     0 0 0 3px
     rgba(168,85,247,.07);
+
 }
 
 .type-option strong{
+
     display:block;
 
     font-size:12px;
+
 }
 
 .type-option small{
+
     display:block;
 
     font-size:9px;
@@ -868,17 +1324,21 @@ button{
     color:#999;
 
     margin-top:3px;
+
 }
 
 .modal-actions{
+
     display:flex;
 
     gap:10px;
 
     margin-top:20px;
+
 }
 
 .modal-actions button{
+
     flex:1;
 
     border:0;
@@ -888,15 +1348,21 @@ button{
     padding:12px;
 
     font-weight:800;
+
 }
 
 .cancel-btn{
+
     background:#f4f4f5;
+
     color:#555;
+
 }
 
 .save-btn{
+
     background:
+
     linear-gradient(
         135deg,
         var(--pink),
@@ -904,87 +1370,129 @@ button{
     );
 
     color:white;
+
 }
 
 .save-btn:disabled{
+
     opacity:.6;
+
     cursor:not-allowed;
+
 }
 
-/* ADJUSTMENT HISTORY */
+
+/* =========================================================
+   ADJUSTMENT HISTORY
+========================================================= */
 
 .adjustment-history{
+
     margin-top:20px;
 
-    border-top:1px solid #f0f0f3;
+    border-top:
+    1px solid #f0f0f3;
 
     padding-top:15px;
+
 }
 
 .adjustment-history-title{
+
     display:flex;
 
-    justify-content:space-between;
+    justify-content:
+    space-between;
 
     align-items:center;
 
     margin-bottom:8px;
+
 }
 
 .adjustment-history-title strong{
+
     font-size:12px;
+
 }
 
 .adjustment-history-title span{
+
     font-size:9px;
+
     color:#aaa;
+
 }
 
 .adjustment-item{
+
     display:flex;
 
-    justify-content:space-between;
+    justify-content:
+    space-between;
 
     align-items:center;
 
-    padding:9px 0;
+    padding:
+    9px 0;
 
-    border-bottom:1px solid #f4f4f5;
+    border-bottom:
+    1px solid #f4f4f5;
 
     gap:10px;
+
 }
 
 .adjustment-info{
+
     min-width:0;
+
 }
 
 .adjustment-name{
+
     font-size:11px;
+
     font-weight:700;
+
 }
 
 .adjustment-date{
+
     font-size:9px;
+
     color:#aaa;
+
     margin-top:2px;
+
 }
 
 .adjustment-right{
+
     display:flex;
+
     align-items:center;
+
     gap:8px;
+
 }
 
 .adjustment-amount{
+
     font-size:11px;
+
     font-weight:800;
+
     color:var(--green);
+
 }
 
 .delete-adjustment{
+
     border:0;
 
     width:27px;
+
     height:27px;
 
     border-radius:8px;
@@ -992,140 +1500,222 @@ button{
     background:#fff1f2;
 
     color:#e11d48;
+
 }
 
-/* TABLET */
+
+/* =========================================================
+   TABLET
+========================================================= */
 
 @media(max-width:950px){
 
     .grid{
+
         grid-template-columns:
         repeat(2,1fr);
+
     }
 
     .quick{
+
         grid-template-columns:
         repeat(2,1fr);
+
     }
 
     .bottom{
+
         grid-template-columns:1fr;
+
     }
+
 }
 
-/* MOBILE */
+
+/* =========================================================
+   MOBILE
+========================================================= */
 
 @media(max-width:600px){
 
     .header{
-        padding:12px 14px;
+
+        padding:
+        12px 14px;
+
     }
 
     .brand h1{
+
         font-size:17px;
+
     }
 
     .brand small{
+
         font-size:8px;
+
     }
 
     .badge{
+
         display:none;
+
     }
 
     .logout,
     .refresh{
-        padding:8px 10px;
+
+        padding:
+        8px 10px;
+
         font-size:11px;
+
     }
 
     .container{
-        padding:20px 13px 35px;
+
+        padding:
+        20px 13px 35px;
+
     }
 
     .hero{
+
         display:block;
+
     }
 
     .hero h2{
+
         font-size:28px;
+
     }
 
     .month{
+
         margin-top:14px;
+
     }
 
     .grid{
+
         gap:9px;
+
     }
 
     .card{
+
         padding:14px;
+
         min-height:120px;
+
         border-radius:16px;
+
     }
 
     .label{
+
         font-size:9px;
+
     }
 
     .value{
+
         font-size:20px;
+
         margin-top:12px;
+
     }
 
     .icon{
+
         width:34px;
+
         height:34px;
+
         font-size:15px;
+
     }
 
     .quick{
+
         gap:9px;
+
     }
 
     .action{
-        padding:13px 11px;
+
+        padding:
+        13px 11px;
+
     }
 
     .bottom{
+
         margin-top:12px;
+
     }
 
     .panel{
+
         padding:15px;
+
         border-radius:17px;
+
     }
 
     .type-options{
+
         grid-template-columns:1fr;
+
     }
+
 }
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
 
 @media(max-width:390px){
 
     .grid{
+
         grid-template-columns:
         1fr 1fr;
+
     }
 
     .value{
+
         font-size:18px;
+
     }
 
     .hero h2{
+
         font-size:25px;
+
     }
+
 }
 
 </style>
 </head>
 
+
 <body>
 
-<!-- LOADING -->
 
-<div class="loading" id="loading">
+<!-- =========================================================
+     LOADING
+========================================================= -->
+
+<div
+    class="loading"
+    id="loading">
 
     <div class="loader">
 
@@ -1144,7 +1734,9 @@ button{
 </div>
 
 
-<!-- HEADER -->
+<!-- =========================================================
+     HEADER
+========================================================= -->
 
 <header class="header">
 
@@ -1175,6 +1767,7 @@ button{
             ✨ Administrator
         </span>
 
+
         <button
             class="btn refresh"
             id="refreshBtn">
@@ -1182,6 +1775,7 @@ button{
             ↻ Refresh
 
         </button>
+
 
         <button
             class="btn logout"
@@ -1196,12 +1790,16 @@ button{
 </header>
 
 
-<!-- MAIN -->
+<!-- =========================================================
+     MAIN
+========================================================= -->
 
 <main class="container">
 
 
-    <!-- HERO -->
+    <!-- =====================================================
+         HERO
+    ====================================================== -->
 
     <section class="hero">
 
@@ -1233,11 +1831,14 @@ button{
     </section>
 
 
-    <!-- STAT CARDS -->
+    <!-- =====================================================
+         STAT CARDS
+    ====================================================== -->
 
     <section class="grid">
 
-        <!-- STUDENTS -->
+
+        <!-- ACTIVE STUDENTS -->
 
         <div class="card students">
 
@@ -1253,14 +1854,20 @@ button{
 
             </div>
 
+
             <div
                 class="value"
                 id="studentCount">
+
                 0
+
             </div>
 
+
             <div class="sub">
+
                 Active students admitted by selected month
+
             </div>
 
         </div>
@@ -1282,14 +1889,20 @@ button{
 
             </div>
 
+
             <div
                 class="value"
                 id="feesReceived">
+
                 ₹0
+
             </div>
 
+
             <div class="sub">
+
                 Selected month
+
             </div>
 
         </div>
@@ -1311,20 +1924,26 @@ button{
 
             </div>
 
+
             <div
                 class="value"
                 id="registrationFees">
+
                 ₹0
+
             </div>
 
+
             <div class="sub">
+
                 Selected month
+
             </div>
 
         </div>
 
 
-        <!-- EXPENSE -->
+        <!-- EXPENSES -->
 
         <div class="card expenses">
 
@@ -1340,14 +1959,20 @@ button{
 
             </div>
 
+
             <div
                 class="value"
                 id="expenses">
+
                 ₹0
+
             </div>
 
+
             <div class="sub">
+
                 Selected month
+
             </div>
 
         </div>
@@ -1369,20 +1994,26 @@ button{
 
             </div>
 
+
             <div
                 class="value"
                 id="pendingFees">
+
                 ₹0
+
             </div>
 
+
             <div class="sub">
-                Outstanding up to selected month
+
+                Pending for selected month
+
             </div>
 
         </div>
 
 
-        <!-- BALANCE -->
+        <!-- CLOSING BALANCE -->
 
         <div class="card balance">
 
@@ -1398,22 +2029,77 @@ button{
 
             </div>
 
+
             <div
                 class="value"
                 id="currentBalance">
+
                 ₹0
+
             </div>
 
+
             <div class="sub">
+
                 Opening + starting/surplus + income − expenses
+
             </div>
 
         </div>
 
+
+        <!-- =================================================
+             DANCE CLASSES
+        ================================================== -->
+
+        <div
+            class="card dance-card"
+            onclick="go('dance-classes.html')">
+
+            <div class="topline">
+
+                <div class="dance-title">
+
+                    <span class="label">
+                        Dance Classes
+                    </span>
+
+                    <span class="dance-dot"></span>
+
+                </div>
+
+
+                <span class="icon">
+                    💃
+                </span>
+
+            </div>
+
+
+            <div
+                class="value"
+                style="font-size:22px;">
+
+                Dance Classes
+
+            </div>
+
+
+            <div class="sub">
+
+                Manage dance classes & students →
+
+            </div>
+
+        </div>
+
+
     </section>
 
 
-    <!-- QUICK ACTION -->
+    <!-- =====================================================
+         QUICK ACTIONS
+    ====================================================== -->
 
     <div class="section-title">
 
@@ -1434,6 +2120,9 @@ button{
 
     <section class="quick">
 
+
+        <!-- STUDENTS -->
+
         <button
             class="action"
             onclick="go('students.html')">
@@ -1452,6 +2141,8 @@ button{
 
         </button>
 
+
+        <!-- FEES -->
 
         <button
             class="action"
@@ -1472,6 +2163,8 @@ button{
         </button>
 
 
+        <!-- REGISTRATION -->
+
         <button
             class="action"
             onclick="go('registration.html')">
@@ -1491,6 +2184,8 @@ button{
         </button>
 
 
+        <!-- EXPENSES -->
+
         <button
             class="action"
             onclick="go('expenses.html')">
@@ -1509,6 +2204,8 @@ button{
 
         </button>
 
+
+        <!-- MONTHLY SUMMARY -->
 
         <button
             class="action"
@@ -1550,9 +2247,32 @@ button{
         </button>
 
 
+        <!-- DANCE CLASSES -->
+
+        <button
+            class="action dance-action"
+            onclick="go('dance-classes.html')">
+
+            <div class="aicon">
+                💃
+            </div>
+
+            <b>
+                Dance Classes
+            </b>
+
+            <small>
+                Manage dance classes
+            </small>
+
+        </button>
+
+
+        <!-- REFRESH -->
+
         <button
             class="action"
-            onclick="location.reload()">
+            onclick="loadDashboard()">
 
             <div class="aicon">
                 🔄
@@ -1568,8 +2288,11 @@ button{
 
         </button>
 
+
     </section>
 
+
+    <!-- STATUS -->
 
     <div
         id="statusBox"
@@ -1577,7 +2300,9 @@ button{
     </div>
 
 
-    <!-- BOTTOM -->
+    <!-- =====================================================
+         BOTTOM
+    ====================================================== -->
 
     <section class="bottom">
 
@@ -1592,10 +2317,13 @@ button{
                     Financial Overview
                 </h3>
 
+
                 <span
                     class="tag"
                     id="monthTag">
+
                     Monthly
+
                 </span>
 
             </div>
@@ -1607,8 +2335,11 @@ button{
                     Opening Balance
                 </span>
 
-                <strong id="openingBalance">
+                <strong
+                    id="openingBalance">
+
                     ₹0
+
                 </strong>
 
             </div>
@@ -1623,7 +2354,9 @@ button{
                 <strong
                     class="positive"
                     id="summaryStarting">
+
                     ₹0
+
                 </strong>
 
             </div>
@@ -1638,7 +2371,9 @@ button{
                 <strong
                     class="positive"
                     id="summarySurplus">
+
                     ₹0
+
                 </strong>
 
             </div>
@@ -1650,8 +2385,11 @@ button{
                     Fees Received
                 </span>
 
-                <strong id="summaryFees">
+                <strong
+                    id="summaryFees">
+
                     ₹0
+
                 </strong>
 
             </div>
@@ -1663,8 +2401,11 @@ button{
                     Registration
                 </span>
 
-                <strong id="summaryRegistration">
+                <strong
+                    id="summaryRegistration">
+
                     ₹0
+
                 </strong>
 
             </div>
@@ -1676,8 +2417,11 @@ button{
                     Investment
                 </span>
 
-                <strong id="summaryInvestment">
+                <strong
+                    id="summaryInvestment">
+
                     ₹0
+
                 </strong>
 
             </div>
@@ -1692,7 +2436,9 @@ button{
                 <strong
                     class="negative"
                     id="summaryExpenses">
+
                     ₹0
+
                 </strong>
 
             </div>
@@ -1704,8 +2450,11 @@ button{
                     Closing Balance
                 </span>
 
-                <strong id="closingBalance">
+                <strong
+                    id="closingBalance">
+
                     ₹0
+
                 </strong>
 
             </div>
@@ -1735,7 +2484,9 @@ button{
                 id="transactionList">
 
                 <div class="empty">
+
                     Loading transactions...
+
                 </div>
 
             </div>
@@ -1758,6 +2509,7 @@ button{
 
     <div class="modal-box">
 
+
         <div class="modal-head">
 
             <div>
@@ -1771,6 +2523,7 @@ button{
                 </p>
 
             </div>
+
 
             <button
                 class="close"
@@ -1791,20 +2544,24 @@ button{
                 Amount Type
             </label>
 
+
             <div class="type-options">
+
 
                 <button
                     type="button"
                     class="type-option active"
                     id="startingOption"
-                    onclick="selectAdjustmentType('starting')">
+                    onclick="
+                    selectAdjustmentType('starting')
+                    ">
 
                     <strong>
                         💰 Starting Amount
                     </strong>
 
                     <small>
-                        Opening/extra amount
+                        Opening / extra amount
                     </small>
 
                 </button>
@@ -1814,7 +2571,9 @@ button{
                     type="button"
                     class="type-option"
                     id="surplusOption"
-                    onclick="selectAdjustmentType('surplus')">
+                    onclick="
+                    selectAdjustmentType('surplus')
+                    ">
 
                     <strong>
                         💎 Surplus
@@ -1825,6 +2584,7 @@ button{
                     </small>
 
                 </button>
+
 
             </div>
 
@@ -1881,16 +2641,21 @@ button{
         </div>
 
 
+        <!-- BUTTONS -->
+
         <div class="modal-actions">
 
             <button
                 type="button"
                 class="cancel-btn"
-                onclick="closeAdjustmentModal()">
+                onclick="
+                closeAdjustmentModal()
+                ">
 
                 Cancel
 
             </button>
+
 
             <button
                 type="button"
@@ -1909,22 +2674,29 @@ button{
 
         <div class="adjustment-history">
 
-            <div class="adjustment-history-title">
+            <div
+                class="adjustment-history-title">
 
                 <strong>
                     Selected Month Entries
                 </strong>
 
-                <span id="adjustmentMonthLabel">
+                <span
+                    id="adjustmentMonthLabel">
+
                     -
+
                 </span>
 
             </div>
 
+
             <div id="adjustmentHistory">
 
                 <div class="empty">
+
                     No entries
+
                 </div>
 
             </div>
@@ -1947,6 +2719,7 @@ const SUPABASE_URL =
 
 const SUPABASE_KEY =
 "sb_publishable_KoCQClKL582rggMuDJXhYQ_UhHOB4xZ";
+
 
 const db =
 supabase.createClient(
@@ -1979,11 +2752,14 @@ function money(value){
 
 function monthNow(){
 
-    const d = new Date();
+    const d =
+    new Date();
 
     return d.getFullYear()
-    + "-"
-    + String(
+    +
+    "-"
+    +
+    String(
         d.getMonth()+1
     ).padStart(2,"0");
 
@@ -2003,14 +2779,23 @@ function monthOf(value){
 function dateOf(row){
 
     return (
+
         row.payment_date ||
+
         row.expense_date ||
+
         row.investment_date ||
+
         row.adjustment_date ||
+
         row.fee_month ||
+
         row.date ||
+
         row.created_at ||
+
         null
+
     );
 
 }
@@ -2040,12 +2825,19 @@ function sum(rows){
         (total,row) => {
 
             return total +
+
             Number(
+
                 row.amount ||
+
                 row.fee_amount ||
+
                 row.paid_amount ||
+
                 row.investment_amount ||
+
                 0
+
             );
 
         },
@@ -2082,7 +2874,8 @@ function escapeHTML(value){
 
 function go(page){
 
-    location.href = page;
+    location.href =
+    page;
 
 }
 
@@ -2112,11 +2905,6 @@ function studentAppliesToMonth(
     student.joining_date;
 
 
-    /*
-       Agar admission date nahi hai,
-       to existing student ko include karenge.
-    */
-
     if(!admission)
         return true;
 
@@ -2124,11 +2912,6 @@ function studentAppliesToMonth(
     const admissionMonth =
     String(admission).slice(0,7);
 
-
-    /*
-       Future student selected month
-       mein count nahi hoga.
-    */
 
     return (
         admissionMonth <=
@@ -2139,7 +2922,7 @@ function studentAppliesToMonth(
 
 
 /* ============================================================
-   SUPABASE TABLE READER
+   TABLE READER
 ============================================================ */
 
 async function table(name){
@@ -2171,7 +2954,7 @@ async function table(name){
 
 
 /* ============================================================
-   LOGIN CHECK
+   SESSION
 ============================================================ */
 
 async function checkSession(){
@@ -2203,7 +2986,9 @@ async function checkSession(){
 
 
 /* ============================================================
-   PENDING FEE
+   PENDING FEES
+   IMPORTANT:
+   ONLY SELECTED MONTH
 ============================================================ */
 
 function calculatePending(
@@ -2215,21 +3000,13 @@ function calculatePending(
     let pending = 0;
 
 
-    const end =
-    new Date(
-        selectedMonth +
-        "-01T00:00:00"
-    );
-
-
     students.forEach(
         student => {
 
+
             /*
-              IMPORTANT:
-              Future / inactive students
-              are excluded.
-            */
+             * Future students are excluded.
+             */
 
             if(
                 !studentAppliesToMonth(
@@ -2249,84 +3026,82 @@ function calculatePending(
             );
 
 
-            if(!monthlyFee)
+            if(monthlyFee <= 0)
                 return;
 
 
-            const startRaw =
-            student.admission_date ||
-            student.joining_date;
+            /*
+             * ONLY selected month's payments.
+             */
 
+            const paidThisMonth =
 
-            if(!startRaw)
-                return;
-
-
-            const start =
-            new Date(
-                String(startRaw)
-                .slice(0,7)
-                + "-01T00:00:00"
-            );
-
-
-            if(
-                isNaN(start) ||
-                start > end
-            )
-                return;
-
-
-            let due = 0;
-
-
-            const cursor =
-            new Date(start);
-
-
-            while(
-                cursor <= end
-            ){
-
-                due += monthlyFee;
-
-                cursor.setMonth(
-                    cursor.getMonth()+1
-                );
-
-            }
-
-
-            const paid =
             fees
+
             .filter(
                 payment => {
 
+                    const studentId =
+                    String(
+                        payment.student_id ||
+                        ""
+                    );
+
+
+                    const currentId =
+                    String(
+                        student.id ||
+                        ""
+                    );
+
+
+                    const paymentMonth =
+                    monthOf(
+
+                        payment.fee_month ||
+
+                        payment.payment_date ||
+
+                        payment.date ||
+
+                        payment.created_at
+
+                    );
+
+
                     return (
 
-                        payment.student_id
-                        ===
-                        student.id
+                        studentId ===
+                        currentId
 
-                    &&
+                        &&
 
-                        monthOf(
-                            payment.fee_month ||
-                            payment.payment_date
-                        )
-                        <=
+                        paymentMonth ===
                         selectedMonth
 
                     );
 
                 }
             )
+
             .reduce(
-                (total,payment) => {
+                (
+                    total,
+                    payment
+                ) => {
 
                     return total +
+
                     Number(
-                        payment.amount || 0
+
+                        payment.amount ||
+
+                        payment.fee_amount ||
+
+                        payment.paid_amount ||
+
+                        0
+
                     );
 
                 },
@@ -2334,11 +3109,28 @@ function calculatePending(
             );
 
 
-            pending +=
+            /*
+             * ONLY THIS MONTH'S DUE
+             */
+
+            const monthDue =
+            monthlyFee;
+
+
+            /*
+             * MONTHLY PENDING
+             */
+
+            const studentPending =
             Math.max(
                 0,
-                due-paid
+                monthDue -
+                paidThisMonth
             );
+
+
+            pending +=
+            studentPending;
 
         }
     );
@@ -2368,15 +3160,20 @@ async function loadDashboard(){
         selectedMonth;
 
 
-        /* LOAD ALL DATA */
+        /* LOAD DATA */
 
         const [
 
             students,
+
             fees,
+
             registrations,
+
             expenses,
+
             investments,
+
             adjustments
 
         ] =
@@ -2394,13 +3191,15 @@ async function loadDashboard(){
 
             table("investments"),
 
-            table("balance_adjustments")
+            table(
+                "balance_adjustments"
+            )
 
         ]);
 
 
         /* ====================================================
-           ACTIVE STUDENTS FOR SELECTED MONTH
+           ACTIVE STUDENTS
         ==================================================== */
 
         const activeStudents =
@@ -2417,7 +3216,7 @@ async function loadDashboard(){
 
 
         /* ====================================================
-           MONTH DATA
+           CURRENT MONTH FEES
         ==================================================== */
 
         const monthlyFees =
@@ -2425,8 +3224,15 @@ async function loadDashboard(){
             payment => {
 
                 return monthOf(
+
                     payment.fee_month ||
-                    payment.payment_date
+
+                    payment.payment_date ||
+
+                    payment.date ||
+
+                    payment.created_at
+
                 )
                 ===
                 selectedMonth;
@@ -2434,13 +3240,23 @@ async function loadDashboard(){
             }
         );
 
+
+        /* ====================================================
+           REGISTRATION
+        ==================================================== */
 
         const monthlyRegistration =
         registrations.filter(
             payment => {
 
                 return monthOf(
-                    payment.payment_date
+
+                    payment.payment_date ||
+
+                    payment.date ||
+
+                    payment.created_at
+
                 )
                 ===
                 selectedMonth;
@@ -2448,13 +3264,23 @@ async function loadDashboard(){
             }
         );
 
+
+        /* ====================================================
+           EXPENSES
+        ==================================================== */
 
         const monthlyExpenses =
         expenses.filter(
             expense => {
 
                 return monthOf(
-                    expense.expense_date
+
+                    expense.expense_date ||
+
+                    expense.date ||
+
+                    expense.created_at
+
                 )
                 ===
                 selectedMonth;
@@ -2462,15 +3288,23 @@ async function loadDashboard(){
             }
         );
 
+
+        /* ====================================================
+           INVESTMENT
+        ==================================================== */
 
         const monthlyInvestments =
         investments.filter(
             investment => {
 
                 return monthOf(
+
                     investment.investment_date ||
+
                     investment.date ||
+
                     investment.created_at
+
                 )
                 ===
                 selectedMonth;
@@ -2479,9 +3313,9 @@ async function loadDashboard(){
         );
 
 
-        /*
-          STARTING / SURPLUS
-        */
+        /* ====================================================
+           STARTING / SURPLUS
+        ==================================================== */
 
         const monthlyAdjustments =
         adjustments.filter(
@@ -2498,28 +3332,32 @@ async function loadDashboard(){
 
 
         const monthlyStarting =
-        monthlyAdjustments
-        .filter(
-            a =>
-            String(
-                a.adjustment_type ||
-                "starting"
-            ).toLowerCase()
-            ===
-            "starting"
+        monthlyAdjustments.filter(
+            adjustment => {
+
+                return String(
+                    adjustment.adjustment_type ||
+                    "starting"
+                ).toLowerCase()
+                ===
+                "starting";
+
+            }
         );
 
 
         const monthlySurplus =
-        monthlyAdjustments
-        .filter(
-            a =>
-            String(
-                a.adjustment_type ||
-                ""
-            ).toLowerCase()
-            ===
-            "surplus"
+        monthlyAdjustments.filter(
+            adjustment => {
+
+                return String(
+                    adjustment.adjustment_type ||
+                    ""
+                ).toLowerCase()
+                ===
+                "surplus";
+
+            }
         );
 
 
@@ -2572,8 +3410,10 @@ async function loadDashboard(){
             const date =
             dateOf(row);
 
+
             if(!date)
                 return false;
+
 
             return (
                 monthOf(date)
@@ -2624,45 +3464,41 @@ async function loadDashboard(){
 
         const previousStarting =
         sum(
-            previousAdjustments
-            .filter(
-                a =>
-                String(
-                    a.adjustment_type ||
-                    "starting"
-                ).toLowerCase()
-                ===
-                "starting"
+            previousAdjustments.filter(
+                adjustment => {
+
+                    return String(
+                        adjustment.adjustment_type ||
+                        "starting"
+                    ).toLowerCase()
+                    ===
+                    "starting";
+
+                }
             )
         );
 
 
         const previousSurplus =
         sum(
-            previousAdjustments
-            .filter(
-                a =>
-                String(
-                    a.adjustment_type ||
-                    ""
-                ).toLowerCase()
-                ===
-                "surplus"
+            previousAdjustments.filter(
+                adjustment => {
+
+                    return String(
+                        adjustment.adjustment_type ||
+                        ""
+                    ).toLowerCase()
+                    ===
+                    "surplus";
+
+                }
             )
         );
 
 
-        /*
-          OPENING BALANCE
-
-          Previous:
-          Fees
-          + Registration
-          + Investment
-          + Starting
-          + Surplus
-          - Expenses
-        */
+        /* ====================================================
+           OPENING BALANCE
+        ==================================================== */
 
         const openingBalance =
 
@@ -2778,7 +3614,9 @@ async function loadDashboard(){
         money(closingBalance);
 
 
-        /* TRANSACTIONS */
+        /* ====================================================
+           TRANSACTIONS
+        ==================================================== */
 
         showTransactions(
 
@@ -2820,16 +3658,21 @@ async function loadDashboard(){
 
 
 /* ============================================================
-   RECENT TRANSACTIONS
+   TRANSACTIONS
 ============================================================ */
 
 function showTransactions(
 
     fees,
+
     registrations,
+
     expenses,
+
     investments,
+
     adjustments,
+
     students
 
 ){
@@ -2843,14 +3686,21 @@ function showTransactions(
 
         const student =
         students.find(
-            s => s.id === studentId
+            s =>
+            String(s.id)
+            ===
+            String(studentId)
         );
 
 
         return (
+
             student?.name ||
+
             student?.student_name ||
+
             "Student"
+
         );
 
     }
@@ -2878,7 +3728,10 @@ function showTransactions(
 
                 amount:
                 Number(
-                    payment.amount || 0
+                    payment.amount ||
+                    payment.fee_amount ||
+                    payment.paid_amount ||
+                    0
                 ),
 
                 income:true
@@ -2910,7 +3763,9 @@ function showTransactions(
 
                 amount:
                 Number(
-                    payment.amount || 0
+                    payment.amount ||
+                    payment.registration_amount ||
+                    0
                 ),
 
                 income:true
@@ -2940,9 +3795,13 @@ function showTransactions(
 
                 amount:
                 Number(
+
                     investment.amount ||
+
                     investment.investment_amount ||
+
                     0
+
                 ),
 
                 income:true
@@ -2968,17 +3827,27 @@ function showTransactions(
             transactions.push({
 
                 type:
+
                 type === "surplus"
+
                 ?
+
                 "Surplus"
+
                 :
+
                 "Starting Amount",
 
                 icon:
+
                 type === "surplus"
+
                 ?
+
                 "💎"
+
                 :
+
                 "💰",
 
                 date:
@@ -2997,7 +3866,7 @@ function showTransactions(
     );
 
 
-    /* EXPENSE */
+    /* EXPENSES */
 
     expenses.forEach(
         expense => {
@@ -3073,8 +3942,7 @@ function showTransactions(
     $("transactionList")
     .innerHTML =
 
-    latest
-    .map(
+    latest.map(
         transaction => {
 
             return `
@@ -3171,10 +4039,6 @@ function openAdjustmentModal(){
     monthNow();
 
 
-    /*
-      Date = first day of selected month
-    */
-
     $("adjustmentDate")
     .value =
     selectedMonth + "-01";
@@ -3247,7 +4111,9 @@ async function saveAdjustment(){
 
 
     const note =
-    $("adjustmentNote").value.trim();
+    $("adjustmentNote")
+    .value
+    .trim();
 
 
     if(
@@ -3282,6 +4148,7 @@ async function saveAdjustment(){
     button.disabled =
     true;
 
+
     button.textContent =
     "Saving...";
 
@@ -3297,14 +4164,20 @@ async function saveAdjustment(){
         )
         .insert({
 
-            amount:amount,
+            amount:
 
-            adjustment_date:date,
+            amount,
+
+            adjustment_date:
+
+            date,
 
             adjustment_type:
+
             selectedAdjustmentType,
 
             note:
+
             note || null
 
         });
@@ -3318,6 +4191,7 @@ async function saveAdjustment(){
         .value =
         "";
 
+
         $("adjustmentNote")
         .value =
         "";
@@ -3325,17 +4199,25 @@ async function saveAdjustment(){
 
         await loadDashboard();
 
+
         await loadAdjustmentHistory();
 
 
         alert(
+
             selectedAdjustmentType ===
             "surplus"
+
             ?
+
             "Surplus added successfully."
+
             :
+
             "Starting Amount added successfully."
+
         );
+
 
     }
     catch(error){
@@ -3347,9 +4229,11 @@ async function saveAdjustment(){
 
 
         alert(
+
             "Unable to save amount.\n\n"
             +
             error.message
+
         );
 
     }
@@ -3430,7 +4314,10 @@ async function loadAdjustmentHistory(){
     }
 
 
-    if(!data || !data.length){
+    if(
+        !data ||
+        !data.length
+    ){
 
         $("adjustmentHistory")
         .innerHTML =
@@ -3449,8 +4336,7 @@ async function loadAdjustmentHistory(){
     $("adjustmentHistory")
     .innerHTML =
 
-    data
-    .map(
+    data.map(
         item => {
 
             const type =
@@ -3470,25 +4356,34 @@ async function loadAdjustmentHistory(){
 
                         ${
                             type === "surplus"
+
                             ?
+
                             "💎 Surplus"
+
                             :
+
                             "💰 Starting Amount"
                         }
 
                         ${
                             item.note
+
                             ?
+
                             " • "
                             +
                             escapeHTML(
                                 item.note
                             )
+
                             :
+
                             ""
                         }
 
                     </div>
+
 
                     <div class="adjustment-date">
 
@@ -3507,7 +4402,8 @@ async function loadAdjustmentHistory(){
 
                 <div class="adjustment-right">
 
-                    <span class="adjustment-amount">
+                    <span
+                        class="adjustment-amount">
 
                         +
                         ${
@@ -3521,7 +4417,11 @@ async function loadAdjustmentHistory(){
 
                     <button
                         class="delete-adjustment"
-                        onclick="deleteAdjustment('${item.id}')">
+                        onclick="
+                        deleteAdjustment(
+                            '${item.id}'
+                        )
+                        ">
 
                         ×
 
@@ -3566,11 +4466,21 @@ function nextMonth(month){
     );
 
 
-    return d.getFullYear()
-    + "-"
-    + String(
-        d.getMonth()+1
-    ).padStart(2,"0");
+    return (
+
+        d.getFullYear()
+
+        +
+
+        "-"
+
+        +
+
+        String(
+            d.getMonth()+1
+        ).padStart(2,"0")
+
+    );
 
 }
 
@@ -3625,6 +4535,7 @@ async function deleteAdjustment(id){
 
     await loadDashboard();
 
+
     await loadAdjustmentHistory();
 
 }
@@ -3641,9 +4552,11 @@ $("monthPicker")
 
         await loadDashboard();
 
+
         if(
             $("adjustmentModal")
-            .classList.contains("show")
+            .classList
+            .contains("show")
         ){
 
             await loadAdjustmentHistory();
@@ -3657,7 +4570,21 @@ $("monthPicker")
 $("refreshBtn")
 .addEventListener(
     "click",
-    loadDashboard
+    async () => {
+
+        $("refreshBtn")
+        .textContent =
+        "Refreshing...";
+
+
+        await loadDashboard();
+
+
+        $("refreshBtn")
+        .textContent =
+        "↻ Refresh";
+
+    }
 );
 
 
@@ -3668,6 +4595,7 @@ $("logoutBtn")
 
         await db.auth.signOut();
 
+
         location.replace(
             "login.html"
         );
@@ -3676,7 +4604,9 @@ $("logoutBtn")
 );
 
 
-/* Close modal when clicking outside */
+/* ============================================================
+   CLOSE MODAL OUTSIDE CLICK
+============================================================ */
 
 $("adjustmentModal")
 .addEventListener(
