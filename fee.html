@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Little Blossoms - Fees</title>
+
+<title>Little Blossoms - Fee Collection</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -20,6 +21,7 @@ body{
     color:#222;
 }
 
+/* HEADER */
 .header{
     background:linear-gradient(135deg,#ff72a7,#ff9a62);
     color:white;
@@ -33,12 +35,18 @@ body{
     font-size:21px;
 }
 
+.header small{
+    opacity:.9;
+}
+
+/* CONTAINER */
 .container{
     max-width:1200px;
     margin:auto;
     padding:20px;
 }
 
+/* TOP */
 .top{
     display:flex;
     justify-content:space-between;
@@ -48,6 +56,14 @@ body{
     margin-bottom:20px;
 }
 
+.top h2{
+    font-size:24px;
+}
+
+.top p{
+    margin-top:5px;
+}
+
 .back{
     border:0;
     background:white;
@@ -55,8 +71,14 @@ body{
     border-radius:10px;
     cursor:pointer;
     box-shadow:0 4px 15px #0001;
+    font-weight:bold;
 }
 
+.back:hover{
+    transform:translateY(-1px);
+}
+
+/* SUMMARY CARDS */
 .cards{
     display:grid;
     grid-template-columns:repeat(4,1fr);
@@ -66,19 +88,23 @@ body{
 
 .card{
     background:white;
-    padding:18px;
+    padding:20px;
     border-radius:16px;
     box-shadow:0 5px 20px #0000000a;
+    border:1px solid #f1f1f1;
 }
 
 .card small{
     color:#777;
+    font-size:11px;
+    font-weight:bold;
+    letter-spacing:.5px;
 }
 
 .card b{
     display:block;
-    font-size:23px;
-    margin-top:7px;
+    font-size:24px;
+    margin-top:8px;
 }
 
 .green{
@@ -93,12 +119,18 @@ body{
     color:#dc2626;
 }
 
+/* FORM */
 .form-box{
     background:white;
     padding:22px;
     border-radius:18px;
     box-shadow:0 5px 25px #0000000a;
-    margin-bottom:20px;
+    margin-bottom:25px;
+    border:1px solid #f1f1f1;
+}
+
+.form-box h3{
+    font-size:18px;
 }
 
 .form-grid{
@@ -114,7 +146,8 @@ label{
     margin-bottom:6px;
 }
 
-input,select{
+input,
+select{
     width:100%;
     padding:12px;
     border:1px solid #ddd;
@@ -124,26 +157,42 @@ input,select{
     background:white;
 }
 
-input:focus,select:focus{
+input:focus,
+select:focus{
     border-color:#ff72a7;
+    box-shadow:0 0 0 3px #ff72a71a;
 }
 
 .full{
     grid-column:1/-1;
 }
 
+/* INFO */
 .info{
     background:#fff5f8;
     padding:15px;
     border-radius:12px;
+    border:1px solid #ffe2eb;
 }
 
 .info-row{
     display:flex;
     justify-content:space-between;
-    padding:7px 0;
+    align-items:center;
+    padding:8px 0;
+    border-bottom:1px dashed #f2cbd8;
 }
 
+.info-row:last-child{
+    border-bottom:0;
+}
+
+.info-row span{
+    color:#666;
+    font-size:13px;
+}
+
+/* SAVE */
 .save{
     width:100%;
     margin-top:18px;
@@ -155,13 +204,34 @@ input:focus,select:focus{
     font-size:15px;
     font-weight:bold;
     cursor:pointer;
+    transition:.2s;
 }
 
+.save:hover{
+    transform:translateY(-1px);
+    box-shadow:0 8px 20px #ff72a744;
+}
+
+.save:disabled{
+    opacity:.6;
+    cursor:not-allowed;
+}
+
+/* MESSAGE */
+#message{
+    text-align:center;
+    margin-top:12px;
+    font-size:13px;
+    min-height:18px;
+}
+
+/* TABLE */
 .table-box{
     background:white;
     border-radius:16px;
     overflow:auto;
     box-shadow:0 5px 25px #0000000a;
+    border:1px solid #f1f1f1;
 }
 
 table{
@@ -175,6 +245,7 @@ th{
     padding:13px;
     text-align:left;
     font-size:13px;
+    white-space:nowrap;
 }
 
 td{
@@ -183,11 +254,18 @@ td{
     font-size:13px;
 }
 
+tbody tr:hover{
+    background:#fffafb;
+}
+
+/* BUTTONS */
 .action{
     border:0;
     padding:7px 10px;
     border-radius:7px;
     cursor:pointer;
+    font-size:12px;
+    margin-right:4px;
 }
 
 .edit{
@@ -200,13 +278,27 @@ td{
     color:#dc2626;
 }
 
-#message{
-    text-align:center;
-    margin-top:12px;
-    font-size:13px;
+.edit:hover{
+    background:#bae6fd;
 }
 
+.delete:hover{
+    background:#fecaca;
+}
+
+/* EMPTY */
+.empty{
+    text-align:center;
+    padding:30px;
+    color:#888;
+}
+
+/* MOBILE */
 @media(max-width:800px){
+
+    .container{
+        padding:14px;
+    }
 
     .cards{
         grid-template-columns:1fr 1fr;
@@ -219,6 +311,38 @@ td{
     .full{
         grid-column:auto;
     }
+
+    .top h2{
+        font-size:20px;
+    }
+
+    .header h1{
+        font-size:18px;
+    }
+}
+
+@media(max-width:500px){
+
+    .cards{
+        grid-template-columns:1fr 1fr;
+        gap:10px;
+    }
+
+    .card{
+        padding:14px;
+    }
+
+    .card b{
+        font-size:20px;
+    }
+
+    .form-box{
+        padding:16px;
+    }
+
+    .back{
+        width:100%;
+    }
 }
 </style>
 </head>
@@ -226,26 +350,37 @@ td{
 <body>
 
 <header class="header">
+
     <div>
         <h1>🌸 Little Blossoms</h1>
         <small>Monthly Fee Management</small>
     </div>
+
 </header>
+
 
 <div class="container">
 
+    <!-- TOP -->
+
     <div class="top">
+
         <div>
             <h2>Monthly Fees</h2>
+
             <p style="color:#777;font-size:13px">
                 Record and manage student fee payments
             </p>
         </div>
 
-        <button class="back"
-                onclick="location.href='dashboard.html'">
+        <button
+            class="back"
+            onclick="location.href='dashboard.html'">
+
             ← Dashboard
+
         </button>
+
     </div>
 
 
@@ -254,23 +389,54 @@ td{
     <div class="cards">
 
         <div class="card">
+
             <small>MONTHLY DUE</small>
-            <b id="totalDue">₹0</b>
+
+            <b id="totalDue">
+                ₹0
+            </b>
+
         </div>
 
+
         <div class="card">
+
             <small>RECEIVED</small>
-            <b class="green" id="totalReceived">₹0</b>
+
+            <b
+                class="green"
+                id="totalReceived">
+
+                ₹0
+
+            </b>
+
         </div>
 
+
         <div class="card">
+
             <small>PENDING</small>
-            <b class="orange" id="totalPending">₹0</b>
+
+            <b
+                class="orange"
+                id="totalPending">
+
+                ₹0
+
+            </b>
+
         </div>
 
+
         <div class="card">
+
             <small>PAYMENTS</small>
-            <b id="paymentCount">0</b>
+
+            <b id="paymentCount">
+                0
+            </b>
+
         </div>
 
     </div>
@@ -280,68 +446,115 @@ td{
 
     <div class="form-box">
 
-        <h3 id="formTitle">➕ Add Fee Payment</h3>
+        <h3 id="formTitle">
+            ➕ Add Fee Payment
+        </h3>
 
         <br>
 
+
         <div class="form-grid">
 
-            <div>
-                <label>Student *</label>
 
-                <select id="studentSelect"
-                        onchange="calculateFee()">
+            <!-- STUDENT -->
+
+            <div>
+
+                <label>
+                    Student *
+                </label>
+
+                <select
+                    id="studentSelect"
+                    onchange="calculateFee()">
 
                     <option value="">
                         Select Student
                     </option>
 
                 </select>
+
             </div>
 
 
+            <!-- FEE MONTH -->
+
             <div>
-                <label>Fee Month *</label>
+
+                <label>
+                    Fee Month *
+                </label>
 
                 <input
                     type="month"
                     id="feeMonth"
-                    onchange="calculateFee()"
-                >
+                    onchange="calculateFee()">
+
             </div>
 
+
+            <!-- FEE INFO -->
 
             <div class="full">
 
                 <div class="info">
 
-                    <div class="info-row">
-                        <span>Monthly Fee</span>
-                        <b id="monthlyFee">₹0</b>
-                    </div>
 
                     <div class="info-row">
-                        <span>Previous Pending</span>
-                        <b class="orange"
-                           id="previousPending">
+
+                        <span>
+                            Monthly Fee
+                        </span>
+
+                        <b id="monthlyFee">
                             ₹0
                         </b>
+
                     </div>
 
+
                     <div class="info-row">
-                        <span>Total Due</span>
+
+                        <span>
+                            Previous Pending
+                        </span>
+
+                        <b
+                            class="orange"
+                            id="previousPending">
+
+                            ₹0
+
+                        </b>
+
+                    </div>
+
+
+                    <div class="info-row">
+
+                        <span>
+                            Total Due
+                        </span>
+
                         <b id="currentDue">
                             ₹0
                         </b>
+
                     </div>
+
 
                 </div>
 
             </div>
 
 
+            <!-- PAID -->
+
             <div>
-                <label>Paid Amount *</label>
+
+                <label>
+                    Paid Amount *
+                </label>
 
                 <input
                     type="number"
@@ -349,53 +562,85 @@ td{
                     min="0"
                     step="0.01"
                     value="0"
-                    oninput="calculateRemaining()"
-                >
+                    oninput="calculateRemaining()">
+
             </div>
 
 
+            <!-- DATE -->
+
             <div>
-                <label>Payment Date</label>
+
+                <label>
+                    Payment Date
+                </label>
 
                 <input
                     type="date"
-                    id="paymentDate"
-                >
+                    id="paymentDate">
+
             </div>
 
 
+            <!-- METHOD -->
+
             <div>
-                <label>Payment Method</label>
+
+                <label>
+                    Payment Method
+                </label>
 
                 <select id="paymentMethod">
 
-                    <option>Cash</option>
-                    <option>UPI</option>
-                    <option>Bank Transfer</option>
-                    <option>Cheque</option>
+                    <option value="Cash">
+                        Cash
+                    </option>
+
+                    <option value="UPI">
+                        UPI
+                    </option>
+
+                    <option value="Bank Transfer">
+                        Bank Transfer
+                    </option>
+
+                    <option value="Cheque">
+                        Cheque
+                    </option>
 
                 </select>
+
             </div>
 
 
+            <!-- REMAINING -->
+
             <div>
-                <label>Remaining Pending</label>
+
+                <label>
+                    Remaining Pending
+                </label>
 
                 <input
                     id="remaining"
                     value="₹0"
-                    readonly
-                >
+                    readonly>
+
             </div>
+
 
         </div>
 
 
-        <button class="save"
-                id="saveBtn"
-                onclick="savePayment()">
+        <button
+            class="save"
+            id="saveBtn"
+            onclick="savePayment()">
+
             Save Fee Payment
+
         </button>
+
 
         <div id="message"></div>
 
@@ -408,6 +653,7 @@ td{
         📋 Fee Payment History
     </h3>
 
+
     <div class="table-box">
 
         <table>
@@ -415,18 +661,43 @@ td{
             <thead>
 
                 <tr>
-                    <th>Student</th>
-                    <th>Month</th>
-                    <th>Monthly Fee</th>
-                    <th>Paid</th>
-                    <th>Payment Date</th>
-                    <th>Method</th>
-                    <th>Action</th>
+
+                    <th>
+                        Student
+                    </th>
+
+                    <th>
+                        Month
+                    </th>
+
+                    <th>
+                        Monthly Fee
+                    </th>
+
+                    <th>
+                        Paid
+                    </th>
+
+                    <th>
+                        Payment Date
+                    </th>
+
+                    <th>
+                        Method
+                    </th>
+
+                    <th>
+                        Action
+                    </th>
+
                 </tr>
 
             </thead>
 
-            <tbody id="paymentList"></tbody>
+
+            <tbody id="paymentList">
+
+            </tbody>
 
         </table>
 
@@ -437,9 +708,9 @@ td{
 
 <script>
 
-/* =====================================
+/* =====================================================
    SUPABASE
-===================================== */
+===================================================== */
 
 const SUPABASE_URL =
 "https://holelzxzhaiefaqezmce.supabase.co";
@@ -454,14 +725,20 @@ supabase.createClient(
 );
 
 
+/* =====================================================
+   GLOBAL VARIABLES
+===================================================== */
+
 let students = [];
+
 let payments = [];
+
 let editingId = null;
 
 
-/* =====================================
-   LOGIN
-===================================== */
+/* =====================================================
+   LOGIN CHECK
+===================================================== */
 
 async function checkLogin(){
 
@@ -469,139 +746,263 @@ async function checkLogin(){
         data:{session}
     } = await supabaseClient.auth.getSession();
 
+
     if(!session){
 
-        location.href="login.html";
+        location.href =
+            "login.html";
 
         return false;
     }
+
 
     return true;
 }
 
 
-/* =====================================
-   START
-===================================== */
+/* =====================================================
+   INIT
+===================================================== */
 
 async function init(){
 
-    if(!(await checkLogin())) return;
+    if(!(await checkLogin()))
+        return;
 
-    const now = new Date();
+
+    const now =
+        new Date();
+
+
+    /*
+       Current month
+    */
 
     document.getElementById("feeMonth").value =
         now.getFullYear() +
         "-" +
-        String(now.getMonth()+1).padStart(2,"0");
+        String(
+            now.getMonth()+1
+        ).padStart(2,"0");
+
+
+    /*
+       Current date
+    */
 
     document.getElementById("paymentDate").value =
-        now.toISOString().split("T")[0];
+        now.toISOString()
+        .split("T")[0];
+
+
+    /*
+       Load students first
+    */
 
     await loadStudents();
+
+
+    /*
+       Then payments
+    */
+
     await loadPayments();
-    calculateFee();
+
+
+    /*
+       Calculate
+    */
+
+    await calculateFee();
+
 }
 
 
-/* =====================================
-   STUDENTS
-===================================== */
+/* =====================================================
+   LOAD STUDENTS
+===================================================== */
 
 async function loadStudents(){
 
-    const {data,error} =
+    const {
+        data,
+        error
+    } =
         await supabaseClient
         .from("students")
         .select("*")
         .eq("status","Active")
-        .order("student_name");
+        .order("name");
+
 
     if(error){
 
-        alert(error.message);
+        console.error(
+            "Student loading error:",
+            error
+        );
+
+        alert(
+            "Student loading error: " +
+            error.message
+        );
+
         return;
     }
 
-    students = data || [];
+
+    students =
+        data || [];
+
 
     const select =
-        document.getElementById("studentSelect");
+        document.getElementById(
+            "studentSelect"
+        );
+
 
     select.innerHTML =
-        `<option value="">Select Student</option>`;
+        `
+        <option value="">
+            Select Student
+        </option>
+        `;
 
-    students.forEach(s => {
+
+    students.forEach(student => {
 
         const option =
-            document.createElement("option");
+            document.createElement(
+                "option"
+            );
 
-        option.value = s.id;
+
+        /*
+           IMPORTANT:
+           students table uses "name"
+        */
+
+        option.value =
+            student.id;
+
 
         option.textContent =
-            `${s.student_name} - ₹${Number(s.monthly_fee || 0).toLocaleString("en-IN")}`;
+            `${student.name || "Unnamed Student"} - ₹${Number(
+                student.monthly_fee || 0
+            ).toLocaleString("en-IN")}`;
 
-        select.appendChild(option);
+
+        select.appendChild(
+            option
+        );
 
     });
+
 }
 
 
-/* =====================================
-   PAYMENTS
-===================================== */
+/* =====================================================
+   LOAD PAYMENTS
+===================================================== */
 
 async function loadPayments(){
 
-    const {data,error} =
+    const {
+        data,
+        error
+    } =
         await supabaseClient
         .from("fee_payments")
         .select("*")
-        .order("payment_date",{ascending:false});
+        .order(
+            "payment_date",
+            {
+                ascending:false
+            }
+        );
+
 
     if(error){
 
-        alert(error.message);
+        console.error(
+            "Payment loading error:",
+            error
+        );
+
+        alert(
+            "Payment loading error: " +
+            error.message
+        );
+
         return;
     }
 
-    payments = data || [];
+
+    payments =
+        data || [];
+
 
     renderPayments();
+
     updateSummary();
+
 }
 
 
-/* =====================================
-   CALCULATE PREVIOUS PENDING
-===================================== */
+/* =====================================================
+   GET PREVIOUS PENDING
+===================================================== */
 
-async function getPreviousPending(studentId,selectedMonth){
+async function getPreviousPending(
+    studentId,
+    selectedMonth
+){
 
-    if(!studentId || !selectedMonth)
+    if(
+        !studentId ||
+        !selectedMonth
+    )
         return 0;
 
+
     const student =
-        students.find(s => s.id === studentId);
+        students.find(
+            s =>
+                String(s.id) ===
+                String(studentId)
+        );
+
 
     if(!student)
         return 0;
 
+
     const monthlyFee =
-        Number(student.monthly_fee || 0);
+        Number(
+            student.monthly_fee || 0
+        );
+
 
     const selectedDate =
-        new Date(selectedMonth + "-01");
+        new Date(
+            selectedMonth + "-01"
+        );
+
 
     let previousDue = 0;
+
     let previousPaid = 0;
 
 
     /*
-       Calculate all previous months.
+       Check previous 24 months
     */
 
-    for(let i=0;i<24;i++){
+    for(
+        let i=0;
+        i<24;
+        i++
+    ){
 
         const d =
             new Date(
@@ -610,19 +1011,9 @@ async function getPreviousPending(studentId,selectedMonth){
                 1
             );
 
-        const year =
-            d.getFullYear();
-
-        const month =
-            String(d.getMonth()+1).padStart(2,"0");
-
-        const monthString =
-            `${year}-${month}-01`;
-
 
         /*
-           Stop when we reach before
-           student's joining month.
+           Joining date check
         */
 
         if(student.joining_date){
@@ -632,6 +1023,7 @@ async function getPreviousPending(studentId,selectedMonth){
                     student.joining_date
                 );
 
+
             const joiningMonth =
                 new Date(
                     joining.getFullYear(),
@@ -639,81 +1031,150 @@ async function getPreviousPending(studentId,selectedMonth){
                     1
                 );
 
-            if(d < joiningMonth)
+
+            if(
+                d < joiningMonth
+            )
                 break;
+
         }
 
 
-        previousDue += monthlyFee;
+        const year =
+            d.getFullYear();
 
+
+        const month =
+            String(
+                d.getMonth()+1
+            ).padStart(2,"0");
+
+
+        const monthString =
+            `${year}-${month}`;
+
+
+        /*
+           Previous month due
+        */
+
+        previousDue +=
+            monthlyFee;
+
+
+        /*
+           Previous month payments
+        */
 
         const monthPayments =
             payments.filter(p => {
 
-                if(p.student_id !== studentId)
+                if(
+                    String(p.student_id) !==
+                    String(studentId)
+                )
                     return false;
 
-                const pMonth =
-                    String(p.fee_month)
-                    .substring(0,7);
 
-                return pMonth ===
-                    monthString.substring(0,7);
+                const pMonth =
+                    String(
+                        p.fee_month || ""
+                    ).substring(0,7);
+
+
+                return (
+                    pMonth ===
+                    monthString
+                );
+
             });
 
 
         previousPaid +=
             monthPayments.reduce(
-                (sum,p) =>
-                sum + Number(p.amount || 0),
+                (
+                    sum,
+                    p
+                ) =>
+                    sum +
+                    Number(
+                        p.amount || 0
+                    ),
                 0
             );
+
     }
 
 
     return Math.max(
         0,
-        previousDue - previousPaid
+        previousDue -
+        previousPaid
     );
+
 }
 
 
-/* =====================================
-   CALCULATE CURRENT
-===================================== */
+/* =====================================================
+   CALCULATE FEE
+===================================================== */
 
 async function calculateFee(){
 
     const studentId =
-        document.getElementById("studentSelect").value;
+        document.getElementById(
+            "studentSelect"
+        ).value;
+
 
     const month =
-        document.getElementById("feeMonth").value;
+        document.getElementById(
+            "feeMonth"
+        ).value;
+
 
     const student =
         students.find(
-            s => s.id === studentId
+            s =>
+                String(s.id) ===
+                String(studentId)
         );
+
 
     if(!student){
 
-        document.getElementById("monthlyFee")
-            .textContent="₹0";
+        document.getElementById(
+            "monthlyFee"
+        ).textContent =
+            "₹0";
 
-        document.getElementById("previousPending")
-            .textContent="₹0";
 
-        document.getElementById("currentDue")
-            .textContent="₹0";
+        document.getElementById(
+            "previousPending"
+        ).textContent =
+            "₹0";
 
-        calculateRemaining();
+
+        document.getElementById(
+            "currentDue"
+        ).textContent =
+            "₹0";
+
+
+        document.getElementById(
+            "remaining"
+        ).value =
+            "₹0";
+
 
         return;
     }
 
 
     const monthlyFee =
-        Number(student.monthly_fee || 0);
+        Number(
+            student.monthly_fee || 0
+        );
 
 
     const previousPending =
@@ -724,102 +1185,134 @@ async function calculateFee(){
 
 
     /*
-       If editing an existing payment,
-       don't count that payment as
-       previous payment.
-    */
-
-    let currentPaid = 0;
-
-    if(editingId){
-
-        const oldPayment =
-            payments.find(
-                p => p.id === editingId
-            );
-
-        if(oldPayment){
-
-            currentPaid =
-                Number(oldPayment.amount || 0);
-        }
-    }
-
-
-    /*
-       Current month already paid
-       excluding edited payment.
+       Current month payment
+       excluding edited payment
     */
 
     const currentMonthPaid =
         payments
         .filter(p => {
 
-            if(p.student_id !== studentId)
+            if(
+                String(p.student_id) !==
+                String(studentId)
+            )
                 return false;
 
-            if(editingId &&
-               p.id === editingId)
+
+            if(
+                editingId &&
+                String(p.id) ===
+                String(editingId)
+            )
                 return false;
 
-            return String(p.fee_month)
-                .substring(0,7) === month;
+
+            return (
+                String(
+                    p.fee_month || ""
+                ).substring(0,7)
+                === month
+            );
 
         })
         .reduce(
-            (sum,p) =>
-            sum + Number(p.amount || 0),
+            (
+                sum,
+                p
+            ) =>
+                sum +
+                Number(
+                    p.amount || 0
+                ),
             0
         );
+
+
+    /*
+       If editing
+    */
+
+    let editingAmount = 0;
+
+
+    if(editingId){
+
+        const oldPayment =
+            payments.find(
+                p =>
+                    String(p.id) ===
+                    String(editingId)
+            );
+
+
+        if(oldPayment){
+
+            editingAmount =
+                Number(
+                    oldPayment.amount || 0
+                );
+
+        }
+
+    }
 
 
     const totalDue =
         monthlyFee +
         previousPending;
 
-    const alreadyPaid =
-        currentMonthPaid;
 
-    document.getElementById("monthlyFee")
-        .textContent =
+    document.getElementById(
+        "monthlyFee"
+    ).textContent =
         money(monthlyFee);
 
-    document.getElementById("previousPending")
-        .textContent =
+
+    document.getElementById(
+        "previousPending"
+    ).textContent =
         money(previousPending);
 
-    document.getElementById("currentDue")
-        .textContent =
+
+    document.getElementById(
+        "currentDue"
+    ).textContent =
         money(totalDue);
 
+
     /*
-       If adding new payment, show
-       current remaining after current
-       month payments.
+       New payment
     */
 
     if(!editingId){
 
-        document.getElementById("paidAmount")
-            .value = 0;
+        document.getElementById(
+            "paidAmount"
+        ).value = 0;
 
-    }else{
+    }
+    else{
 
-        document.getElementById("paidAmount")
-            .value = currentPaid;
+        document.getElementById(
+            "paidAmount"
+        ).value =
+            editingAmount;
 
     }
 
+
     calculateRemaining(
         totalDue,
-        alreadyPaid
+        currentMonthPaid
     );
+
 }
 
 
-/* =====================================
-   REMAINING
-===================================== */
+/* =====================================================
+   CALCULATE REMAINING
+===================================================== */
 
 function calculateRemaining(
     totalDueParam=null,
@@ -827,9 +1320,15 @@ function calculateRemaining(
 ){
 
     const totalText =
-        document.getElementById("currentDue")
+        document.getElementById(
+            "currentDue"
+        )
         .textContent
-        .replace(/[₹,]/g,"");
+        .replace(
+            /[₹,]/g,
+            ""
+        );
+
 
     const totalDue =
         totalDueParam !== null
@@ -839,7 +1338,9 @@ function calculateRemaining(
 
     const paid =
         Number(
-            document.getElementById("paidAmount").value || 0
+            document.getElementById(
+                "paidAmount"
+            ).value || 0
         );
 
 
@@ -852,34 +1353,50 @@ function calculateRemaining(
         );
 
 
-    document.getElementById("remaining")
-        .value =
+    document.getElementById(
+        "remaining"
+    ).value =
         money(remaining);
+
 }
 
 
-/* =====================================
+/* =====================================================
    SAVE PAYMENT
-===================================== */
+===================================================== */
 
 async function savePayment(){
 
     const studentId =
-        document.getElementById("studentSelect").value;
+        document.getElementById(
+            "studentSelect"
+        ).value;
+
 
     const feeMonth =
-        document.getElementById("feeMonth").value;
+        document.getElementById(
+            "feeMonth"
+        ).value;
+
 
     const amount =
         Number(
-            document.getElementById("paidAmount").value || 0
+            document.getElementById(
+                "paidAmount"
+            ).value || 0
         );
 
+
     const paymentDate =
-        document.getElementById("paymentDate").value;
+        document.getElementById(
+            "paymentDate"
+        ).value;
+
 
     const paymentMethod =
-        document.getElementById("paymentMethod").value;
+        document.getElementById(
+            "paymentMethod"
+        ).value;
 
 
     if(!studentId){
@@ -892,6 +1409,7 @@ async function savePayment(){
         return;
     }
 
+
     if(!feeMonth){
 
         showMessage(
@@ -901,6 +1419,7 @@ async function savePayment(){
 
         return;
     }
+
 
     if(amount <= 0){
 
@@ -913,25 +1432,53 @@ async function savePayment(){
     }
 
 
+    if(!paymentDate){
+
+        showMessage(
+            "Please select payment date.",
+            "red"
+        );
+
+        return;
+    }
+
+
     const saveBtn =
-        document.getElementById("saveBtn");
+        document.getElementById(
+            "saveBtn"
+        );
 
-    saveBtn.disabled = true;
-    saveBtn.textContent = "Saving...";
 
+    saveBtn.disabled =
+        true;
+
+
+    saveBtn.textContent =
+        "Saving...";
+
+
+    /*
+       IMPORTANT:
+       Only student_id is saved.
+       Student name comes from students table.
+    */
 
     const data = {
 
-        student_id:studentId,
+        student_id:
+            studentId,
 
         fee_month:
             feeMonth + "-01",
 
-        amount:amount,
+        amount:
+            amount,
 
-        payment_date:paymentDate,
+        payment_date:
+            paymentDate,
 
-        payment_method:paymentMethod
+        payment_method:
+            paymentMethod
 
     };
 
@@ -939,186 +1486,304 @@ async function savePayment(){
     let result;
 
 
+    /*
+       EDIT
+    */
+
     if(editingId){
 
         result =
             await supabaseClient
             .from("fee_payments")
             .update(data)
-            .eq("id",editingId);
+            .eq(
+                "id",
+                editingId
+            );
 
-    }else{
+    }
+
+
+    /*
+       NEW
+    */
+
+    else{
 
         result =
             await supabaseClient
             .from("fee_payments")
-            .insert(data);
+            .insert(
+                data
+            );
 
     }
 
 
     if(result.error){
 
+        console.error(
+            "Save error:",
+            result.error
+        );
+
+
         showMessage(
             result.error.message,
             "red"
         );
 
-        saveBtn.disabled = false;
-        saveBtn.textContent = "Save Fee Payment";
+
+        saveBtn.disabled =
+            false;
+
+
+        saveBtn.textContent =
+            "Save Fee Payment";
+
 
         return;
     }
 
 
     showMessage(
-        "Fee payment saved successfully.",
+        editingId
+        ? "Fee payment updated successfully."
+        : "Fee payment saved successfully.",
         "green"
     );
 
 
     resetForm();
 
+
     await loadPayments();
 
-    saveBtn.disabled = false;
-    saveBtn.textContent = "Save Fee Payment";
+
+    saveBtn.disabled =
+        false;
+
+
+    saveBtn.textContent =
+        "Save Fee Payment";
+
 }
 
 
-/* =====================================
-   RENDER HISTORY
-===================================== */
+/* =====================================================
+   RENDER PAYMENT HISTORY
+===================================================== */
 
 function renderPayments(){
 
     const list =
-        document.getElementById("paymentList");
+        document.getElementById(
+            "paymentList"
+        );
 
 
-    if(payments.length === 0){
+    if(
+        !payments ||
+        payments.length === 0
+    ){
 
-        list.innerHTML = `
-        <tr>
-            <td colspan="7"
-                style="text-align:center;padding:30px;color:#888">
-                No fee payments found.
-            </td>
-        </tr>`;
+        list.innerHTML =
+            `
+            <tr>
+
+                <td
+                    colspan="7"
+                    class="empty">
+
+                    No fee payments found.
+
+                </td>
+
+            </tr>
+            `;
 
         return;
     }
 
 
     list.innerHTML =
-        payments.map(p => {
-
-            const student =
-                students.find(
-                    s => s.id === p.student_id
-                );
-
-            const name =
-                student
-                ? student.student_name
-                : "Unknown";
+        payments.map(
+            p => {
 
 
-            const monthly =
-                student
-                ? Number(student.monthly_fee || 0)
-                : 0;
+                const student =
+                    students.find(
+                        s =>
+                            String(s.id) ===
+                            String(p.student_id)
+                    );
 
 
-            return `
+                /*
+                   IMPORTANT:
+                   students table field = name
+                */
 
-            <tr>
+                const name =
+                    student
+                    ? (
+                        student.name ||
+                        "Unnamed Student"
+                    )
+                    : "Unknown Student";
 
-                <td>
-                    <b>${escapeHtml(name)}</b>
-                </td>
 
-                <td>
-                    ${formatMonth(p.fee_month)}
-                </td>
+                const monthly =
+                    student
+                    ? Number(
+                        student.monthly_fee || 0
+                    )
+                    : 0;
 
-                <td>
-                    ${money(monthly)}
-                </td>
 
-                <td class="green">
-                    <b>${money(p.amount)}</b>
-                </td>
+                return `
 
-                <td>
-                    ${formatDate(p.payment_date)}
-                </td>
+                <tr>
 
-                <td>
-                    ${escapeHtml(p.payment_method || "Cash")}
-                </td>
+                    <td>
+                        <b>
+                            ${escapeHtml(name)}
+                        </b>
+                    </td>
 
-                <td>
 
-                    <button
-                        class="action edit"
-                        onclick="editPayment('${p.id}')">
-                        Edit
-                    </button>
+                    <td>
+                        ${formatMonth(
+                            p.fee_month
+                        )}
+                    </td>
 
-                    <button
-                        class="action delete"
-                        onclick="deletePayment('${p.id}')">
-                        Delete
-                    </button>
 
-                </td>
+                    <td>
+                        ${money(monthly)}
+                    </td>
 
-            </tr>
 
-            `;
+                    <td class="green">
 
-        }).join("");
+                        <b>
+                            ${money(
+                                p.amount
+                            )}
+                        </b>
+
+                    </td>
+
+
+                    <td>
+                        ${formatDate(
+                            p.payment_date
+                        )}
+                    </td>
+
+
+                    <td>
+                        ${escapeHtml(
+                            p.payment_method ||
+                            "Cash"
+                        )}
+                    </td>
+
+
+                    <td>
+
+                        <button
+                            class="action edit"
+                            onclick="editPayment('${p.id}')">
+
+                            Edit
+
+                        </button>
+
+
+                        <button
+                            class="action delete"
+                            onclick="deletePayment('${p.id}')">
+
+                            Delete
+
+                        </button>
+
+                    </td>
+
+                </tr>
+
+                `;
+
+            }
+        ).join("");
+
 }
 
 
-/* =====================================
-   SUMMARY
-===================================== */
+/* =====================================================
+   UPDATE SUMMARY
+===================================================== */
 
 function updateSummary(){
 
     const selected =
-        document.getElementById("feeMonth").value;
+        document.getElementById(
+            "feeMonth"
+        ).value;
 
-    if(!selected) return;
 
+    if(!selected)
+        return;
+
+
+    /*
+       Payments for selected month
+    */
 
     const monthPayments =
-        payments.filter(p =>
-            String(p.fee_month)
-            .substring(0,7) === selected
+        payments.filter(
+            p =>
+                String(
+                    p.fee_month || ""
+                ).substring(0,7)
+                === selected
         );
 
 
     let due = 0;
 
 
+    /*
+       Active students
+    */
+
     students
-    .filter(s => s.status === "Active")
-    .forEach(s => {
+    .filter(
+        s =>
+            s.status === "Active"
+    )
+    .forEach(
+        s => {
 
-        due += Number(
-            s.monthly_fee || 0
-        );
+            due += Number(
+                s.monthly_fee || 0
+            );
 
-    });
+        }
+    );
 
 
     const received =
         monthPayments.reduce(
-            (sum,p) =>
-            sum + Number(p.amount || 0),
+            (
+                sum,
+                p
+            ) =>
+                sum +
+                Number(
+                    p.amount || 0
+                ),
             0
         );
 
@@ -1126,236 +1791,363 @@ function updateSummary(){
     const pending =
         Math.max(
             0,
-            due - received
+            due -
+            received
         );
 
 
-    document.getElementById("totalDue")
-        .textContent =
+    document.getElementById(
+        "totalDue"
+    ).textContent =
         money(due);
 
-    document.getElementById("totalReceived")
-        .textContent =
+
+    document.getElementById(
+        "totalReceived"
+    ).textContent =
         money(received);
 
-    document.getElementById("totalPending")
-        .textContent =
+
+    document.getElementById(
+        "totalPending"
+    ).textContent =
         money(pending);
 
-    document.getElementById("paymentCount")
-        .textContent =
+
+    document.getElementById(
+        "paymentCount"
+    ).textContent =
         monthPayments.length;
+
 }
 
 
-/* =====================================
+/* =====================================================
    EDIT PAYMENT
-===================================== */
+===================================================== */
 
-function editPayment(id){
+async function editPayment(id){
 
-    const p =
+    const payment =
         payments.find(
-            x => x.id === id
+            p =>
+                String(p.id) ===
+                String(id)
         );
 
-    if(!p) return;
+
+    if(!payment)
+        return;
 
 
-    editingId = id;
+    editingId =
+        id;
 
 
-    document.getElementById("formTitle")
-        .textContent =
+    document.getElementById(
+        "formTitle"
+    ).textContent =
         "✏️ Edit Fee Payment";
 
 
-    document.getElementById("studentSelect")
-        .value =
-        p.student_id;
+    document.getElementById(
+        "studentSelect"
+    ).value =
+        payment.student_id;
 
 
-    document.getElementById("feeMonth")
-        .value =
-        String(p.fee_month)
-        .substring(0,7);
+    document.getElementById(
+        "feeMonth"
+    ).value =
+        String(
+            payment.fee_month || ""
+        ).substring(0,7);
 
 
-    document.getElementById("paidAmount")
-        .value =
-        p.amount;
+    document.getElementById(
+        "paidAmount"
+    ).value =
+        payment.amount;
 
 
-    document.getElementById("paymentDate")
-        .value =
-        p.payment_date;
+    document.getElementById(
+        "paymentDate"
+    ).value =
+        payment.payment_date;
 
 
-    document.getElementById("paymentMethod")
-        .value =
-        p.payment_method || "Cash";
+    document.getElementById(
+        "paymentMethod"
+    ).value =
+        payment.payment_method ||
+        "Cash";
 
 
-    calculateFee();
+    await calculateFee();
+
 
     window.scrollTo({
         top:0,
         behavior:"smooth"
     });
+
 }
 
 
-/* =====================================
-   DELETE
-===================================== */
+/* =====================================================
+   DELETE PAYMENT
+===================================================== */
 
 async function deletePayment(id){
 
-    if(!confirm(
-        "Are you sure you want to delete this payment?"
-    )) return;
+    if(
+        !confirm(
+            "Are you sure you want to delete this payment?"
+        )
+    )
+        return;
 
 
-    const {error} =
+    const {
+        error
+    } =
         await supabaseClient
         .from("fee_payments")
         .delete()
-        .eq("id",id);
+        .eq(
+            "id",
+            id
+        );
 
 
     if(error){
 
-        alert(error.message);
+        alert(
+            error.message
+        );
+
         return;
     }
 
 
     await loadPayments();
+
 }
 
 
-/* =====================================
-   RESET
-===================================== */
+/* =====================================================
+   RESET FORM
+===================================================== */
 
 function resetForm(){
 
-    editingId = null;
+    editingId =
+        null;
 
-    document.getElementById("formTitle")
-        .textContent =
+
+    document.getElementById(
+        "formTitle"
+    ).textContent =
         "➕ Add Fee Payment";
 
-    document.getElementById("studentSelect")
-        .value = "";
 
-    document.getElementById("paidAmount")
-        .value = 0;
+    document.getElementById(
+        "studentSelect"
+    ).value =
+        "";
 
-    document.getElementById("monthlyFee")
-        .textContent = "₹0";
 
-    document.getElementById("previousPending")
-        .textContent = "₹0";
+    document.getElementById(
+        "paidAmount"
+    ).value =
+        0;
 
-    document.getElementById("currentDue")
-        .textContent = "₹0";
 
-    document.getElementById("remaining")
-        .value = "₹0";
+    document.getElementById(
+        "monthlyFee"
+    ).textContent =
+        "₹0";
 
-    document.getElementById("message")
-        .textContent = "";
+
+    document.getElementById(
+        "previousPending"
+    ).textContent =
+        "₹0";
+
+
+    document.getElementById(
+        "currentDue"
+    ).textContent =
+        "₹0";
+
+
+    document.getElementById(
+        "remaining"
+    ).value =
+        "₹0";
+
+
+    document.getElementById(
+        "message"
+    ).textContent =
+        "";
+
 }
 
 
-/* =====================================
+/* =====================================================
    MESSAGE
-===================================== */
+===================================================== */
 
-function showMessage(text,color){
+function showMessage(
+    text,
+    color
+){
 
     const el =
-        document.getElementById("message");
+        document.getElementById(
+            "message"
+        );
 
-    el.textContent = text;
+
+    el.textContent =
+        text;
+
 
     el.style.color =
         color === "red"
         ? "#dc2626"
         : "#16a34a";
+
 }
 
 
-/* =====================================
-   HELPERS
-===================================== */
+/* =====================================================
+   MONEY
+===================================================== */
 
 function money(value){
 
     return "₹" +
-        Number(value || 0)
-        .toLocaleString("en-IN",{
-            maximumFractionDigits:2
-        });
+        Number(
+            value || 0
+        ).toLocaleString(
+            "en-IN",
+            {
+                maximumFractionDigits:2
+            }
+        );
+
 }
 
+
+/* =====================================================
+   FORMAT DATE
+===================================================== */
 
 function formatDate(date){
 
-    if(!date) return "-";
+    if(!date)
+        return "-";
 
-    return new Date(date + "T00:00:00")
-        .toLocaleDateString("en-IN",{
+
+    return new Date(
+        date + "T00:00:00"
+    ).toLocaleDateString(
+        "en-IN",
+        {
             day:"2-digit",
             month:"short",
             year:"numeric"
-        });
+        }
+    );
+
 }
 
+
+/* =====================================================
+   FORMAT MONTH
+===================================================== */
 
 function formatMonth(date){
 
-    if(!date) return "-";
+    if(!date)
+        return "-";
 
-    return new Date(date + "T00:00:00")
-        .toLocaleDateString("en-IN",{
+
+    return new Date(
+        date + "T00:00:00"
+    ).toLocaleDateString(
+        "en-IN",
+        {
             month:"long",
             year:"numeric"
-        });
+        }
+    );
+
 }
 
+
+/* =====================================================
+   ESCAPE HTML
+===================================================== */
 
 function escapeHtml(value){
 
-    return String(value)
-        .replace(/&/g,"&amp;")
-        .replace(/</g,"&lt;")
-        .replace(/>/g,"&gt;")
-        .replace(/"/g,"&quot;")
-        .replace(/'/g,"&#039;");
+    return String(
+        value ?? ""
+    )
+    .replace(
+        /&/g,
+        "&amp;"
+    )
+    .replace(
+        /</g,
+        "&lt;"
+    )
+    .replace(
+        />/g,
+        "&gt;"
+    )
+    .replace(
+        /"/g,
+        "&quot;"
+    )
+    .replace(
+        /'/g,
+        "&#039;"
+    );
+
 }
 
 
-/* =====================================
+/* =====================================================
    MONTH CHANGE
-===================================== */
+===================================================== */
 
-document.getElementById("feeMonth")
-.addEventListener("change",async function(){
+document.getElementById(
+    "feeMonth"
+)
+.addEventListener(
+    "change",
+    async function(){
 
-    editingId = null;
-
-    await calculateFee();
-
-    updateSummary();
-
-});
+        editingId =
+            null;
 
 
-/* =====================================
-   START
-===================================== */
+        await calculateFee();
+
+
+        updateSummary();
+
+    }
+);
+
+
+/* =====================================================
+   START APPLICATION
+===================================================== */
 
 init();
 
