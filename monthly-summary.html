@@ -1,1010 +1,2020 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Monthly Summary - Little Blossoms</title>
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>
+    Little Blossoms | Monthly Summary
+</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
+<link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+>
+
+<link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+>
+
+<link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap"
+    rel="stylesheet"
+>
+
+
 <style>
 
-*{
-    box-sizing:border-box;
-    margin:0;
-    padding:0;
-    font-family:Arial,sans-serif;
+/* =========================================================
+   ROOT
+========================================================= */
+
+:root{
+
+    --purple:#6d4df4;
+    --purple2:#8b5cf6;
+
+    --pink:#ec4899;
+
+    --green:#16a34a;
+
+    --red:#ef4444;
+
+    --orange:#f59e0b;
+
+    --blue:#0ea5e9;
+
+    --cyan:#06b6d4;
+
+    --bg:#f5f7fc;
+
+    --card:#ffffff;
+
+    --text:#182033;
+
+    --muted:#737b8d;
+
+    --border:#e7eaf1;
+
+    --shadow:
+    0 10px 30px
+    rgba(25,25,60,.07);
+
 }
+
+
+*{
+
+    box-sizing:border-box;
+
+    margin:0;
+
+    padding:0;
+
+}
+
 
 body{
-    background:#f4f7fb;
-    color:#172033;
+
+    font-family:
+    "DM Sans",
+    Arial,
+    sans-serif;
+
+    background:
+
+    radial-gradient(
+        circle at 0 0,
+        rgba(109,77,244,.09),
+        transparent 30%
+    ),
+
+    var(--bg);
+
+    color:var(--text);
+
+    min-height:100vh;
+
 }
+
+
+button,
+input{
+
+    font:inherit;
+
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
 
 .header{
-    background:linear-gradient(135deg,#6c5ce7,#4834d4);
+
+    background:
+
+    linear-gradient(
+        135deg,
+        #6545e9,
+        #793cf0,
+        #4d2fd6
+    );
+
     color:white;
-    padding:22px;
+
+    padding:
+    26px 20px 28px;
+
+    box-shadow:
+    0 10px 30px
+    rgba(82,55,200,.18);
+
+}
+
+
+.header-inner{
+
+    max-width:1200px;
+
+    margin:auto;
+
+}
+
+
+.header-top{
+
     display:flex;
-    justify-content:space-between;
+
+    justify-content:
+    space-between;
+
     align-items:center;
-    flex-wrap:wrap;
+
     gap:15px;
+
 }
 
-.header h1{
-    font-size:24px;
+
+.brand{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:11px;
+
 }
 
-.header p{
-    opacity:.85;
-    margin-top:5px;
+
+.logo{
+
+    width:47px;
+
+    height:47px;
+
+    border-radius:15px;
+
+    background:
+    rgba(255,255,255,.16);
+
+    display:grid;
+
+    place-items:center;
+
+    font-size:23px;
+
+    border:
+    1px solid
+    rgba(255,255,255,.25);
+
 }
 
-.back{
-    text-decoration:none;
+
+.brand-title{
+
+    font:
+    700 25px
+    "Playfair Display",
+    serif;
+
+}
+
+
+.brand-sub{
+
+    font-size:11px;
+
+    opacity:.82;
+
+    margin-top:2px;
+
+}
+
+
+.header-actions{
+
+    display:flex;
+
+    gap:9px;
+
+}
+
+
+.header-btn{
+
+    border:0;
+
+    border-radius:11px;
+
+    padding:
+    10px 13px;
+
+    font-size:11px;
+
+    font-weight:800;
+
+    cursor:pointer;
+
+}
+
+
+.dashboard-btn{
+
     background:white;
-    color:#4834d4;
-    padding:10px 16px;
-    border-radius:10px;
-    font-weight:bold;
+
+    color:#5b3fd1;
+
 }
+
+
+.refresh-btn{
+
+    background:
+    rgba(255,255,255,.14);
+
+    color:white;
+
+    border:
+    1px solid
+    rgba(255,255,255,.25);
+
+}
+
+
+/* =========================================================
+   CONTAINER
+========================================================= */
 
 .container{
-    max-width:1400px;
+
+    max-width:1200px;
+
     margin:auto;
-    padding:20px;
+
+    padding:
+    24px 18px 50px;
+
 }
 
-.controls{
+
+/* =========================================================
+   MONTH SELECTOR
+========================================================= */
+
+.filter-panel{
+
     background:white;
-    padding:18px;
-    border-radius:15px;
-    box-shadow:0 5px 20px rgba(0,0,0,.06);
-    margin-bottom:20px;
+
+    border:
+    1px solid var(--border);
+
+    border-radius:20px;
+
+    padding:20px;
+
+    box-shadow:var(--shadow);
+
+    margin-bottom:18px;
+
+}
+
+
+.filter-row{
+
     display:flex;
+
     align-items:center;
+
+    justify-content:
+    space-between;
+
     gap:15px;
-    flex-wrap:wrap;
+
 }
 
-.controls label{
-    font-weight:bold;
+
+.filter-title{
+
+    font-size:20px;
+
+    font-weight:800;
+
 }
 
-input[type="month"]{
-    padding:11px 14px;
-    border:1px solid #ddd;
-    border-radius:9px;
-    font-size:15px;
+
+.filter-sub{
+
+    font-size:11px;
+
+    color:var(--muted);
+
+    margin-top:4px;
+
 }
 
-button{
-    border:0;
-    padding:11px 18px;
-    border-radius:9px;
-    cursor:pointer;
-    font-weight:bold;
+
+.month-box{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
 }
 
-.refresh{
-    background:#4834d4;
-    color:white;
+
+.month-box label{
+
+    font-size:11px;
+
+    font-weight:800;
+
+    color:#687084;
+
 }
+
+
+.month-input{
+
+    border:
+    1px solid #dfe3eb;
+
+    background:#fafafa;
+
+    border-radius:12px;
+
+    padding:
+    12px 14px;
+
+    min-width:170px;
+
+    outline:none;
+
+    font-weight:700;
+
+}
+
+
+.month-input:focus{
+
+    border-color:
+    var(--purple);
+
+    background:white;
+
+}
+
+
+/* =========================================================
+   ERROR / STATUS
+========================================================= */
+
+.status{
+
+    display:none;
+
+    background:white;
+
+    border:
+    1px solid #fecaca;
+
+    color:#991b1b;
+
+    padding:14px;
+
+    border-radius:14px;
+
+    margin-bottom:18px;
+
+    font-size:12px;
+
+    line-height:1.5;
+
+}
+
+
+.status.show{
+
+    display:block;
+
+}
+
+
+/* =========================================================
+   SUMMARY CARDS
+========================================================= */
 
 .cards{
+
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
-    gap:15px;
-    margin-bottom:22px;
+
+    grid-template-columns:
+    repeat(4,1fr);
+
+    gap:13px;
+
+    margin-bottom:13px;
+
 }
+
 
 .card{
+
     background:white;
-    padding:20px;
-    border-radius:15px;
-    box-shadow:0 5px 20px rgba(0,0,0,.06);
+
+    border:
+    1px solid var(--border);
+
+    border-radius:17px;
+
+    padding:18px;
+
+    box-shadow:var(--shadow);
+
+    min-height:125px;
+
+    position:relative;
+
+    overflow:hidden;
+
 }
 
-.card .title{
-    color:#777;
-    font-size:14px;
-    margin-bottom:9px;
+
+.card:after{
+
+    content:"";
+
+    position:absolute;
+
+    width:75px;
+
+    height:75px;
+
+    right:-30px;
+
+    bottom:-35px;
+
+    border-radius:50%;
+
+    background:currentColor;
+
+    opacity:.045;
+
 }
 
-.card .value{
+
+.label{
+
+    color:#7a8293;
+
+    font-size:10px;
+
+    font-weight:800;
+
+    letter-spacing:.5px;
+
+    text-transform:uppercase;
+
+}
+
+
+.num{
+
     font-size:25px;
-    font-weight:bold;
+
+    font-weight:800;
+
+    margin-top:9px;
+
 }
 
-.purple{border-left:5px solid #6c5ce7;}
-.green{border-left:5px solid #00b894;}
-.red{border-left:5px solid #e74c3c;}
-.orange{border-left:5px solid #f39c12;}
-.blue{border-left:5px solid #0984e3;}
-.dark{border-left:5px solid #2d3436;}
-.teal{border-left:5px solid #00cec9;}
 
-.section{
+.muted{
+
+    color:#9299a8;
+
+    font-size:10px;
+
+    margin-top:5px;
+
+}
+
+
+.green{
+
+    color:var(--green);
+
+}
+
+
+.red{
+
+    color:var(--red);
+
+}
+
+
+.blue{
+
+    color:#5548bd;
+
+}
+
+
+.orange{
+
+    color:#c27600;
+
+}
+
+
+.cyan{
+
+    color:#0891b2;
+
+}
+
+
+/* =========================================================
+   SPECIAL BALANCE CARD
+========================================================= */
+
+.balance-card{
+
+    background:
+
+    linear-gradient(
+        135deg,
+        #292344,
+        #4a397d
+    );
+
+    color:white;
+
+    border:0;
+
+}
+
+
+.balance-card .label,
+.balance-card .muted{
+
+    color:#ddd8f5;
+
+}
+
+
+.balance-card .num{
+
+    color:white;
+
+}
+
+
+/* =========================================================
+   OPENING CARD
+========================================================= */
+
+.opening-card{
+
+    background:
+    linear-gradient(
+        135deg,
+        #f5f1ff,
+        #ffffff
+    );
+
+    border-color:#ded6ff;
+
+}
+
+
+.opening-card .num{
+
+    color:#6045d8;
+
+}
+
+
+/* =========================================================
+   FINANCIAL BREAKDOWN
+========================================================= */
+
+.panel{
+
     background:white;
+
+    border:
+    1px solid var(--border);
+
+    border-radius:19px;
+
+    box-shadow:var(--shadow);
+
     padding:20px;
-    border-radius:15px;
-    box-shadow:0 5px 20px rgba(0,0,0,.06);
-    margin-bottom:22px;
+
+    margin-bottom:16px;
+
 }
 
-.section h2{
+
+.panel-head{
+
+    display:flex;
+
+    justify-content:
+    space-between;
+
+    align-items:center;
+
+    gap:12px;
+
     margin-bottom:15px;
-    font-size:19px;
+
 }
+
+
+.panel-head h2{
+
+    font-size:17px;
+
+}
+
+
+.panel-head span{
+
+    font-size:10px;
+
+    color:#8a91a0;
+
+}
+
+
+.financial-grid{
+
+    display:grid;
+
+    grid-template-columns:
+    1fr 1fr;
+
+    gap:0 30px;
+
+}
+
+
+.fin-row{
+
+    display:flex;
+
+    justify-content:
+    space-between;
+
+    align-items:center;
+
+    padding:
+    12px 0;
+
+    border-bottom:
+    1px solid #f0f1f5;
+
+    font-size:12px;
+
+}
+
+
+.fin-row span{
+
+    color:#747d8f;
+
+}
+
+
+.fin-row strong{
+
+    font-weight:800;
+
+}
+
+
+.total-row{
+
+    background:
+    linear-gradient(
+        135deg,
+        #faf7ff,
+        #f5f1ff
+    );
+
+    border-radius:13px;
+
+    padding:
+    14px;
+
+    margin-top:12px;
+
+    border:0;
+
+}
+
+
+.total-row span{
+
+    color:#5948a7;
+
+    font-weight:700;
+
+}
+
+
+.total-row strong{
+
+    font-size:18px;
+
+    color:#5b3ac7;
+
+}
+
+
+/* =========================================================
+   ACTIVITY TABLE
+========================================================= */
 
 .table-wrap{
+
     overflow-x:auto;
+
 }
+
 
 table{
+
     width:100%;
+
     border-collapse:collapse;
-    min-width:700px;
+
+    min-width:650px;
+
 }
 
-th,td{
-    padding:12px 10px;
-    border-bottom:1px solid #eee;
-    text-align:left;
-}
 
 th{
-    background:#f5f6fa;
-    font-size:13px;
+
+    text-align:left;
+
+    padding:
+    11px 9px;
+
+    background:#fafbfe;
+
+    color:#7b8394;
+
+    font-size:9px;
+
+    text-transform:uppercase;
+
+    letter-spacing:.5px;
+
 }
+
 
 td{
-    font-size:14px;
+
+    padding:
+    12px 9px;
+
+    border-bottom:
+    1px solid #edf0f4;
+
+    font-size:11px;
+
 }
 
-.badge{
-    padding:5px 9px;
-    border-radius:20px;
-    font-size:12px;
-    font-weight:bold;
+
+td strong{
+
+    font-weight:800;
+
 }
 
-.paid{
-    background:#dff8ed;
-    color:#00875a;
-}
-
-.pending{
-    background:#ffe5e5;
-    color:#d63031;
-}
-
-.summary-grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:20px;
-}
-
-.line{
-    display:flex;
-    justify-content:space-between;
-    padding:12px 0;
-    border-bottom:1px solid #eee;
-}
-
-.line:last-child{
-    border-bottom:0;
-}
-
-.total{
-    font-weight:bold;
-    font-size:18px;
-}
-
-.positive{
-    color:#00a878;
-}
-
-.negative{
-    color:#d63031;
-}
-
-.loading{
-    text-align:center;
-    padding:30px;
-    color:#777;
-}
-
-.error{
-    background:#ffe5e5;
-    color:#c0392b;
-    padding:15px;
-    border-radius:10px;
-    margin-bottom:15px;
-    display:none;
-}
 
 .empty{
-    padding:20px;
+
     text-align:center;
-    color:#777;
+
+    color:#9299a8;
+
+    padding:40px 15px;
+
 }
 
-.note{
-    color:#777;
-    font-size:13px;
-    margin-top:8px;
+
+/* =========================================================
+   LOADING
+========================================================= */
+
+.loading{
+
+    position:fixed;
+
+    inset:0;
+
+    z-index:1000;
+
+    background:
+    rgba(245,247,252,.97);
+
+    display:grid;
+
+    place-items:center;
+
 }
 
-@media(max-width:800px){
 
-    .summary-grid{
-        grid-template-columns:1fr;
+.loader-box{
+
+    background:white;
+
+    padding:
+    30px 35px;
+
+    border-radius:22px;
+
+    box-shadow:
+    0 25px 70px
+    rgba(0,0,0,.14);
+
+    text-align:center;
+
+}
+
+
+.spinner{
+
+    width:32px;
+
+    height:32px;
+
+    border:
+    3px solid #e8e5f7;
+
+    border-top-color:
+    var(--purple);
+
+    border-radius:50%;
+
+    animation:
+    spin .8s linear infinite;
+
+    margin:auto;
+
+}
+
+
+@keyframes spin{
+
+    to{
+        transform:rotate(360deg);
     }
 
-    .container{
-        padding:12px;
+}
+
+
+.loader-box p{
+
+    margin-top:12px;
+
+    font-size:12px;
+
+    color:#777f90;
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media(max-width:900px){
+
+    .cards{
+
+        grid-template-columns:
+        1fr 1fr;
+
     }
+
+}
+
+
+@media(max-width:650px){
 
     .header{
-        padding:18px;
+
+        padding:
+        20px 15px 22px;
+
     }
 
-    .header h1{
-        font-size:20px;
+
+    .header-top{
+
+        align-items:flex-start;
+
     }
 
-    .card .value{
+
+    .brand-title{
+
         font-size:21px;
+
+    }
+
+
+    .brand-sub{
+
+        font-size:9px;
+
+    }
+
+
+    .header-actions{
+
+        flex-direction:column;
+
+    }
+
+
+    .header-btn{
+
+        padding:
+        8px 10px;
+
+        font-size:9px;
+
+    }
+
+
+    .container{
+
+        padding:
+        16px 12px 35px;
+
+    }
+
+
+    .filter-row{
+
+        flex-direction:column;
+
+        align-items:
+        flex-start;
+
+    }
+
+
+    .month-box{
+
+        width:100%;
+
+        flex-direction:column;
+
+        align-items:
+        flex-start;
+
+    }
+
+
+    .month-input{
+
+        width:100%;
+
+    }
+
+
+    .cards{
+
+        grid-template-columns:
+        1fr 1fr;
+
+        gap:9px;
+
+    }
+
+
+    .card{
+
+        min-height:115px;
+
+        padding:14px;
+
+        border-radius:15px;
+
+    }
+
+
+    .num{
+
+        font-size:20px;
+
+    }
+
+
+    .financial-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+
+    .panel{
+
+        padding:15px;
+
+        border-radius:17px;
+
+    }
+
+}
+
+
+@media(max-width:380px){
+
+    .cards{
+
+        grid-template-columns:1fr;
+
     }
 
 }
 
 </style>
+
 </head>
+
 
 <body>
 
-<header class="header">
 
-    <div>
-        <h1>📊 Monthly Summary</h1>
-        <p>Little Blossoms - Complete Monthly Financial Report</p>
-    </div>
+<!-- =========================================================
+     LOADING
+========================================================= -->
 
-    <a href="dashboard.html" class="back">
-        ← Dashboard
-    </a>
+<div
+    class="loading"
+    id="loading">
 
-</header>
+    <div class="loader-box">
 
+        <div class="spinner"></div>
 
-<div class="container">
-
-    <div id="errorBox" class="error"></div>
-
-
-    <div class="controls">
-
-        <label>Select Month:</label>
-
-        <input
-            type="month"
-            id="monthPicker"
-        >
-
-        <button
-            class="refresh"
-            onclick="loadSummary()"
-        >
-            🔄 Refresh
-        </button>
-
-    </div>
-
-
-    <div
-        id="loading"
-        class="loading"
-    >
-        Loading summary...
-    </div>
-
-
-    <div
-        id="content"
-        style="display:none;"
-    >
-
-
-        <!-- =========================
-             MAIN CARDS
-        ========================== -->
-
-        <div class="cards">
-
-            <div class="card purple">
-
-                <div class="title">
-                    Opening Balance
-                </div>
-
-                <div
-                    class="value"
-                    id="openingBalance"
-                >
-                    ₹0
-                </div>
-
-            </div>
-
-
-            <div class="card teal">
-
-                <div class="title">
-                    Starting Amount Added
-                </div>
-
-                <div
-                    class="value"
-                    id="startingAmount"
-                >
-                    ₹0
-                </div>
-
-            </div>
-
-
-            <div class="card blue">
-
-                <div class="title">
-                    Monthly Fee Due
-                </div>
-
-                <div
-                    class="value"
-                    id="monthlyDue"
-                >
-                    ₹0
-                </div>
-
-            </div>
-
-
-            <div class="card orange">
-
-                <div class="title">
-                    Previous Pending
-                </div>
-
-                <div
-                    class="value"
-                    id="previousPending"
-                >
-                    ₹0
-                </div>
-
-            </div>
-
-
-            <div class="card green">
-
-                <div class="title">
-                    Fee Received
-                </div>
-
-                <div
-                    class="value"
-                    id="feeReceived"
-                >
-                    ₹0
-                </div>
-
-            </div>
-
-
-            <div class="card green">
-
-                <div class="title">
-                    Registration Received
-                </div>
-
-                <div
-                    class="value"
-                    id="registrationReceived"
-                >
-                    ₹0
-                </div>
-
-            </div>
-
-
-            <div class="card teal">
-
-                <div class="title">
-                    Investment
-                </div>
-
-                <div
-                    class="value"
-                    id="investmentReceived"
-                >
-                    ₹0
-                </div>
-
-            </div>
-
-
-            <div class="card red">
-
-                <div class="title">
-                    Expenses
-                </div>
-
-                <div
-                    class="value"
-                    id="expenseTotal"
-                >
-                    ₹0
-                </div>
-
-            </div>
-
-
-            <div class="card orange">
-
-                <div class="title">
-                    Total Pending
-                </div>
-
-                <div
-                    class="value"
-                    id="totalPending"
-                >
-                    ₹0
-                </div>
-
-            </div>
-
-
-            <div class="card dark">
-
-                <div class="title">
-                    Closing Balance
-                </div>
-
-                <div
-                    class="value"
-                    id="closingBalance"
-                >
-                    ₹0
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <!-- =========================
-             CASH SUMMARY
-        ========================== -->
-
-        <div class="summary-grid">
-
-
-            <div class="section">
-
-                <h2>💰 Cash Summary</h2>
-
-
-                <div class="line">
-                    <span>Opening Balance</span>
-                    <strong id="cashOpening">
-                        ₹0
-                    </strong>
-                </div>
-
-
-                <div class="line">
-                    <span>Starting Amount Added</span>
-                    <strong id="cashStarting">
-                        ₹0
-                    </strong>
-                </div>
-
-
-                <div class="line">
-                    <span>Monthly Fees</span>
-                    <strong id="cashFees">
-                        ₹0
-                    </strong>
-                </div>
-
-
-                <div class="line">
-                    <span>Registration Fees</span>
-                    <strong id="cashRegistration">
-                        ₹0
-                    </strong>
-                </div>
-
-
-                <div class="line">
-                    <span>Investment</span>
-                    <strong id="cashInvestment">
-                        ₹0
-                    </strong>
-                </div>
-
-
-                <div class="line">
-                    <span>Total Income</span>
-                    <strong id="cashIncome">
-                        ₹0
-                    </strong>
-                </div>
-
-
-                <div class="line">
-                    <span>Expenses</span>
-                    <strong id="cashExpense">
-                        ₹0
-                    </strong>
-                </div>
-
-
-                <div class="line total">
-
-                    <span>
-                        Closing Balance
-                    </span>
-
-                    <strong id="cashClosing">
-                        ₹0
-                    </strong>
-
-                </div>
-
-            </div>
-
-
-            <!-- FEE SUMMARY -->
-
-            <div class="section">
-
-                <h2>📋 Fee Summary</h2>
-
-
-                <div class="line">
-
-                    <span>
-                        Current Month Due
-                    </span>
-
-                    <strong id="feeDue2">
-                        ₹0
-                    </strong>
-
-                </div>
-
-
-                <div class="line">
-
-                    <span>
-                        Previous Pending
-                    </span>
-
-                    <strong id="previousPending2">
-                        ₹0
-                    </strong>
-
-                </div>
-
-
-                <div class="line">
-
-                    <span>
-                        Total Demand
-                    </span>
-
-                    <strong id="totalDemand">
-                        ₹0
-                    </strong>
-
-                </div>
-
-
-                <div class="line">
-
-                    <span>
-                        Received
-                    </span>
-
-                    <strong id="received2">
-                        ₹0
-                    </strong>
-
-                </div>
-
-
-                <div class="line total">
-
-                    <span>
-                        Remaining Pending
-                    </span>
-
-                    <strong id="pending2">
-                        ₹0
-                    </strong>
-
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <!-- =========================
-             STUDENT SUMMARY
-        ========================== -->
-
-        <div class="section">
-
-            <h2>
-                👨‍👩‍👧 Student-wise Fee Summary
-            </h2>
-
-            <div class="table-wrap">
-
-                <table>
-
-                    <thead>
-
-                        <tr>
-
-                            <th>#</th>
-
-                            <th>
-                                Student
-                            </th>
-
-                            <th>
-                                Monthly Fee
-                            </th>
-
-                            <th>
-                                Previous Pending
-                            </th>
-
-                            <th>
-                                Current Paid
-                            </th>
-
-                            <th>
-                                Total Demand
-                            </th>
-
-                            <th>
-                                Pending
-                            </th>
-
-                            <th>
-                                Status
-                            </th>
-
-                        </tr>
-
-                    </thead>
-
-
-                    <tbody
-                        id="studentTable"
-                    ></tbody>
-
-                </table>
-
-            </div>
-
-        </div>
-
-
-        <!-- =========================
-             EXPENSE SUMMARY
-        ========================== -->
-
-        <div class="section">
-
-            <h2>
-                💸 Expense Category Summary
-            </h2>
-
-            <div class="table-wrap">
-
-                <table>
-
-                    <thead>
-
-                        <tr>
-
-                            <th>
-                                Category
-                            </th>
-
-                            <th>
-                                Transactions
-                            </th>
-
-                            <th>
-                                Total Amount
-                            </th>
-
-                        </tr>
-
-                    </thead>
-
-
-                    <tbody
-                        id="expenseTable"
-                    ></tbody>
-
-                </table>
-
-            </div>
-
-        </div>
-
-
-        <!-- =========================
-             TRANSACTION SUMMARY
-        ========================== -->
-
-        <div class="section">
-
-            <h2>
-                📅 Monthly Transaction Summary
-            </h2>
-
-
-            <div class="table-wrap">
-
-                <table>
-
-                    <thead>
-
-                        <tr>
-
-                            <th>
-                                Particular
-                            </th>
-
-                            <th>
-                                Amount
-                            </th>
-
-                        </tr>
-
-                    </thead>
-
-
-                    <tbody>
-
-                        <tr>
-                            <td>
-                                Opening Balance
-                            </td>
-
-                            <td id="tOpening">
-                                ₹0
-                            </td>
-                        </tr>
-
-
-                        <tr>
-                            <td>
-                                Starting Amount Added
-                            </td>
-
-                            <td id="tStarting">
-                                ₹0
-                            </td>
-                        </tr>
-
-
-                        <tr>
-                            <td>
-                                Monthly Fee Collection
-                            </td>
-
-                            <td id="tFees">
-                                ₹0
-                            </td>
-                        </tr>
-
-
-                        <tr>
-                            <td>
-                                Registration Collection
-                            </td>
-
-                            <td id="tRegistration">
-                                ₹0
-                            </td>
-                        </tr>
-
-
-                        <tr>
-                            <td>
-                                Investment
-                            </td>
-
-                            <td id="tInvestment">
-                                ₹0
-                            </td>
-                        </tr>
-
-
-                        <tr>
-                            <td>
-                                Expenses
-                            </td>
-
-                            <td id="tExpenses">
-                                ₹0
-                            </td>
-                        </tr>
-
-
-                        <tr>
-
-                            <th>
-                                Closing Balance
-                            </th>
-
-                            <th id="tClosing">
-                                ₹0
-                            </th>
-
-                        </tr>
-
-                    </tbody>
-
-                </table>
-
-            </div>
-
-        </div>
-
+        <p>
+            Loading monthly summary...
+        </p>
 
     </div>
 
 </div>
 
 
+<!-- =========================================================
+     HEADER
+========================================================= -->
+
+<header class="header">
+
+    <div class="header-inner">
+
+        <div class="header-top">
+
+
+            <div class="brand">
+
+                <div class="logo">
+                    📊
+                </div>
+
+                <div>
+
+                    <div class="brand-title">
+                        Monthly Summary
+                    </div>
+
+                    <div class="brand-sub">
+                        Little Blossoms • Complete Monthly Financial Report
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="header-actions">
+
+                <button
+                    class="header-btn dashboard-btn"
+                    onclick="goDashboard()">
+
+                    ← Dashboard
+
+                </button>
+
+
+                <button
+                    class="header-btn refresh-btn"
+                    id="refreshBtn">
+
+                    ↻ Refresh
+
+                </button>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</header>
+
+
+<!-- =========================================================
+     MAIN
+========================================================= -->
+
+<main class="container">
+
+
+    <!-- FILTER -->
+
+    <section class="filter-panel">
+
+        <div class="filter-row">
+
+            <div>
+
+                <div class="filter-title">
+                    Select Month
+                </div>
+
+                <div class="filter-sub">
+                    View complete financial details for the selected month.
+                </div>
+
+            </div>
+
+
+            <div class="month-box">
+
+                <label>
+                    MONTH
+                </label>
+
+                <input
+                    type="month"
+                    id="monthPicker"
+                    class="month-input"
+                >
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- STATUS -->
+
+    <div
+        id="statusBox"
+        class="status">
+    </div>
+
+
+    <!-- =====================================================
+         TOP CARDS
+    ====================================================== -->
+
+    <section class="cards">
+
+
+        <!-- OPENING -->
+
+        <div class="card opening-card">
+
+            <div class="label">
+                Opening Balance
+            </div>
+
+            <div
+                class="num"
+                id="openingBalance">
+
+                ₹0
+
+            </div>
+
+            <div class="muted">
+                Previous month's closing balance
+            </div>
+
+        </div>
+
+
+        <!-- STUDENTS -->
+
+        <div class="card">
+
+            <div class="label">
+                Active Students
+            </div>
+
+            <div
+                class="num blue"
+                id="studentCount">
+
+                0
+
+            </div>
+
+            <div class="muted">
+                Admitted by selected month
+            </div>
+
+        </div>
+
+
+        <!-- FEES -->
+
+        <div class="card">
+
+            <div class="label">
+                Fees Received
+            </div>
+
+            <div
+                class="num green"
+                id="feesReceived">
+
+                ₹0
+
+            </div>
+
+            <div class="muted">
+                Selected month
+            </div>
+
+        </div>
+
+
+        <!-- REGISTRATION -->
+
+        <div class="card">
+
+            <div class="label">
+                Registration Fees
+            </div>
+
+            <div
+                class="num orange"
+                id="registrationFees">
+
+                ₹0
+
+            </div>
+
+            <div class="muted">
+                Selected month
+            </div>
+
+        </div>
+
+
+    </section>
+
+
+    <!-- SECOND CARDS -->
+
+    <section class="cards">
+
+
+        <!-- STARTING -->
+
+        <div class="card">
+
+            <div class="label">
+                Starting Amount
+            </div>
+
+            <div
+                class="num green"
+                id="startingAmount">
+
+                ₹0
+
+            </div>
+
+            <div class="muted">
+                Added in selected month
+            </div>
+
+        </div>
+
+
+        <!-- SURPLUS -->
+
+        <div class="card">
+
+            <div class="label">
+                Surplus
+            </div>
+
+            <div
+                class="num cyan"
+                id="surplusAmount">
+
+                ₹0
+
+            </div>
+
+            <div class="muted">
+                Added in selected month
+            </div>
+
+        </div>
+
+
+        <!-- INVESTMENT -->
+
+        <div class="card">
+
+            <div class="label">
+                Investment
+            </div>
+
+            <div
+                class="num blue"
+                id="investmentAmount">
+
+                ₹0
+
+            </div>
+
+            <div class="muted">
+                Selected month
+            </div>
+
+        </div>
+
+
+        <!-- EXPENSE -->
+
+        <div class="card">
+
+            <div class="label">
+                Expenses
+            </div>
+
+            <div
+                class="num red"
+                id="expenseAmount">
+
+                ₹0
+
+            </div>
+
+            <div class="muted">
+                Selected month
+            </div>
+
+        </div>
+
+
+    </section>
+
+
+    <!-- THIRD CARDS -->
+
+    <section class="cards">
+
+
+        <!-- PENDING -->
+
+        <div class="card">
+
+            <div class="label">
+                Pending Fees
+            </div>
+
+            <div
+                class="num orange"
+                id="pendingFees">
+
+                ₹0
+
+            </div>
+
+            <div class="muted">
+                Pending for selected month
+            </div>
+
+        </div>
+
+
+        <!-- TOTAL MONEY IN -->
+
+        <div class="card">
+
+            <div class="label">
+                Total Money In
+            </div>
+
+            <div
+                class="num green"
+                id="totalMoneyIn">
+
+                ₹0
+
+            </div>
+
+            <div class="muted">
+                Starting + Surplus + Fees + Registration + Investment
+            </div>
+
+        </div>
+
+
+        <!-- NET -->
+
+        <div class="card">
+
+            <div class="label">
+                Net After Expense
+            </div>
+
+            <div
+                class="num blue"
+                id="netAfterExpense">
+
+                ₹0
+
+            </div>
+
+            <div class="muted">
+                Current month movement
+            </div>
+
+        </div>
+
+
+        <!-- CLOSING -->
+
+        <div class="card balance-card">
+
+            <div class="label">
+                Closing Balance
+            </div>
+
+            <div
+                class="num"
+                id="closingBalance">
+
+                ₹0
+
+            </div>
+
+            <div class="muted">
+                Available balance after all entries
+            </div>
+
+        </div>
+
+
+    </section>
+
+
+    <!-- =====================================================
+         FINANCIAL BREAKDOWN
+    ====================================================== -->
+
+    <section class="panel">
+
+        <div class="panel-head">
+
+            <h2>
+                💰 Financial Breakdown
+            </h2>
+
+            <span id="selectedMonthText">
+                -
+            </span>
+
+        </div>
+
+
+        <div class="financial-grid">
+
+
+            <div class="fin-row">
+
+                <span>
+                    Opening Balance
+                </span>
+
+                <strong
+                    id="fOpening">
+
+                    ₹0
+
+                </strong>
+
+            </div>
+
+
+            <div class="fin-row">
+
+                <span>
+                    + Starting Amount
+                </span>
+
+                <strong
+                    class="green"
+                    id="fStarting">
+
+                    ₹0
+
+                </strong>
+
+            </div>
+
+
+            <div class="fin-row">
+
+                <span>
+                    + Surplus
+                </span>
+
+                <strong
+                    class="green"
+                    id="fSurplus">
+
+                    ₹0
+
+                </strong>
+
+            </div>
+
+
+            <div class="fin-row">
+
+                <span>
+                    + Fees Received
+                </span>
+
+                <strong
+                    class="green"
+                    id="fFees">
+
+                    ₹0
+
+                </strong>
+
+            </div>
+
+
+            <div class="fin-row">
+
+                <span>
+                    + Registration
+                </span>
+
+                <strong
+                    class="green"
+                    id="fRegistration">
+
+                    ₹0
+
+                </strong>
+
+            </div>
+
+
+            <div class="fin-row">
+
+                <span>
+                    + Investment
+                </span>
+
+                <strong
+                    class="green"
+                    id="fInvestment">
+
+                    ₹0
+
+                </strong>
+
+            </div>
+
+
+            <div class="fin-row">
+
+                <span>
+                    − Expenses
+                </span>
+
+                <strong
+                    class="red"
+                    id="fExpenses">
+
+                    ₹0
+
+                </strong>
+
+            </div>
+
+
+            <div class="fin-row total-row">
+
+                <span>
+                    Closing Balance
+                </span>
+
+                <strong
+                    id="fClosing">
+
+                    ₹0
+
+                </strong>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         ACTIVITY
+    ====================================================== -->
+
+    <section class="panel">
+
+        <div class="panel-head">
+
+            <h2>
+                📅 Date-wise Activity
+            </h2>
+
+            <span>
+                Selected Month
+            </span>
+
+        </div>
+
+
+        <div class="table-wrap">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            Date
+                        </th>
+
+                        <th>
+                            Type
+                        </th>
+
+                        <th>
+                            Description
+                        </th>
+
+                        <th>
+                            Amount
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody
+                    id="activityTable">
+
+                    <tr>
+
+                        <td
+                            colspan="4"
+                            class="empty">
+
+                            Loading...
+
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+
+</main>
+
+
 <script>
 
-/* ==========================================
-   SUPABASE
-========================================== */
+/* =========================================================
+   SUPABASE CONFIG
+========================================================= */
 
 const SUPABASE_URL =
 "https://holelzxzhaiefaqezmce.supabase.co";
 
+
 const SUPABASE_KEY =
 "sb_publishable_KoCQClKL582rggMuDJXhYQ_UhHOB4xZ";
 
-const supabaseClient =
+
+const db =
 supabase.createClient(
     SUPABASE_URL,
     SUPABASE_KEY
 );
 
 
-/* ==========================================
-   GLOBAL DATA
-========================================== */
+/* =========================================================
+   HELPERS
+========================================================= */
 
-let students = [];
+const $ =
+id =>
+document.getElementById(id);
 
-let feePayments = [];
-
-let registrationPayments = [];
-
-let expensesData = [];
-
-let investmentsData = [];
-
-let balanceAdjustments = [];
-
-
-/* ==========================================
-   MONEY
-========================================== */
 
 function money(value){
 
     return "₹" +
-        Number(value || 0).toLocaleString(
-            "en-IN",
-            {
-                minimumFractionDigits:2,
-                maximumFractionDigits:2
-            }
-        );
+
+    Number(
+        value || 0
+    ).toLocaleString(
+        "en-IN",
+        {
+            maximumFractionDigits:2
+        }
+    );
 
 }
 
 
-/* ==========================================
-   MONTH HELPERS
-========================================== */
+function currentMonth(){
 
-function monthStart(month){
+    const d =
+    new Date();
 
-    return month + "-01";
+    return (
+
+        d.getFullYear()
+
+        +
+
+        "-"
+
+        +
+
+        String(
+            d.getMonth()+1
+        ).padStart(2,"0")
+
+    );
 
 }
 
 
-function getMonth(date){
+function monthOf(value){
 
-    if(!date)
+    if(!value)
         return "";
 
-    return String(date).substring(0,7);
+    return String(value)
+    .slice(0,7);
 
 }
 
+
+function dateOf(row){
+
+    return (
+
+        row.payment_date ||
+
+        row.expense_date ||
+
+        row.investment_date ||
+
+        row.adjustment_date ||
+
+        row.fee_month ||
+
+        row.date ||
+
+        row.created_at ||
+
+        ""
+
+    );
+
+}
+
+
+function amountOf(row){
+
+    return Number(
+
+        row.amount ||
+
+        row.fee_amount ||
+
+        row.paid_amount ||
+
+        row.registration_amount ||
+
+        row.investment_amount ||
+
+        0
+
+    );
+
+}
+
+
+function formatDate(value){
+
+    if(!value)
+        return "-";
+
+    const d =
+    new Date(value);
+
+    if(isNaN(d))
+        return String(value);
+
+    return d.toLocaleDateString(
+        "en-IN"
+    );
+
+}
+
+
+function escapeHTML(value){
+
+    return String(
+        value ?? ""
+    )
+    .replace(
+        /[&<>"']/g,
+        function(m){
+
+            return {
+
+                "&":"&amp;",
+                "<":"&lt;",
+                ">":"&gt;",
+                '"':"&quot;",
+                "'":"&#039;"
+
+            }[m];
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   NEXT MONTH
+========================================================= */
+
+function nextMonth(month){
+
+    const parts =
+    month.split("-");
+
+
+    const year =
+    Number(parts[0]);
+
+
+    const monthNumber =
+    Number(parts[1]);
+
+
+    const d =
+    new Date(
+        year,
+        monthNumber,
+        1
+    );
+
+
+    return (
+
+        d.getFullYear()
+
+        +
+
+        "-"
+
+        +
+
+        String(
+            d.getMonth()+1
+        ).padStart(2,"0")
+
+    );
+
+}
+
+
+/* =========================================================
+   PREVIOUS MONTH
+========================================================= */
 
 function previousMonth(month){
 
-    const d =
-        new Date(
-            month + "-01T00:00:00"
-        );
+    const parts =
+    month.split("-");
 
-    d.setMonth(
-        d.getMonth() - 1
+
+    const d =
+    new Date(
+        Number(parts[0]),
+        Number(parts[1])-2,
+        1
     );
 
-    return d.toISOString()
-        .substring(0,7);
-
-}
-
-
-function monthDifference(
-    startMonth,
-    endMonth
-){
-
-    const start =
-        new Date(
-            startMonth + "-01T00:00:00"
-        );
-
-    const end =
-        new Date(
-            endMonth + "-01T00:00:00"
-        );
 
     return (
-        (end.getFullYear() -
-         start.getFullYear()) * 12
+
+        d.getFullYear()
+
         +
-        (
-            end.getMonth() -
-            start.getMonth()
-        )
+
+        "-"
+
+        +
+
+        String(
+            d.getMonth()+1
+        ).padStart(2,"0")
+
     );
 
 }
 
 
-/* ==========================================
-   STUDENT APPLIES TO MONTH
-========================================== */
+/* =========================================================
+   STUDENT MONTH RULE
+========================================================= */
 
 function studentAppliesToMonth(
     student,
@@ -1012,96 +2022,106 @@ function studentAppliesToMonth(
 ){
 
     const status =
-        String(
-            student.status || "Active"
-        ).toLowerCase();
+    String(
+        student.status ||
+        "Active"
+    ).toLowerCase();
 
 
-    if(status !== "active")
-        return false;
-
-
-    const admissionDate =
-        student.admission_date ||
-        student.joining_date;
-
-
-    if(!admissionDate)
-        return true;
-
-
-    const admissionMonth =
-        getMonth(admissionDate);
-
-
-    if(!admissionMonth)
-        return true;
-
-
-    return admissionMonth <= selectedMonth;
-
-}
-
-
-/* ==========================================
-   ERROR
-========================================== */
-
-function showError(message){
-
-    const box =
-        document.getElementById(
-            "errorBox"
-        );
-
-    box.innerText =
-        message;
-
-    box.style.display =
-        "block";
-
-}
-
-
-function hideError(){
-
-    document.getElementById(
-        "errorBox"
-    ).style.display =
-        "none";
-
-}
-
-
-/* ==========================================
-   AUTH
-========================================== */
-
-async function checkLogin(){
-
-    const {
-        data,
-        error
-    } =
-        await supabaseClient.auth
-        .getSession();
-
-
-    if(error){
-
-        showError(
-            error.message
-        );
+    if(
+        status !== "active"
+    ){
 
         return false;
 
     }
 
 
-    if(!data.session){
+    const admissionDate =
+    student.admission_date ||
+    student.joining_date;
 
-        window.location.href =
-            "login.html";
+
+    if(!admissionDate)
+        return true;
+
+
+    return (
+
+        String(admissionDate)
+        .slice(0,7)
+
+        <=
+
+        selectedMonth
+
+    );
+
+}
+
+
+/* =========================================================
+   SAFE TABLE LOAD
+========================================================= */
+
+async function getTable(
+    tableName
+){
+
+    const {
+        data,
+        error
+    } =
+    await db
+    .from(tableName)
+    .select("*");
+
+
+    if(error){
+
+        console.error(
+            tableName,
+            error
+        );
+
+
+        throw new Error(
+            tableName
+            +
+            ": "
+            +
+            error.message
+        );
+
+    }
+
+
+    return data || [];
+
+}
+
+
+/* =========================================================
+   SESSION
+========================================================= */
+
+async function checkSession(){
+
+    const {
+        data,
+        error
+    } =
+    await db.auth.getSession();
+
+
+    if(
+        error ||
+        !data.session
+    ){
+
+        location.replace(
+            "login.html"
+        );
 
         return false;
 
@@ -1113,313 +2133,1037 @@ async function checkLogin(){
 }
 
 
-/* ==========================================
-   LOAD DATA
-========================================== */
-
-async function loadData(){
-
-    const [
-        studentsResult,
-        feesResult,
-        registrationResult,
-        expensesResult,
-        investmentsResult,
-        adjustmentsResult
-    ] = await Promise.all([
-
-
-        supabaseClient
-            .from("students")
-            .select("*")
-            .order(
-                "created_at",
-                {
-                    ascending:false
-                }
-            ),
-
-
-        supabaseClient
-            .from("fee_payments")
-            .select("*"),
-
-
-        supabaseClient
-            .from("registration_payments")
-            .select("*"),
-
-
-        supabaseClient
-            .from("expenses")
-            .select("*"),
-
-
-        supabaseClient
-            .from("investments")
-            .select("*"),
-
-
-        supabaseClient
-            .from("balance_adjustments")
-            .select("*")
-
-    ]);
-
-
-    if(studentsResult.error)
-        throw studentsResult.error;
-
-
-    if(feesResult.error)
-        throw feesResult.error;
-
-
-    if(registrationResult.error)
-        throw registrationResult.error;
-
-
-    if(expensesResult.error)
-        throw expensesResult.error;
-
-
-    /*
-       Investments table may not exist
-       in some installations.
-    */
-
-    if(investmentsResult.error){
-
-        console.warn(
-            "Investment table error:",
-            investmentsResult.error
-        );
-
-        investmentsData = [];
-
-    }else{
-
-        investmentsData =
-            investmentsResult.data || [];
-
-    }
-
-
-    /*
-       balance_adjustments table is required
-       for starting amount.
-    */
-
-    if(adjustmentsResult.error){
-
-        console.warn(
-            "balance_adjustments table error:",
-            adjustmentsResult.error
-        );
-
-        balanceAdjustments = [];
-
-    }else{
-
-        balanceAdjustments =
-            adjustmentsResult.data || [];
-
-    }
-
-
-    students =
-        studentsResult.data || [];
-
-
-    feePayments =
-        feesResult.data || [];
-
-
-    registrationPayments =
-        registrationResult.data || [];
-
-
-    expensesData =
-        expensesResult.data || [];
-
-}
-
-
-/* ==========================================
-   FEE MAP
-========================================== */
-
-function buildFeeMap(){
-
-    const map = {};
-
-
-    feePayments.forEach(
-        payment => {
-
-            const key =
-                payment.student_id +
-                "|" +
-                getMonth(
-                    payment.fee_month
-                );
-
-
-            if(!map[key])
-                map[key] = 0;
-
-
-            map[key] +=
-                Number(
-                    payment.amount || 0
-                );
-
-        }
-    );
-
-
-    return map;
-
-}
-
-
-/* ==========================================
-   STUDENT PREVIOUS PENDING
-========================================== */
-
-function calculateStudentPreviousPending(
-    student,
-    selectedMonth,
-    feeMap
+/* =========================================================
+   PENDING FEES
+   SELECTED MONTH ONLY
+========================================================= */
+
+function calculatePending(
+    students,
+    fees,
+    selectedMonth
 ){
 
-    const admissionDate =
-        student.admission_date ||
-        student.joining_date;
+    let pending = 0;
 
 
-    const joiningMonth =
-        getMonth(admissionDate);
+    students.forEach(
+        student => {
 
 
-    if(!joiningMonth)
-        return 0;
+            if(
+                !studentAppliesToMonth(
+                    student,
+                    selectedMonth
+                )
+            ){
+
+                return;
+
+            }
 
 
-    /*
-       Student joined in selected month
-       so there is no previous pending.
-    */
-
-    if(joiningMonth >= selectedMonth)
-        return 0;
-
-
-    const months =
-        monthDifference(
-            joiningMonth,
-            selectedMonth
-        );
-
-
-    let due = 0;
-
-    let paid = 0;
-
-
-    for(
-        let i = 0;
-        i < months;
-        i++
-    ){
-
-        const d =
-            new Date(
-                joiningMonth +
-                "-01T00:00:00"
-            );
-
-
-        d.setMonth(
-            d.getMonth() + i
-        );
-
-
-        const m =
-            d.toISOString()
-            .substring(0,7);
-
-
-        due +=
+            const monthlyFee =
             Number(
                 student.monthly_fee || 0
             );
 
 
-        const key =
-            student.id +
-            "|" +
-            m;
+            if(monthlyFee <= 0)
+                return;
 
 
-        paid +=
-            Number(
-                feeMap[key] || 0
+            const paidThisMonth =
+
+            fees
+
+            .filter(
+                payment => {
+
+                    const paymentStudentId =
+                    String(
+                        payment.student_id ||
+                        ""
+                    );
+
+
+                    const studentId =
+                    String(
+                        student.id ||
+                        ""
+                    );
+
+
+                    const paymentMonth =
+                    monthOf(
+
+                        payment.fee_month ||
+
+                        payment.payment_date ||
+
+                        payment.date ||
+
+                        payment.created_at
+
+                    );
+
+
+                    return (
+
+                        paymentStudentId
+                        ===
+                        studentId
+
+                        &&
+
+                        paymentMonth
+                        ===
+                        selectedMonth
+
+                    );
+
+                }
+            )
+
+            .reduce(
+                (
+                    total,
+                    payment
+                ) => {
+
+                    return total +
+
+                    Number(
+
+                        payment.amount ||
+
+                        payment.fee_amount ||
+
+                        payment.paid_amount ||
+
+                        0
+
+                    );
+
+                },
+                0
             );
 
-    }
 
+            pending +=
+            Math.max(
+                0,
+                monthlyFee -
+                paidThisMonth
+            );
 
-    return Math.max(
-        0,
-        due - paid
+        }
     );
+
+
+    return pending;
 
 }
 
 
-/* ==========================================
-   SUM PREVIOUS DATA
-========================================== */
+/* =========================================================
+   LOAD SUMMARY
+========================================================= */
 
-function calculateOpeningBalance(
-    selectedMonth
-){
+async function loadSummary(){
 
-    const firstDay =
-        monthStart(
+    const selectedMonth =
+    $("monthPicker").value
+    ||
+    currentMonth();
+
+
+    $("selectedMonthText")
+    .textContent =
+    selectedMonth;
+
+
+    try{
+
+        showStatus(
+            "",
+            false
+        );
+
+
+        /* =================================================
+           LOAD ALL SUPABASE DATA
+        ================================================= */
+
+        const [
+
+            students,
+
+            fees,
+
+            registrations,
+
+            expenses,
+
+            investments,
+
+            adjustments
+
+        ] =
+        await Promise.all([
+
+            getTable(
+                "students"
+            ),
+
+            getTable(
+                "fee_payments"
+            ),
+
+            getTable(
+                "registration_payments"
+            ),
+
+            getTable(
+                "expenses"
+            ),
+
+            getTable(
+                "investments"
+            ),
+
+            getTable(
+                "balance_adjustments"
+            )
+
+        ]);
+
+
+        /* =================================================
+           MONTH FILTER
+        ================================================= */
+
+        const monthlyFees =
+        fees.filter(
+            row => {
+
+                return monthOf(
+
+                    row.fee_month ||
+
+                    row.payment_date ||
+
+                    row.date ||
+
+                    row.created_at
+
+                )
+                ===
+                selectedMonth;
+
+            }
+        );
+
+
+        const monthlyRegistration =
+        registrations.filter(
+            row => {
+
+                return monthOf(
+
+                    row.payment_date ||
+
+                    row.date ||
+
+                    row.created_at
+
+                )
+                ===
+                selectedMonth;
+
+            }
+        );
+
+
+        const monthlyExpenses =
+        expenses.filter(
+            row => {
+
+                return monthOf(
+
+                    row.expense_date ||
+
+                    row.date ||
+
+                    row.created_at
+
+                )
+                ===
+                selectedMonth;
+
+            }
+        );
+
+
+        const monthlyInvestments =
+        investments.filter(
+            row => {
+
+                return monthOf(
+
+                    row.investment_date ||
+
+                    row.date ||
+
+                    row.created_at
+
+                )
+                ===
+                selectedMonth;
+
+            }
+        );
+
+
+        const monthlyAdjustments =
+        adjustments.filter(
+            row => {
+
+                return monthOf(
+                    row.adjustment_date
+                )
+                ===
+                selectedMonth;
+
+            }
+        );
+
+
+        /* =================================================
+           STUDENTS
+        ================================================= */
+
+        const activeStudents =
+        students.filter(
+            student => {
+
+                return studentAppliesToMonth(
+                    student,
+                    selectedMonth
+                );
+
+            }
+        );
+
+
+        /* =================================================
+           TOTALS
+        ================================================= */
+
+        const totalFees =
+        monthlyFees.reduce(
+            (
+                total,
+                row
+            ) => {
+
+                return total +
+                amountOf(row);
+
+            },
+            0
+        );
+
+
+        const totalRegistration =
+        monthlyRegistration.reduce(
+            (
+                total,
+                row
+            ) => {
+
+                return total +
+                amountOf(row);
+
+            },
+            0
+        );
+
+
+        const totalExpenses =
+        monthlyExpenses.reduce(
+            (
+                total,
+                row
+            ) => {
+
+                return total +
+                Number(
+                    row.amount || 0
+                );
+
+            },
+            0
+        );
+
+
+        const totalInvestment =
+        monthlyInvestments.reduce(
+            (
+                total,
+                row
+            ) => {
+
+                return total +
+                Number(
+
+                    row.amount ||
+
+                    row.investment_amount ||
+
+                    0
+
+                );
+
+            },
+            0
+        );
+
+
+        /* =================================================
+           STARTING
+        ================================================= */
+
+        const totalStarting =
+
+        monthlyAdjustments
+
+        .filter(
+            row => {
+
+                return String(
+
+                    row.adjustment_type ||
+                    "starting"
+
+                ).toLowerCase()
+
+                ===
+
+                "starting";
+
+            }
+        )
+
+        .reduce(
+            (
+                total,
+                row
+            ) => {
+
+                return total +
+                Number(
+                    row.amount || 0
+                );
+
+            },
+            0
+        );
+
+
+        /* =================================================
+           SURPLUS
+        ================================================= */
+
+        const totalSurplus =
+
+        monthlyAdjustments
+
+        .filter(
+            row => {
+
+                return String(
+
+                    row.adjustment_type ||
+                    ""
+
+                ).toLowerCase()
+
+                ===
+
+                "surplus";
+
+            }
+        )
+
+        .reduce(
+            (
+                total,
+                row
+            ) => {
+
+                return total +
+                Number(
+                    row.amount || 0
+                );
+
+            },
+            0
+        );
+
+
+        /* =================================================
+           PENDING
+        ================================================= */
+
+        const pending =
+        calculatePending(
+            students,
+            fees,
             selectedMonth
         );
 
 
-    let fees = 0;
+        /* =================================================
+           PREVIOUS BALANCE
+        ================================================= */
 
-    let registrations = 0;
+        const previousFees =
 
-    let expenses = 0;
+        fees
 
-    let investments = 0;
+        .filter(
+            row => {
 
-    let adjustments = 0;
+                return monthOf(
+                    row.fee_month ||
+                    row.payment_date ||
+                    row.date ||
+                    row.created_at
+                )
+                <
+                selectedMonth;
+
+            }
+        )
+
+        .reduce(
+            (
+                total,
+                row
+            ) => {
+
+                return total +
+                amountOf(row);
+
+            },
+            0
+        );
+
+
+        const previousRegistration =
+
+        registrations
+
+        .filter(
+            row => {
+
+                return monthOf(
+                    row.payment_date ||
+                    row.date ||
+                    row.created_at
+                )
+                <
+                selectedMonth;
+
+            }
+        )
+
+        .reduce(
+            (
+                total,
+                row
+            ) => {
+
+                return total +
+                amountOf(row);
+
+            },
+            0
+        );
+
+
+        const previousExpenses =
+
+        expenses
+
+        .filter(
+            row => {
+
+                return monthOf(
+                    row.expense_date ||
+                    row.date ||
+                    row.created_at
+                )
+                <
+                selectedMonth;
+
+            }
+        )
+
+        .reduce(
+            (
+                total,
+                row
+            ) => {
+
+                return total +
+                Number(
+                    row.amount || 0
+                );
+
+            },
+            0
+        );
+
+
+        const previousInvestment =
+
+        investments
+
+        .filter(
+            row => {
+
+                return monthOf(
+                    row.investment_date ||
+                    row.date ||
+                    row.created_at
+                )
+                <
+                selectedMonth;
+
+            }
+        )
+
+        .reduce(
+            (
+                total,
+                row
+            ) => {
+
+                return total +
+
+                Number(
+
+                    row.amount ||
+
+                    row.investment_amount ||
+
+                    0
+
+                );
+
+            },
+            0
+        );
+
+
+        const previousAdjustments =
+        adjustments.filter(
+            row => {
+
+                return monthOf(
+                    row.adjustment_date
+                )
+                <
+                selectedMonth;
+
+            }
+        );
+
+
+        const previousStarting =
+
+        previousAdjustments
+
+        .filter(
+            row => {
+
+                return String(
+
+                    row.adjustment_type ||
+                    "starting"
+
+                ).toLowerCase()
+                ===
+                "starting";
+
+            }
+        )
+
+        .reduce(
+            (
+                total,
+                row
+            ) => {
+
+                return total +
+                Number(
+                    row.amount || 0
+                );
+
+            },
+            0
+        );
+
+
+        const previousSurplus =
+
+        previousAdjustments
+
+        .filter(
+            row => {
+
+                return String(
+
+                    row.adjustment_type ||
+                    ""
+
+                ).toLowerCase()
+                ===
+                "surplus";
+
+            }
+        )
+
+        .reduce(
+            (
+                total,
+                row
+            ) => {
+
+                return total +
+                Number(
+                    row.amount || 0
+                );
+
+            },
+            0
+        );
+
+
+        /* =================================================
+           OPENING
+        ================================================= */
+
+        const openingBalance =
+
+        previousFees +
+
+        previousRegistration +
+
+        previousInvestment +
+
+        previousStarting +
+
+        previousSurplus -
+
+        previousExpenses;
+
+
+        /* =================================================
+           CURRENT MONTH MONEY IN
+        ================================================= */
+
+        const totalMoneyIn =
+
+        totalStarting +
+
+        totalSurplus +
+
+        totalFees +
+
+        totalRegistration +
+
+        totalInvestment;
+
+
+        /* =================================================
+           NET
+        ================================================= */
+
+        const netAfterExpense =
+
+        totalMoneyIn -
+
+        totalExpenses;
+
+
+        /* =================================================
+           CLOSING
+        ================================================= */
+
+        const closingBalance =
+
+        openingBalance +
+
+        netAfterExpense;
+
+
+        /* =================================================
+           DISPLAY
+        ================================================= */
+
+        $("openingBalance")
+        .textContent =
+        money(openingBalance);
+
+
+        $("studentCount")
+        .textContent =
+        activeStudents.length;
+
+
+        $("feesReceived")
+        .textContent =
+        money(totalFees);
+
+
+        $("registrationFees")
+        .textContent =
+        money(totalRegistration);
+
+
+        $("startingAmount")
+        .textContent =
+        money(totalStarting);
+
+
+        $("surplusAmount")
+        .textContent =
+        money(totalSurplus);
+
+
+        $("investmentAmount")
+        .textContent =
+        money(totalInvestment);
+
+
+        $("expenseAmount")
+        .textContent =
+        money(totalExpenses);
+
+
+        $("pendingFees")
+        .textContent =
+        money(pending);
+
+
+        $("totalMoneyIn")
+        .textContent =
+        money(totalMoneyIn);
+
+
+        $("netAfterExpense")
+        .textContent =
+        money(netAfterExpense);
+
+
+        $("closingBalance")
+        .textContent =
+        money(closingBalance);
+
+
+        /* =================================================
+           FINANCIAL
+        ================================================= */
+
+        $("fOpening")
+        .textContent =
+        money(openingBalance);
+
+
+        $("fStarting")
+        .textContent =
+        money(totalStarting);
+
+
+        $("fSurplus")
+        .textContent =
+        money(totalSurplus);
+
+
+        $("fFees")
+        .textContent =
+        money(totalFees);
+
+
+        $("fRegistration")
+        .textContent =
+        money(totalRegistration);
+
+
+        $("fInvestment")
+        .textContent =
+        money(totalInvestment);
+
+
+        $("fExpenses")
+        .textContent =
+        money(totalExpenses);
+
+
+        $("fClosing")
+        .textContent =
+        money(closingBalance);
+
+
+        /* =================================================
+           ACTIVITY
+        ================================================= */
+
+        renderActivity(
+
+            monthlyFees,
+
+            monthlyRegistration,
+
+            monthlyExpenses,
+
+            monthlyInvestments,
+
+            monthlyAdjustments,
+
+            students
+
+        );
+
+
+    }
+    catch(error){
+
+        console.error(
+            "MONTHLY SUMMARY ERROR:",
+            error
+        );
+
+
+        showStatus(
+
+            "Monthly Summary load nahi ho pa raha. " +
+
+            error.message +
+
+            " — Supabase table / RLS / column check karo.",
+
+            true
+
+        );
+
+
+        $("activityTable")
+        .innerHTML =
+
+        `
+        <tr>
+            <td
+                colspan="4"
+                class="empty">
+
+                Data load failed.
+
+            </td>
+        </tr>
+        `;
+
+    }
+    finally{
+
+        $("loading")
+        .style.display =
+        "none";
+
+    }
+
+}
+
+
+/* =========================================================
+   ACTIVITY
+========================================================= */
+
+function renderActivity(
+
+    fees,
+
+    registrations,
+
+    expenses,
+
+    investments,
+
+    adjustments,
+
+    students
+
+){
+
+    const activity = [];
+
+
+    function studentName(
+        id
+    ){
+
+        const student =
+        students.find(
+            item =>
+            String(item.id)
+            ===
+            String(id)
+        );
+
+
+        return (
+
+            student?.name ||
+
+            student?.student_name ||
+
+            "Student"
+
+        );
+
+    }
 
 
     /* FEES */
 
-    feePayments.forEach(
-        payment => {
+    fees.forEach(
+        row => {
 
-            if(
-                payment.payment_date &&
-                payment.payment_date <
-                firstDay
-            ){
+            activity.push({
 
-                fees +=
-                    Number(
-                        payment.amount || 0
-                    );
+                date:
+                row.payment_date ||
+                row.fee_month ||
+                row.date ||
+                row.created_at,
 
-            }
+                type:
+                "Fee",
+
+                description:
+                studentName(
+                    row.student_id
+                ),
+
+                amount:
+                amountOf(row),
+
+                income:true
+
+            });
 
         }
     );
@@ -1427,21 +3171,30 @@ function calculateOpeningBalance(
 
     /* REGISTRATION */
 
-    registrationPayments.forEach(
-        payment => {
+    registrations.forEach(
+        row => {
 
-            if(
-                payment.payment_date &&
-                payment.payment_date <
-                firstDay
-            ){
+            activity.push({
 
-                registrations +=
-                    Number(
-                        payment.amount || 0
-                    );
+                date:
+                row.payment_date ||
+                row.date ||
+                row.created_at,
 
-            }
+                type:
+                "Registration",
+
+                description:
+                studentName(
+                    row.student_id
+                ),
+
+                amount:
+                amountOf(row),
+
+                income:true
+
+            });
 
         }
     );
@@ -1449,21 +3202,35 @@ function calculateOpeningBalance(
 
     /* EXPENSES */
 
-    expensesData.forEach(
-        expense => {
+    expenses.forEach(
+        row => {
 
-            if(
-                expense.expense_date &&
-                expense.expense_date <
-                firstDay
-            ){
+            activity.push({
 
-                expenses +=
-                    Number(
-                        expense.amount || 0
-                    );
+                date:
+                row.expense_date ||
+                row.date ||
+                row.created_at,
 
-            }
+                type:
+                "Expense",
+
+                description:
+
+                row.description ||
+
+                row.category ||
+
+                "School Expense",
+
+                amount:
+                Number(
+                    row.amount || 0
+                ),
+
+                income:false
+
+            });
 
         }
     );
@@ -1471,446 +3238,388 @@ function calculateOpeningBalance(
 
     /* INVESTMENTS */
 
-    investmentsData.forEach(
-        investment => {
+    investments.forEach(
+        row => {
 
-            const date =
-                investment.investment_date ||
-                investment.date ||
-                investment.created_at;
+            activity.push({
 
+                date:
+                row.investment_date ||
+                row.date ||
+                row.created_at,
 
-            if(
-                date &&
-                String(date).substring(0,10)
-                < firstDay
-            ){
+                type:
+                "Investment",
 
-                investments +=
-                    Number(
-                        investment.amount || 0
-                    );
+                description:
 
-            }
+                row.description ||
 
-        }
-    );
+                row.name ||
 
+                "Investment",
 
-    /* STARTING AMOUNT */
+                amount:
+                Number(
 
-    balanceAdjustments.forEach(
-        adjustment => {
+                    row.amount ||
 
-            if(
-                adjustment.adjustment_date &&
-                adjustment.adjustment_date <
-                firstDay
-            ){
+                    row.investment_amount ||
 
-                adjustments +=
-                    Number(
-                        adjustment.amount || 0
-                    );
+                    0
 
-            }
+                ),
+
+                income:true
+
+            });
 
         }
     );
 
 
-    /*
-       IMPORTANT:
+    /* STARTING / SURPLUS */
 
-       Previous month closing becomes
-       current month opening.
+    adjustments.forEach(
+        row => {
 
-       Starting amount is included only
-       ONCE in the month it was added.
-    */
+            const type =
+            String(
+                row.adjustment_type ||
+                "starting"
+            ).toLowerCase();
 
-    return (
-        fees +
-        registrations +
-        investments +
-        adjustments -
-        expenses
+
+            activity.push({
+
+                date:
+                row.adjustment_date,
+
+                type:
+
+                type === "surplus"
+
+                ?
+
+                "Surplus"
+
+                :
+
+                "Starting Amount",
+
+                description:
+
+                row.note ||
+
+                (
+                    type === "surplus"
+
+                    ?
+
+                    "Extra available balance"
+
+                    :
+
+                    "Opening / extra amount"
+                ),
+
+                amount:
+                Number(
+                    row.amount || 0
+                ),
+
+                income:true
+
+            });
+
+        }
     );
+
+
+    /* SORT */
+
+    activity.sort(
+        (a,b) => {
+
+            return new Date(
+                b.date || 0
+            )
+            -
+            new Date(
+                a.date || 0
+            );
+
+        }
+    );
+
+
+    if(!activity.length){
+
+        $("activityTable")
+        .innerHTML =
+
+        `
+        <tr>
+
+            <td
+                colspan="4"
+                class="empty">
+
+                No records found for this month.
+
+            </td>
+
+        </tr>
+        `;
+
+        return;
+
+    }
+
+
+    $("activityTable")
+    .innerHTML =
+
+    activity.map(
+        row => {
+
+            return `
+
+            <tr>
+
+                <td>
+                    ${
+                        escapeHTML(
+                            formatDate(
+                                row.date
+                            )
+                        )
+                    }
+                </td>
+
+
+                <td>
+
+                    <strong>
+
+                        ${
+                            escapeHTML(
+                                row.type
+                            )
+                        }
+
+                    </strong>
+
+                </td>
+
+
+                <td>
+
+                    ${
+                        escapeHTML(
+                            row.description
+                        )
+                    }
+
+                </td>
+
+
+                <td>
+
+                    <strong
+                        class="${
+                            row.income
+                            ?
+                            "green"
+                            :
+                            "red"
+                        }">
+
+                        ${
+                            row.income
+                            ?
+                            "+"
+                            :
+                            "-"
+                        }
+
+                        ${
+                            money(
+                                row.amount
+                            )
+                        }
+
+                    </strong>
+
+                </td>
+
+            </tr>
+
+            `;
+
+        }
+    )
+    .join("");
 
 }
 
 
-/* ==========================================
-   CURRENT MONTH STARTING AMOUNT
-========================================== */
+/* =========================================================
+   STATUS
+========================================================= */
 
-function calculateCurrentStartingAmount(
-    selectedMonth
+function showStatus(
+    message,
+    show
 ){
 
-    let total = 0;
+    const box =
+    $("statusBox");
 
 
-    balanceAdjustments.forEach(
-        adjustment => {
+    if(!show){
 
-            if(
-                getMonth(
-                    adjustment.adjustment_date
-                ) === selectedMonth
-            ){
+        box.textContent =
+        "";
 
-                total +=
-                    Number(
-                        adjustment.amount || 0
-                    );
+        box.classList.remove(
+            "show"
+        );
 
-            }
+        return;
 
-        }
+    }
+
+
+    box.innerHTML =
+
+    `
+    <strong>
+        ⚠️ Monthly Summary Error
+    </strong>
+    <br><br>
+    ${escapeHTML(message)}
+    `;
+
+
+    box.classList.add(
+        "show"
     );
-
-
-    return total;
 
 }
 
 
-/* ==========================================
-   CURRENT INVESTMENT
-========================================== */
+/* =========================================================
+   DASHBOARD
+========================================================= */
 
-function calculateCurrentInvestment(
-    selectedMonth
-){
+function goDashboard(){
 
-    let total = 0;
-
-
-    investmentsData.forEach(
-        investment => {
-
-            const date =
-                investment.investment_date ||
-                investment.date ||
-                investment.created_at;
-
-
-            if(
-                getMonth(date)
-                === selectedMonth
-            ){
-
-                total +=
-                    Number(
-                        investment.amount || 0
-                    );
-
-            }
-
-        }
-    );
-
-
-    return total;
+    location.href =
+    "dashboard.html";
 
 }
 
 
-/* ==========================================
-   MAIN SUMMARY
-========================================== */
+/* =========================================================
+   REFRESH
+========================================================= */
 
-async function loadSummary(){
+$("refreshBtn")
+.addEventListener(
+    "click",
+    async () => {
 
-    try{
-
-        hideError();
-
-
-        document.getElementById(
-            "loading"
-        ).style.display =
-            "block";
+        $("refreshBtn")
+        .textContent =
+        "Refreshing...";
 
 
-        document.getElementById(
-            "content"
-        ).style.display =
-            "none";
+        $("loading")
+        .style.display =
+        "grid";
 
 
-        const loggedIn =
-            await checkLogin();
+        await loadSummary();
 
 
-        if(!loggedIn)
-            return;
+        $("refreshBtn")
+        .textContent =
+        "↻ Refresh";
+
+    }
+);
 
 
-        const selectedMonth =
-            document.getElementById(
-                "monthPicker"
-            ).value;
+/* =========================================================
+   MONTH CHANGE
+========================================================= */
+
+$("monthPicker")
+.addEventListener(
+    "change",
+    async () => {
+
+        $("loading")
+        .style.display =
+        "grid";
 
 
-        if(!selectedMonth){
+        await loadSummary();
 
-            showError(
-                "Please select a month."
+    }
+);
+
+
+/* =========================================================
+   AUTH
+========================================================= */
+
+db.auth.onAuthStateChange(
+    (
+        event
+    ) => {
+
+        if(
+            event ===
+            "SIGNED_OUT"
+        ){
+
+            location.replace(
+                "login.html"
             );
-
-            return;
 
         }
 
+    }
+);
 
-        await loadData();
 
+/* =========================================================
+   START
+========================================================= */
 
-        const feeMap =
-            buildFeeMap();
+(async function(){
 
+    $("monthPicker")
+    .value =
+    currentMonth();
 
-        /* =================================
-           ACTIVE STUDENTS
-        ================================= */
 
-        const activeStudents =
-            students.filter(
-                student =>
-                    studentAppliesToMonth(
-                        student,
-                        selectedMonth
-                    )
-            );
+    const loggedIn =
+    await checkSession();
 
 
-        /* =================================
-           MONTHLY DUE
-        ================================= */
+    if(!loggedIn)
+        return;
 
-        let monthlyDue = 0;
 
+    await loadSummary();
 
-        activeStudents.forEach(
-            student => {
+})();
 
-                monthlyDue +=
-                    Number(
-                        student.monthly_fee || 0
-                    );
+</script>
 
-            }
-        );
+</body>
 
-
-        /* =================================
-           PREVIOUS PENDING
-        ================================= */
-
-        let previousPending = 0;
-
-
-        activeStudents.forEach(
-            student => {
-
-                previousPending +=
-                    calculateStudentPreviousPending(
-                        student,
-                        selectedMonth,
-                        feeMap
-                    );
-
-            }
-        );
-
-
-        /* =================================
-           CURRENT FEES
-        ================================= */
-
-        let feeReceived = 0;
-
-
-        feePayments.forEach(
-            payment => {
-
-                if(
-                    getMonth(
-                        payment.payment_date
-                    )
-                    === selectedMonth
-                ){
-
-                    feeReceived +=
-                        Number(
-                            payment.amount || 0
-                        );
-
-                }
-
-            }
-        );
-
-
-        /* =================================
-           REGISTRATION
-        ================================= */
-
-        let registrationReceived = 0;
-
-
-        registrationPayments.forEach(
-            payment => {
-
-                if(
-                    getMonth(
-                        payment.payment_date
-                    )
-                    === selectedMonth
-                ){
-
-                    registrationReceived +=
-                        Number(
-                            payment.amount || 0
-                        );
-
-                }
-
-            }
-        );
-
-
-        /* =================================
-           EXPENSES
-        ================================= */
-
-        let expenseTotal = 0;
-
-
-        expensesData.forEach(
-            expense => {
-
-                if(
-                    getMonth(
-                        expense.expense_date
-                    )
-                    === selectedMonth
-                ){
-
-                    expenseTotal +=
-                        Number(
-                            expense.amount || 0
-                        );
-
-                }
-
-            }
-        );
-
-
-        /* =================================
-           STARTING AMOUNT
-        ================================= */
-
-        const startingAmount =
-            calculateCurrentStartingAmount(
-                selectedMonth
-            );
-
-
-        /* =================================
-           INVESTMENT
-        ================================= */
-
-        const investmentReceived =
-            calculateCurrentInvestment(
-                selectedMonth
-            );
-
-
-        /* =================================
-           FEE DEMAND
-        ================================= */
-
-        const totalDemand =
-            previousPending +
-            monthlyDue;
-
-
-        const totalPending =
-            Math.max(
-                0,
-                totalDemand -
-                feeReceived
-            );
-
-
-        /* =================================
-           OPENING BALANCE
-        ================================= */
-
-        const openingBalance =
-            calculateOpeningBalance(
-                selectedMonth
-            );
-
-
-        /* =================================
-           CURRENT CASH FLOW
-        ================================= */
-
-        const totalIncome =
-            startingAmount +
-            feeReceived +
-            registrationReceived +
-            investmentReceived;
-
-
-        /*
-           Closing formula:
-
-           Previous Closing
-           + Starting Amount
-           + Fees
-           + Registration
-           + Investment
-           - Expenses
-        */
-
-        const closingBalance =
-            openingBalance +
-            totalIncome -
-            expenseTotal;
-
-
-        /* =================================
-           MAIN CARDS
-        ================================= */
-
-        setText(
-            "openingBalance",
-            money(openingBalance)
-        );
-
-
-        setText(
-            "startingAmount",
-            money(startingAmount)
-        );
-
-
-        setText(
-            "monthlyDue",
-            money(monthlyDue)
-        );
-
-
-        setText(
-            "previousPending",
-            money(previousPending)
-        );
-
-
-        setText(
+</html>
