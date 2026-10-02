@@ -21,6 +21,7 @@ body{
     display:flex;
     align-items:center;
     justify-content:center;
+    padding:20px;
     background:linear-gradient(135deg,#fff4f8,#eef7ff);
 }
 
@@ -95,12 +96,29 @@ button{
 
 button:disabled{
     opacity:.6;
+    cursor:not-allowed;
+}
+
+.forgot{
+    display:block;
+    text-align:right;
+    margin-top:12px;
+    color:#e85d93;
+    font-size:14px;
+    font-weight:600;
+    text-decoration:none;
+    cursor:pointer;
+}
+
+.forgot:hover{
+    text-decoration:underline;
 }
 
 #message{
     margin-top:15px;
     text-align:center;
     font-size:14px;
+    line-height:1.5;
 }
 
 .footer{
@@ -124,20 +142,28 @@ button:disabled{
     <form id="loginForm">
 
         <label>Email</label>
+
         <input
             type="email"
             id="email"
             placeholder="Enter your email"
+            autocomplete="email"
             required
         >
 
         <label>Password</label>
+
         <input
             type="password"
             id="password"
             placeholder="Enter your password"
+            autocomplete="current-password"
             required
         >
+
+        <a href="reset-password.html" class="forgot">
+            Forgot Password?
+        </a>
 
         <button type="submit" id="loginBtn">
             Login
@@ -167,10 +193,14 @@ supabase.createClient(
     SUPABASE_KEY
 );
 
+const form =
+document.getElementById("loginForm");
 
-const form = document.getElementById("loginForm");
-const button = document.getElementById("loginBtn");
-const message = document.getElementById("message");
+const button =
+document.getElementById("loginBtn");
+
+const message =
+document.getElementById("message");
 
 
 form.addEventListener("submit", async function(e){
@@ -187,29 +217,44 @@ form.addEventListener("submit", async function(e){
     button.textContent = "Logging in...";
     message.textContent = "";
 
-    const { data, error } =
-        await supabaseClient.auth.signInWithPassword({
-            email: email,
-            password: password
-        });
+    try{
 
-    if(error){
+        const { data, error } =
+            await supabaseClient.auth.signInWithPassword({
+                email: email,
+                password: password
+            });
+
+        if(error){
+
+            message.style.color = "#e53935";
+            message.textContent = error.message;
+
+            button.disabled = false;
+            button.textContent = "Login";
+
+            return;
+        }
+
+        message.style.color = "#16a34a";
+        message.textContent = "Login successful...";
+
+        setTimeout(() => {
+
+            window.location.href =
+                "dashboard.html";
+
+        },700);
+
+    }catch(err){
 
         message.style.color = "#e53935";
-        message.textContent = error.message;
+        message.textContent =
+            "Something went wrong. Please try again.";
 
         button.disabled = false;
         button.textContent = "Login";
-
-        return;
     }
-
-    message.style.color = "#16a34a";
-    message.textContent = "Login successful...";
-
-    setTimeout(() => {
-        window.location.href = "dashboard.html";
-    }, 700);
 
 });
 
