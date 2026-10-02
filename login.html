@@ -3,9 +3,10 @@
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
 
-<title>Little Blossoms - Login</title>
+<title>Little Blossoms</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -16,104 +17,229 @@
 ========================= */
 
 *{
-    box-sizing:border-box;
     margin:0;
     padding:0;
+    box-sizing:border-box;
     font-family:Arial, Helvetica, sans-serif;
 }
 
 
 /* =========================
-   BODY / BACKGROUND
+   BODY
 ========================= */
 
 body{
-    min-height:100vh;
     width:100%;
+    height:100vh;
+    overflow:hidden;
 
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    padding:20px;
-
-    /* BACKGROUND PHOTO */
-    background-image:
-        linear-gradient(
-            rgba(0,0,0,0.10),
-            rgba(0,0,0,0.10)
-        ),
-        url("daivik1.png");
-
-    background-size:cover;
-    background-position:center center;
-    background-repeat:no-repeat;
-    background-attachment:fixed;
+    background:#d9f1f5;
 
     position:relative;
-    overflow-x:hidden;
 }
 
 
-/* Extra soft overlay */
-body::before{
-    content:"";
+/* =========================
+   FULL BACKGROUND IMAGE
+   BABY WILL NOT BE CROPPED
+========================= */
+
+.background-image{
+
     position:fixed;
+
+    top:0;
+    left:0;
+
+    width:100%;
+    height:100%;
+
+    object-fit:contain;
+
+    object-position:center center;
+
+    z-index:0;
+
+    background:#d9f1f5;
+}
+
+
+/* =========================
+   SOFT OVERLAY
+========================= */
+
+.background-overlay{
+
+    position:fixed;
+
     inset:0;
 
     background:
         linear-gradient(
-            135deg,
-            rgba(255,255,255,0.05),
+            rgba(0,0,0,0.08),
             rgba(0,0,0,0.08)
         );
 
+    z-index:1;
+
     pointer-events:none;
-    z-index:0;
 }
 
 
 /* =========================
-   LOGIN BOX
+   MAIN HOME SCREEN
 ========================= */
 
-.login-box{
+.home-screen{
 
     position:relative;
+
     z-index:2;
 
+    width:100%;
+    height:100vh;
+
+    display:flex;
+
+    align-items:flex-end;
+
+    justify-content:center;
+
+    padding-bottom:55px;
+}
+
+
+/* =========================
+   MAIN LOGIN BUTTON
+========================= */
+
+.open-login{
+
+    border:0;
+
+    padding:17px 55px;
+
+    min-width:220px;
+
+    border-radius:50px;
+
+    color:white;
+
+    font-size:18px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ff3f91,
+            #ff765e,
+            #ff9d4d
+        );
+
+    box-shadow:
+        0 12px 35px rgba(0,0,0,.30);
+
+    transition:.25s;
+}
+
+
+.open-login:hover{
+
+    transform:translateY(-3px);
+
+    box-shadow:
+        0 18px 40px rgba(0,0,0,.35);
+}
+
+
+.open-login:active{
+
+    transform:scale(.97);
+}
+
+
+/* =========================
+   MODAL
+========================= */
+
+.login-modal{
+
+    position:fixed;
+
+    inset:0;
+
+    z-index:10;
+
+    display:none;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:20px;
+
+    background:rgba(0,0,0,.28);
+
+    backdrop-filter:blur(3px);
+
+    -webkit-backdrop-filter:blur(3px);
+}
+
+
+/* SHOW MODAL */
+
+.login-modal.show{
+
+    display:flex;
+}
+
+
+/* =========================
+   LOGIN CARD
+========================= */
+
+.login-card{
+
     width:92%;
+
     max-width:420px;
 
-    padding:32px 28px 28px;
+    max-height:92vh;
 
-    /* Glass effect */
-    background:rgba(255,255,255,0.70);
+    overflow-y:auto;
 
-    backdrop-filter:blur(10px);
-    -webkit-backdrop-filter:blur(10px);
-
-    border:1px solid rgba(255,255,255,0.70);
+    padding:30px 27px 25px;
 
     border-radius:30px;
 
-    box-shadow:
-        0 25px 70px rgba(0,0,0,0.28),
-        inset 0 1px 0 rgba(255,255,255,0.70);
+    background:
+        rgba(255,255,255,.76);
 
-    animation:boxIn .6s ease;
+    backdrop-filter:blur(16px);
+
+    -webkit-backdrop-filter:blur(16px);
+
+    border:
+        1px solid rgba(255,255,255,.8);
+
+    box-shadow:
+        0 25px 70px rgba(0,0,0,.35);
+
+    position:relative;
+
+    animation:
+        cardOpen .3s ease;
 }
 
 
-/* =========================
-   ANIMATION
-========================= */
-
-@keyframes boxIn{
+@keyframes cardOpen{
 
     from{
         opacity:0;
-        transform:translateY(25px) scale(.97);
+        transform:translateY(30px) scale(.95);
     }
 
     to{
@@ -124,39 +250,77 @@ body::before{
 
 
 /* =========================
+   CLOSE BUTTON
+========================= */
+
+.close-btn{
+
+    position:absolute;
+
+    top:14px;
+    right:17px;
+
+    width:35px;
+    height:35px;
+
+    border:0;
+
+    border-radius:50%;
+
+    background:rgba(0,0,0,.07);
+
+    color:#555;
+
+    font-size:22px;
+
+    cursor:pointer;
+}
+
+
+.close-btn:hover{
+
+    background:rgba(255,80,130,.15);
+
+    color:#e84f91;
+}
+
+
+/* =========================
    LOGO
 ========================= */
 
 .logo{
 
-    width:78px;
-    height:78px;
+    width:72px;
+    height:72px;
 
-    margin:0 auto 15px;
+    margin:5px auto 13px;
 
     border-radius:50%;
 
     display:flex;
+
     align-items:center;
     justify-content:center;
+
+    color:white;
+
+    font-size:28px;
+
+    font-weight:bold;
 
     background:
         linear-gradient(
             135deg,
-            #ff5fa2,
-            #b678e8,
+            #ff4fa0,
+            #b46bea,
             #45bdf5
         );
 
-    color:white;
-
-    font-size:30px;
-    font-weight:bold;
+    border:3px solid white;
 
     box-shadow:
-        0 10px 25px rgba(214,82,170,.35);
-
-    border:3px solid rgba(255,255,255,.75);
+        0 8px 25px rgba(220,70,170,.35);
 }
 
 
@@ -168,13 +332,9 @@ h1{
 
     text-align:center;
 
+    font-size:27px;
+
     color:#222;
-
-    font-size:28px;
-
-    font-weight:700;
-
-    letter-spacing:-.5px;
 }
 
 
@@ -184,69 +344,130 @@ h1{
 
     color:#666;
 
-    margin:8px 0 28px;
+    margin-top:6px;
 
-    font-size:16px;
+    margin-bottom:20px;
+
+    font-size:15px;
 }
 
 
 /* =========================
-   LABEL
+   LOGIN / SIGNUP TABS
 ========================= */
+
+.tabs{
+
+    display:flex;
+
+    gap:6px;
+
+    padding:5px;
+
+    margin-bottom:20px;
+
+    border-radius:14px;
+
+    background:rgba(0,0,0,.06);
+}
+
+
+.tab{
+
+    flex:1;
+
+    padding:11px;
+
+    border:0;
+
+    border-radius:10px;
+
+    background:transparent;
+
+    color:#777;
+
+    font-size:15px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+}
+
+
+.tab.active{
+
+    color:white;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ff4f9a,
+            #ff7d65
+        );
+
+    box-shadow:
+        0 5px 15px rgba(255,80,140,.20);
+}
+
+
+/* =========================
+   FORM
+========================= */
+
+.form-box{
+
+    display:none;
+}
+
+
+.form-box.active{
+
+    display:block;
+}
+
 
 label{
 
     display:block;
 
-    margin:15px 0 7px;
+    margin:14px 0 7px;
 
     color:#333;
 
-    font-weight:600;
+    font-size:14px;
 
-    font-size:15px;
+    font-weight:600;
 }
 
-
-/* =========================
-   INPUT
-========================= */
 
 input{
 
     width:100%;
 
-    padding:15px 16px;
+    padding:14px 15px;
 
-    border:1px solid rgba(120,120,120,.25);
+    border-radius:13px;
 
-    border-radius:14px;
+    border:
+        1px solid rgba(100,100,100,.22);
 
     outline:none;
+
+    background:
+        rgba(255,255,255,.88);
 
     font-size:15px;
 
     color:#333;
-
-    background:rgba(255,255,255,.82);
-
-    transition:.25s;
-}
-
-
-input::placeholder{
-    color:#888;
 }
 
 
 input:focus{
 
-    border-color:#ff72a7;
-
-    background:white;
+    border-color:#ff70a8;
 
     box-shadow:
-        0 0 0 4px rgba(255,114,167,.12);
+        0 0 0 4px rgba(255,100,160,.12);
 }
 
 
@@ -260,7 +481,7 @@ input:focus{
 
     text-align:right;
 
-    margin-top:12px;
+    margin-top:10px;
 
     color:#e84f91;
 
@@ -269,75 +490,63 @@ input:focus{
     font-weight:600;
 
     text-decoration:none;
-
-    cursor:pointer;
 }
 
 
 .forgot:hover{
+
     text-decoration:underline;
 }
 
 
 /* =========================
-   LOGIN BUTTON
+   ACTION BUTTON
 ========================= */
 
-button{
+.action-btn{
 
     width:100%;
 
-    margin-top:24px;
+    margin-top:20px;
 
-    padding:15px;
+    padding:14px;
 
     border:0;
 
-    border-radius:14px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #ff4f9a,
-            #ff7b6b,
-            #ff9b55
-        );
+    border-radius:13px;
 
     color:white;
 
-    font-size:17px;
+    font-size:16px;
 
     font-weight:bold;
 
     cursor:pointer;
 
-    box-shadow:
-        0 10px 25px rgba(255,92,130,.28);
+    background:
+        linear-gradient(
+            135deg,
+            #ff4297,
+            #ff7a65,
+            #ff9a4e
+        );
 
-    transition:
-        transform .2s,
-        box-shadow .2s,
-        opacity .2s;
+    box-shadow:
+        0 9px 25px rgba(255,80,130,.28);
+
+    transition:.2s;
 }
 
 
-button:hover{
+.action-btn:hover{
 
     transform:translateY(-2px);
-
-    box-shadow:
-        0 14px 30px rgba(255,92,130,.35);
 }
 
 
-button:active{
-    transform:scale(.98);
-}
+.action-btn:disabled{
 
-
-button:disabled{
-
-    opacity:.65;
+    opacity:.6;
 
     cursor:not-allowed;
 
@@ -349,17 +558,17 @@ button:disabled{
    MESSAGE
 ========================= */
 
-#message{
+.message{
 
-    margin-top:15px;
+    min-height:20px;
+
+    margin-top:13px;
 
     text-align:center;
 
-    font-size:14px;
+    font-size:13px;
 
-    line-height:1.5;
-
-    min-height:20px;
+    line-height:1.4;
 }
 
 
@@ -371,13 +580,11 @@ button:disabled{
 
     text-align:center;
 
-    margin-top:24px;
+    margin-top:18px;
 
     color:#777;
 
-    font-size:12px;
-
-    font-weight:500;
+    font-size:11px;
 }
 
 
@@ -387,102 +594,83 @@ button:disabled{
 
 @media(max-width:480px){
 
-    body{
+    .home-screen{
 
-        padding:15px;
-
-        background-position:center center;
+        padding-bottom:45px;
     }
 
 
-    .login-box{
+    .open-login{
+
+        width:75%;
+
+        padding:16px;
+    }
+
+
+    .login-card{
 
         width:94%;
 
-        padding:28px 22px 24px;
+        padding:
+            28px 21px 22px;
 
-        border-radius:28px;
-
-        background:rgba(255,255,255,0.68);
-    }
-
-
-    .logo{
-
-        width:72px;
-        height:72px;
-
-        font-size:28px;
+        border-radius:27px;
     }
 
 
     h1{
 
-        font-size:26px;
-    }
-
-
-    .subtitle{
-
-        font-size:15px;
-
-        margin-bottom:24px;
-    }
-
-
-    input{
-
-        padding:14px;
-    }
-
-
-    button{
-
-        padding:15px;
+        font-size:25px;
     }
 
 }
 
 
 /* =========================
-   VERY SMALL MOBILE
+   SMALL HEIGHT PHONE
 ========================= */
 
 @media(max-height:700px){
 
-    .login-box{
+    .login-card{
+
+        max-height:88vh;
 
         padding-top:22px;
-        padding-bottom:20px;
     }
 
 
     .logo{
 
-        width:65px;
-        height:65px;
+        width:60px;
+        height:60px;
 
-        margin-bottom:10px;
-    }
-
-
-    h1{
         font-size:24px;
     }
 
 
     .subtitle{
-        margin-bottom:18px;
+
+        margin-bottom:14px;
     }
 
 
     label{
-        margin-top:12px;
+
+        margin-top:10px;
     }
 
 
-    button{
-        margin-top:20px;
+    input{
+
+        padding:12px;
+    }
+
+
+    .action-btn{
+
+        margin-top:15px;
     }
 }
 
@@ -495,102 +683,256 @@ button:disabled{
 
 
 <!-- =========================
-     LOGIN BOX
+     BACKGROUND
 ========================= -->
 
-<div class="login-box">
+<img
+    src="daivik1.png"
+    class="background-image"
+    alt="Little Blossoms"
+>
 
 
-    <!-- LOGO -->
-
-    <div class="logo">
-        LB
-    </div>
+<div class="background-overlay"></div>
 
 
-    <!-- TITLE -->
 
-    <h1>
-        Little Blossoms
-    </h1>
+<!-- =========================
+     HOME SCREEN
+========================= -->
 
+<div class="home-screen">
 
-    <div class="subtitle">
-        Management System
-    </div>
+    <button
+        class="open-login"
+        id="openLogin"
+    >
+        Login / Sign Up
+    </button>
 
-
-    <!-- LOGIN FORM -->
-
-    <form id="loginForm">
-
-
-        <!-- EMAIL -->
-
-        <label for="email">
-            Email
-        </label>
+</div>
 
 
-        <input
-            type="email"
-            id="email"
-            placeholder="Enter your email"
-            autocomplete="email"
-            required
-        >
+
+<!-- =========================
+     LOGIN MODAL
+========================= -->
+
+<div
+    class="login-modal"
+    id="loginModal"
+>
 
 
-        <!-- PASSWORD -->
-
-        <label for="password">
-            Password
-        </label>
+    <div class="login-card">
 
 
-        <input
-            type="password"
-            id="password"
-            placeholder="Enter your password"
-            autocomplete="current-password"
-            required
-        >
-
-
-        <!-- FORGOT PASSWORD -->
-
-        <a
-            href="reset-password.html"
-            class="forgot"
-        >
-            Forgot Password?
-        </a>
-
-
-        <!-- LOGIN -->
+        <!-- CLOSE -->
 
         <button
-            type="submit"
-            id="loginBtn"
+            class="close-btn"
+            id="closeLogin"
+            type="button"
         >
-            Login
+            ×
         </button>
 
 
-    </form>
+        <!-- LOGO -->
+
+        <div class="logo">
+            LB
+        </div>
 
 
-    <!-- MESSAGE -->
+        <h1>
+            Little Blossoms
+        </h1>
 
-    <div id="message"></div>
+
+        <div class="subtitle">
+            Management System
+        </div>
 
 
-    <!-- FOOTER -->
+        <!-- =====================
+             TABS
+        ====================== -->
 
-    <div class="footer">
-        Little Blossoms Preschool & Day Care
+        <div class="tabs">
+
+            <button
+                type="button"
+                class="tab active"
+                id="loginTab"
+            >
+                Login
+            </button>
+
+
+            <button
+                type="button"
+                class="tab"
+                id="signupTab"
+            >
+                Sign Up
+            </button>
+
+        </div>
+
+
+
+        <!-- =====================
+             LOGIN FORM
+        ====================== -->
+
+        <div
+            class="form-box active"
+            id="loginBox"
+        >
+
+            <form id="loginForm">
+
+
+                <label>
+                    Email
+                </label>
+
+
+                <input
+                    type="email"
+                    id="loginEmail"
+                    placeholder="Enter your email"
+                    autocomplete="email"
+                    required
+                >
+
+
+                <label>
+                    Password
+                </label>
+
+
+                <input
+                    type="password"
+                    id="loginPassword"
+                    placeholder="Enter your password"
+                    autocomplete="current-password"
+                    required
+                >
+
+
+                <a
+                    href="reset-password.html"
+                    class="forgot"
+                >
+                    Forgot Password?
+                </a>
+
+
+                <button
+                    type="submit"
+                    class="action-btn"
+                    id="loginBtn"
+                >
+                    Login
+                </button>
+
+
+            </form>
+
+
+            <div
+                class="message"
+                id="loginMessage"
+            ></div>
+
+        </div>
+
+
+
+        <!-- =====================
+             SIGN UP FORM
+        ====================== -->
+
+        <div
+            class="form-box"
+            id="signupBox"
+        >
+
+            <form id="signupForm">
+
+
+                <label>
+                    Email
+                </label>
+
+
+                <input
+                    type="email"
+                    id="signupEmail"
+                    placeholder="Enter your email"
+                    autocomplete="email"
+                    required
+                >
+
+
+                <label>
+                    Password
+                </label>
+
+
+                <input
+                    type="password"
+                    id="signupPassword"
+                    placeholder="Create password"
+                    autocomplete="new-password"
+                    minlength="6"
+                    required
+                >
+
+
+                <label>
+                    Confirm Password
+                </label>
+
+
+                <input
+                    type="password"
+                    id="confirmPassword"
+                    placeholder="Confirm password"
+                    autocomplete="new-password"
+                    minlength="6"
+                    required
+                >
+
+
+                <button
+                    type="submit"
+                    class="action-btn"
+                    id="signupBtn"
+                >
+                    Create Account
+                </button>
+
+
+            </form>
+
+
+            <div
+                class="message"
+                id="signupMessage"
+            ></div>
+
+        </div>
+
+
+        <div class="footer">
+            Little Blossoms Preschool & Day Care
+        </div>
+
+
     </div>
-
 
 </div>
 
@@ -599,7 +941,7 @@ button:disabled{
 <script>
 
 /* =========================
-   SUPABASE CONFIG
+   SUPABASE
 ========================= */
 
 const SUPABASE_URL =
@@ -608,8 +950,6 @@ const SUPABASE_URL =
 const SUPABASE_KEY =
 "sb_publishable_KoCQClKL582rggMuDJXhYQ_UhHOB4xZ";
 
-
-/* CREATE SUPABASE CLIENT */
 
 const supabaseClient =
 supabase.createClient(
@@ -622,21 +962,121 @@ supabase.createClient(
    ELEMENTS
 ========================= */
 
-const form =
-document.getElementById("loginForm");
+const openLogin =
+document.getElementById("openLogin");
 
-const button =
-document.getElementById("loginBtn");
+const closeLogin =
+document.getElementById("closeLogin");
 
-const message =
-document.getElementById("message");
+const loginModal =
+document.getElementById("loginModal");
+
+const loginTab =
+document.getElementById("loginTab");
+
+const signupTab =
+document.getElementById("signupTab");
+
+const loginBox =
+document.getElementById("loginBox");
+
+const signupBox =
+document.getElementById("signupBox");
+
+
+/* =========================
+   OPEN LOGIN CARD
+========================= */
+
+openLogin.addEventListener(
+    "click",
+    function(){
+
+        loginModal.classList.add("show");
+
+    }
+);
+
+
+/* =========================
+   CLOSE LOGIN CARD
+========================= */
+
+closeLogin.addEventListener(
+    "click",
+    function(){
+
+        loginModal.classList.remove("show");
+
+    }
+);
+
+
+/* =========================
+   CLICK OUTSIDE CARD
+========================= */
+
+loginModal.addEventListener(
+    "click",
+    function(e){
+
+        if(e.target === loginModal){
+
+            loginModal.classList.remove("show");
+
+        }
+
+    }
+);
+
+
+/* =========================
+   LOGIN TAB
+========================= */
+
+loginTab.addEventListener(
+    "click",
+    function(){
+
+        loginTab.classList.add("active");
+
+        signupTab.classList.remove("active");
+
+        loginBox.classList.add("active");
+
+        signupBox.classList.remove("active");
+
+    }
+);
+
+
+/* =========================
+   SIGNUP TAB
+========================= */
+
+signupTab.addEventListener(
+    "click",
+    function(){
+
+        signupTab.classList.add("active");
+
+        loginTab.classList.remove("active");
+
+        signupBox.classList.add("active");
+
+        loginBox.classList.remove("active");
+
+    }
+);
 
 
 /* =========================
    LOGIN
 ========================= */
 
-form.addEventListener(
+document
+.getElementById("loginForm")
+.addEventListener(
     "submit",
     async function(e){
 
@@ -645,46 +1085,48 @@ form.addEventListener(
 
         const email =
             document
-            .getElementById("email")
+            .getElementById("loginEmail")
             .value
             .trim();
 
 
         const password =
             document
-            .getElementById("password")
+            .getElementById("loginPassword")
             .value;
 
 
-        /* BUTTON LOADING */
+        const button =
+            document
+            .getElementById("loginBtn");
+
+
+        const message =
+            document
+            .getElementById("loginMessage");
+
 
         button.disabled = true;
 
         button.textContent =
             "Logging in...";
 
-
         message.textContent = "";
 
 
         try{
-
-
-            /* SUPABASE LOGIN */
 
             const { data, error } =
                 await supabaseClient
                 .auth
                 .signInWithPassword({
 
-                    email: email,
+                    email:email,
 
-                    password: password
+                    password:password
 
                 });
 
-
-            /* ERROR */
 
             if(error){
 
@@ -693,7 +1135,6 @@ form.addEventListener(
 
                 message.textContent =
                     error.message;
-
 
                 button.disabled = false;
 
@@ -704,16 +1145,12 @@ form.addEventListener(
             }
 
 
-            /* SUCCESS */
-
             message.style.color =
                 "#16a34a";
 
             message.textContent =
                 "Login successful...";
 
-
-            /* DASHBOARD */
 
             setTimeout(
                 function(){
@@ -727,32 +1164,189 @@ form.addEventListener(
 
 
         }
+        catch(error){
 
-        catch(err){
-
-            console.error(err);
-
+            console.error(error);
 
             message.style.color =
                 "#e53935";
 
-
             message.textContent =
                 "Something went wrong. Please try again.";
-
 
             button.disabled = false;
 
             button.textContent =
                 "Login";
+        }
 
+    }
+);
+
+
+/* =========================
+   SIGN UP
+========================= */
+
+document
+.getElementById("signupForm")
+.addEventListener(
+    "submit",
+    async function(e){
+
+        e.preventDefault();
+
+
+        const email =
+            document
+            .getElementById("signupEmail")
+            .value
+            .trim();
+
+
+        const password =
+            document
+            .getElementById("signupPassword")
+            .value;
+
+
+        const confirmPassword =
+            document
+            .getElementById("confirmPassword")
+            .value;
+
+
+        const button =
+            document
+            .getElementById("signupBtn");
+
+
+        const message =
+            document
+            .getElementById("signupMessage");
+
+
+        /* PASSWORD CHECK */
+
+        if(password !== confirmPassword){
+
+            message.style.color =
+                "#e53935";
+
+            message.textContent =
+                "Passwords do not match.";
+
+            return;
+        }
+
+
+        if(password.length < 6){
+
+            message.style.color =
+                "#e53935";
+
+            message.textContent =
+                "Password must be at least 6 characters.";
+
+            return;
+        }
+
+
+        button.disabled = true;
+
+        button.textContent =
+            "Creating Account...";
+
+        message.textContent = "";
+
+
+        try{
+
+            const { data, error } =
+                await supabaseClient
+                .auth
+                .signUp({
+
+                    email:email,
+
+                    password:password
+
+                });
+
+
+            if(error){
+
+                message.style.color =
+                    "#e53935";
+
+                message.textContent =
+                    error.message;
+
+                button.disabled = false;
+
+                button.textContent =
+                    "Create Account";
+
+                return;
+            }
+
+
+            message.style.color =
+                "#16a34a";
+
+
+            /*
+              Supabase email confirmation
+              enabled ho to user ko email
+              confirm karna padega.
+            */
+
+            if(
+                data &&
+                data.user &&
+                data.user.identities &&
+                data.user.identities.length === 0
+            ){
+
+                message.textContent =
+                    "This email is already registered.";
+
+            }
+            else{
+
+                message.textContent =
+                    "Account created successfully. Please check your email if confirmation is required.";
+
+            }
+
+
+            button.disabled = false;
+
+            button.textContent =
+                "Create Account";
+
+
+        }
+        catch(error){
+
+            console.error(error);
+
+            message.style.color =
+                "#e53935";
+
+            message.textContent =
+                "Something went wrong. Please try again.";
+
+            button.disabled = false;
+
+            button.textContent =
+                "Create Account";
         }
 
     }
 );
 
 </script>
-
 
 </body>
 </html>
