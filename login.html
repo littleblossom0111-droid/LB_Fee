@@ -3,8 +3,10 @@
 <head>
 
 <meta charset="UTF-8">
+
 <meta name="viewport"
-      content="width=device-width, initial-scale=1.0,
+      content="width=device-width,
+               initial-scale=1.0,
                maximum-scale=1.0,
                user-scalable=no">
 
@@ -25,6 +27,11 @@
     font-family:Arial, Helvetica, sans-serif;
 }
 
+
+/* =====================================================
+   PAGE
+===================================================== */
+
 html,
 body{
 
@@ -38,20 +45,58 @@ body{
 }
 
 
-/* =====================================================
-   BODY
-===================================================== */
-
 body{
 
     position:relative;
 
-    background:#d8f2f6;
+    /*
+       SAME IMAGE AS BACKGROUND
+       This removes the plain upper/lower strips.
+    */
+
+    background-image:url("daivik1.png");
+
+    background-size:cover;
+
+    background-position:center;
+
+    background-repeat:no-repeat;
 }
 
 
 /* =====================================================
-   BACKGROUND IMAGE
+   SOFT BACKGROUND BLUR
+===================================================== */
+
+body::before{
+
+    content:"";
+
+    position:fixed;
+
+    inset:-20px;
+
+    background-image:url("daivik1.png");
+
+    background-size:cover;
+
+    background-position:center;
+
+    background-repeat:no-repeat;
+
+    filter:blur(12px);
+
+    transform:scale(1.04);
+
+    opacity:.65;
+
+    z-index:0;
+}
+
+
+/* =====================================================
+   MAIN PHOTO
+   FULL PHOTO WILL REMAIN VISIBLE
 ===================================================== */
 
 .background-image{
@@ -68,35 +113,29 @@ body{
 
     object-position:center center;
 
-    background:#d8f2f6;
-
-    z-index:0;
+    z-index:1;
 
     display:block;
 }
 
 
 /* =====================================================
-   BACKGROUND OVERLAY
+   VERY LIGHT OVERLAY
 ===================================================== */
 
 .background-overlay{
 
     position:fixed;
 
-    top:0;
-    left:0;
-
-    width:100%;
-    height:100%;
+    inset:0;
 
     background:
         linear-gradient(
-            rgba(0,0,0,0.05),
-            rgba(0,0,0,0.05)
+            rgba(0,0,0,.025),
+            rgba(0,0,0,.025)
         );
 
-    z-index:1;
+    z-index:2;
 
     pointer-events:none;
 }
@@ -115,9 +154,66 @@ body{
     width:100%;
     height:100%;
 
-    z-index:2;
+    z-index:3;
 
     pointer-events:none;
+}
+
+
+/* =====================================================
+   BRAND NAME
+===================================================== */
+
+.brand-name{
+
+    position:fixed;
+
+    left:50%;
+
+    bottom:
+        calc(
+            91px +
+            env(safe-area-inset-bottom)
+        );
+
+    transform:translateX(-50%);
+
+    width:90%;
+
+    text-align:center;
+
+    color:white;
+
+    font-size:17px;
+
+    font-weight:600;
+
+    letter-spacing:.7px;
+
+    line-height:1.4;
+
+    text-shadow:
+        0 2px 8px rgba(0,0,0,.55);
+
+    z-index:5;
+
+    pointer-events:none;
+}
+
+
+.brand-name span{
+
+    display:block;
+
+    font-size:12px;
+
+    font-weight:400;
+
+    letter-spacing:1.2px;
+
+    margin-top:2px;
+
+    opacity:.95;
 }
 
 
@@ -133,61 +229,64 @@ body{
 
     bottom:
         calc(
-            24px +
+            28px +
             env(safe-area-inset-bottom)
         );
 
     transform:translateX(-50%);
 
-    width:min(320px,82vw);
+    width:205px;
 
-    min-height:56px;
+    height:47px;
 
-    padding:15px 25px;
+    padding:0 20px;
 
-    border:0;
+    border:1px solid
+        rgba(255,255,255,.65);
 
-    border-radius:50px;
+    border-radius:30px;
 
     color:white;
 
-    font-size:18px;
+    font-size:15px;
 
-    font-weight:700;
+    font-weight:600;
 
     letter-spacing:.2px;
 
+    /*
+       SOBER GLASS BUTTON
+    */
+
     background:
-        linear-gradient(
-            135deg,
-            #ff3190,
-            #ff725f,
-            #ff9d4c
-        );
+        rgba(35,35,45,.45);
+
+    backdrop-filter:blur(10px);
+
+    -webkit-backdrop-filter:blur(10px);
 
     box-shadow:
-        0 12px 35px rgba(0,0,0,.35);
+        0 7px 20px
+        rgba(0,0,0,.28);
 
     cursor:pointer;
 
     pointer-events:auto;
 
-    z-index:5;
+    z-index:6;
 
-    transition:
-        transform .2s,
-        box-shadow .2s;
+    transition:.25s;
 }
 
 
 .open-login:hover{
 
+    background:
+        rgba(35,35,45,.60);
+
     transform:
         translateX(-50%)
         translateY(-2px);
-
-    box-shadow:
-        0 17px 40px rgba(0,0,0,.40);
 }
 
 
@@ -200,7 +299,7 @@ body{
 
 
 /* =====================================================
-   MODAL
+   LOGIN MODAL
 ===================================================== */
 
 .login-modal{
@@ -225,15 +324,11 @@ body{
     background:
         rgba(0,0,0,.25);
 
-    backdrop-filter:
-        blur(3px);
+    backdrop-filter:blur(3px);
 
-    -webkit-backdrop-filter:
-        blur(3px);
+    -webkit-backdrop-filter:blur(3px);
 }
 
-
-/* SHOW */
 
 .login-modal.show{
 
@@ -252,10 +347,7 @@ body{
     width:min(420px,94vw);
 
     max-height:
-        calc(
-            100dvh -
-            30px
-        );
+        calc(100dvh - 30px);
 
     overflow-y:auto;
 
@@ -271,11 +363,9 @@ body{
         1px solid
         rgba(255,255,255,.85);
 
-    backdrop-filter:
-        blur(18px);
+    backdrop-filter:blur(18px);
 
-    -webkit-backdrop-filter:
-        blur(18px);
+    -webkit-backdrop-filter:blur(18px);
 
     box-shadow:
         0 25px 70px
@@ -320,7 +410,7 @@ body{
 
 
 /* =====================================================
-   CLOSE BUTTON
+   CLOSE
 ===================================================== */
 
 .close-btn{
@@ -349,20 +439,9 @@ body{
 
     font-size:23px;
 
-    line-height:1;
-
     cursor:pointer;
 
     z-index:3;
-}
-
-
-.close-btn:hover{
-
-    background:
-        rgba(255,70,130,.15);
-
-    color:#e84f91;
 }
 
 
@@ -420,8 +499,6 @@ h1{
     color:#222;
 
     font-size:27px;
-
-    font-weight:700;
 }
 
 
@@ -478,8 +555,6 @@ h1{
     font-weight:bold;
 
     cursor:pointer;
-
-    transition:.2s;
 }
 
 
@@ -493,32 +568,22 @@ h1{
             #ff4298,
             #ff7864
         );
-
-    box-shadow:
-        0 5px 15px
-        rgba(255,80,140,.20);
 }
 
 
 /* =====================================================
-   FORM BOX
+   FORM
 ===================================================== */
 
 .form-box{
-
     display:none;
 }
 
 
 .form-box.active{
-
     display:block;
 }
 
-
-/* =====================================================
-   LABEL
-===================================================== */
 
 label{
 
@@ -534,10 +599,6 @@ label{
     font-weight:600;
 }
 
-
-/* =====================================================
-   INPUT
-===================================================== */
 
 input{
 
@@ -562,22 +623,12 @@ input{
     color:#333;
 
     font-size:15px;
-
-    transition:.2s;
-}
-
-
-input::placeholder{
-
-    color:#888;
 }
 
 
 input:focus{
 
     border-color:#ff70a8;
-
-    background:#fff;
 
     box-shadow:
         0 0 0 4px
@@ -586,7 +637,7 @@ input:focus{
 
 
 /* =====================================================
-   FORGOT PASSWORD
+   FORGOT
 ===================================================== */
 
 .forgot{
@@ -604,12 +655,6 @@ input:focus{
     font-weight:600;
 
     text-decoration:none;
-}
-
-
-.forgot:hover{
-
-    text-decoration:underline;
 }
 
 
@@ -650,22 +695,6 @@ input:focus{
     box-shadow:
         0 9px 25px
         rgba(255,80,130,.28);
-
-    transition:.2s;
-}
-
-
-.action-btn:hover{
-
-    transform:
-        translateY(-2px);
-}
-
-
-.action-btn:active{
-
-    transform:
-        scale(.98);
 }
 
 
@@ -674,8 +703,6 @@ input:focus{
     opacity:.6;
 
     cursor:not-allowed;
-
-    transform:none;
 }
 
 
@@ -731,21 +758,37 @@ input:focus{
     }
 
 
+    .brand-name{
+
+        bottom:
+            calc(
+                87px +
+                env(safe-area-inset-bottom)
+            );
+
+        font-size:16px;
+    }
+
+
+    .brand-name span{
+
+        font-size:11px;
+    }
+
+
     .open-login{
 
         bottom:
             calc(
-                20px +
+                24px +
                 env(safe-area-inset-bottom)
             );
 
-        width:78vw;
+        width:190px;
 
-        max-width:320px;
+        height:45px;
 
-        min-height:54px;
-
-        font-size:17px;
+        font-size:14px;
     }
 
 
@@ -753,12 +796,8 @@ input:focus{
 
         width:94vw;
 
-        max-width:420px;
-
         max-height:
-            calc(
-                100dvh - 24px
-            );
+            calc(100dvh - 24px);
 
         padding:
             25px 20px 20px;
@@ -780,41 +819,11 @@ input:focus{
 
         font-size:25px;
     }
-
-
-    .subtitle{
-
-        font-size:14px;
-
-        margin-bottom:16px;
-    }
-
-
-    label{
-
-        margin-top:11px;
-    }
-
-
-    input{
-
-        min-height:47px;
-
-        padding:12px 14px;
-    }
-
-
-    .action-btn{
-
-        min-height:48px;
-
-        margin-top:17px;
-    }
 }
 
 
 /* =====================================================
-   SMALL MOBILE HEIGHT
+   SMALL HEIGHT MOBILE
 ===================================================== */
 
 @media(
@@ -822,6 +831,34 @@ input:focus{
 ) and (
     max-height:700px
 ){
+
+    .brand-name{
+
+        bottom:
+            calc(
+                82px +
+                env(safe-area-inset-bottom)
+            );
+
+        font-size:15px;
+    }
+
+
+    .open-login{
+
+        bottom:
+            calc(
+                20px +
+                env(safe-area-inset-bottom)
+            );
+
+        width:180px;
+
+        height:43px;
+
+        font-size:14px;
+    }
+
 
     .login-card{
 
@@ -836,56 +873,12 @@ input:focus{
         height:57px;
 
         font-size:23px;
-
-        margin-bottom:8px;
     }
 
 
     h1{
 
         font-size:23px;
-    }
-
-
-    .subtitle{
-
-        margin-bottom:12px;
-    }
-
-
-    .tabs{
-
-        margin-bottom:12px;
-    }
-
-
-    label{
-
-        margin-top:8px;
-
-        margin-bottom:5px;
-    }
-
-
-    input{
-
-        min-height:44px;
-
-        padding:10px 13px;
-    }
-
-
-    .action-btn{
-
-        min-height:45px;
-
-        margin-top:14px;
-    }
-
-
-    .footer{
-
-        margin-top:12px;
     }
 }
 
@@ -902,11 +895,29 @@ input:focus{
     }
 
 
+    .brand-name{
+
+        bottom:105px;
+
+        font-size:20px;
+    }
+
+
+    .brand-name span{
+
+        font-size:13px;
+    }
+
+
     .open-login{
 
-        bottom:40px;
+        bottom:42px;
 
-        width:280px;
+        width:210px;
+
+        height:48px;
+
+        font-size:15px;
     }
 }
 
@@ -919,13 +930,13 @@ input:focus{
 
 
 <!-- =================================================
-     BACKGROUND IMAGE
+     FULL PHOTO
 ================================================= -->
 
 <img
     src="daivik1.png"
     class="background-image"
-    alt="Little Blossoms Background"
+    alt="Little Blossoms"
 >
 
 
@@ -934,10 +945,26 @@ input:focus{
 
 
 <!-- =================================================
-     HOME SCREEN
+     HOME
 ================================================= -->
 
 <div class="home-screen">
+
+
+    <!-- BRAND -->
+
+    <div class="brand-name">
+
+        Little Blossoms Preschool & Day Care
+
+        <span>
+            A place where little minds bloom
+        </span>
+
+    </div>
+
+
+    <!-- LOGIN BUTTON -->
 
     <button
         type="button"
@@ -964,7 +991,7 @@ input:focus{
     <div class="login-card">
 
 
-        <!-- CLOSE BUTTON -->
+        <!-- CLOSE -->
 
         <button
             type="button"
@@ -973,7 +1000,6 @@ input:focus{
         >
             ×
         </button>
-
 
 
         <!-- LOGO -->
@@ -993,10 +1019,7 @@ input:focus{
         </div>
 
 
-
-        <!-- =================================================
-             TABS
-        ================================================= -->
+        <!-- TABS -->
 
         <div class="tabs">
 
@@ -1020,10 +1043,7 @@ input:focus{
         </div>
 
 
-
-        <!-- =================================================
-             LOGIN FORM
-        ================================================= -->
+        <!-- LOGIN -->
 
         <div
             class="form-box active"
@@ -1032,11 +1052,9 @@ input:focus{
 
             <form id="loginForm">
 
-
-                <label for="loginEmail">
+                <label>
                     Email
                 </label>
-
 
                 <input
                     type="email"
@@ -1047,10 +1065,9 @@ input:focus{
                 >
 
 
-                <label for="loginPassword">
+                <label>
                     Password
                 </label>
-
 
                 <input
                     type="password"
@@ -1077,7 +1094,6 @@ input:focus{
                     Login
                 </button>
 
-
             </form>
 
 
@@ -1089,10 +1105,7 @@ input:focus{
         </div>
 
 
-
-        <!-- =================================================
-             SIGN UP FORM
-        ================================================= -->
+        <!-- SIGN UP -->
 
         <div
             class="form-box"
@@ -1101,11 +1114,9 @@ input:focus{
 
             <form id="signupForm">
 
-
-                <label for="signupEmail">
+                <label>
                     Email
                 </label>
-
 
                 <input
                     type="email"
@@ -1116,10 +1127,9 @@ input:focus{
                 >
 
 
-                <label for="signupPassword">
+                <label>
                     Password
                 </label>
-
 
                 <input
                     type="password"
@@ -1131,10 +1141,9 @@ input:focus{
                 >
 
 
-                <label for="confirmPassword">
+                <label>
                     Confirm Password
                 </label>
-
 
                 <input
                     type="password"
@@ -1154,7 +1163,6 @@ input:focus{
                     Create Account
                 </button>
 
-
             </form>
 
 
@@ -1164,7 +1172,6 @@ input:focus{
             ></div>
 
         </div>
-
 
 
         <div class="footer">
@@ -1181,7 +1188,7 @@ input:focus{
 <script>
 
 /* =====================================================
-   SUPABASE CONFIG
+   SUPABASE
 ===================================================== */
 
 const SUPABASE_URL =
@@ -1225,7 +1232,7 @@ document.getElementById("signupBox");
 
 
 /* =====================================================
-   OPEN LOGIN CARD
+   OPEN
 ===================================================== */
 
 openLogin.addEventListener(
@@ -1239,7 +1246,7 @@ openLogin.addEventListener(
 
 
 /* =====================================================
-   CLOSE LOGIN CARD
+   CLOSE
 ===================================================== */
 
 closeLogin.addEventListener(
@@ -1253,7 +1260,7 @@ closeLogin.addEventListener(
 
 
 /* =====================================================
-   CLICK OUTSIDE CARD
+   OUTSIDE CLICK
 ===================================================== */
 
 loginModal.addEventListener(
@@ -1402,7 +1409,6 @@ document
                 700
             );
 
-
         }
         catch(error){
 
@@ -1466,8 +1472,6 @@ document
             .getElementById("signupMessage");
 
 
-        /* PASSWORD MATCH */
-
         if(password !== confirmPassword){
 
             message.style.color =
@@ -1479,8 +1483,6 @@ document
             return;
         }
 
-
-        /* PASSWORD LENGTH */
 
         if(password.length < 6){
 
@@ -1560,7 +1562,6 @@ document
 
             button.textContent =
                 "Create Account";
-
 
         }
         catch(error){
