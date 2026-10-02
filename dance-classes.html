@@ -15,6 +15,7 @@
 
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
 
+
 <style>
 
 :root{
@@ -322,6 +323,18 @@ button{
 
 }
 
+.hero-actions{
+
+    display:flex;
+
+    gap:10px;
+
+    flex-wrap:wrap;
+
+    justify-content:flex-end;
+
+}
+
 .add-main{
 
     border:0;
@@ -346,6 +359,33 @@ button{
     box-shadow:
     0 12px 25px
     rgba(139,92,246,.22);
+
+}
+
+.fee-main{
+
+    border:0;
+
+    border-radius:14px;
+
+    padding:
+    13px 18px;
+
+    background:
+
+    linear-gradient(
+        135deg,
+        #16a34a,
+        #06b6d4
+    );
+
+    color:white;
+
+    font-weight:800;
+
+    box-shadow:
+    0 12px 25px
+    rgba(6,182,212,.20);
 
 }
 
@@ -557,7 +597,7 @@ button{
 
 .search{
 
-    width:230px;
+    width:280px;
 
     border:
     1px solid #e5e7eb;
@@ -1316,9 +1356,22 @@ tbody tr:hover{
 
     }
 
-    .add-main{
+    .hero-actions{
+
+        display:grid;
+
+        grid-template-columns:1fr 1fr;
+
+    }
+
+    .add-main,
+    .fee-main{
 
         width:100%;
+
+        padding:12px 8px;
+
+        font-size:11px;
 
     }
 
@@ -1403,6 +1456,12 @@ tbody tr:hover{
     .stat-value{
 
         font-size:18px;
+
+    }
+
+    .hero-actions{
+
+        grid-template-columns:1fr;
 
     }
 
@@ -1533,13 +1592,26 @@ tbody tr:hover{
         </div>
 
 
-        <button
-            class="add-main"
-            onclick="openAddModal()">
+        <div class="hero-actions">
 
-            + Add Dance Student
+            <button
+                class="fee-main"
+                onclick="goDanceFees()">
 
-        </button>
+                💰 Fee Collection
+
+            </button>
+
+
+            <button
+                class="add-main"
+                onclick="openAddModal()">
+
+                + Add Dance Student
+
+            </button>
+
+        </div>
 
     </section>
 
@@ -2096,6 +2168,14 @@ function goDashboard(){
 }
 
 
+function goDanceFees(){
+
+    location.href =
+    "dance-fees.html";
+
+}
+
+
 /* =========================================================
    TOAST
 ========================================================= */
@@ -2222,16 +2302,23 @@ async function loadStudents(){
         `
         <tr>
             <td colspan="7">
+
                 <div class="empty">
 
                     <div class="empty-icon">
                         ⚠️
                     </div>
 
-                    Unable to load dance students.<br>
-                    ${escapeHTML(error.message)}
+                    Unable to load dance students.
+
+                    <br>
+
+                    ${escapeHTML(
+                        error.message
+                    )}
 
                 </div>
+
             </td>
         </tr>
         `;
@@ -2877,6 +2964,20 @@ async function saveStudent(){
     }
 
 
+    if(monthlyFee < 0){
+
+        alert(
+            "Monthly fee cannot be negative."
+        );
+
+        $("monthlyFee")
+        .focus();
+
+        return;
+
+    }
+
+
     const button =
     $("saveBtn");
 
@@ -2898,35 +2999,28 @@ async function saveStudent(){
         const payload = {
 
             name:
-
             name,
 
             father_name:
-
             fatherName ||
             null,
 
             mobile:
-
             mobile ||
             null,
 
             joining_date:
-
             joiningDate ||
             null,
 
             monthly_fee:
-
             monthlyFee,
 
             batch:
-
             batch ||
             null,
 
             status:
-
             status
 
         };
@@ -3051,6 +3145,10 @@ async function deleteStudent(id){
         "Delete dance student?\n\n"
         +
         student.name
+        +
+        "\n\n"
+        +
+        "Their dance fee records will also be removed."
 
     );
 
@@ -3202,12 +3300,12 @@ db.auth.onAuthStateChange(
         return;
 
 
+    await loadStudents();
+
+
     $("loading")
     .style.display =
     "none";
-
-
-    await loadStudents();
 
 })();
 
