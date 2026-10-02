@@ -3,12 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
+
 <title>Little Blossoms - Expenses</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
-*{box-sizing:border-box}
+
+*{
+    box-sizing:border-box;
+}
 
 body{
     margin:0;
@@ -18,18 +22,27 @@ body{
 }
 
 .header{
-    background:linear-gradient(135deg,#e84393,#d63031);
+    background:linear-gradient(
+        135deg,
+        #e84393,
+        #d63031
+    );
     color:white;
-    padding:22px;
+    padding:24px;
+}
+
+.header-inner{
+    max-width:1100px;
+    margin:auto;
 }
 
 .header h1{
     margin:0;
-    font-size:25px;
+    font-size:26px;
 }
 
 .header p{
-    margin:6px 0 0;
+    margin:7px 0 0;
     opacity:.9;
 }
 
@@ -49,8 +62,14 @@ body{
 
 .cards{
     display:grid;
-    grid-template-columns:repeat(3,1fr);
+    grid-template-columns:
+        repeat(
+            3,
+            1fr
+        );
+
     gap:15px;
+
     margin-bottom:20px;
 }
 
@@ -58,24 +77,44 @@ body{
     background:white;
     border-radius:15px;
     padding:20px;
-    box-shadow:0 5px 20px #0000000d;
+
+    box-shadow:
+        0 5px 20px
+        rgba(0,0,0,.06);
+
+    border-left:5px solid #d63031;
+}
+
+.card:nth-child(2){
+    border-left-color:#e84393;
+}
+
+.card:nth-child(3){
+    border-left-color:#0984e3;
 }
 
 .card small{
     color:#777;
+    font-size:13px;
 }
 
 .card h2{
     margin:8px 0 0;
     color:#d63031;
+    font-size:25px;
 }
 
 .formbox,
 .history{
     background:white;
     padding:22px;
+
     border-radius:15px;
-    box-shadow:0 5px 20px #0000000d;
+
+    box-shadow:
+        0 5px 20px
+        rgba(0,0,0,.06);
+
     margin-bottom:20px;
 }
 
@@ -86,24 +125,42 @@ body{
 
 .grid{
     display:grid;
-    grid-template-columns:repeat(2,1fr);
+
+    grid-template-columns:
+        repeat(
+            2,
+            1fr
+        );
+
     gap:15px;
 }
 
 .field label{
     display:block;
+
     font-size:14px;
     font-weight:bold;
+
     margin-bottom:6px;
 }
 
-input,select,textarea{
+input,
+select,
+textarea{
     width:100%;
+
     padding:12px;
-    border:1px solid #ddd;
+
+    border:
+        1px solid #ddd;
+
     border-radius:9px;
+
     outline:none;
+
     font-size:15px;
+
+    background:white;
 }
 
 textarea{
@@ -115,18 +172,37 @@ input:focus,
 select:focus,
 textarea:focus{
     border-color:#d63031;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(214,48,49,.08);
 }
 
 .full{
     grid-column:1/-1;
 }
 
+.button-row{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+}
+
 button{
     border:0;
+
     padding:12px 18px;
+
     border-radius:9px;
+
     cursor:pointer;
+
     font-weight:bold;
+}
+
+button:disabled{
+    opacity:.6;
+    cursor:not-allowed;
 }
 
 .save{
@@ -135,14 +211,18 @@ button{
 }
 
 .cancel{
-    background:#ddd;
-    margin-left:8px;
+    background:#e9ecef;
+    color:#333;
 }
 
 .filters{
     display:grid;
-    grid-template-columns:1fr 1fr;
+
+    grid-template-columns:
+        1fr 1fr;
+
     gap:12px;
+
     margin-bottom:15px;
 }
 
@@ -152,18 +232,33 @@ button{
 
 table{
     width:100%;
+
     border-collapse:collapse;
+
     min-width:800px;
 }
 
-th,td{
+th,
+td{
     padding:12px;
-    border-bottom:1px solid #eee;
+
+    border-bottom:
+        1px solid #eee;
+
     text-align:left;
 }
 
 th{
     background:#fff4f4;
+    font-size:13px;
+}
+
+td{
+    font-size:14px;
+}
+
+.action{
+    white-space:nowrap;
 }
 
 .action button{
@@ -183,8 +278,11 @@ th{
 
 #message{
     margin-bottom:15px;
+
     padding:12px;
+
     border-radius:8px;
+
     display:none;
 }
 
@@ -200,12 +298,32 @@ th{
 
 .totalBox{
     background:#fff4f4;
+
     border-radius:10px;
+
     padding:15px;
+
     margin-bottom:15px;
+
     display:flex;
+
     justify-content:space-between;
+
     font-weight:bold;
+}
+
+.month-info{
+    margin-top:10px;
+
+    color:#777;
+
+    font-size:13px;
+}
+
+.empty{
+    text-align:center;
+    padding:25px;
+    color:#777;
 }
 
 @media(max-width:700px){
@@ -216,223 +334,423 @@ th{
         grid-template-columns:1fr;
     }
 
+    .container{
+        padding:0 12px;
+    }
+
+    .header{
+        padding:20px 15px;
+    }
+
+    .header h1{
+        font-size:22px;
+    }
+
 }
+
 </style>
 </head>
 
 <body>
 
+
+<!-- =========================
+     HEADER
+========================= -->
+
 <div class="header">
-    <h1>🌸 Little Blossoms</h1>
-    <p>Expense Management</p>
+
+    <div class="header-inner">
+
+        <h1>
+            🌸 Little Blossoms
+        </h1>
+
+        <p>
+            Expense Management
+        </p>
+
+    </div>
+
 </div>
+
 
 <div class="container">
 
-<a href="dashboard.html" class="back">
+
+<a
+    href="dashboard.html"
+    class="back"
+>
     ← Back to Dashboard
 </a>
+
 
 <div id="message"></div>
 
 
-<!-- CARDS -->
+<!-- =========================
+     CARDS
+========================= -->
 
 <div class="cards">
 
-    <div class="card">
-        <small>Selected Month Expense</small>
-        <h2 id="monthExpense">₹0</h2>
-    </div>
 
     <div class="card">
-        <small>Total All Expenses</small>
-        <h2 id="allExpense">₹0</h2>
+
+        <small>
+            Selected Month Expense
+        </small>
+
+        <h2 id="monthExpense">
+            ₹0
+        </h2>
+
     </div>
 
+
     <div class="card">
-        <small>Total Transactions</small>
-        <h2 id="transactionCount">0</h2>
+
+        <small>
+            Total All Expenses
+        </small>
+
+        <h2 id="allExpense">
+            ₹0
+        </h2>
+
     </div>
+
+
+    <div class="card">
+
+        <small>
+            Total Transactions
+        </small>
+
+        <h2 id="transactionCount">
+            0
+        </h2>
+
+    </div>
+
 
 </div>
 
 
-<!-- ADD EXPENSE -->
+<!-- =========================
+     ADD EXPENSE
+========================= -->
 
 <div class="formbox">
 
-<h2 id="formTitle">➕ Add Expense</h2>
+    <h2 id="formTitle">
+        ➕ Add Expense
+    </h2>
 
-<div class="grid">
 
-    <div class="field">
-        <label>Expense Date</label>
-        <input type="date" id="expenseDate">
+    <div class="grid">
+
+
+        <div class="field">
+
+            <label>
+                Expense Date
+            </label>
+
+            <input
+                type="date"
+                id="expenseDate"
+            >
+
+        </div>
+
+
+        <div class="field">
+
+            <label>
+                Category
+            </label>
+
+            <select id="category">
+
+                <option value="">
+                    Select Category
+                </option>
+
+                <option value="Rent">
+                    Rent
+                </option>
+
+                <option value="Electricity">
+                    Electricity
+                </option>
+
+                <option value="Water">
+                    Water
+                </option>
+
+                <option value="Salary">
+                    Salary
+                </option>
+
+                <option value="Teacher Salary">
+                    Teacher Salary
+                </option>
+
+                <option value="Cleaning">
+                    Cleaning
+                </option>
+
+                <option value="Stationery">
+                    Stationery
+                </option>
+
+                <option value="Food">
+                    Food
+                </option>
+
+                <option value="Maintenance">
+                    Maintenance
+                </option>
+
+                <option value="Transport">
+                    Transport
+                </option>
+
+                <option value="Marketing">
+                    Marketing
+                </option>
+
+                <option value="Dance Class">
+                    Dance Class
+                </option>
+
+                <option value="Other">
+                    Other
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <div class="field">
+
+            <label>
+                Amount
+            </label>
+
+            <input
+                type="number"
+                id="amount"
+                min="0"
+                step="0.01"
+                placeholder="Enter expense amount"
+            >
+
+        </div>
+
+
+        <div class="field">
+
+            <label>
+                Payment Method
+            </label>
+
+            <select id="paymentMethod">
+
+                <option value="Cash">
+                    Cash
+                </option>
+
+                <option value="UPI">
+                    UPI
+                </option>
+
+                <option value="Bank Transfer">
+                    Bank Transfer
+                </option>
+
+                <option value="Cheque">
+                    Cheque
+                </option>
+
+                <option value="Other">
+                    Other
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <div class="field full">
+
+            <label>
+                Description
+            </label>
+
+            <input
+                type="text"
+                id="description"
+                placeholder="Example: Electricity bill for September"
+            >
+
+        </div>
+
+
+        <div class="field full">
+
+            <label>
+                Notes
+            </label>
+
+            <textarea
+                id="notes"
+                placeholder="Optional notes"
+            ></textarea>
+
+        </div>
+
+
     </div>
 
 
-    <div class="field">
-        <label>Category</label>
-
-        <select id="category">
-
-            <option value="">Select Category</option>
-
-            <option>Rent</option>
-            <option>Electricity</option>
-            <option>Water</option>
-            <option>Salary</option>
-            <option>Teacher Salary</option>
-            <option>Cleaning</option>
-            <option>Stationery</option>
-            <option>Food</option>
-            <option>Maintenance</option>
-            <option>Transport</option>
-            <option>Marketing</option>
-            <option>Dance Class</option>
-            <option>Other</option>
-
-        </select>
-
-    </div>
+    <br>
 
 
-    <div class="field">
-        <label>Amount</label>
+    <div class="button-row">
 
-        <input
-            type="number"
-            id="amount"
-            min="0"
-            step="0.01"
-            placeholder="Enter expense amount">
-    </div>
+        <button
+            class="save"
+            id="saveBtn"
+            onclick="saveExpense()"
+        >
+            Save Expense
+        </button>
 
 
-    <div class="field">
-        <label>Payment Method</label>
-
-        <select id="paymentMethod">
-
-            <option>Cash</option>
-            <option>UPI</option>
-            <option>Bank Transfer</option>
-            <option>Cheque</option>
-            <option>Other</option>
-
-        </select>
+        <button
+            class="cancel"
+            id="cancelBtn"
+            onclick="cancelEdit()"
+            style="display:none"
+        >
+            Cancel
+        </button>
 
     </div>
 
 
-    <div class="field full">
-        <label>Description</label>
-
-        <input
-            type="text"
-            id="description"
-            placeholder="Example: Electricity bill for September">
-    </div>
-
-
-    <div class="field full">
-        <label>Notes</label>
-
-        <textarea
-            id="notes"
-            placeholder="Optional notes"></textarea>
+    <div class="month-info">
+        💡 Expense date ke month ke according
+        ye amount Monthly Summary aur Dashboard
+        ke balance me automatically minus hoga.
     </div>
 
 </div>
 
-<br>
 
-<button
-    class="save"
-    id="saveBtn"
-    onclick="saveExpense()">
-
-    Save Expense
-
-</button>
-
-<button
-    class="cancel"
-    id="cancelBtn"
-    onclick="cancelEdit()"
-    style="display:none">
-
-    Cancel
-
-</button>
-
-</div>
-
-
-<!-- HISTORY -->
+<!-- =========================
+     HISTORY
+========================= -->
 
 <div class="history">
 
-<h2>📋 Expense History</h2>
+    <h2>
+        📋 Expense History
+    </h2>
 
 
-<div class="filters">
+    <div class="filters">
 
-    <input
-        type="text"
-        id="search"
-        placeholder="Search category / description..."
-        oninput="renderHistory()">
+        <input
+            type="text"
+            id="search"
+            placeholder="Search category / description..."
+            oninput="renderHistory()"
+        >
 
-    <input
-        type="month"
-        id="filterMonth"
-        onchange="renderHistory()">
+
+        <input
+            type="month"
+            id="filterMonth"
+            onchange="renderHistory()"
+        >
+
+    </div>
+
+
+    <div class="totalBox">
+
+        <span>
+            Filtered Total
+        </span>
+
+        <span id="filteredTotal">
+            ₹0
+        </span>
+
+    </div>
+
+
+    <div class="tablewrap">
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>
+                        Date
+                    </th>
+
+                    <th>
+                        Category
+                    </th>
+
+                    <th>
+                        Description
+                    </th>
+
+                    <th>
+                        Amount
+                    </th>
+
+                    <th>
+                        Payment Method
+                    </th>
+
+                    <th>
+                        Action
+                    </th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody
+                id="historyBody"
+            ></tbody>
+
+        </table>
+
+    </div>
 
 </div>
 
-
-<div class="totalBox">
-
-    <span>Filtered Total</span>
-
-    <span id="filteredTotal">
-        ₹0
-    </span>
-
-</div>
-
-
-<div class="tablewrap">
-
-<table>
-
-<thead>
-
-<tr>
-    <th>Date</th>
-    <th>Category</th>
-    <th>Description</th>
-    <th>Amount</th>
-    <th>Payment Method</th>
-    <th>Action</th>
-</tr>
-
-</thead>
-
-<tbody id="historyBody"></tbody>
-
-</table>
-
-</div>
-
-</div>
 
 </div>
 
 
 <script>
+
+/* =========================================
+   SUPABASE CONFIG
+========================================= */
 
 const SUPABASE_URL =
 "https://holelzxzhaiefaqezmce.supabase.co";
@@ -447,72 +765,115 @@ supabase.createClient(
 );
 
 
+/* =========================================
+   GLOBAL
+========================================= */
+
 let expenses = [];
 
 let editingId = null;
 
 
-// =========================
-// AUTH
-// =========================
+/* =========================================
+   AUTH
+========================================= */
 
 async function checkLogin(){
 
     const {
-        data:{session}
+        data,
+        error
     } =
-    await supabaseClient.auth.getSession();
+    await supabaseClient.auth
+    .getSession();
 
-    if(!session){
+
+    if(error){
+
+        showMessage(
+            error.message,
+            "error"
+        );
+
+        return false;
+
+    }
+
+
+    if(!data.session){
 
         window.location.href =
             "login.html";
 
         return false;
+
     }
 
+
     return true;
+
 }
 
 
-// =========================
-// INIT
-// =========================
+/* =========================================
+   INIT
+========================================= */
 
 async function init(){
 
-    if(!(await checkLogin())) return;
+    const loggedIn =
+        await checkLogin();
+
+
+    if(!loggedIn)
+        return;
+
 
     const today =
         new Date();
 
-    const todayString =
-        today.toISOString().split("T")[0];
 
-    document.getElementById("expenseDate").value =
+    const todayString =
+        today.toISOString()
+        .split("T")[0];
+
+
+    document.getElementById(
+        "expenseDate"
+    ).value =
         todayString;
 
 
     const monthString =
-        todayString.substring(0,7);
+        todayString.substring(
+            0,
+            7
+        );
 
-    document.getElementById("filterMonth").value =
+
+    document.getElementById(
+        "filterMonth"
+    ).value =
         monthString;
 
 
     await loadExpenses();
 
+
     updateCards();
 
+
     renderHistory();
+
 }
+
 
 init();
 
 
-// =========================
-// LOAD EXPENSES
-// =========================
+/* =========================================
+   LOAD EXPENSES
+========================================= */
 
 async function loadExpenses(){
 
@@ -525,7 +886,9 @@ async function loadExpenses(){
     .select("*")
     .order(
         "expense_date",
-        {ascending:false}
+        {
+            ascending:false
+        }
     );
 
 
@@ -537,40 +900,67 @@ async function loadExpenses(){
         );
 
         return;
+
     }
 
 
     expenses =
         data || [];
+
 }
 
 
-// =========================
-// SAVE EXPENSE
-// =========================
+/* =========================================
+   SAVE EXPENSE
+========================================= */
 
 async function saveExpense(){
 
+    const saveBtn =
+        document.getElementById(
+            "saveBtn"
+        );
+
+
     const expenseDate =
-        document.getElementById("expenseDate").value;
+        document.getElementById(
+            "expenseDate"
+        ).value;
+
 
     const category =
-        document.getElementById("category").value;
+        document.getElementById(
+            "category"
+        ).value;
+
 
     const amount =
         Number(
-            document.getElementById("amount").value || 0
+            document.getElementById(
+                "amount"
+            ).value || 0
         );
 
+
     const paymentMethod =
-        document.getElementById("paymentMethod").value;
+        document.getElementById(
+            "paymentMethod"
+        ).value;
+
 
     const description =
-        document.getElementById("description").value.trim();
+        document.getElementById(
+            "description"
+        ).value.trim();
+
 
     const notes =
-        document.getElementById("notes").value.trim();
+        document.getElementById(
+            "notes"
+        ).value.trim();
 
+
+    /* VALIDATION */
 
     if(!expenseDate){
 
@@ -580,6 +970,7 @@ async function saveExpense(){
         );
 
         return;
+
     }
 
 
@@ -591,10 +982,15 @@ async function saveExpense(){
         );
 
         return;
+
     }
 
 
-    if(amount <= 0){
+    if(
+        !Number.isFinite(amount)
+        ||
+        amount <= 0
+    ){
 
         showMessage(
             "Valid expense amount enter karo.",
@@ -602,145 +998,232 @@ async function saveExpense(){
         );
 
         return;
+
     }
 
 
-    const payload = {
+    /* DISABLE BUTTON */
 
-        expense_date:expenseDate,
-
-        category:category,
-
-        description:description,
-
-        amount:amount,
-
-        payment_method:paymentMethod,
-
-        notes:notes
-
-    };
+    saveBtn.disabled =
+        true;
 
 
-    let error;
+    saveBtn.textContent =
+        editingId
+        ? "Updating..."
+        : "Saving...";
 
 
-    if(editingId){
+    try{
 
-        const result =
-            await supabaseClient
-            .from("expenses")
-            .update(payload)
-            .eq("id",editingId);
+        const payload = {
 
-        error =
-            result.error;
+            expense_date:
+                expenseDate,
 
-    }else{
+            category:
+                category,
 
-        const result =
-            await supabaseClient
-            .from("expenses")
-            .insert(payload);
+            amount:
+                amount,
 
-        error =
-            result.error;
-    }
+            payment_method:
+                paymentMethod,
+
+            description:
+                description,
+
+            notes:
+                notes
+
+        };
 
 
-    if(error){
+        let error = null;
+
+
+        /* UPDATE */
+
+        if(editingId){
+
+            const result =
+                await supabaseClient
+                .from("expenses")
+                .update(payload)
+                .eq(
+                    "id",
+                    editingId
+                );
+
+
+            error =
+                result.error;
+
+        }
+
+
+        /* INSERT */
+
+        else{
+
+            const result =
+                await supabaseClient
+                .from("expenses")
+                .insert(
+                    payload
+                );
+
+
+            error =
+                result.error;
+
+        }
+
+
+        if(error){
+
+            throw error;
+
+        }
+
 
         showMessage(
-            error.message,
+
+            editingId
+            ? "Expense updated successfully."
+            : "Expense saved successfully.",
+
+            "success"
+
+        );
+
+
+        cancelEdit();
+
+
+        await loadExpenses();
+
+
+        updateCards();
+
+
+        renderHistory();
+
+
+    }catch(error){
+
+        console.error(
+            error
+        );
+
+
+        showMessage(
+            error.message ||
+            "Unable to save expense.",
             "error"
         );
 
-        return;
     }
 
 
-    showMessage(
+    finally{
 
-        editingId
-        ? "Expense updated successfully."
-        : "Expense saved successfully.",
+        saveBtn.disabled =
+            false;
 
-        "success"
+        saveBtn.textContent =
+            "Save Expense";
 
-    );
+    }
 
-
-    cancelEdit();
-
-
-    await loadExpenses();
-
-    updateCards();
-
-    renderHistory();
 }
 
 
-// =========================
-// EDIT
-// =========================
+/* =========================================
+   EDIT EXPENSE
+========================================= */
 
 function editExpense(id){
 
     const expense =
         expenses.find(
-            e => e.id === id
+            item =>
+                String(item.id)
+                === String(id)
         );
 
 
-    if(!expense) return;
+    if(!expense){
+
+        showMessage(
+            "Expense not found.",
+            "error"
+        );
+
+        return;
+
+    }
 
 
     editingId =
         id;
 
 
-    document.getElementById("formTitle")
-        .textContent =
+    document.getElementById(
+        "formTitle"
+    ).textContent =
         "✏️ Edit Expense";
 
 
-    document.getElementById("expenseDate")
-        .value =
-        expense.expense_date;
+    document.getElementById(
+        "expenseDate"
+    ).value =
+        expense.expense_date || "";
 
 
-    document.getElementById("category")
-        .value =
-        expense.category;
+    document.getElementById(
+        "category"
+    ).value =
+        expense.category || "";
 
 
-    document.getElementById("amount")
-        .value =
-        expense.amount;
+    document.getElementById(
+        "amount"
+    ).value =
+        expense.amount || "";
 
 
-    document.getElementById("paymentMethod")
-        .value =
+    document.getElementById(
+        "paymentMethod"
+    ).value =
         expense.payment_method ||
         "Cash";
 
 
-    document.getElementById("description")
-        .value =
+    document.getElementById(
+        "description"
+    ).value =
         expense.description ||
         "";
 
 
-    document.getElementById("notes")
-        .value =
+    document.getElementById(
+        "notes"
+    ).value =
         expense.notes ||
         "";
 
 
-    document.getElementById("cancelBtn")
-        .style.display =
+    document.getElementById(
+        "cancelBtn"
+    ).style.display =
         "inline-block";
+
+
+    document.getElementById(
+        "saveBtn"
+    ).textContent =
+        "Update Expense";
 
 
     window.scrollTo({
@@ -754,15 +1237,20 @@ function editExpense(id){
 }
 
 
-// =========================
-// DELETE
-// =========================
+/* =========================================
+   DELETE
+========================================= */
 
 async function deleteExpense(id){
 
-    if(!confirm(
-        "Ye expense delete karna hai?"
-    )) return;
+    const confirmed =
+        confirm(
+            "Ye expense delete karna hai?"
+        );
+
+
+    if(!confirmed)
+        return;
 
 
     const {
@@ -771,7 +1259,10 @@ async function deleteExpense(id){
     await supabaseClient
     .from("expenses")
     .delete()
-    .eq("id",id);
+    .eq(
+        "id",
+        id
+    );
 
 
     if(error){
@@ -782,6 +1273,7 @@ async function deleteExpense(id){
         );
 
         return;
+
     }
 
 
@@ -791,17 +1283,31 @@ async function deleteExpense(id){
     );
 
 
+    if(
+        String(editingId)
+        ===
+        String(id)
+    ){
+
+        cancelEdit();
+
+    }
+
+
     await loadExpenses();
+
 
     updateCards();
 
+
     renderHistory();
+
 }
 
 
-// =========================
-// CANCEL
-// =========================
+/* =========================================
+   CANCEL EDIT
+========================================= */
 
 function cancelEdit(){
 
@@ -809,8 +1315,9 @@ function cancelEdit(){
         null;
 
 
-    document.getElementById("formTitle")
-        .textContent =
+    document.getElementById(
+        "formTitle"
+    ).textContent =
         "➕ Add Expense";
 
 
@@ -820,66 +1327,100 @@ function cancelEdit(){
         .split("T")[0];
 
 
-    document.getElementById("expenseDate")
-        .value =
+    document.getElementById(
+        "expenseDate"
+    ).value =
         today;
 
 
-    document.getElementById("category")
-        .value =
+    document.getElementById(
+        "category"
+    ).value =
         "";
 
 
-    document.getElementById("amount")
-        .value =
+    document.getElementById(
+        "amount"
+    ).value =
         "";
 
 
-    document.getElementById("paymentMethod")
-        .value =
+    document.getElementById(
+        "paymentMethod"
+    ).value =
         "Cash";
 
 
-    document.getElementById("description")
-        .value =
+    document.getElementById(
+        "description"
+    ).value =
         "";
 
 
-    document.getElementById("notes")
-        .value =
+    document.getElementById(
+        "notes"
+    ).value =
         "";
 
 
-    document.getElementById("cancelBtn")
-        .style.display =
+    document.getElementById(
+        "cancelBtn"
+    ).style.display =
         "none";
+
+
+    document.getElementById(
+        "saveBtn"
+    ).textContent =
+        "Save Expense";
+
 }
 
 
-// =========================
-// CARDS
-// =========================
+/* =========================================
+   UPDATE CARDS
+========================================= */
 
 function updateCards(){
 
     const month =
-        document.getElementById("filterMonth").value;
+        document.getElementById(
+            "filterMonth"
+        ).value;
 
 
     const monthExpenses =
-        expenses.filter(e => {
+        expenses.filter(
+            expense => {
 
-            return e.expense_date
-                .startsWith(month);
+                return (
+                    getMonth(
+                        expense.expense_date
+                    )
+                    ===
+                    month
+                );
 
-        });
+            }
+        );
 
 
     const monthTotal =
         monthExpenses.reduce(
 
-            (sum,e) =>
-            sum + Number(e.amount || 0),
+            (
+                sum,
+                expense
+            ) => {
+
+                return (
+                    sum +
+                    Number(
+                        expense.amount || 0
+                    )
+                );
+
+            },
 
             0
 
@@ -889,33 +1430,48 @@ function updateCards(){
     const allTotal =
         expenses.reduce(
 
-            (sum,e) =>
-            sum + Number(e.amount || 0),
+            (
+                sum,
+                expense
+            ) => {
+
+                return (
+                    sum +
+                    Number(
+                        expense.amount || 0
+                    )
+                );
+
+            },
 
             0
 
         );
 
 
-    document.getElementById("monthExpense")
-        .textContent =
+    document.getElementById(
+        "monthExpense"
+    ).textContent =
         money(monthTotal);
 
 
-    document.getElementById("allExpense")
-        .textContent =
+    document.getElementById(
+        "allExpense"
+    ).textContent =
         money(allTotal);
 
 
-    document.getElementById("transactionCount")
-        .textContent =
+    document.getElementById(
+        "transactionCount"
+    ).textContent =
         expenses.length;
+
 }
 
 
-// =========================
-// HISTORY
-// =========================
+/* =========================================
+   HISTORY
+========================================= */
 
 function renderHistory(){
 
@@ -928,8 +1484,8 @@ function renderHistory(){
     const search =
         document.getElementById(
             "search"
-        )
-        .value
+        ).value
+        .trim()
         .toLowerCase();
 
 
@@ -944,43 +1500,69 @@ function renderHistory(){
 
 
     list =
-        list.filter(e => {
+        list.filter(
+            expense => {
 
-            const text = (
+                const text = (
 
-                (e.category || "") +
-                " " +
-                (e.description || "") +
-                " " +
-                (e.notes || "")
+                    (expense.category || "")
+                    +
+                    " "
+                    +
+                    (expense.description || "")
+                    +
+                    " "
+                    +
+                    (expense.notes || "")
+                    +
+                    " "
+                    +
+                    (expense.payment_method || "")
 
-            ).toLowerCase();
-
-
-            const matchesSearch =
-                !search ||
-                text.includes(search);
-
-
-            const matchesMonth =
-                !month ||
-                e.expense_date
-                    .startsWith(month);
+                ).toLowerCase();
 
 
-            return (
-                matchesSearch &&
-                matchesMonth
-            );
+                const matchesSearch =
+                    !search ||
+                    text.includes(
+                        search
+                    );
 
-        });
+
+                const matchesMonth =
+                    !month ||
+                    getMonth(
+                        expense.expense_date
+                    )
+                    ===
+                    month;
+
+
+                return (
+                    matchesSearch &&
+                    matchesMonth
+                );
+
+            }
+        );
 
 
     const filteredTotal =
         list.reduce(
 
-            (sum,e) =>
-            sum + Number(e.amount || 0),
+            (
+                sum,
+                expense
+            ) => {
+
+                return (
+                    sum +
+                    Number(
+                        expense.amount || 0
+                    )
+                );
+
+            },
 
             0
 
@@ -1001,9 +1583,10 @@ function renderHistory(){
 
                 <td
                     colspan="6"
-                    style="text-align:center">
+                    class="empty"
+                >
 
-                    No expenses found
+                    No expenses found.
 
                 </td>
 
@@ -1011,89 +1594,121 @@ function renderHistory(){
 
         `;
 
+
         updateCards();
 
+
         return;
+
     }
 
 
     body.innerHTML =
+        list.map(
+            expense => {
 
-        list.map(e => {
+                return `
 
-            return `
+                <tr>
 
-            <tr>
-
-                <td>
-                    ${formatDate(e.expense_date)}
-                </td>
-
-                <td>
-                    <strong>
-                        ${escapeHtml(
-                            e.category || ""
+                    <td>
+                        ${formatDate(
+                            expense.expense_date
                         )}
-                    </strong>
-                </td>
+                    </td>
 
-                <td>
-                    ${escapeHtml(
-                        e.description || "-"
-                    )}
-                </td>
 
-                <td>
-                    <strong>
-                        ${money(e.amount)}
-                    </strong>
-                </td>
+                    <td>
 
-                <td>
-                    ${escapeHtml(
-                        e.payment_method || ""
-                    )}
-                </td>
+                        <strong>
+                            ${escapeHtml(
+                                expense.category || ""
+                            )}
+                        </strong>
 
-                <td class="action">
+                    </td>
 
-                    <button
-                        class="edit"
-                        onclick="editExpense('${e.id}')">
 
-                        Edit
+                    <td>
 
-                    </button>
+                        ${escapeHtml(
+                            expense.description || "-"
+                        )}
 
-                    <button
-                        class="delete"
-                        onclick="deleteExpense('${e.id}')">
+                    </td>
 
-                        Delete
 
-                    </button>
+                    <td>
 
-                </td>
+                        <strong>
+                            ${money(
+                                expense.amount
+                            )}
+                        </strong>
 
-            </tr>
+                    </td>
 
-            `;
 
-        }).join("");
+                    <td>
+
+                        ${escapeHtml(
+                            expense.payment_method || "-"
+                        )}
+
+                    </td>
+
+
+                    <td class="action">
+
+                        <button
+                            class="edit"
+                            onclick="editExpense(
+                                '${escapeJs(
+                                    expense.id
+                                )}'
+                            )"
+                        >
+                            Edit
+                        </button>
+
+
+                        <button
+                            class="delete"
+                            onclick="deleteExpense(
+                                '${escapeJs(
+                                    expense.id
+                                )}'
+                            )"
+                        >
+                            Delete
+                        </button>
+
+                    </td>
+
+                </tr>
+
+                `;
+
+            }
+        ).join("");
 
 
     updateCards();
+
 }
 
 
-// =========================
-// FILTER MONTH CHANGE
-// =========================
+/* =========================================
+   MONTH CHANGE
+========================================= */
 
-document.getElementById("filterMonth")
-.addEventListener(
+document.getElementById(
+    "filterMonth"
+).addEventListener(
     "change",
     function(){
+
+        updateCards();
 
         renderHistory();
 
@@ -1101,51 +1716,114 @@ document.getElementById("filterMonth")
 );
 
 
-// =========================
-// HELPERS
-// =========================
+/* =========================================
+   HELPERS
+========================================= */
+
+function getMonth(date){
+
+    if(!date)
+        return "";
+
+    return String(
+        date
+    ).substring(
+        0,
+        7
+    );
+
+}
+
 
 function money(value){
 
     return "₹" +
 
-        Number(value || 0)
-        .toLocaleString(
+        Number(
+            value || 0
+        ).toLocaleString(
             "en-IN",
             {
                 minimumFractionDigits:0,
                 maximumFractionDigits:2
             }
         );
+
 }
 
 
 function formatDate(date){
 
-    if(!date) return "-";
+    if(!date)
+        return "-";
 
 
     const d =
         new Date(
-            date + "T00:00:00"
+            date +
+            "T00:00:00"
         );
 
 
     return d.toLocaleDateString(
         "en-IN"
     );
+
 }
 
 
 function escapeHtml(value){
 
-    return String(value)
+    return String(
+        value ?? ""
+    )
 
-        .replace(/&/g,"&amp;")
-        .replace(/</g,"&lt;")
-        .replace(/>/g,"&gt;")
-        .replace(/"/g,"&quot;")
-        .replace(/'/g,"&#039;");
+    .replace(
+        /&/g,
+        "&amp;"
+    )
+
+    .replace(
+        /</g,
+        "&lt;"
+    )
+
+    .replace(
+        />/g,
+        "&gt;"
+    )
+
+    .replace(
+        /"/g,
+        "&quot;"
+    )
+
+    .replace(
+        /'/g,
+        "&#039;"
+    );
+
+}
+
+
+function escapeJs(value){
+
+    return String(
+        value ?? ""
+    )
+    .replace(
+        /\\/g,
+        "\\\\"
+    )
+    .replace(
+        /'/g,
+        "\\'"
+    )
+    .replace(
+        /"/g,
+        '\\"'
+    );
+
 }
 
 
@@ -1173,7 +1851,7 @@ function showMessage(
 
 
     setTimeout(
-        () => {
+        function(){
 
             box.style.display =
                 "none";
@@ -1181,6 +1859,7 @@ function showMessage(
         },
         3500
     );
+
 }
 
 </script>
