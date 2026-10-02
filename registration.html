@@ -3,25 +3,39 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
+
 <title>Little Blossoms - Registration Fees</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
-*{box-sizing:border-box}
+
+*{
+    box-sizing:border-box;
+}
+
 body{
     margin:0;
     font-family:Arial,sans-serif;
     background:#f5f7fb;
     color:#222;
 }
+
 .header{
     background:linear-gradient(135deg,#6c5ce7,#8e44ad);
     color:white;
     padding:22px;
 }
-.header h1{margin:0;font-size:25px}
-.header p{margin:6px 0 0;opacity:.9}
+
+.header h1{
+    margin:0;
+    font-size:25px;
+}
+
+.header p{
+    margin:6px 0 0;
+    opacity:.9;
+}
 
 .container{
     max-width:1100px;
@@ -43,14 +57,22 @@ body{
     gap:15px;
     margin-bottom:20px;
 }
+
 .card{
     background:white;
     border-radius:15px;
     padding:20px;
     box-shadow:0 5px 20px #0000000d;
 }
-.card small{color:#777}
-.card h2{margin:8px 0 0;color:#6c5ce7}
+
+.card small{
+    color:#777;
+}
+
+.card h2{
+    margin:8px 0 0;
+    color:#6c5ce7;
+}
 
 .formbox{
     background:white;
@@ -59,32 +81,46 @@ body{
     box-shadow:0 5px 20px #0000000d;
     margin-bottom:20px;
 }
-.formbox h2{margin-top:0}
+
+.formbox h2{
+    margin-top:0;
+}
 
 .grid{
     display:grid;
     grid-template-columns:repeat(2,1fr);
     gap:15px;
 }
+
 .field label{
     display:block;
     font-size:14px;
     font-weight:bold;
     margin-bottom:6px;
 }
-input,select,textarea{
+
+input,
+select,
+textarea{
     width:100%;
     padding:12px;
     border:1px solid #ddd;
     border-radius:9px;
     outline:none;
     font-size:15px;
-}
-input:focus,select:focus,textarea:focus{
-    border-color:#6c5ce7;
+    background:white;
 }
 
-.full{grid-column:1/-1}
+input:focus,
+select:focus,
+textarea:focus{
+    border-color:#6c5ce7;
+    box-shadow:0 0 0 3px #6c5ce71a;
+}
+
+.full{
+    grid-column:1/-1;
+}
 
 .summary{
     background:#f3efff;
@@ -92,13 +128,22 @@ input:focus,select:focus,textarea:focus{
     border-radius:10px;
     margin-top:15px;
 }
+
 .summary div{
     display:flex;
     justify-content:space-between;
     margin:7px 0;
 }
-.pending{color:#d63031;font-weight:bold}
-.remaining{color:#e67e22;font-weight:bold}
+
+.pending{
+    color:#d63031;
+    font-weight:bold;
+}
+
+.remaining{
+    color:#e67e22;
+    font-weight:bold;
+}
 
 button{
     border:0;
@@ -107,10 +152,21 @@ button{
     cursor:pointer;
     font-weight:bold;
 }
+
+button:disabled{
+    opacity:.6;
+    cursor:not-allowed;
+}
+
 .save{
     background:#6c5ce7;
     color:white;
 }
+
+.save:hover{
+    background:#5b4bd5;
+}
+
 .cancel{
     background:#ddd;
     margin-left:8px;
@@ -122,6 +178,7 @@ button{
     border-radius:15px;
     box-shadow:0 5px 20px #0000000d;
 }
+
 .filters{
     display:grid;
     grid-template-columns:1fr 1fr;
@@ -132,25 +189,51 @@ button{
 .tablewrap{
     overflow-x:auto;
 }
+
 table{
     width:100%;
     border-collapse:collapse;
     min-width:750px;
 }
-th,td{
+
+th,
+td{
     padding:12px;
     border-bottom:1px solid #eee;
     text-align:left;
 }
+
 th{
     background:#f7f5ff;
 }
+
+tbody tr:hover{
+    background:#faf9ff;
+}
+
 .action button{
     padding:7px 10px;
     font-size:12px;
+    margin-right:4px;
 }
-.edit{background:#0984e3;color:white}
-.delete{background:#d63031;color:white}
+
+.edit{
+    background:#0984e3;
+    color:white;
+}
+
+.delete{
+    background:#d63031;
+    color:white;
+}
+
+.edit:hover{
+    background:#0876c5;
+}
+
+.delete:hover{
+    background:#bd2929;
+}
 
 #message{
     margin-bottom:15px;
@@ -158,175 +241,486 @@ th{
     border-radius:8px;
     display:none;
 }
-.success{background:#dff9e8;color:#18743c}
-.error{background:#ffe2e2;color:#b00020}
+
+.success{
+    background:#dff9e8;
+    color:#18743c;
+}
+
+.error{
+    background:#ffe2e2;
+    color:#b00020;
+}
+
+.student-info{
+    margin-top:7px;
+    font-size:12px;
+    color:#777;
+}
 
 @media(max-width:700px){
-    .cards,.grid,.filters{
+
+    .cards,
+    .grid,
+    .filters{
         grid-template-columns:1fr;
     }
+
+    .container{
+        margin-top:15px;
+    }
+
+    .header h1{
+        font-size:21px;
+    }
+
+    .formbox,
+    .history{
+        padding:16px;
+    }
 }
+
 </style>
 </head>
 
 <body>
 
+
+<!-- HEADER -->
+
 <div class="header">
-    <h1>🌸 Little Blossoms</h1>
-    <p>Registration Fee Management</p>
+
+    <h1>
+        🌸 Little Blossoms
+    </h1>
+
+    <p>
+        Registration Fee Management
+    </p>
+
 </div>
+
 
 <div class="container">
 
-<a href="dashboard.html" class="back">← Back to Dashboard</a>
+
+<a
+    href="dashboard.html"
+    class="back">
+
+    ← Back to Dashboard
+
+</a>
+
 
 <div id="message"></div>
 
+
+<!-- SUMMARY CARDS -->
+
 <div class="cards">
-    <div class="card">
-        <small>Total Registration Received</small>
-        <h2 id="totalReceived">₹0</h2>
-    </div>
+
 
     <div class="card">
-        <small>Total Registration Expected</small>
-        <h2 id="totalExpected">₹0</h2>
+
+        <small>
+            Total Registration Received
+        </small>
+
+        <h2 id="totalReceived">
+            ₹0
+        </h2>
+
     </div>
 
+
     <div class="card">
-        <small>Total Registration Pending</small>
-        <h2 id="totalPending">₹0</h2>
+
+        <small>
+            Total Registration Expected
+        </small>
+
+        <h2 id="totalExpected">
+            ₹0
+        </h2>
+
     </div>
+
+
+    <div class="card">
+
+        <small>
+            Total Registration Pending
+        </small>
+
+        <h2 id="totalPending">
+            ₹0
+        </h2>
+
+    </div>
+
+
 </div>
+
+
+<!-- PAYMENT FORM -->
 
 <div class="formbox">
 
-<h2 id="formTitle">➕ Add Registration Payment</h2>
+
+<h2 id="formTitle">
+    ➕ Add Registration Payment
+</h2>
+
 
 <div class="grid">
 
-<div class="field">
-<label>Student</label>
-<select id="student">
-<option value="">Select Student</option>
-</select>
+
+    <!-- STUDENT -->
+
+    <div class="field">
+
+        <label>
+            Student *
+        </label>
+
+        <select id="student">
+
+            <option value="">
+                Select Student
+            </option>
+
+        </select>
+
+        <div
+            class="student-info"
+            id="studentInfo">
+
+        </div>
+
+    </div>
+
+
+    <!-- REGISTRATION FEE -->
+
+    <div class="field">
+
+        <label>
+            Registration Fee
+        </label>
+
+        <input
+            type="number"
+            id="registrationFee"
+            readonly>
+
+    </div>
+
+
+    <!-- ALREADY PAID -->
+
+    <div class="field">
+
+        <label>
+            Already Paid
+        </label>
+
+        <input
+            type="number"
+            id="alreadyPaid"
+            readonly>
+
+    </div>
+
+
+    <!-- REMAINING -->
+
+    <div class="field">
+
+        <label>
+            Remaining
+        </label>
+
+        <input
+            type="number"
+            id="remaining"
+            readonly>
+
+    </div>
+
+
+    <!-- PAYMENT AMOUNT -->
+
+    <div class="field">
+
+        <label>
+            Payment Amount *
+        </label>
+
+        <input
+            type="number"
+            id="amount"
+            min="0"
+            step="0.01"
+            placeholder="Enter amount">
+
+    </div>
+
+
+    <!-- PAYMENT DATE -->
+
+    <div class="field">
+
+        <label>
+            Payment Date *
+        </label>
+
+        <input
+            type="date"
+            id="paymentDate">
+
+    </div>
+
+
+    <!-- PAYMENT METHOD -->
+
+    <div class="field">
+
+        <label>
+            Payment Method
+        </label>
+
+        <select id="paymentMethod">
+
+            <option value="Cash">
+                Cash
+            </option>
+
+            <option value="UPI">
+                UPI
+            </option>
+
+            <option value="Bank Transfer">
+                Bank Transfer
+            </option>
+
+            <option value="Cheque">
+                Cheque
+            </option>
+
+            <option value="Other">
+                Other
+            </option>
+
+        </select>
+
+    </div>
+
+
+    <!-- NOTES -->
+
+    <div class="field">
+
+        <label>
+            Notes
+        </label>
+
+        <input
+            type="text"
+            id="notes"
+            placeholder="Optional">
+
+    </div>
+
+
 </div>
 
-<div class="field">
-<label>Registration Fee</label>
-<input type="number" id="registrationFee" readonly>
-</div>
 
-<div class="field">
-<label>Already Paid</label>
-<input type="number" id="alreadyPaid" readonly>
-</div>
-
-<div class="field">
-<label>Remaining</label>
-<input type="number" id="remaining" readonly>
-</div>
-
-<div class="field">
-<label>Payment Amount</label>
-<input type="number" id="amount" min="0" step="0.01" placeholder="Enter amount">
-</div>
-
-<div class="field">
-<label>Payment Date</label>
-<input type="date" id="paymentDate">
-</div>
-
-<div class="field">
-<label>Payment Method</label>
-<select id="paymentMethod">
-<option>Cash</option>
-<option>UPI</option>
-<option>Bank Transfer</option>
-<option>Cheque</option>
-<option>Other</option>
-</select>
-</div>
-
-<div class="field">
-<label>Notes</label>
-<input type="text" id="notes" placeholder="Optional">
-</div>
-
-</div>
+<!-- PAYMENT SUMMARY -->
 
 <div class="summary">
-    <div>
-        <span>Registration Fee</span>
-        <strong id="sFee">₹0</strong>
-    </div>
+
 
     <div>
-        <span>Already Paid</span>
-        <strong id="sPaid">₹0</strong>
+
+        <span>
+            Registration Fee
+        </span>
+
+        <strong id="sFee">
+            ₹0
+        </strong>
+
     </div>
 
-    <div>
-        <span>Current Payment</span>
-        <strong id="sCurrent">₹0</strong>
-    </div>
 
     <div>
-        <span>Remaining After Payment</span>
-        <strong class="remaining" id="sRemaining">₹0</strong>
+
+        <span>
+            Already Paid
+        </span>
+
+        <strong id="sPaid">
+            ₹0
+        </strong>
+
     </div>
+
+
+    <div>
+
+        <span>
+            Current Payment
+        </span>
+
+        <strong id="sCurrent">
+            ₹0
+        </strong>
+
+    </div>
+
+
+    <div>
+
+        <span>
+            Remaining After Payment
+        </span>
+
+        <strong
+            class="remaining"
+            id="sRemaining">
+
+            ₹0
+
+        </strong>
+
+    </div>
+
+
 </div>
+
 
 <br>
 
-<button class="save" id="saveBtn" onclick="savePayment()">
+
+<button
+    class="save"
+    id="saveBtn"
+    onclick="savePayment()">
+
     Save Payment
+
 </button>
 
-<button class="cancel" id="cancelBtn" onclick="cancelEdit()" style="display:none">
+
+<button
+    class="cancel"
+    id="cancelBtn"
+    onclick="cancelEdit()"
+    style="display:none">
+
     Cancel
+
 </button>
+
 
 </div>
 
+
+<!-- HISTORY -->
 
 <div class="history">
 
-<h2>📋 Registration Payment History</h2>
+
+<h2>
+    📋 Registration Payment History
+</h2>
+
 
 <div class="filters">
-    <input type="text" id="search" placeholder="Search student..." oninput="renderHistory()">
 
-    <input type="month" id="filterMonth" onchange="renderHistory()">
+
+    <input
+        type="text"
+        id="search"
+        placeholder="Search student..."
+        oninput="renderHistory()">
+
+
+    <input
+        type="month"
+        id="filterMonth"
+        onchange="renderHistory()">
+
+
 </div>
+
 
 <div class="tablewrap">
 
+
 <table>
+
+
 <thead>
+
 <tr>
-    <th>Date</th>
-    <th>Student</th>
-    <th>Registration Fee</th>
-    <th>Payment</th>
-    <th>Method</th>
-    <th>Notes</th>
-    <th>Action</th>
+
+    <th>
+        Date
+    </th>
+
+    <th>
+        Student
+    </th>
+
+    <th>
+        Registration Fee
+    </th>
+
+    <th>
+        Payment
+    </th>
+
+    <th>
+        Method
+    </th>
+
+    <th>
+        Notes
+    </th>
+
+    <th>
+        Action
+    </th>
+
 </tr>
+
 </thead>
 
-<tbody id="historyBody"></tbody>
+
+<tbody id="historyBody">
+
+</tbody>
+
 
 </table>
 
-</div>
 
 </div>
+
+
+</div>
+
 
 </div>
 
 
 <script>
+
+/* =====================================================
+   SUPABASE
+===================================================== */
 
 const SUPABASE_URL =
 "https://holelzxzhaiefaqezmce.supabase.co";
@@ -335,261 +729,109 @@ const SUPABASE_KEY =
 "sb_publishable_KoCQClKL582rggMuDJXhYQ_UhHOB4xZ";
 
 const supabaseClient =
-supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+);
+
+
+/* =====================================================
+   GLOBAL VARIABLES
+===================================================== */
 
 let students = [];
+
 let payments = [];
+
 let editingId = null;
 
 
-// -------------------------
-// AUTH
-// -------------------------
+/* =====================================================
+   AUTH
+===================================================== */
 
 async function checkLogin(){
 
-    const {data:{session}} =
-        await supabaseClient.auth.getSession();
+    const {
+        data:{
+            session
+        }
+    } =
+        await supabaseClient
+        .auth
+        .getSession();
+
 
     if(!session){
-        window.location.href="login.html";
+
+        window.location.href =
+            "login.html";
+
         return false;
     }
+
 
     return true;
 }
 
 
-// -------------------------
-// INIT
-// -------------------------
+/* =====================================================
+   INIT
+===================================================== */
 
 async function init(){
 
-    if(!(await checkLogin())) return;
+    if(!(await checkLogin()))
+        return;
 
-    document.getElementById("paymentDate").value =
-        new Date().toISOString().split("T")[0];
+
+    document.getElementById(
+        "paymentDate"
+    ).value =
+        today();
+
 
     await loadStudents();
+
     await loadPayments();
 
     updateStudentDropdown();
+
     updateCards();
+
     renderHistory();
+
 }
+
 
 init();
 
 
-// -------------------------
-// LOAD STUDENTS
-// -------------------------
+/* =====================================================
+   LOAD STUDENTS
+===================================================== */
 
 async function loadStudents(){
 
-    const {data,error} =
+    const {
+        data,
+        error
+    } =
         await supabaseClient
         .from("students")
         .select("*")
-        .order("student_name");
+        .order("name");
+
 
     if(error){
-        showMessage(error.message,"error");
-        return;
-    }
 
-    students = data || [];
-}
-
-
-// -------------------------
-// LOAD PAYMENTS
-// -------------------------
-
-async function loadPayments(){
-
-    const {data,error} =
-        await supabaseClient
-        .from("registration_payments")
-        .select("*")
-        .order("payment_date",{ascending:false});
-
-    if(error){
-        showMessage(error.message,"error");
-        return;
-    }
-
-    payments = data || [];
-}
-
-
-// -------------------------
-// STUDENT DROPDOWN
-// -------------------------
-
-function updateStudentDropdown(){
-
-    const select =
-        document.getElementById("student");
-
-    select.innerHTML =
-        `<option value="">Select Student</option>`;
-
-    students
-    .filter(s => s.status === "Active")
-    .forEach(s => {
-
-        const option =
-            document.createElement("option");
-
-        option.value = s.id;
-
-        option.textContent =
-            `${s.student_name} — ₹${Number(s.registration_fee || 0).toFixed(0)}`;
-
-        select.appendChild(option);
-
-    });
-}
-
-
-// -------------------------
-// STUDENT CHANGE
-// -------------------------
-
-document.getElementById("student")
-.addEventListener("change",updateStudentInfo);
-
-
-async function updateStudentInfo(){
-
-    const studentId =
-        document.getElementById("student").value;
-
-    if(!studentId){
-
-        document.getElementById("registrationFee").value=0;
-        document.getElementById("alreadyPaid").value=0;
-        document.getElementById("remaining").value=0;
-
-        updateSummary();
-        return;
-    }
-
-    const student =
-        students.find(s => s.id === studentId);
-
-    const fee =
-        Number(student?.registration_fee || 0);
-
-    const paid =
-        payments
-        .filter(p => p.student_id === studentId)
-        .reduce((sum,p)=>sum+Number(p.amount||0),0);
-
-    document.getElementById("registrationFee").value=fee;
-    document.getElementById("alreadyPaid").value=paid;
-    document.getElementById("remaining").value=
-        Math.max(0,fee-paid);
-
-    updateSummary();
-}
-
-
-// -------------------------
-// SUMMARY
-// -------------------------
-
-document.getElementById("amount")
-.addEventListener("input",updateSummary);
-
-
-function updateSummary(){
-
-    const fee =
-        Number(document.getElementById("registrationFee").value || 0);
-
-    const paid =
-        Number(document.getElementById("alreadyPaid").value || 0);
-
-    const current =
-        Number(document.getElementById("amount").value || 0);
-
-    const remaining =
-        Math.max(0,fee-paid-current);
-
-    document.getElementById("remaining").value =
-        remaining;
-
-    document.getElementById("sFee").textContent =
-        money(fee);
-
-    document.getElementById("sPaid").textContent =
-        money(paid);
-
-    document.getElementById("sCurrent").textContent =
-        money(current);
-
-    document.getElementById("sRemaining").textContent =
-        money(remaining);
-}
-
-
-// -------------------------
-// SAVE / UPDATE
-// -------------------------
-
-async function savePayment(){
-
-    const studentId =
-        document.getElementById("student").value;
-
-    const amount =
-        Number(document.getElementById("amount").value || 0);
-
-    const paymentDate =
-        document.getElementById("paymentDate").value;
-
-    const paymentMethod =
-        document.getElementById("paymentMethod").value;
-
-    const notes =
-        document.getElementById("notes").value.trim();
-
-    if(!studentId){
-        showMessage("Student select karo.","error");
-        return;
-    }
-
-    if(amount <= 0){
-        showMessage("Payment amount enter karo.","error");
-        return;
-    }
-
-    if(!paymentDate){
-        showMessage("Payment date select karo.","error");
-        return;
-    }
-
-    const student =
-        students.find(s => s.id === studentId);
-
-    const fee =
-        Number(student?.registration_fee || 0);
-
-    let alreadyPaid =
-        payments
-        .filter(p =>
-            p.student_id === studentId &&
-            p.id !== editingId
-        )
-        .reduce((sum,p)=>sum+Number(p.amount||0),0);
-
-    if(alreadyPaid + amount > fee){
+        console.error(
+            "Students load error:",
+            error
+        );
 
         showMessage(
-            `Payment registration fee se zyada hai. Remaining: ${money(Math.max(0,fee-alreadyPaid))}`,
+            error.message,
             "error"
         );
 
@@ -597,42 +839,613 @@ async function savePayment(){
     }
 
 
+    students =
+        data || [];
+
+}
+
+
+/* =====================================================
+   LOAD REGISTRATION PAYMENTS
+===================================================== */
+
+async function loadPayments(){
+
+    const {
+        data,
+        error
+    } =
+        await supabaseClient
+        .from("registration_payments")
+        .select("*")
+        .order(
+            "payment_date",
+            {
+                ascending:false
+            }
+        );
+
+
+    if(error){
+
+        console.error(
+            "Registration payments load error:",
+            error
+        );
+
+        showMessage(
+            error.message,
+            "error"
+        );
+
+        return;
+    }
+
+
+    payments =
+        data || [];
+
+}
+
+
+/* =====================================================
+   STUDENT DROPDOWN
+===================================================== */
+
+function updateStudentDropdown(){
+
+    const select =
+        document.getElementById(
+            "student"
+        );
+
+
+    select.innerHTML =
+        `
+        <option value="">
+            Select Student
+        </option>
+        `;
+
+
+    students
+    .filter(
+        s =>
+            s.status === "Active"
+    )
+    .forEach(
+        s => {
+
+            const option =
+                document.createElement(
+                    "option"
+                );
+
+
+            option.value =
+                s.id;
+
+
+            /*
+               IMPORTANT:
+               students table uses "name"
+            */
+
+            option.textContent =
+                `${s.name || "Unnamed Student"} — ₹${Number(
+                    s.registration_fee || 0
+                ).toLocaleString("en-IN")}`;
+
+
+            select.appendChild(
+                option
+            );
+
+        }
+    );
+
+}
+
+
+/* =====================================================
+   STUDENT CHANGE
+===================================================== */
+
+document
+.getElementById("student")
+.addEventListener(
+    "change",
+    updateStudentInfo
+);
+
+
+async function updateStudentInfo(){
+
+    const studentId =
+        document.getElementById(
+            "student"
+        ).value;
+
+
+    if(!studentId){
+
+        document.getElementById(
+            "registrationFee"
+        ).value =
+            0;
+
+
+        document.getElementById(
+            "alreadyPaid"
+        ).value =
+            0;
+
+
+        document.getElementById(
+            "remaining"
+        ).value =
+            0;
+
+
+        document.getElementById(
+            "studentInfo"
+        ).textContent =
+            "";
+
+
+        updateSummary();
+
+        return;
+    }
+
+
+    const student =
+        students.find(
+            s =>
+                String(s.id) ===
+                String(studentId)
+        );
+
+
+    if(!student)
+        return;
+
+
+    const fee =
+        Number(
+            student.registration_fee || 0
+        );
+
+
+    /*
+       IMPORTANT:
+       While editing, don't count
+       the payment currently being edited.
+    */
+
+    const paid =
+        payments
+        .filter(
+            p => {
+
+                if(
+                    String(p.student_id) !==
+                    String(studentId)
+                )
+                    return false;
+
+
+                if(
+                    editingId &&
+                    String(p.id) ===
+                    String(editingId)
+                )
+                    return false;
+
+
+                return true;
+
+            }
+        )
+        .reduce(
+            (
+                sum,
+                p
+            ) =>
+                sum +
+                Number(
+                    p.amount || 0
+                ),
+            0
+        );
+
+
+    document.getElementById(
+        "registrationFee"
+    ).value =
+        fee;
+
+
+    document.getElementById(
+        "alreadyPaid"
+    ).value =
+        paid;
+
+
+    document.getElementById(
+        "remaining"
+    ).value =
+        Math.max(
+            0,
+            fee - paid
+        );
+
+
+    document.getElementById(
+        "studentInfo"
+    ).textContent =
+        `Student: ${student.name || "Unnamed Student"}`;
+
+
+    updateSummary();
+
+}
+
+
+/* =====================================================
+   SUMMARY
+===================================================== */
+
+document
+.getElementById("amount")
+.addEventListener(
+    "input",
+    updateSummary
+);
+
+
+function updateSummary(){
+
+    const fee =
+        Number(
+            document.getElementById(
+                "registrationFee"
+            ).value || 0
+        );
+
+
+    const paid =
+        Number(
+            document.getElementById(
+                "alreadyPaid"
+            ).value || 0
+        );
+
+
+    const current =
+        Number(
+            document.getElementById(
+                "amount"
+            ).value || 0
+        );
+
+
+    const remaining =
+        Math.max(
+            0,
+            fee -
+            paid -
+            current
+        );
+
+
+    document.getElementById(
+        "remaining"
+    ).value =
+        remaining;
+
+
+    document.getElementById(
+        "sFee"
+    ).textContent =
+        money(fee);
+
+
+    document.getElementById(
+        "sPaid"
+    ).textContent =
+        money(paid);
+
+
+    document.getElementById(
+        "sCurrent"
+    ).textContent =
+        money(current);
+
+
+    document.getElementById(
+        "sRemaining"
+    ).textContent =
+        money(remaining);
+
+}
+
+
+/* =====================================================
+   SAVE / UPDATE PAYMENT
+===================================================== */
+
+async function savePayment(){
+
+    const studentId =
+        document.getElementById(
+            "student"
+        ).value;
+
+
+    const amount =
+        Number(
+            document.getElementById(
+                "amount"
+            ).value || 0
+        );
+
+
+    const paymentDate =
+        document.getElementById(
+            "paymentDate"
+        ).value;
+
+
+    const paymentMethod =
+        document.getElementById(
+            "paymentMethod"
+        ).value;
+
+
+    const notes =
+        document.getElementById(
+            "notes"
+        ).value.trim();
+
+
+    if(!studentId){
+
+        showMessage(
+            "Please select a student.",
+            "error"
+        );
+
+        return;
+    }
+
+
+    if(amount <= 0){
+
+        showMessage(
+            "Payment amount should be greater than 0.",
+            "error"
+        );
+
+        return;
+    }
+
+
+    if(!paymentDate){
+
+        showMessage(
+            "Please select payment date.",
+            "error"
+        );
+
+        return;
+    }
+
+
+    const student =
+        students.find(
+            s =>
+                String(s.id) ===
+                String(studentId)
+        );
+
+
+    if(!student){
+
+        showMessage(
+            "Student not found.",
+            "error"
+        );
+
+        return;
+    }
+
+
+    const fee =
+        Number(
+            student.registration_fee || 0
+        );
+
+
+    /*
+       Calculate already paid,
+       excluding edited payment.
+    */
+
+    const alreadyPaid =
+        payments
+        .filter(
+            p => {
+
+                if(
+                    String(p.student_id) !==
+                    String(studentId)
+                )
+                    return false;
+
+
+                if(
+                    editingId &&
+                    String(p.id) ===
+                    String(editingId)
+                )
+                    return false;
+
+
+                return true;
+
+            }
+        )
+        .reduce(
+            (
+                sum,
+                p
+            ) =>
+                sum +
+                Number(
+                    p.amount || 0
+                ),
+            0
+        );
+
+
+    /*
+       Prevent overpayment
+    */
+
+    if(
+        alreadyPaid + amount >
+        fee
+    ){
+
+        const remaining =
+            Math.max(
+                0,
+                fee -
+                alreadyPaid
+            );
+
+
+        showMessage(
+            `Payment registration fee se zyada hai. Remaining: ${money(remaining)}`,
+            "error"
+        );
+
+        return;
+    }
+
+
+    const saveBtn =
+        document.getElementById(
+            "saveBtn"
+        );
+
+
+    saveBtn.disabled =
+        true;
+
+
+    saveBtn.textContent =
+        "Saving...";
+
+
+    /*
+       IMPORTANT:
+       Save only student_id.
+       Student name comes from students table.
+    */
+
     const payload = {
-        student_id:studentId,
-        amount:amount,
-        payment_date:paymentDate,
-        payment_method:paymentMethod,
-        notes:notes
+
+        student_id:
+            studentId,
+
+        amount:
+            amount,
+
+        payment_date:
+            paymentDate,
+
+        payment_method:
+            paymentMethod,
+
+        notes:
+            notes
+
     };
 
 
-    let error;
+    let error = null;
 
+
+    /*
+       UPDATE
+    */
 
     if(editingId){
 
         const result =
             await supabaseClient
-            .from("registration_payments")
+            .from(
+                "registration_payments"
+            )
             .update(payload)
-            .eq("id",editingId);
+            .eq(
+                "id",
+                editingId
+            );
 
-        error=result.error;
 
-    }else{
+        error =
+            result.error;
+
+    }
+
+
+    /*
+       INSERT
+    */
+
+    else{
 
         const result =
             await supabaseClient
-            .from("registration_payments")
-            .insert(payload);
+            .from(
+                "registration_payments"
+            )
+            .insert(
+                payload
+            );
 
-        error=result.error;
+
+        error =
+            result.error;
+
     }
 
 
     if(error){
 
-        showMessage(error.message,"error");
+        console.error(
+            "Registration save error:",
+            error
+        );
+
+
+        showMessage(
+            error.message,
+            "error"
+        );
+
+
+        saveBtn.disabled =
+            false;
+
+
+        saveBtn.textContent =
+            "Save Payment";
+
+
         return;
     }
 
@@ -644,314 +1457,688 @@ async function savePayment(){
         "success"
     );
 
-    cancelEdit();
+
+    /*
+       Reload everything
+    */
 
     await loadPayments();
 
+
     updateCards();
+
     renderHistory();
-    updateStudentInfo();
+
+
+    /*
+       Reset after successful save
+    */
+
+    resetForm();
+
+
+    saveBtn.disabled =
+        false;
+
+
+    saveBtn.textContent =
+        "Save Payment";
+
 }
 
 
-// -------------------------
-// EDIT
-// -------------------------
+/* =====================================================
+   EDIT PAYMENT
+===================================================== */
 
 function editPayment(id){
 
     const payment =
-        payments.find(p => p.id === id);
+        payments.find(
+            p =>
+                String(p.id) ===
+                String(id)
+        );
 
-    if(!payment) return;
 
-    editingId=id;
+    if(!payment)
+        return;
 
-    document.getElementById("formTitle").textContent =
+
+    editingId =
+        id;
+
+
+    document.getElementById(
+        "formTitle"
+    ).textContent =
         "✏️ Edit Registration Payment";
 
-    document.getElementById("student").value =
+
+    document.getElementById(
+        "student"
+    ).value =
         payment.student_id;
 
-    document.getElementById("paymentDate").value =
+
+    document.getElementById(
+        "paymentDate"
+    ).value =
         payment.payment_date;
 
-    document.getElementById("amount").value =
+
+    document.getElementById(
+        "amount"
+    ).value =
         payment.amount;
 
-    document.getElementById("paymentMethod").value =
-        payment.payment_method || "Cash";
 
-    document.getElementById("notes").value =
+    document.getElementById(
+        "paymentMethod"
+    ).value =
+        payment.payment_method ||
+        "Cash";
+
+
+    document.getElementById(
+        "notes"
+    ).value =
         payment.notes || "";
 
-    document.getElementById("cancelBtn").style.display =
+
+    document.getElementById(
+        "cancelBtn"
+    ).style.display =
         "inline-block";
 
+
     updateStudentInfo();
+
+
+    updateSummary();
+
 
     window.scrollTo({
         top:0,
         behavior:"smooth"
     });
+
 }
 
 
-// -------------------------
-// DELETE
-// -------------------------
+/* =====================================================
+   DELETE PAYMENT
+===================================================== */
 
 async function deletePayment(id){
 
-    if(!confirm("Ye payment delete karna hai?")) return;
+    if(
+        !confirm(
+            "Are you sure you want to delete this registration payment?"
+        )
+    )
+        return;
 
-    const {error} =
+
+    const {
+        error
+    } =
         await supabaseClient
-        .from("registration_payments")
+        .from(
+            "registration_payments"
+        )
         .delete()
-        .eq("id",id);
+        .eq(
+            "id",
+            id
+        );
+
 
     if(error){
 
-        showMessage(error.message,"error");
+        showMessage(
+            error.message,
+            "error"
+        );
+
         return;
     }
 
+
     showMessage(
-        "Registration payment deleted.",
+        "Registration payment deleted successfully.",
         "success"
     );
 
+
     await loadPayments();
 
+
     updateCards();
+
     renderHistory();
-    updateStudentInfo();
+
+
+    /*
+       If selected student is still
+       selected, refresh calculation.
+    */
+
+    await updateStudentInfo();
+
 }
 
 
-// -------------------------
-// CANCEL EDIT
-// -------------------------
+/* =====================================================
+   CANCEL / RESET
+===================================================== */
 
 function cancelEdit(){
 
-    editingId=null;
+    editingId =
+        null;
 
-    document.getElementById("formTitle").textContent =
+
+    document.getElementById(
+        "formTitle"
+    ).textContent =
         "➕ Add Registration Payment";
 
-    document.getElementById("student").value="";
 
-    document.getElementById("registrationFee").value=0;
-    document.getElementById("alreadyPaid").value=0;
-    document.getElementById("remaining").value=0;
+    document.getElementById(
+        "student"
+    ).value =
+        "";
 
-    document.getElementById("amount").value="";
-    document.getElementById("notes").value="";
 
-    document.getElementById("paymentDate").value =
-        new Date().toISOString().split("T")[0];
+    document.getElementById(
+        "registrationFee"
+    ).value =
+        0;
 
-    document.getElementById("paymentMethod").value="Cash";
 
-    document.getElementById("cancelBtn").style.display="none";
+    document.getElementById(
+        "alreadyPaid"
+    ).value =
+        0;
+
+
+    document.getElementById(
+        "remaining"
+    ).value =
+        0;
+
+
+    document.getElementById(
+        "amount"
+    ).value =
+        "";
+
+
+    document.getElementById(
+        "notes"
+    ).value =
+        "";
+
+
+    document.getElementById(
+        "studentInfo"
+    ).textContent =
+        "";
+
+
+    document.getElementById(
+        "paymentDate"
+    ).value =
+        today();
+
+
+    document.getElementById(
+        "paymentMethod"
+    ).value =
+        "Cash";
+
+
+    document.getElementById(
+        "cancelBtn"
+    ).style.display =
+        "none";
+
 
     updateSummary();
+
 }
 
 
-// -------------------------
-// CARDS
-// -------------------------
+/* =====================================================
+   RESET FORM
+===================================================== */
+
+function resetForm(){
+
+    cancelEdit();
+
+}
+
+
+/* =====================================================
+   SUMMARY CARDS
+===================================================== */
 
 function updateCards(){
 
+    /*
+       Expected registration amount
+       from all ACTIVE students.
+    */
+
     const expected =
         students
-        .filter(s => s.status === "Active")
+        .filter(
+            s =>
+                s.status === "Active"
+        )
         .reduce(
-            (sum,s)=>sum+Number(s.registration_fee||0),
+            (
+                sum,
+                s
+            ) =>
+                sum +
+                Number(
+                    s.registration_fee || 0
+                ),
             0
         );
+
+
+    /*
+       Total registration received
+    */
 
     const received =
         payments
         .reduce(
-            (sum,p)=>sum+Number(p.amount||0),
+            (
+                sum,
+                p
+            ) =>
+                sum +
+                Number(
+                    p.amount || 0
+                ),
             0
         );
 
-    const pending =
-        Math.max(0,expected-received);
 
-    document.getElementById("totalExpected").textContent =
+    const pending =
+        Math.max(
+            0,
+            expected -
+            received
+        );
+
+
+    document.getElementById(
+        "totalExpected"
+    ).textContent =
         money(expected);
 
-    document.getElementById("totalReceived").textContent =
+
+    document.getElementById(
+        "totalReceived"
+    ).textContent =
         money(received);
 
-    document.getElementById("totalPending").textContent =
+
+    document.getElementById(
+        "totalPending"
+    ).textContent =
         money(pending);
+
 }
 
 
-// -------------------------
-// HISTORY
-// -------------------------
+/* =====================================================
+   PAYMENT HISTORY
+===================================================== */
 
 function renderHistory(){
 
     const body =
-        document.getElementById("historyBody");
+        document.getElementById(
+            "historyBody"
+        );
+
 
     const search =
-        document.getElementById("search")
+        document.getElementById(
+            "search"
+        )
         .value
+        .trim()
         .toLowerCase();
 
+
     const month =
-        document.getElementById("filterMonth").value;
+        document.getElementById(
+            "filterMonth"
+        ).value;
 
 
     let list =
         [...payments];
 
 
-    list = list.filter(p => {
+    list =
+        list.filter(
+            p => {
 
-        const student =
-            students.find(s=>s.id===p.student_id);
+                const student =
+                    students.find(
+                        s =>
+                            String(s.id) ===
+                            String(p.student_id)
+                    );
 
-        if(!student) return false;
 
-        const name =
-            student.student_name.toLowerCase();
+                if(!student)
+                    return false;
 
-        const matchesSearch =
-            !search || name.includes(search);
 
-        const matchesMonth =
-            !month ||
-            p.payment_date.startsWith(month);
+                /*
+                   IMPORTANT:
+                   Use name, not student_name.
+                */
 
-        return matchesSearch && matchesMonth;
-    });
+                const name =
+                    String(
+                        student.name || ""
+                    ).toLowerCase();
+
+
+                const matchesSearch =
+                    !search ||
+                    name.includes(search);
+
+
+                const matchesMonth =
+                    !month ||
+                    String(
+                        p.payment_date || ""
+                    ).startsWith(month);
+
+
+                return (
+                    matchesSearch &&
+                    matchesMonth
+                );
+
+            }
+        );
 
 
     if(!list.length){
 
         body.innerHTML =
-            `<tr>
-                <td colspan="7" style="text-align:center">
-                    No registration payments found
-                </td>
-             </tr>`;
-
-        return;
-    }
-
-
-    body.innerHTML =
-        list.map(p => {
-
-            const student =
-                students.find(s=>s.id===p.student_id);
-
-            const fee =
-                Number(student?.registration_fee || 0);
-
-            return `
+            `
             <tr>
 
-                <td>${formatDate(p.payment_date)}</td>
+                <td
+                    colspan="7"
+                    style="
+                        text-align:center;
+                        padding:30px;
+                        color:#888;
+                    ">
 
-                <td>
-                    <strong>${escapeHtml(student?.student_name || "Unknown")}</strong>
-                </td>
-
-                <td>${money(fee)}</td>
-
-                <td><strong>${money(p.amount)}</strong></td>
-
-                <td>${escapeHtml(p.payment_method || "")}</td>
-
-                <td>${escapeHtml(p.notes || "-")}</td>
-
-                <td class="action">
-
-                    <button
-                        class="edit"
-                        onclick="editPayment('${p.id}')">
-                        Edit
-                    </button>
-
-                    <button
-                        class="delete"
-                        onclick="deletePayment('${p.id}')">
-                        Delete
-                    </button>
+                    No registration payments found.
 
                 </td>
 
             </tr>
             `;
 
-        }).join("");
+        return;
+    }
+
+
+    body.innerHTML =
+        list
+        .map(
+            p => {
+
+                const student =
+                    students.find(
+                        s =>
+                            String(s.id) ===
+                            String(p.student_id)
+                    );
+
+
+                const fee =
+                    Number(
+                        student?.registration_fee ||
+                        0
+                    );
+
+
+                const studentName =
+                    student?.name ||
+                    "Unknown Student";
+
+
+                return `
+
+                <tr>
+
+                    <td>
+                        ${formatDate(
+                            p.payment_date
+                        )}
+                    </td>
+
+
+                    <td>
+
+                        <strong>
+                            ${escapeHtml(
+                                studentName
+                            )}
+                        </strong>
+
+                    </td>
+
+
+                    <td>
+                        ${money(fee)}
+                    </td>
+
+
+                    <td>
+
+                        <strong>
+                            ${money(
+                                p.amount
+                            )}
+                        </strong>
+
+                    </td>
+
+
+                    <td>
+                        ${escapeHtml(
+                            p.payment_method ||
+                            "Cash"
+                        )}
+                    </td>
+
+
+                    <td>
+                        ${escapeHtml(
+                            p.notes ||
+                            "-"
+                        )}
+                    </td>
+
+
+                    <td class="action">
+
+
+                        <button
+                            class="edit"
+                            onclick="editPayment('${p.id}')">
+
+                            Edit
+
+                        </button>
+
+
+                        <button
+                            class="delete"
+                            onclick="deletePayment('${p.id}')">
+
+                            Delete
+
+                        </button>
+
+
+                    </td>
+
+                </tr>
+
+                `;
+
+            }
+        )
+        .join("");
+
 }
 
 
-// -------------------------
-// HELPERS
-// -------------------------
+/* =====================================================
+   MONEY
+===================================================== */
 
 function money(value){
 
     return "₹" +
-        Number(value || 0)
-        .toLocaleString("en-IN",{
-            minimumFractionDigits:0,
-            maximumFractionDigits:2
-        });
+        Number(
+            value || 0
+        ).toLocaleString(
+            "en-IN",
+            {
+                minimumFractionDigits:0,
+                maximumFractionDigits:2
+            }
+        );
+
+}
+
+
+/* =====================================================
+   DATE
+===================================================== */
+
+function today(){
+
+    return new Date()
+        .toISOString()
+        .split("T")[0];
+
 }
 
 
 function formatDate(date){
 
-    if(!date) return "-";
+    if(!date)
+        return "-";
 
-    const d =
-        new Date(date + "T00:00:00");
 
-    return d.toLocaleDateString("en-IN");
+    return new Date(
+        date + "T00:00:00"
+    )
+    .toLocaleDateString(
+        "en-IN",
+        {
+            day:"2-digit",
+            month:"short",
+            year:"numeric"
+        }
+    );
+
 }
 
+
+/* =====================================================
+   ESCAPE HTML
+===================================================== */
 
 function escapeHtml(value){
 
-    return String(value)
-        .replace(/&/g,"&amp;")
-        .replace(/</g,"&lt;")
-        .replace(/>/g,"&gt;")
-        .replace(/"/g,"&quot;")
-        .replace(/'/g,"&#039;");
+    return String(
+        value ?? ""
+    )
+    .replace(
+        /&/g,
+        "&amp;"
+    )
+    .replace(
+        /</g,
+        "&lt;"
+    )
+    .replace(
+        />/g,
+        "&gt;"
+    )
+    .replace(
+        /"/g,
+        "&quot;"
+    )
+    .replace(
+        /'/g,
+        "&#039;"
+    );
+
 }
 
 
-function showMessage(text,type){
+/* =====================================================
+   MESSAGE
+===================================================== */
+
+function showMessage(
+    text,
+    type
+){
 
     const box =
-        document.getElementById("message");
+        document.getElementById(
+            "message"
+        );
 
-    box.textContent=text;
 
-    box.className=type;
+    box.textContent =
+        text;
 
-    box.style.display="block";
 
-    setTimeout(()=>{
-        box.style.display="none";
-    },3500);
+    box.className =
+        type;
+
+
+    box.style.display =
+        "block";
+
+
+    setTimeout(
+        () => {
+
+            box.style.display =
+                "none";
+
+        },
+        3500
+    );
+
 }
 
 </script>
