@@ -28,7 +28,7 @@
     --orange:#f59e0b;
 
     --bg:#f7f7fb;
-    --card:#fff;
+    --card:#ffffff;
     --text:#18181b;
     --muted:#71717a;
     --border:#ececf2;
@@ -84,7 +84,9 @@ button{
 }
 
 
-/* HEADER */
+/* =========================================================
+   HEADER
+========================================================= */
 
 .header{
 
@@ -115,7 +117,9 @@ button{
 .brand{
 
     display:flex;
+
     align-items:center;
+
     gap:12px;
 
 }
@@ -123,6 +127,7 @@ button{
 .logo{
 
     width:46px;
+
     height:46px;
 
     border-radius:15px;
@@ -136,6 +141,7 @@ button{
     color:white;
 
     display:grid;
+
     place-items:center;
 
     font-weight:800;
@@ -209,7 +215,9 @@ button{
 }
 
 
-/* MAIN */
+/* =========================================================
+   MAIN
+========================================================= */
 
 .container{
 
@@ -222,7 +230,9 @@ button{
 }
 
 
-/* HERO */
+/* =========================================================
+   HERO
+========================================================= */
 
 .hero{
 
@@ -290,15 +300,19 @@ button{
 }
 
 
-/* MONTH SELECT */
+/* =========================================================
+   MONTH CONTROLS
+========================================================= */
 
 .month-box{
 
     display:flex;
 
+    align-items:center;
+
     gap:8px;
 
-    align-items:center;
+    flex-wrap:wrap;
 
 }
 
@@ -318,15 +332,42 @@ button{
 
 }
 
+.collect-main-btn{
 
-/* STATS */
+    border:0;
+
+    border-radius:11px;
+
+    padding:11px 16px;
+
+    color:white;
+
+    font-weight:800;
+
+    background:
+    linear-gradient(
+        135deg,
+        var(--pink),
+        var(--purple)
+    );
+
+    box-shadow:
+    0 8px 20px
+    rgba(139,92,246,.20);
+
+}
+
+
+/* =========================================================
+   STATS
+========================================================= */
 
 .stats{
 
     display:grid;
 
     grid-template-columns:
-    repeat(4,1fr);
+    repeat(5,1fr);
 
     gap:15px;
 
@@ -364,7 +405,7 @@ button{
 
 .stat-value{
 
-    font-size:25px;
+    font-size:24px;
 
     font-weight:800;
 
@@ -406,8 +447,16 @@ button{
 
 }
 
+.stat.alltime{
 
-/* PANEL */
+    border-top:3px solid var(--pink);
+
+}
+
+
+/* =========================================================
+   PANEL
+========================================================= */
 
 .panel{
 
@@ -420,6 +469,8 @@ button{
     box-shadow:var(--shadow);
 
     padding:20px;
+
+    margin-bottom:22px;
 
 }
 
@@ -455,7 +506,7 @@ button{
 
 .search{
 
-    width:280px;
+    width:300px;
 
     border:1px solid #e5e7eb;
 
@@ -480,7 +531,9 @@ button{
 }
 
 
-/* TABLE */
+/* =========================================================
+   TABLE
+========================================================= */
 
 .table-wrap{
 
@@ -537,7 +590,9 @@ tbody tr:hover{
 }
 
 
-/* STUDENT */
+/* =========================================================
+   STUDENT
+========================================================= */
 
 .student-cell{
 
@@ -592,7 +647,9 @@ tbody tr:hover{
 }
 
 
-/* BADGES */
+/* =========================================================
+   BADGES
+========================================================= */
 
 .badge{
 
@@ -635,7 +692,9 @@ tbody tr:hover{
 }
 
 
-/* FEE */
+/* =========================================================
+   MONEY
+========================================================= */
 
 .fee{
 
@@ -662,7 +721,9 @@ tbody tr:hover{
 }
 
 
-/* ACTION */
+/* =========================================================
+   ACTION
+========================================================= */
 
 .collect-btn{
 
@@ -672,7 +733,8 @@ tbody tr:hover{
 
     padding:8px 11px;
 
-    background:linear-gradient(
+    background:
+    linear-gradient(
         135deg,
         var(--pink),
         var(--purple)
@@ -713,7 +775,124 @@ tbody tr:hover{
 }
 
 
-/* EMPTY */
+/* =========================================================
+   YEAR OVERVIEW
+========================================================= */
+
+.year-grid{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(4,1fr);
+
+    gap:12px;
+
+}
+
+.year-card{
+
+    border:1px solid #eeeef3;
+
+    border-radius:15px;
+
+    padding:15px;
+
+    background:#fff;
+
+}
+
+.year-card-top{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:10px;
+
+}
+
+.year-month{
+
+    font-size:12px;
+
+    font-weight:800;
+
+}
+
+.year-total{
+
+    font-size:16px;
+
+    font-weight:800;
+
+    color:#7c3aed;
+
+}
+
+.year-details{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    color:#888;
+
+    font-size:9px;
+
+}
+
+.year-total-card{
+
+    background:
+    linear-gradient(
+        135deg,
+        #fff1f8,
+        #f3edff
+    );
+
+    border:1px solid #eadcf5;
+
+    border-radius:17px;
+
+    padding:18px;
+
+    margin-bottom:15px;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+}
+
+.year-total-card small{
+
+    color:#888;
+
+    font-size:10px;
+
+}
+
+.year-total-card strong{
+
+    display:block;
+
+    margin-top:5px;
+
+    font-size:25px;
+
+    color:#7c3aed;
+
+}
+
+
+/* =========================================================
+   EMPTY
+========================================================= */
 
 .empty{
 
@@ -736,7 +915,9 @@ tbody tr:hover{
 }
 
 
-/* MODAL */
+/* =========================================================
+   MODAL
+========================================================= */
 
 .modal{
 
@@ -780,7 +961,9 @@ tbody tr:hover{
 
     padding:24px;
 
-    box-shadow:0 25px 80px rgba(0,0,0,.23);
+    box-shadow:
+    0 25px 80px
+    rgba(0,0,0,.23);
 
 }
 
@@ -837,7 +1020,8 @@ tbody tr:hover{
 
     display:grid;
 
-    grid-template-columns:1fr 1fr;
+    grid-template-columns:
+    1fr 1fr;
 
     gap:13px;
 
@@ -894,7 +1078,8 @@ tbody tr:hover{
     background:white;
 
     box-shadow:
-    0 0 0 3px rgba(168,85,247,.08);
+    0 0 0 3px
+    rgba(168,85,247,.08);
 
 }
 
@@ -906,9 +1091,9 @@ tbody tr:hover{
 
     border:1px solid #ede9fe;
 
-    border-radius:12px;
+    border-radius:14px;
 
-    padding:12px;
+    padding:13px;
 
 }
 
@@ -918,15 +1103,35 @@ tbody tr:hover{
 
     justify-content:space-between;
 
-    margin:4px 0;
+    gap:15px;
+
+    margin:6px 0;
 
     font-size:11px;
+
+}
+
+.info-row span{
+
+    color:#888;
 
 }
 
 .info-row strong{
 
     color:#7c3aed;
+
+    text-align:right;
+
+}
+
+.amount-note{
+
+    margin-top:5px;
+
+    font-size:9px;
+
+    color:#999;
 
 }
 
@@ -964,7 +1169,8 @@ tbody tr:hover{
 
 .save{
 
-    background:linear-gradient(
+    background:
+    linear-gradient(
         135deg,
         var(--pink),
         var(--purple)
@@ -981,7 +1187,9 @@ tbody tr:hover{
 }
 
 
-/* TOAST */
+/* =========================================================
+   TOAST
+========================================================= */
 
 .toast{
 
@@ -1005,7 +1213,9 @@ tbody tr:hover{
 
     font-weight:700;
 
-    box-shadow:0 15px 40px rgba(0,0,0,.20);
+    box-shadow:
+    0 15px 40px
+    rgba(0,0,0,.20);
 
     transform:translateY(20px);
 
@@ -1026,7 +1236,9 @@ tbody tr:hover{
 }
 
 
-/* LOADING */
+/* =========================================================
+   LOADING
+========================================================= */
 
 .loading{
 
@@ -1068,7 +1280,8 @@ tbody tr:hover{
 
     font-weight:800;
 
-    background:linear-gradient(
+    background:
+    linear-gradient(
         135deg,
         var(--pink),
         var(--purple)
@@ -1088,7 +1301,8 @@ tbody tr:hover{
 
     border-radius:50%;
 
-    animation:spin .8s linear infinite;
+    animation:
+    spin .8s linear infinite;
 
     margin:15px auto 0;
 
@@ -1113,13 +1327,41 @@ tbody tr:hover{
 }
 
 
-/* RESPONSIVE */
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media(max-width:1100px){
+
+    .stats{
+
+        grid-template-columns:
+        repeat(3,1fr);
+
+    }
+
+    .year-grid{
+
+        grid-template-columns:
+        repeat(3,1fr);
+
+    }
+
+}
 
 @media(max-width:900px){
 
     .stats{
 
-        grid-template-columns:1fr 1fr;
+        grid-template-columns:
+        repeat(2,1fr);
+
+    }
+
+    .year-grid{
+
+        grid-template-columns:
+        repeat(2,1fr);
 
     }
 
@@ -1191,13 +1433,22 @@ tbody tr:hover{
 
     .month-box select{
 
+        flex:1;
+
+        min-width:100px;
+
+    }
+
+    .collect-main-btn{
+
         width:100%;
 
     }
 
     .stats{
 
-        grid-template-columns:1fr 1fr;
+        grid-template-columns:
+        1fr 1fr;
 
         gap:9px;
 
@@ -1248,6 +1499,33 @@ tbody tr:hover{
 
     }
 
+    .year-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .year-total-card{
+
+        display:block;
+
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE TABLE
+========================================================= */
+
+@media(max-width:450px){
+
+    table{
+
+        min-width:900px;
+
+    }
+
 }
 
 </style>
@@ -1258,9 +1536,13 @@ tbody tr:hover{
 <body>
 
 
-<!-- LOADING -->
+<!-- =======================================================
+     LOADING
+======================================================= -->
 
-<div class="loading" id="loading">
+<div
+    class="loading"
+    id="loading">
 
     <div class="loader">
 
@@ -1279,7 +1561,9 @@ tbody tr:hover{
 </div>
 
 
-<!-- HEADER -->
+<!-- =======================================================
+     HEADER
+======================================================= -->
 
 <header class="header">
 
@@ -1317,7 +1601,7 @@ tbody tr:hover{
 
         <button
             class="btn refresh-btn"
-            onclick="loadData()">
+            onclick="loadAll()">
 
             ↻ Refresh
 
@@ -1336,6 +1620,10 @@ tbody tr:hover{
 
 </header>
 
+
+<!-- =======================================================
+     MAIN
+======================================================= -->
 
 <main class="container">
 
@@ -1357,7 +1645,7 @@ tbody tr:hover{
                 </h2>
 
                 <p>
-                    Monthly fee collection for Dance Classes.
+                    Month-wise dance class fee management.
                 </p>
 
             </div>
@@ -1367,16 +1655,33 @@ tbody tr:hover{
 
         <div class="month-box">
 
-            <select id="monthSelect"></select>
 
-            <select id="yearSelect"></select>
+            <button
+                class="collect-main-btn"
+                onclick="openNewPaymentModal()">
+
+                + Collect Fee
+
+            </button>
+
+
+            <select
+                id="monthSelect">
+            </select>
+
+
+            <select
+                id="yearSelect">
+            </select>
 
         </div>
 
     </section>
 
 
-    <!-- STATS -->
+    <!-- ===================================================
+         STATS
+    ==================================================== -->
 
     <section class="stats">
 
@@ -1417,7 +1722,7 @@ tbody tr:hover{
             </div>
 
             <div class="stat-sub">
-                Monthly fees
+                Selected month
             </div>
 
         </div>
@@ -1438,7 +1743,7 @@ tbody tr:hover{
             </div>
 
             <div class="stat-sub">
-                Fees received
+                Selected month
             </div>
 
         </div>
@@ -1459,7 +1764,28 @@ tbody tr:hover{
             </div>
 
             <div class="stat-sub">
-                Remaining amount
+                Selected month
+            </div>
+
+        </div>
+
+
+        <div class="stat alltime">
+
+            <div class="stat-label">
+                Year Total
+            </div>
+
+            <div
+                class="stat-value"
+                id="yearTotal">
+
+                ₹0
+
+            </div>
+
+            <div class="stat-sub">
+                All months combined
             </div>
 
         </div>
@@ -1467,7 +1793,9 @@ tbody tr:hover{
     </section>
 
 
-    <!-- TABLE -->
+    <!-- ===================================================
+         MONTHLY TABLE
+    ==================================================== -->
 
     <section class="panel">
 
@@ -1476,12 +1804,12 @@ tbody tr:hover{
 
             <div class="panel-title">
 
-                <h3>
+                <h3 id="tableTitle">
                     Monthly Dance Fees
                 </h3>
 
                 <p>
-                    Collect and manage student fees month-wise.
+                    Only the selected month is shown here.
                 </p>
 
             </div>
@@ -1541,9 +1869,68 @@ tbody tr:hover{
                 </thead>
 
 
-                <tbody id="feeTable"></tbody>
+                <tbody id="feeTable">
+
+                </tbody>
 
             </table>
+
+        </div>
+
+    </section>
+
+
+    <!-- ===================================================
+         YEAR OVERVIEW
+    ==================================================== -->
+
+    <section class="panel">
+
+        <div class="panel-head">
+
+            <div class="panel-title">
+
+                <h3>
+                    Year Overview
+                </h3>
+
+                <p>
+                    Each month remains separate. Total is shown together only here.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="year-total-card">
+
+            <div>
+
+                <small>
+                    Total Dance Fee Collected -
+                    <span id="overviewYear">
+                        2026
+                    </span>
+                </small>
+
+                <strong id="overviewTotal">
+                    ₹0
+                </strong>
+
+            </div>
+
+
+            <div style="font-size:28px;">
+                📊
+            </div>
+
+        </div>
+
+
+        <div
+            class="year-grid"
+            id="yearOverview">
 
         </div>
 
@@ -1552,7 +1939,9 @@ tbody tr:hover{
 </main>
 
 
-<!-- PAYMENT MODAL -->
+<!-- =======================================================
+     PAYMENT MODAL
+======================================================= -->
 
 <div
     class="modal"
@@ -1570,7 +1959,7 @@ tbody tr:hover{
                 </h3>
 
                 <p>
-                    Record monthly dance class payment.
+                    Enter the actual amount received.
                 </p>
 
             </div>
@@ -1600,7 +1989,30 @@ tbody tr:hover{
         <div class="form-grid">
 
 
+            <!-- STUDENT DROPDOWN -->
+
+            <div class="form-group full">
+
+                <label>
+                    Select Student *
+                </label>
+
+                <select
+                    id="studentSelect">
+
+                    <option value="">
+                        Select Dance Student
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- STUDENT INFORMATION -->
+
             <div class="info-box">
+
 
                 <div class="info-row">
 
@@ -1608,7 +2020,8 @@ tbody tr:hover{
                         Student
                     </span>
 
-                    <strong id="infoStudent">
+                    <strong
+                        id="infoStudent">
                         -
                     </strong>
 
@@ -1618,10 +2031,39 @@ tbody tr:hover{
                 <div class="info-row">
 
                     <span>
-                        Month
+                        Father
                     </span>
 
-                    <strong id="infoMonth">
+                    <strong
+                        id="infoFather">
+                        -
+                    </strong>
+
+                </div>
+
+
+                <div class="info-row">
+
+                    <span>
+                        Mobile
+                    </span>
+
+                    <strong
+                        id="infoMobile">
+                        -
+                    </strong>
+
+                </div>
+
+
+                <div class="info-row">
+
+                    <span>
+                        Batch
+                    </span>
+
+                    <strong
+                        id="infoBatch">
                         -
                     </strong>
 
@@ -1634,14 +2076,31 @@ tbody tr:hover{
                         Monthly Fee
                     </span>
 
-                    <strong id="infoFee">
+                    <strong
+                        id="infoFee">
                         ₹0
+                    </strong>
+
+                </div>
+
+
+                <div class="info-row">
+
+                    <span>
+                        Fee Month
+                    </span>
+
+                    <strong
+                        id="infoMonth">
+                        -
                     </strong>
 
                 </div>
 
             </div>
 
+
+            <!-- AMOUNT -->
 
             <div class="form-group">
 
@@ -1654,10 +2113,16 @@ tbody tr:hover{
                     id="amountPaid"
                     min="0"
                     step="1"
-                    placeholder="Enter amount">
+                    placeholder="Enter actual paid amount">
+
+                <div class="amount-note">
+                    Amount will NOT be filled automatically.
+                </div>
 
             </div>
 
+
+            <!-- DATE -->
 
             <div class="form-group">
 
@@ -1672,13 +2137,16 @@ tbody tr:hover{
             </div>
 
 
+            <!-- MODE -->
+
             <div class="form-group">
 
                 <label>
                     Payment Mode
                 </label>
 
-                <select id="paymentMode">
+                <select
+                    id="paymentMode">
 
                     <option value="Cash">
                         Cash
@@ -1701,13 +2169,16 @@ tbody tr:hover{
             </div>
 
 
+            <!-- STATUS -->
+
             <div class="form-group">
 
                 <label>
                     Status
                 </label>
 
-                <select id="paymentStatus">
+                <select
+                    id="paymentStatus">
 
                     <option value="Paid">
                         Paid
@@ -1725,6 +2196,8 @@ tbody tr:hover{
 
             </div>
 
+
+            <!-- REMARK -->
 
             <div class="form-group full">
 
@@ -1808,9 +2281,12 @@ const $ =
 id =>
 document.getElementById(id);
 
+
 let students = [];
 
 let payments = [];
+
+let yearPayments = [];
 
 let currentMonth =
 new Date().getMonth() + 1;
@@ -1891,14 +2367,22 @@ function formatDate(value){
     if(!value)
         return "-";
 
+
     const d =
     new Date(value);
+
 
     if(isNaN(d))
         return value;
 
+
     return d.toLocaleDateString(
-        "en-IN"
+        "en-IN",
+        {
+            day:"2-digit",
+            month:"short",
+            year:"numeric"
+        }
     );
 
 }
@@ -1921,7 +2405,7 @@ function getMonthName(month){
 
 
 /* =========================================================
-   MONTH / YEAR
+   SETUP MONTH/YEAR
 ========================================================= */
 
 function setupMonthYear(){
@@ -1931,9 +2415,10 @@ function setupMonthYear(){
 
     month.innerHTML = "";
 
+
     for(
-        let i = 1;
-        i <= 12;
+        let i=1;
+        i<=12;
         i++
     ){
 
@@ -1942,14 +2427,24 @@ function setupMonthYear(){
             "option"
         );
 
+
         option.value =
         i;
+
 
         option.textContent =
         getMonthName(i);
 
-        if(i === currentMonth)
-            option.selected = true;
+
+        if(
+            i === currentMonth
+        ){
+
+            option.selected =
+            true;
+
+        }
+
 
         month.appendChild(
             option
@@ -1963,9 +2458,10 @@ function setupMonthYear(){
 
     year.innerHTML = "";
 
+
     for(
-        let y = currentYear - 2;
-        y <= currentYear + 2;
+        let y=currentYear-2;
+        y<=currentYear+2;
         y++
     ){
 
@@ -1974,14 +2470,24 @@ function setupMonthYear(){
             "option"
         );
 
+
         option.value =
         y;
+
 
         option.textContent =
         y;
 
-        if(y === currentYear)
-            option.selected = true;
+
+        if(
+            y === currentYear
+        ){
+
+            option.selected =
+            true;
+
+        }
+
 
         year.appendChild(
             option
@@ -1989,8 +2495,15 @@ function setupMonthYear(){
 
     }
 
+
+    updateTableTitle();
+
 }
 
+
+/* =========================================================
+   MONTH CHANGE
+========================================================= */
 
 $("monthSelect")
 .addEventListener(
@@ -2000,11 +2513,17 @@ $("monthSelect")
         currentMonth =
         Number(this.value);
 
+        updateTableTitle();
+
         await loadPayments();
 
     }
 );
 
+
+/* =========================================================
+   YEAR CHANGE
+========================================================= */
 
 $("yearSelect")
 .addEventListener(
@@ -2014,10 +2533,40 @@ $("yearSelect")
         currentYear =
         Number(this.value);
 
+        updateTableTitle();
+
         await loadPayments();
+
+        await loadYearOverview();
 
     }
 );
+
+
+/* =========================================================
+   TABLE TITLE
+========================================================= */
+
+function updateTableTitle(){
+
+    $("tableTitle")
+    .textContent =
+    getMonthName(
+        currentMonth
+    )
+    +
+    " "
+    +
+    currentYear
+    +
+    " - Dance Fees";
+
+
+    $("overviewYear")
+    .textContent =
+    currentYear;
+
+}
 
 
 /* =========================================================
@@ -2045,6 +2594,7 @@ async function checkSession(){
         return false;
 
     }
+
 
     return true;
 
@@ -2081,20 +2631,88 @@ async function loadStudents(){
     students =
     (data || [])
     .filter(
-        student =>
-        String(
-            student.status ||
-            "Active"
-        ).toLowerCase()
-        ===
-        "active"
+        student => {
+
+            const status =
+            String(
+                student.status ||
+                "Active"
+            )
+            .toLowerCase();
+
+
+            return (
+                status === "active"
+            );
+
+        }
+    );
+
+
+    loadStudentDropdown();
+
+}
+
+
+/* =========================================================
+   LOAD STUDENT DROPDOWN
+========================================================= */
+
+function loadStudentDropdown(){
+
+    const select =
+    $("studentSelect");
+
+
+    select.innerHTML = `
+
+        <option value="">
+            Select Dance Student
+        </option>
+
+    `;
+
+
+    students.forEach(
+        student => {
+
+            const option =
+            document.createElement(
+                "option"
+            );
+
+
+            option.value =
+            String(
+                student.id
+            );
+
+
+            option.textContent =
+            student.name
+            +
+            (
+                student.batch
+                ?
+                " — " +
+                student.batch
+                :
+                ""
+            );
+
+
+            select.appendChild(
+                option
+            );
+
+        }
     );
 
 }
 
 
 /* =========================================================
-   LOAD PAYMENTS
+   LOAD SELECTED MONTH PAYMENTS
 ========================================================= */
 
 async function loadPayments(){
@@ -2134,7 +2752,41 @@ async function loadPayments(){
 
 
 /* =========================================================
-   GET PAYMENT
+   LOAD FULL YEAR PAYMENTS
+========================================================= */
+
+async function loadYearOverview(){
+
+    const {
+        data,
+        error
+    } =
+    await db
+    .from(
+        "dance_fee_collections"
+    )
+    .select("*")
+    .eq(
+        "fee_year",
+        currentYear
+    );
+
+
+    if(error)
+        throw error;
+
+
+    yearPayments =
+    data || [];
+
+
+    renderYearOverview();
+
+}
+
+
+/* =========================================================
+   GET CURRENT PAYMENT
 ========================================================= */
 
 function getPayment(studentId){
@@ -2145,7 +2797,9 @@ function getPayment(studentId){
             payment.student_id
         )
         ===
-        String(studentId)
+        String(
+            studentId
+        )
     );
 
 }
@@ -2193,7 +2847,25 @@ function updateStats(){
 
     const pending =
     Math.max(
-        expected - collected,
+        expected -
+        collected,
+        0
+    );
+
+
+    const yearTotal =
+    yearPayments.reduce(
+        (
+            total,
+            payment
+        ) => {
+
+            return total +
+            Number(
+                payment.amount_paid || 0
+            );
+
+        },
         0
     );
 
@@ -2205,23 +2877,36 @@ function updateStats(){
 
     $("expectedAmount")
     .textContent =
-    money(expected);
+    money(
+        expected
+    );
 
 
     $("collectedAmount")
     .textContent =
-    money(collected);
+    money(
+        collected
+    );
 
 
     $("pendingAmount")
     .textContent =
-    money(pending);
+    money(
+        pending
+    );
+
+
+    $("yearTotal")
+    .textContent =
+    money(
+        yearTotal
+    );
 
 }
 
 
 /* =========================================================
-   RENDER TABLE
+   RENDER MONTH TABLE
 ========================================================= */
 
 function renderTable(){
@@ -2253,7 +2938,9 @@ function renderTable(){
                         student.name || ""
                     )
                     .toLowerCase()
-                    .includes(query)
+                    .includes(
+                        query
+                    )
 
                     ||
 
@@ -2261,7 +2948,9 @@ function renderTable(){
                         student.father_name || ""
                     )
                     .toLowerCase()
-                    .includes(query)
+                    .includes(
+                        query
+                    )
 
                     ||
 
@@ -2269,7 +2958,9 @@ function renderTable(){
                         student.mobile || ""
                     )
                     .toLowerCase()
-                    .includes(query)
+                    .includes(
+                        query
+                    )
 
                     ||
 
@@ -2277,7 +2968,9 @@ function renderTable(){
                         student.batch || ""
                     )
                     .toLowerCase()
-                    .includes(query)
+                    .includes(
+                        query
+                    )
 
                 );
 
@@ -2320,6 +3013,7 @@ function renderTable(){
     list.map(
         student => {
 
+
             const payment =
             getPayment(
                 student.id
@@ -2344,7 +3038,8 @@ function renderTable(){
 
             const balance =
             Math.max(
-                monthlyFee - paid,
+                monthlyFee -
+                paid,
                 0
             );
 
@@ -2374,7 +3069,8 @@ function renderTable(){
 
             const initial =
             String(
-                student.name || "S"
+                student.name ||
+                "S"
             )
             .trim()
             .charAt(0)
@@ -2385,13 +3081,16 @@ function renderTable(){
 
             <tr>
 
+
                 <td>
 
                     <div class="student-cell">
 
                         <div class="avatar">
 
-                            ${escapeHTML(initial)}
+                            ${escapeHTML(
+                                initial
+                            )}
 
                         </div>
 
@@ -2448,7 +3147,9 @@ function renderTable(){
 
                     <span class="fee">
 
-                        ${money(monthlyFee)}
+                        ${money(
+                            monthlyFee
+                        )}
 
                     </span>
 
@@ -2459,7 +3160,9 @@ function renderTable(){
 
                     <span class="paid-money">
 
-                        ${money(paid)}
+                        ${money(
+                            paid
+                        )}
 
                     </span>
 
@@ -2476,7 +3179,9 @@ function renderTable(){
                         "paid-money"
                     }">
 
-                        ${money(balance)}
+                        ${money(
+                            balance
+                        )}
 
                     </span>
 
@@ -2533,11 +3238,14 @@ function renderTable(){
 
                     <div class="action-group">
 
+
                         <button
                             class="collect-btn"
-                            onclick="openPaymentModal(
-                                '${student.id}'
-                            )">
+                            onclick='openPaymentModal(${JSON.stringify(
+                                String(
+                                    student.id
+                                )
+                            )})'>
 
                             ${
                                 payment
@@ -2556,9 +3264,11 @@ function renderTable(){
                             `
                             <button
                                 class="view-btn"
-                                onclick="deletePayment(
-                                    '${payment.id}'
-                                )">
+                                onclick='deletePayment(${JSON.stringify(
+                                    String(
+                                        payment.id
+                                    )
+                                )})'>
 
                                 Delete
 
@@ -2568,9 +3278,11 @@ function renderTable(){
                             ""
                         }
 
+
                     </div>
 
                 </td>
+
 
             </tr>
 
@@ -2595,35 +3307,58 @@ $("searchInput")
 
 
 /* =========================================================
-   OPEN PAYMENT MODAL
+   STUDENT DROPDOWN CHANGE
 ========================================================= */
 
-function openPaymentModal(studentId){
+$("studentSelect")
+.addEventListener(
+    "change",
+    async function(){
+
+        const studentId =
+        this.value;
+
+
+        if(!studentId){
+
+            clearPaymentForm();
+
+            return;
+
+        }
+
+
+        await selectStudentForPayment(
+            studentId
+        );
+
+    }
+);
+
+
+/* =========================================================
+   SELECT STUDENT
+========================================================= */
+
+async function selectStudentForPayment(
+    studentId
+){
 
     const student =
     students.find(
         item =>
-        String(item.id)
+        String(
+            item.id
+        )
         ===
-        String(studentId)
+        String(
+            studentId
+        )
     );
 
 
     if(!student)
         return;
-
-
-    const payment =
-    getPayment(studentId);
-
-
-    $("paymentId")
-    .value =
-    payment
-    ?
-    payment.id
-    :
-    "";
 
 
     $("paymentStudentId")
@@ -2633,17 +3368,26 @@ function openPaymentModal(studentId){
 
     $("infoStudent")
     .textContent =
-    student.name;
+    student.name ||
+    "-";
 
 
-    $("infoMonth")
+    $("infoFather")
     .textContent =
-    getMonthName(
-        currentMonth
-    )
-    +
-    " " +
-    currentYear;
+    student.father_name ||
+    "-";
+
+
+    $("infoMobile")
+    .textContent =
+    student.mobile ||
+    "-";
+
+
+    $("infoBatch")
+    .textContent =
+    student.batch ||
+    "-";
 
 
     $("infoFee")
@@ -2653,68 +3397,171 @@ function openPaymentModal(studentId){
     );
 
 
-    $("amountPaid")
-    .value =
-    payment
-    ?
-    payment.amount_paid
-    :
-    student.monthly_fee || "";
-
-
-    $("paymentDate")
-    .value =
-    payment
-    ?
-    payment.payment_date || today()
-    :
-    today();
-
-
-    $("paymentMode")
-    .value =
-    payment
-    ?
-    payment.payment_mode || "Cash"
-    :
-    "Cash";
-
-
-    $("paymentStatus")
-    .value =
-    payment
-    ?
-    payment.status || "Paid"
-    :
-    "Paid";
-
-
-    $("remark")
-    .value =
-    payment
-    ?
-    payment.remark || ""
-    :
-    "";
-
-
-    $("modalTitle")
+    $("infoMonth")
     .textContent =
-    payment
-    ?
-    "Edit Dance Fee"
-    :
-    "Collect Dance Fee";
+    getMonthName(
+        currentMonth
+    )
+    +
+    " "
+    +
+    currentYear;
 
 
-    $("saveBtn")
-    .textContent =
-    payment
-    ?
-    "Update Payment"
-    :
-    "Save Payment";
+    /* =====================================================
+       CHECK EXISTING PAYMENT FOR THIS EXACT MONTH
+    ===================================================== */
 
+    const {
+        data,
+        error
+    } =
+    await db
+    .from(
+        "dance_fee_collections"
+    )
+    .select("*")
+    .eq(
+        "student_id",
+        String(
+            student.id
+        )
+    )
+    .eq(
+        "fee_month",
+        currentMonth
+    )
+    .eq(
+        "fee_year",
+        currentYear
+    )
+    .maybeSingle();
+
+
+    if(error){
+
+        console.error(
+            error
+        );
+
+        return;
+
+    }
+
+
+    if(data){
+
+        /* EXISTING MONTH PAYMENT */
+
+        $("paymentId")
+        .value =
+        data.id;
+
+
+        $("amountPaid")
+        .value =
+        data.amount_paid
+        ||
+        "";
+
+
+        $("paymentDate")
+        .value =
+        data.payment_date
+        ||
+        today();
+
+
+        $("paymentMode")
+        .value =
+        data.payment_mode
+        ||
+        "Cash";
+
+
+        $("paymentStatus")
+        .value =
+        data.status
+        ||
+        "Paid";
+
+
+        $("remark")
+        .value =
+        data.remark
+        ||
+        "";
+
+
+        $("modalTitle")
+        .textContent =
+        "Edit Dance Fee";
+
+
+        $("saveBtn")
+        .textContent =
+        "Update Payment";
+
+    }
+    else{
+
+        /* NEW MONTH */
+
+        $("paymentId")
+        .value =
+        "";
+
+
+        /*
+           IMPORTANT:
+           Amount intentionally EMPTY.
+           User will enter actual amount.
+        */
+
+        $("amountPaid")
+        .value =
+        "";
+
+
+        $("paymentDate")
+        .value =
+        today();
+
+
+        $("paymentMode")
+        .value =
+        "Cash";
+
+
+        $("paymentStatus")
+        .value =
+        "Paid";
+
+
+        $("remark")
+        .value =
+        "";
+
+
+        $("modalTitle")
+        .textContent =
+        "Collect Dance Fee";
+
+
+        $("saveBtn")
+        .textContent =
+        "Save Payment";
+
+    }
+
+}
+
+
+/* =========================================================
+   OPEN NEW PAYMENT
+========================================================= */
+
+function openNewPaymentModal(){
 
     $("feeModal")
     .classList.add(
@@ -2722,10 +3569,150 @@ function openPaymentModal(studentId){
     );
 
 
-    setTimeout(
-        () =>
-        $("amountPaid").focus(),
-        100
+    loadStudentDropdown();
+
+
+    clearPaymentForm();
+
+
+    $("infoMonth")
+    .textContent =
+    getMonthName(
+        currentMonth
+    )
+    +
+    " "
+    +
+    currentYear;
+
+
+    $("modalTitle")
+    .textContent =
+    "Collect Dance Fee";
+
+
+    $("saveBtn")
+    .textContent =
+    "Save Payment";
+
+}
+
+
+/* =========================================================
+   CLEAR FORM
+========================================================= */
+
+function clearPaymentForm(){
+
+    $("paymentId")
+    .value =
+    "";
+
+
+    $("paymentStudentId")
+    .value =
+    "";
+
+
+    $("studentSelect")
+    .value =
+    "";
+
+
+    $("infoStudent")
+    .textContent =
+    "-";
+
+
+    $("infoFather")
+    .textContent =
+    "-";
+
+
+    $("infoMobile")
+    .textContent =
+    "-";
+
+
+    $("infoBatch")
+    .textContent =
+    "-";
+
+
+    $("infoFee")
+    .textContent =
+    "₹0";
+
+
+    $("infoMonth")
+    .textContent =
+    getMonthName(
+        currentMonth
+    )
+    +
+    " "
+    +
+    currentYear;
+
+
+    /*
+       IMPORTANT:
+       No automatic amount.
+    */
+
+    $("amountPaid")
+    .value =
+    "";
+
+
+    $("paymentDate")
+    .value =
+    today();
+
+
+    $("paymentMode")
+    .value =
+    "Cash";
+
+
+    $("paymentStatus")
+    .value =
+    "Paid";
+
+
+    $("remark")
+    .value =
+    "";
+
+}
+
+
+/* =========================================================
+   OPEN EXISTING PAYMENT
+========================================================= */
+
+async function openPaymentModal(
+    studentId
+){
+
+    $("feeModal")
+    .classList.add(
+        "show"
+    );
+
+
+    loadStudentDropdown();
+
+
+    $("studentSelect")
+    .value =
+    String(
+        studentId
+    );
+
+
+    await selectStudentForPayment(
+        studentId
     );
 
 }
@@ -2752,24 +3739,95 @@ function closeModal(){
 async function savePayment(){
 
     const paymentId =
-    $("paymentId").value;
+    $("paymentId")
+    .value;
 
 
     const studentId =
-    $("paymentStudentId").value;
+    $("paymentStudentId")
+    .value;
+
+
+    if(!studentId){
+
+        alert(
+            "Please select a student."
+        );
+
+        return;
+
+    }
 
 
     const student =
     students.find(
         item =>
-        String(item.id)
+        String(
+            item.id
+        )
         ===
-        String(studentId)
+        String(
+            studentId
+        )
     );
 
 
-    if(!student)
+    if(!student){
+
+        alert(
+            "Student not found."
+        );
+
         return;
+
+    }
+
+
+    /* =====================================================
+       USER ENTERED AMOUNT
+    ===================================================== */
+
+    const amountInput =
+    $("amountPaid")
+    .value
+    .trim();
+
+
+    if(
+        amountInput === ""
+    ){
+
+        alert(
+            "Please enter paid amount."
+        );
+
+        $("amountPaid")
+        .focus();
+
+        return;
+
+    }
+
+
+    const amountPaid =
+    Number(
+        amountInput
+    );
+
+
+    if(
+        isNaN(amountPaid)
+        ||
+        amountPaid < 0
+    ){
+
+        alert(
+            "Please enter a valid amount."
+        );
+
+        return;
+
+    }
 
 
     const monthlyFee =
@@ -2778,72 +3836,65 @@ async function savePayment(){
     );
 
 
-    const amountPaid =
-    Number(
-        $("amountPaid")
-        .value || 0
-    );
-
-
     const paymentDate =
-    $("paymentDate").value;
+    $("paymentDate")
+    .value
+    ||
+    today();
 
 
     const paymentMode =
-    $("paymentMode").value;
-
-
-    let status =
-    $("paymentStatus").value;
+    $("paymentMode")
+    .value;
 
 
     const remark =
-    $("remark").value.trim();
+    $("remark")
+    .value
+    .trim();
 
 
-    if(amountPaid < 0){
+    /* =====================================================
+       AUTO STATUS BASED ON AMOUNT
+    ===================================================== */
 
-        alert(
-            "Amount cannot be negative."
-        );
+    let status;
 
-        return;
+
+    if(amountPaid === 0){
+
+        status =
+        "Pending";
 
     }
-
-
-    if(
-        amountPaid > 0 &&
-        amountPaid < monthlyFee
+    else if(
+        amountPaid <
+        monthlyFee
     ){
 
         status =
         "Partial";
 
     }
-    else if(
-        amountPaid >= monthlyFee &&
-        monthlyFee > 0
-    ){
+    else{
 
         status =
         "Paid";
 
     }
-    else if(
-        amountPaid === 0
-    ){
 
-        status =
-        "Pending";
 
-    }
+    $("paymentStatus")
+    .value =
+    status;
 
 
     const payload = {
 
         student_id:
-        student.id,
+        String(
+            student.id
+        ),
 
         student_name:
         student.name,
@@ -2861,7 +3912,7 @@ async function savePayment(){
         amountPaid,
 
         payment_date:
-        paymentDate || null,
+        paymentDate,
 
         payment_mode:
         paymentMode,
@@ -2896,6 +3947,10 @@ async function savePayment(){
         let result;
 
 
+        /* =================================================
+           UPDATE
+        ================================================= */
+
         if(paymentId){
 
             result =
@@ -2912,6 +3967,12 @@ async function savePayment(){
             );
 
         }
+
+
+        /* =================================================
+           INSERT
+        ================================================= */
+
         else{
 
             result =
@@ -2944,11 +4005,16 @@ async function savePayment(){
 
         await loadPayments();
 
+        await loadYearOverview();
+
+
+        updateStats();
+
     }
     catch(error){
 
         console.error(
-            "Save Dance Fee:",
+            "Dance Fee Error:",
             error
         );
 
@@ -2964,6 +4030,7 @@ async function savePayment(){
 
         button.disabled =
         false;
+
 
         button.textContent =
         paymentId
@@ -2981,11 +4048,13 @@ async function savePayment(){
    DELETE PAYMENT
 ========================================================= */
 
-async function deletePayment(id){
+async function deletePayment(
+    id
+){
 
     const yes =
     confirm(
-        "Delete this dance fee payment?"
+        "Delete this month's dance fee payment?"
     );
 
 
@@ -3020,6 +4089,10 @@ async function deletePayment(id){
 
         await loadPayments();
 
+        await loadYearOverview();
+
+        updateStats();
+
     }
     catch(error){
 
@@ -3035,6 +4108,128 @@ async function deletePayment(id){
         );
 
     }
+
+}
+
+
+/* =========================================================
+   YEAR OVERVIEW
+========================================================= */
+
+function renderYearOverview(){
+
+    const container =
+    $("yearOverview");
+
+
+    let grandTotal =
+    0;
+
+
+    let html = "";
+
+
+    for(
+        let month=1;
+        month<=12;
+        month++
+    ){
+
+        const monthPayments =
+        yearPayments.filter(
+            payment =>
+            Number(
+                payment.fee_month
+            )
+            ===
+            month
+        );
+
+
+        const collected =
+        monthPayments.reduce(
+            (
+                total,
+                payment
+            ) => {
+
+                return total +
+                Number(
+                    payment.amount_paid || 0
+                );
+
+            },
+            0
+        );
+
+
+        const count =
+        monthPayments.length;
+
+
+        grandTotal +=
+        collected;
+
+
+        html += `
+
+            <div class="year-card">
+
+                <div class="year-card-top">
+
+                    <div class="year-month">
+
+                        ${getMonthName(month)}
+
+                    </div>
+
+                    <div class="year-total">
+
+                        ${money(
+                            collected
+                        )}
+
+                    </div>
+
+                </div>
+
+
+                <div class="year-details">
+
+                    <span>
+                        ${count} payment
+                        ${count === 1 ? "" : "s"}
+                    </span>
+
+                    <span>
+                        ${currentYear}
+                    </span>
+
+                </div>
+
+            </div>
+
+        `;
+
+    }
+
+
+    container.innerHTML =
+    html;
+
+
+    $("overviewTotal")
+    .textContent =
+    money(
+        grandTotal
+    );
+
+
+    $("yearTotal")
+    .textContent =
+    money(
+        grandTotal
+    );
 
 }
 
@@ -3058,13 +4253,17 @@ function goDanceStudents(){
 let toastTimer;
 
 
-function showToast(message){
+function showToast(
+    message
+){
 
     const toast =
     $("toast");
 
+
     toast.textContent =
     message;
+
 
     toast.classList.add(
         "show"
@@ -3092,7 +4291,7 @@ function showToast(message){
 
 
 /* =========================================================
-   MODAL CLICK
+   MODAL OUTSIDE CLICK
 ========================================================= */
 
 $("feeModal")
@@ -3122,7 +4321,8 @@ document.addEventListener(
     function(event){
 
         if(
-            event.key === "Escape"
+            event.key ===
+            "Escape"
         ){
 
             closeModal();
@@ -3149,7 +4349,7 @@ async function logout(){
 
 
 /* =========================================================
-   AUTH
+   AUTH STATE
 ========================================================= */
 
 db.auth.onAuthStateChange(
@@ -3168,6 +4368,41 @@ db.auth.onAuthStateChange(
 
     }
 );
+
+
+/* =========================================================
+   LOAD ALL
+========================================================= */
+
+async function loadAll(){
+
+    try{
+
+        await loadStudents();
+
+        await loadPayments();
+
+        await loadYearOverview();
+
+        updateStats();
+
+    }
+    catch(error){
+
+        console.error(
+            error
+        );
+
+
+        alert(
+            "Unable to load Dance Fee data.\n\n"
+            +
+            error.message
+        );
+
+    }
+
+}
 
 
 /* =========================================================
@@ -3193,6 +4428,12 @@ db.auth.onAuthStateChange(
 
 
         await loadPayments();
+
+
+        await loadYearOverview();
+
+
+        updateStats();
 
 
         $("loading")
@@ -3225,4 +4466,5 @@ db.auth.onAuthStateChange(
 </script>
 
 </body>
+
 </html>
