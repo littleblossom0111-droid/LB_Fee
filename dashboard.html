@@ -16,10 +16,6 @@
 
 <style>
 
-/* =========================================================
-   ROOT
-========================================================= */
-
 :root{
 
     --pink:#ec4899;
@@ -680,20 +676,6 @@ button{
     place-items:center;
 
     font-size:18px;
-
-}
-
-
-/* DANCE QUICK ACTION */
-
-.action.dance-action .aicon{
-
-    background:
-    linear-gradient(
-        135deg,
-        #ecfeff,
-        #cffafe
-    );
 
 }
 
@@ -2247,27 +2229,6 @@ button{
         </button>
 
 
-        <!-- DANCE CLASSES -->
-
-        <button
-            class="action dance-action"
-            onclick="go('dance-classes.html')">
-
-            <div class="aicon">
-                💃
-            </div>
-
-            <b>
-                Dance Classes
-            </b>
-
-            <small>
-                Manage dance classes
-            </small>
-
-        </button>
-
-
         <!-- REFRESH -->
 
         <button
@@ -2987,8 +2948,6 @@ async function checkSession(){
 
 /* ============================================================
    PENDING FEES
-   IMPORTANT:
-   ONLY SELECTED MONTH
 ============================================================ */
 
 function calculatePending(
@@ -3003,10 +2962,6 @@ function calculatePending(
     students.forEach(
         student => {
 
-
-            /*
-             * Future students are excluded.
-             */
 
             if(
                 !studentAppliesToMonth(
@@ -3029,10 +2984,6 @@ function calculatePending(
             if(monthlyFee <= 0)
                 return;
 
-
-            /*
-             * ONLY selected month's payments.
-             */
 
             const paidThisMonth =
 
@@ -3109,17 +3060,9 @@ function calculatePending(
             );
 
 
-            /*
-             * ONLY THIS MONTH'S DUE
-             */
-
             const monthDue =
             monthlyFee;
 
-
-            /*
-             * MONTHLY PENDING
-             */
 
             const studentPending =
             Math.max(
@@ -3160,8 +3103,6 @@ async function loadDashboard(){
         selectedMonth;
 
 
-        /* LOAD DATA */
-
         const [
 
             students,
@@ -3198,10 +3139,6 @@ async function loadDashboard(){
         ]);
 
 
-        /* ====================================================
-           ACTIVE STUDENTS
-        ==================================================== */
-
         const activeStudents =
         students.filter(
             student => {
@@ -3214,10 +3151,6 @@ async function loadDashboard(){
             }
         );
 
-
-        /* ====================================================
-           CURRENT MONTH FEES
-        ==================================================== */
 
         const monthlyFees =
         fees.filter(
@@ -3241,10 +3174,6 @@ async function loadDashboard(){
         );
 
 
-        /* ====================================================
-           REGISTRATION
-        ==================================================== */
-
         const monthlyRegistration =
         registrations.filter(
             payment => {
@@ -3264,10 +3193,6 @@ async function loadDashboard(){
             }
         );
 
-
-        /* ====================================================
-           EXPENSES
-        ==================================================== */
 
         const monthlyExpenses =
         expenses.filter(
@@ -3289,10 +3214,6 @@ async function loadDashboard(){
         );
 
 
-        /* ====================================================
-           INVESTMENT
-        ==================================================== */
-
         const monthlyInvestments =
         investments.filter(
             investment => {
@@ -3312,10 +3233,6 @@ async function loadDashboard(){
             }
         );
 
-
-        /* ====================================================
-           STARTING / SURPLUS
-        ==================================================== */
 
         const monthlyAdjustments =
         adjustments.filter(
@@ -3361,10 +3278,6 @@ async function loadDashboard(){
         );
 
 
-        /* ====================================================
-           TOTALS
-        ==================================================== */
-
         const totalFees =
         sum(monthlyFees);
 
@@ -3389,10 +3302,6 @@ async function loadDashboard(){
         sum(monthlySurplus);
 
 
-        /* ====================================================
-           PENDING
-        ==================================================== */
-
         const pending =
         calculatePending(
             students,
@@ -3400,10 +3309,6 @@ async function loadDashboard(){
             selectedMonth
         );
 
-
-        /* ====================================================
-           PREVIOUS MONTH DATA
-        ==================================================== */
 
         function beforeSelectedMonth(row){
 
@@ -3496,10 +3401,6 @@ async function loadDashboard(){
         );
 
 
-        /* ====================================================
-           OPENING BALANCE
-        ==================================================== */
-
         const openingBalance =
 
         previousFees +
@@ -3514,10 +3415,6 @@ async function loadDashboard(){
 
         previousExpenses;
 
-
-        /* ====================================================
-           CLOSING BALANCE
-        ==================================================== */
 
         const closingBalance =
 
@@ -3535,10 +3432,6 @@ async function loadDashboard(){
 
         totalExpenses;
 
-
-        /* ====================================================
-           DISPLAY
-        ==================================================== */
 
         $("studentCount")
         .textContent =
@@ -3569,10 +3462,6 @@ async function loadDashboard(){
         .textContent =
         money(closingBalance);
 
-
-        /* ====================================================
-           FINANCIAL
-        ==================================================== */
 
         $("openingBalance")
         .textContent =
@@ -3613,10 +3502,6 @@ async function loadDashboard(){
         .textContent =
         money(closingBalance);
 
-
-        /* ====================================================
-           TRANSACTIONS
-        ==================================================== */
 
         showTransactions(
 
@@ -3706,8 +3591,6 @@ function showTransactions(
     }
 
 
-    /* FEES */
-
     fees.forEach(
         payment => {
 
@@ -3742,8 +3625,6 @@ function showTransactions(
     );
 
 
-    /* REGISTRATION */
-
     registrations.forEach(
         payment => {
 
@@ -3775,8 +3656,6 @@ function showTransactions(
         }
     );
 
-
-    /* INVESTMENT */
 
     investments.forEach(
         investment => {
@@ -3811,8 +3690,6 @@ function showTransactions(
         }
     );
 
-
-    /* STARTING / SURPLUS */
 
     adjustments.forEach(
         adjustment => {
@@ -3866,8 +3743,6 @@ function showTransactions(
     );
 
 
-    /* EXPENSES */
-
     expenses.forEach(
         expense => {
 
@@ -3898,8 +3773,6 @@ function showTransactions(
         }
     );
 
-
-    /* SORT */
 
     transactions.sort(
         (a,b) => {
