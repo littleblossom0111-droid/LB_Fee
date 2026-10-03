@@ -772,6 +772,7 @@ supabase.createClient(
 let expenses = [];
 
 let editingId = null;
+let isAdmin = false;
 
 
 /* =========================================
@@ -809,6 +810,14 @@ async function checkLogin(){
 
     }
 
+    const { data: roleData } =
+        await supabaseClient
+            .from("user_roles")
+            .select("role")
+            .eq("user_id", data.session.user.id)
+            .maybeSingle();
+
+    isAdmin = roleData?.role === "admin";
 
     return true;
 
@@ -1148,6 +1157,11 @@ async function saveExpense(){
 
 function editExpense(id){
 
+    if(!isAdmin){
+        showMessage("Only Admin can edit expense records.", "error");
+        return;
+    }
+
     const expense =
         expenses.find(
             item =>
@@ -1245,6 +1259,11 @@ function editExpense(id){
 ========================================= */
 
 async function deleteExpense(id){
+
+    if(!isAdmin){
+        showMessage("Only Admin can delete expense records.", "error");
+        return;
+    }
 
     const confirmed =
         confirm(
@@ -1663,6 +1682,7 @@ function renderHistory(){
 
                     <td class="action">
 
+${isAdmin ? `
                         <button
                             class="edit"
                             onclick="editExpense(
@@ -1685,6 +1705,7 @@ function renderHistory(){
                         >
                             Delete
                         </button>
+                        ` : ""}
 
                     </td>
 
