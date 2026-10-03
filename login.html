@@ -885,24 +885,6 @@ async function loginUser(event){
         }
 
 
-        /* EMAIL VERIFICATION CHECK */
-
-        if(!data.user.email_confirmed_at){
-
-            await supabaseClient.auth.signOut();
-
-            localStorage.setItem(
-                "lb_pending_signup_email",
-                data.user.email || email
-            );
-
-            throw new Error(
-                "Please verify your email with the verification code before login."
-            );
-
-        }
-
-
         /* GET ACTUAL ROLE */
 
         const {
@@ -1098,21 +1080,39 @@ async function signupUser(event){
         }
 
 
-        /* ALWAYS VERIFY EMAIL BEFORE LOGIN */
+        /* CREATE NORMAL USER ROLE AFTER SUCCESSFUL SIGNUP */
 
-        localStorage.setItem(
-            "lb_pending_signup_email",
-            data.user?.email || email
-        );
+        const { error: roleError } =
+            await supabaseClient
+            .from("user_roles")
+            .upsert(
+                {
+                    user_id: data.user.id,
+                    role: "user"
+                },
+                {
+                    onConflict: "user_id"
+                }
+            );
 
-        /* Remove any temporary auth session.
-           The account must be verified before normal login. */
-        if(data.session){
+        if(roleError){
+
+            console.error(roleError);
+
             await supabaseClient.auth.signOut();
+
+            throw new Error(
+                "Account was created, but user permission could not be saved. Please contact admin."
+            );
+
         }
 
+        /* Signup is complete. Keep the user logged out.
+           They must now login with email + password. */
+        await supabaseClient.auth.signOut();
+
         showMessage(
-            "Verification code sent to your email. Please enter the code.",
+            "Account created successfully. Please login with your email and password.",
             "success"
         );
 
@@ -1121,12 +1121,9 @@ async function signupUser(event){
         button.textContent =
             "Create Account";
 
-        setTimeout(function(){
-
-            window.location.href =
-                "verify-email.html";
-
-        },700);
+        document.getElementById("signupEmail").value = "";
+        document.getElementById("signupPassword").value = "";
+        document.getElementById("signupConfirm").value = "";
 
 
     }
