@@ -885,6 +885,24 @@ async function loginUser(event){
         }
 
 
+        /* EMAIL VERIFICATION CHECK */
+
+        if(!data.user.email_confirmed_at){
+
+            await supabaseClient.auth.signOut();
+
+            localStorage.setItem(
+                "lb_pending_signup_email",
+                data.user.email || email
+            );
+
+            throw new Error(
+                "Please verify your email with the verification code before login."
+            );
+
+        }
+
+
         /* GET ACTUAL ROLE */
 
         const {
@@ -1080,37 +1098,21 @@ async function signupUser(event){
         }
 
 
+        /* ALWAYS VERIFY EMAIL BEFORE LOGIN */
+
+        localStorage.setItem(
+            "lb_pending_signup_email",
+            data.user?.email || email
+        );
+
+        /* Remove any temporary auth session.
+           The account must be verified before normal login. */
         if(data.session){
-
-            showMessage(
-                "Account created successfully. Opening your dashboard...",
-                "success"
-            );
-
-            sessionStorage.setItem(
-                "lb_role",
-                "user"
-            );
-
-            sessionStorage.setItem(
-                "lb_user_email",
-                data.user?.email || email
-            );
-
-            setTimeout(function(){
-
-                window.location.href =
-                    "dashboard.html";
-
-            },700);
-
-            return;
-
+            await supabaseClient.auth.signOut();
         }
 
-
         showMessage(
-            "Account created successfully. Please verify your email, then login.",
+            "Verification code sent to your email. Please enter the code.",
             "success"
         );
 
@@ -1118,6 +1120,13 @@ async function signupUser(event){
 
         button.textContent =
             "Create Account";
+
+        setTimeout(function(){
+
+            window.location.href =
+                "verify-email.html";
+
+        },700);
 
 
     }
