@@ -3012,7 +3012,18 @@ async function saveStudent(){
 
     try{
 
+        const { data: authData } =
+        await db.auth.getUser();
+
+        if(!authData.user){
+            location.href = "login.html";
+            return;
+        }
+
         const payload = {
+
+            user_id:
+            authData.user.id,
 
             name:
             name,
