@@ -972,7 +972,9 @@ async function loginUser(event){
         setTimeout(function(){
 
             window.location.href =
-                "dashboard.html";
+                loginMode === "admin"
+                ? "admin-users.html"
+                : "dashboard.html";
 
         },500);
 
@@ -1112,7 +1114,7 @@ async function signupUser(event){
         await supabaseClient.auth.signOut();
 
         showMessage(
-            "Account created successfully. Please login with your email and password.",
+            "Create Successful ✓",
             "success"
         );
 
@@ -1121,9 +1123,18 @@ async function signupUser(event){
         button.textContent =
             "Create Account";
 
-        document.getElementById("signupEmail").value = "";
         document.getElementById("signupPassword").value = "";
         document.getElementById("signupConfirm").value = "";
+
+        setTimeout(function(){
+            document.getElementById("signupArea").style.display = "none";
+            document.getElementById("loginArea").style.display = "block";
+            document.getElementById("loginTitle").textContent = "User Login";
+            document.getElementById("loginIcon").textContent = "👤";
+            document.getElementById("loginEmail").value = email;
+            document.getElementById("loginPassword").focus();
+            showMessage("Account created successfully. Login now.", "success");
+        }, 900);
 
 
     }
