@@ -1058,6 +1058,11 @@ async function saveExpense(){
 
         if(editingId){
 
+            if(!isAdmin){
+                showMessage("Only Admin can edit expense records.", "error");
+                return;
+            }
+
             const result =
                 await supabaseClient
                 .from("expenses")
