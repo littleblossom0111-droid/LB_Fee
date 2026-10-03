@@ -756,6 +756,15 @@ async function checkLogin(){
         return false;
     }
 
+    const { data: roleData } =
+        await supabaseClient
+            .from("user_roles")
+            .select("role")
+            .eq("user_id", session.user.id)
+            .maybeSingle();
+
+    isAdmin = roleData?.role === "admin";
+
 
     return true;
 }
