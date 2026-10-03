@@ -3,854 +3,391 @@
 <head>
 
 <meta charset="UTF-8">
-
 <meta name="viewport"
-      content="width=device-width,
-               initial-scale=1.0,
-               maximum-scale=1.0,
-               user-scalable=no">
+      content="width=device-width, initial-scale=1.0">
 
-<title>Little Blossoms</title>
+<title>Little Blossoms | Login</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
 
-/* =====================================================
-   RESET
-===================================================== */
-
 *{
-    margin:0;
-    padding:0;
     box-sizing:border-box;
-    font-family:Arial, Helvetica, sans-serif;
-}
-
-html,
-body{
-    width:100%;
-    height:100%;
     margin:0;
     padding:0;
-    overflow:hidden;
 }
-
-
-/* =====================================================
-   BACKGROUND
-===================================================== */
 
 body{
-    position:relative;
-    background:#000;
-}
+    min-height:100vh;
+    font-family:Arial, Helvetica, sans-serif;
 
-
-/* =====================================================
-   FULL SCREEN BABY PHOTO
-===================================================== */
-
-.background-image{
-
-    position:fixed;
-
-    top:0;
-    left:0;
-
-    width:100vw;
-    height:100dvh;
-
-    /*
-       Full screen.
-       No duplicate strip.
-    */
-
-    object-fit:cover;
-
-    object-position:center center;
-
-    display:block;
-
-    z-index:1;
-}
-
-
-/* =====================================================
-   SOFT OVERLAY
-===================================================== */
-
-.background-overlay{
-
-    position:fixed;
-
-    inset:0;
+    display:flex;
+    justify-content:center;
+    align-items:center;
 
     background:
         linear-gradient(
-            to bottom,
-            rgba(0,0,0,.04) 0%,
-            rgba(0,0,0,0) 45%,
-            rgba(0,0,0,.12) 70%,
-            rgba(0,0,0,.38) 100%
-        );
+            rgba(255,255,255,0.35),
+            rgba(255,255,255,0.35)
+        ),
+        url("daivik1.png");
 
-    z-index:2;
+    background-size:cover;
+    background-position:center;
 
-    pointer-events:none;
+    padding:20px;
 }
 
+/* MAIN CARD */
 
-/* =====================================================
-   HOME SCREEN
-===================================================== */
-
-.home-screen{
-
-    position:fixed;
-
-    inset:0;
-
+.login-container{
     width:100%;
-    height:100%;
+    max-width:430px;
 
-    z-index:3;
+    background:rgba(255,255,255,0.96);
 
-    pointer-events:none;
-}
+    border-radius:24px;
 
-
-/* =====================================================
-   CENTER BRAND
-===================================================== */
-
-.brand-area{
-
-    position:absolute;
-
-    left:50%;
-    top:50%;
-
-    transform:
-        translate(-50%,-50%);
-
-    width:92%;
-
-    text-align:center;
-
-    color:white;
-
-    /*
-       Small shadow so text stays readable
-       over the baby photo.
-    */
-
-    text-shadow:
-        0 2px 10px rgba(0,0,0,.65);
-
-    pointer-events:none;
-}
-
-
-/* =====================================================
-   LITTLE BLOSSOMS
-===================================================== */
-
-.brand-title{
-
-    font-size:26px;
-
-    font-weight:600;
-
-    letter-spacing:.6px;
-
-    line-height:1.25;
-
-    white-space:nowrap;
-}
-
-
-/* =====================================================
-   SUBTITLE
-===================================================== */
-
-.brand-subtitle{
-
-    margin-top:9px;
-
-    font-size:14px;
-
-    font-weight:400;
-
-    letter-spacing:1.2px;
-
-    opacity:.97;
-}
-
-
-/* =====================================================
-   LOGIN BUTTON
-===================================================== */
-
-.open-login{
-
-    position:absolute;
-
-    left:50%;
-
-    top:calc(50% + 82px);
-
-    transform:translateX(-50%);
-
-    width:180px;
-
-    height:45px;
-
-    border:
-
-        1px solid
-        rgba(255,255,255,.7);
-
-    border-radius:30px;
-
-    color:white;
-
-    font-size:14px;
-
-    font-weight:600;
-
-    letter-spacing:.3px;
-
-    background:
-        rgba(30,30,35,.48);
-
-    backdrop-filter:blur(12px);
-
-    -webkit-backdrop-filter:blur(12px);
+    padding:30px 25px;
 
     box-shadow:
-        0 8px 25px
-        rgba(0,0,0,.30);
+        0 25px 70px rgba(0,0,0,0.20);
 
-    cursor:pointer;
-
-    pointer-events:auto;
-
-    transition:.25s;
+    backdrop-filter:blur(10px);
 }
 
-
-.open-login:hover{
-
-    background:
-        rgba(30,30,35,.62);
-
-    transform:
-        translateX(-50%)
-        translateY(-2px);
-}
-
-
-.open-login:active{
-
-    transform:
-        translateX(-50%)
-        scale(.97);
-}
-
-
-/* =====================================================
-   LOGIN MODAL
-===================================================== */
-
-.login-modal{
-
-    position:fixed;
-
-    inset:0;
-
-    width:100%;
-    height:100%;
-
-    z-index:20;
-
-    display:none;
-
-    align-items:center;
-
-    justify-content:center;
-
-    padding:15px;
-
-    background:
-        rgba(0,0,0,.28);
-
-    backdrop-filter:blur(4px);
-
-    -webkit-backdrop-filter:blur(4px);
-}
-
-
-.login-modal.show{
-
-    display:flex;
-}
-
-
-/* =====================================================
-   LOGIN CARD
-===================================================== */
-
-.login-card{
-
-    position:relative;
-
-    width:min(420px,94vw);
-
-    max-height:
-        calc(100dvh - 30px);
-
-    overflow-y:auto;
-
-    padding:
-        28px 25px 23px;
-
-    border-radius:28px;
-
-    background:
-        rgba(255,255,255,.88);
-
-    border:
-        1px solid
-        rgba(255,255,255,.9);
-
-    backdrop-filter:blur(18px);
-
-    -webkit-backdrop-filter:blur(18px);
-
-    box-shadow:
-        0 25px 70px
-        rgba(0,0,0,.35);
-
-    animation:
-        cardOpen .3s ease;
-
-    scrollbar-width:none;
-}
-
-
-.login-card::-webkit-scrollbar{
-    display:none;
-}
-
-
-/* =====================================================
-   CARD ANIMATION
-===================================================== */
-
-@keyframes cardOpen{
-
-    from{
-
-        opacity:0;
-
-        transform:
-            translateY(25px)
-            scale(.96);
-    }
-
-    to{
-
-        opacity:1;
-
-        transform:
-            translateY(0)
-            scale(1);
-    }
-}
-
-
-/* =====================================================
-   CLOSE BUTTON
-===================================================== */
-
-.close-btn{
-
-    position:absolute;
-
-    top:12px;
-    right:14px;
-
-    width:35px;
-    height:35px;
-
-    border:0;
-
-    border-radius:50%;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    background:
-        rgba(0,0,0,.07);
-
-    color:#555;
-
-    font-size:23px;
-
-    cursor:pointer;
-}
-
-
-/* =====================================================
-   LOGO
-===================================================== */
+/* LOGO */
 
 .logo{
+    text-align:center;
+    margin-bottom:18px;
+}
 
-    width:68px;
-    height:68px;
+.logo-icon{
+    width:70px;
+    height:70px;
 
-    margin:
-        3px auto 13px;
+    margin:auto;
 
     border-radius:50%;
 
     display:flex;
-
     align-items:center;
-
     justify-content:center;
 
-    color:white;
-
-    font-size:27px;
-
-    font-weight:bold;
+    font-size:34px;
 
     background:
         linear-gradient(
             135deg,
-            #ff4ca0,
-            #ad69e9,
-            #42bdf3
+            #ec4899,
+            #8b5cf6
         );
 
-    border:
-        3px solid
-        rgba(255,255,255,.9);
-
     box-shadow:
-        0 8px 25px
-        rgba(220,70,170,.35);
+        0 10px 25px rgba(139,92,246,0.30);
 }
 
+.logo h1{
+    margin-top:12px;
 
-/* =====================================================
-   CARD TITLE
-===================================================== */
-
-.login-card h1{
-
-    text-align:center;
+    font-size:25px;
 
     color:#222;
-
-    font-size:26px;
 }
 
-
-.subtitle{
-
-    text-align:center;
-
-    color:#666;
-
-    margin:
-        6px 0 18px;
-
-    font-size:15px;
-}
-
-
-/* =====================================================
-   LOGIN / SIGNUP TABS
-===================================================== */
-
-.tabs{
-
-    display:flex;
-
-    gap:6px;
-
-    padding:5px;
-
-    margin-bottom:18px;
-
-    border-radius:14px;
-
-    background:
-        rgba(0,0,0,.06);
-}
-
-
-.tab{
-
-    flex:1;
-
-    border:0;
-
-    padding:10px 8px;
-
-    border-radius:10px;
-
-    background:transparent;
+.logo p{
+    margin-top:5px;
 
     color:#777;
 
+    font-size:13px;
+}
+
+/* TABS */
+
+.tabs{
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    background:#f3f4f6;
+
+    border-radius:13px;
+
+    padding:4px;
+
+    margin:25px 0 20px;
+}
+
+.tab{
+    border:0;
+
+    background:transparent;
+
+    padding:11px;
+
+    border-radius:10px;
+
     font-size:14px;
 
-    font-weight:bold;
+    font-weight:700;
+
+    color:#777;
 
     cursor:pointer;
 }
 
-
 .tab.active{
+    background:white;
 
+    color:#8b5cf6;
+
+    box-shadow:
+        0 3px 10px rgba(0,0,0,0.08);
+}
+
+/* FORM */
+
+.form-group{
+    margin-bottom:16px;
+}
+
+.form-group label{
+    display:block;
+
+    margin-bottom:7px;
+
+    font-size:13px;
+
+    font-weight:700;
+
+    color:#333;
+}
+
+.form-group input{
+    width:100%;
+
+    padding:13px 14px;
+
+    border:1px solid #ddd;
+
+    border-radius:12px;
+
+    outline:none;
+
+    font-size:14px;
+
+    transition:0.2s;
+}
+
+.form-group input:focus{
+    border-color:#8b5cf6;
+
+    box-shadow:
+        0 0 0 3px rgba(139,92,246,0.10);
+}
+
+/* LOGIN ROLE */
+
+.login-role{
+    margin-top:4px;
+
+    margin-bottom:17px;
+}
+
+.login-role label{
+    display:block;
+
+    margin-bottom:8px;
+
+    font-size:13px;
+
+    font-weight:700;
+
+    color:#333;
+}
+
+.role-options{
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:9px;
+}
+
+.role-option{
+    border:1px solid #e2e2e2;
+
+    background:#fafafa;
+
+    color:#666;
+
+    border-radius:12px;
+
+    padding:12px 8px;
+
+    font-size:13px;
+
+    font-weight:700;
+
+    cursor:pointer;
+
+    transition:0.2s;
+}
+
+.role-option:hover{
+    border-color:#c4b5fd;
+}
+
+.role-option.active{
     color:white;
+
+    border-color:#8b5cf6;
 
     background:
         linear-gradient(
             135deg,
-            #ff4298,
-            #ff7864
+            #ec4899,
+            #8b5cf6
         );
-}
-
-
-/* =====================================================
-   FORM
-===================================================== */
-
-.form-box{
-    display:none;
-}
-
-
-.form-box.active{
-    display:block;
-}
-
-
-label{
-
-    display:block;
-
-    margin:
-        13px 0 7px;
-
-    color:#333;
-
-    font-size:14px;
-
-    font-weight:600;
-}
-
-
-input{
-
-    width:100%;
-
-    min-height:48px;
-
-    padding:
-        13px 15px;
-
-    border:
-        1px solid
-        rgba(100,100,100,.22);
-
-    border-radius:13px;
-
-    outline:none;
-
-    background:
-        rgba(255,255,255,.92);
-
-    color:#333;
-
-    font-size:15px;
-}
-
-
-input:focus{
-
-    border-color:#ff70a8;
 
     box-shadow:
-        0 0 0 4px
-        rgba(255,100,160,.12);
+        0 6px 15px rgba(139,92,246,0.20);
 }
 
-
-/* =====================================================
-   FORGOT PASSWORD
-===================================================== */
+/* FORGOT PASSWORD */
 
 .forgot{
-
-    display:block;
-
     text-align:right;
 
-    margin-top:10px;
+    margin-top:-5px;
 
-    color:#e84f91;
-
-    font-size:14px;
-
-    font-weight:600;
-
-    text-decoration:none;
+    margin-bottom:18px;
 }
 
+.forgot a{
+    color:#8b5cf6;
 
-/* =====================================================
-   ACTION BUTTON
-===================================================== */
+    font-size:12px;
 
-.action-btn{
+    font-weight:700;
 
+    text-decoration:none;
+
+    cursor:pointer;
+}
+
+/* BUTTON */
+
+.main-btn{
     width:100%;
-
-    min-height:49px;
-
-    margin-top:19px;
-
-    padding:13px;
 
     border:0;
 
     border-radius:13px;
 
+    padding:14px;
+
     color:white;
 
-    font-size:16px;
+    font-size:15px;
 
-    font-weight:bold;
+    font-weight:700;
 
     cursor:pointer;
 
     background:
         linear-gradient(
             135deg,
-            #ff4297,
-            #ff7864,
-            #ff9b4e
+            #ec4899,
+            #8b5cf6
         );
 
     box-shadow:
-        0 9px 25px
-        rgba(255,80,130,.28);
+        0 8px 20px rgba(139,92,246,0.25);
+
+    transition:0.2s;
 }
 
+.main-btn:hover{
+    transform:translateY(-1px);
+}
 
-.action-btn:disabled{
-
-    opacity:.6;
+.main-btn:disabled{
+    opacity:0.65;
 
     cursor:not-allowed;
+
+    transform:none;
 }
 
-
-/* =====================================================
-   MESSAGE
-===================================================== */
+/* MESSAGE */
 
 .message{
-
     min-height:20px;
 
-    margin-top:12px;
+    margin-top:14px;
 
     text-align:center;
 
     font-size:13px;
 
-    line-height:1.4;
+    font-weight:600;
 }
 
+/* SIGNUP */
 
-/* =====================================================
-   FOOTER
-===================================================== */
-
-.footer{
-
+.signup-note{
     text-align:center;
 
-    margin-top:17px;
+    margin-top:20px;
+
+    font-size:12px;
 
     color:#777;
+
+    line-height:1.5;
+}
+
+/* FOOTER */
+
+.footer{
+    text-align:center;
+
+    margin-top:20px;
+
+    color:#999;
 
     font-size:11px;
 }
 
+/* HIDDEN */
 
-/* =====================================================
-   MOBILE
-===================================================== */
-
-@media(max-width:767px){
-
-    .background-image{
-
-        width:100vw;
-
-        height:100dvh;
-
-        object-fit:cover;
-
-        object-position:center center;
-    }
-
-
-    /* CENTER TEXT */
-
-    .brand-area{
-
-        top:50%;
-
-        width:94%;
-    }
-
-
-    .brand-title{
-
-        font-size:21px;
-
-        letter-spacing:.3px;
-    }
-
-
-    .brand-subtitle{
-
-        margin-top:8px;
-
-        font-size:12px;
-
-        letter-spacing:.8px;
-    }
-
-
-    /* BUTTON */
-
-    .open-login{
-
-        top:calc(50% + 72px);
-
-        width:175px;
-
-        height:44px;
-
-        font-size:14px;
-    }
-
-
-    /* LOGIN CARD */
-
-    .login-card{
-
-        width:94vw;
-
-        max-height:
-            calc(100dvh - 24px);
-
-        padding:
-            25px 20px 20px;
-
-        border-radius:27px;
-    }
-
-
-    .logo{
-
-        width:63px;
-        height:63px;
-
-        font-size:25px;
-    }
-
-
-    .login-card h1{
-
-        font-size:24px;
-    }
+.hidden{
+    display:none !important;
 }
 
+/* MOBILE */
 
-/* =====================================================
-   VERY SMALL MOBILE
-===================================================== */
+@media(max-width:480px){
 
-@media(
-    max-width:380px
-){
+    .login-container{
+        padding:26px 20px;
 
-    .brand-title{
-
-        font-size:18px;
+        border-radius:21px;
     }
 
+    .logo-icon{
+        width:62px;
+        height:62px;
 
-    .brand-subtitle{
-
-        font-size:11px;
+        font-size:30px;
     }
 
-
-    .open-login{
-
-        top:calc(50% + 67px);
-
-        width:165px;
-
-        height:42px;
-
-        font-size:13px;
-    }
-}
-
-
-/* =====================================================
-   DESKTOP
-===================================================== */
-
-@media(min-width:768px){
-
-    .brand-title{
-
-        font-size:29px;
-    }
-
-
-    .brand-subtitle{
-
-        font-size:14px;
-    }
-
-
-    .open-login{
-
-        top:calc(50% + 90px);
-
-        width:190px;
-
-        height:46px;
+    .logo h1{
+        font-size:23px;
     }
 }
 
@@ -858,693 +395,868 @@ input:focus{
 
 </head>
 
-
 <body>
 
+<div class="login-container">
 
-<!-- =====================================================
-     FULL PHOTO
-===================================================== -->
+    <!-- LOGO -->
 
-<img
-    src="daivik1.png"
-    class="background-image"
-    alt="Little Blossoms"
->
+    <div class="logo">
 
-
-<div class="background-overlay"></div>
-
-
-
-<!-- =====================================================
-     HOME SCREEN
-===================================================== -->
-
-<div class="home-screen">
-
-
-    <!-- CENTER BRAND -->
-
-    <div class="brand-area">
-
-        <div class="brand-title">
-
-            Little Blossoms Preschool & Day Care
-
+        <div class="logo-icon">
+            🌸
         </div>
 
+        <h1>Little Blossoms</h1>
 
-        <div class="brand-subtitle">
-
-            A place where little minds bloom
-
-        </div>
+        <p>Preschool & Day Care Management</p>
 
     </div>
 
 
+    <!-- TABS -->
 
-    <!-- LOGIN BUTTON -->
-
-    <button
-        type="button"
-        class="open-login"
-        id="openLogin"
-    >
-
-        Login / Sign Up
-
-    </button>
-
-</div>
-
-
-
-<!-- =====================================================
-     LOGIN MODAL
-===================================================== -->
-
-<div
-    class="login-modal"
-    id="loginModal"
->
-
-
-    <div class="login-card">
-
-
-        <!-- CLOSE -->
+    <div class="tabs">
 
         <button
             type="button"
-            class="close-btn"
-            id="closeLogin"
-        >
-            ×
+            class="tab active"
+            id="loginTab"
+            onclick="showLogin()">
+
+            Login
+
         </button>
 
+        <button
+            type="button"
+            class="tab"
+            id="signupTab"
+            onclick="showSignup()">
 
-        <!-- LOGO -->
+            Sign Up
 
-        <div class="logo">
-            LB
-        </div>
+        </button>
 
-
-        <h1>
-            Little Blossoms
-        </h1>
-
-
-        <div class="subtitle">
-            Management System
-        </div>
+    </div>
 
 
-        <!-- TABS -->
+    <!-- LOGIN FORM -->
 
-        <div class="tabs">
+    <form
+        id="loginForm"
+        onsubmit="loginUser(event)">
 
-            <button
-                type="button"
-                class="tab active"
-                id="loginTab"
-            >
-                Login
-            </button>
+        <div class="form-group">
 
+            <label>Email Address</label>
 
-            <button
-                type="button"
-                class="tab"
-                id="signupTab"
-            >
-                Sign Up
-            </button>
+            <input
+                type="email"
+                id="loginEmail"
+                placeholder="Enter your email"
+                required
+                autocomplete="email">
 
         </div>
 
 
+        <div class="form-group">
 
-        <!-- =================================================
-             LOGIN FORM
-        ================================================== -->
+            <label>Password</label>
 
-        <div
-            class="form-box active"
-            id="loginBox"
-        >
+            <input
+                type="password"
+                id="loginPassword"
+                placeholder="Enter your password"
+                required
+                autocomplete="current-password">
 
-            <form id="loginForm">
-
-
-                <label>
-                    Email
-                </label>
+        </div>
 
 
-                <input
-                    type="email"
-                    id="loginEmail"
-                    placeholder="Enter your email"
-                    autocomplete="email"
-                    required
-                >
+        <!-- ROLE -->
 
+        <div class="login-role">
 
-                <label>
-                    Password
-                </label>
+            <label>Login As</label>
 
-
-                <input
-                    type="password"
-                    id="loginPassword"
-                    placeholder="Enter your password"
-                    autocomplete="current-password"
-                    required
-                >
-
-
-                <a
-                    href="reset-password.html"
-                    class="forgot"
-                >
-                    Forgot Password?
-                </a>
-
+            <div class="role-options">
 
                 <button
-                    type="submit"
-                    class="action-btn"
-                    id="loginBtn"
-                >
-                    Login
+                    type="button"
+                    class="role-option active"
+                    id="normalRole"
+                    onclick="selectLoginRole('user')">
+
+                    👤 Normal User
+
                 </button>
 
 
-            </form>
-
-
-            <div
-                class="message"
-                id="loginMessage"
-            ></div>
-
-        </div>
-
-
-
-        <!-- =================================================
-             SIGN UP FORM
-        ================================================== -->
-
-        <div
-            class="form-box"
-            id="signupBox"
-        >
-
-            <form id="signupForm">
-
-
-                <label>
-                    Email
-                </label>
-
-
-                <input
-                    type="email"
-                    id="signupEmail"
-                    placeholder="Enter your email"
-                    autocomplete="email"
-                    required
-                >
-
-
-                <label>
-                    Password
-                </label>
-
-
-                <input
-                    type="password"
-                    id="signupPassword"
-                    placeholder="Create password"
-                    autocomplete="new-password"
-                    minlength="6"
-                    required
-                >
-
-
-                <label>
-                    Confirm Password
-                </label>
-
-
-                <input
-                    type="password"
-                    id="confirmPassword"
-                    placeholder="Confirm password"
-                    autocomplete="new-password"
-                    minlength="6"
-                    required
-                >
-
-
                 <button
-                    type="submit"
-                    class="action-btn"
-                    id="signupBtn"
-                >
-                    Create Account
+                    type="button"
+                    class="role-option"
+                    id="adminRole"
+                    onclick="selectLoginRole('admin')">
+
+                    👑 Admin
+
                 </button>
 
-
-            </form>
-
-
-            <div
-                class="message"
-                id="signupMessage"
-            ></div>
+            </div>
 
         </div>
 
 
+        <div class="forgot">
 
-        <div class="footer">
-
-            Little Blossoms Preschool & Day Care
+            <a onclick="forgotPassword()">
+                Forgot Password?
+            </a>
 
         </div>
 
+
+        <button
+            type="submit"
+            class="main-btn"
+            id="loginButton">
+
+            Login
+
+        </button>
+
+    </form>
+
+
+    <!-- SIGNUP FORM -->
+
+    <form
+        id="signupForm"
+        class="hidden"
+        onsubmit="signupUser(event)">
+
+        <div class="form-group">
+
+            <label>Email Address</label>
+
+            <input
+                type="email"
+                id="signupEmail"
+                placeholder="Enter your email"
+                required
+                autocomplete="email">
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>Password</label>
+
+            <input
+                type="password"
+                id="signupPassword"
+                placeholder="Create password"
+                minlength="6"
+                required
+                autocomplete="new-password">
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>Confirm Password</label>
+
+            <input
+                type="password"
+                id="signupConfirm"
+                placeholder="Confirm password"
+                minlength="6"
+                required
+                autocomplete="new-password">
+
+        </div>
+
+
+        <button
+            type="submit"
+            class="main-btn"
+            id="signupButton">
+
+            Create Account
+
+        </button>
+
+    </form>
+
+
+    <!-- MESSAGE -->
+
+    <div
+        class="message"
+        id="message">
+    </div>
+
+
+    <div class="signup-note">
+
+        🔐 Your account permissions are controlled
+        securely by Supabase.
+
+    </div>
+
+
+    <div class="footer">
+
+        © 2026 Little Blossoms Preschool & Day Care
 
     </div>
 
 </div>
-
 
 
 <script>
 
-/* =====================================================
-   SUPABASE
-===================================================== */
+/* =========================================================
+   SUPABASE CONFIG
+========================================================= */
 
 const SUPABASE_URL =
-"https://holelzxzhaiefaqezmce.supabase.co";
+    "https://holelzxzhaiefaqezmce.supabase.co";
 
 const SUPABASE_KEY =
-"sb_publishable_KoCQClKL582rggMuDJXhYQ_UhHOB4xZ";
+    "sb_publishable_KoCQClKL582rggMuDJXhYQ_UhHOB4xZ";
 
 
 const supabaseClient =
-supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_KEY
-);
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+    );
 
 
-/* =====================================================
-   ELEMENTS
-===================================================== */
+/* =========================================================
+   SELECTED LOGIN ROLE
+========================================================= */
 
-const openLogin =
-document.getElementById("openLogin");
-
-const closeLogin =
-document.getElementById("closeLogin");
-
-const loginModal =
-document.getElementById("loginModal");
-
-const loginTab =
-document.getElementById("loginTab");
-
-const signupTab =
-document.getElementById("signupTab");
-
-const loginBox =
-document.getElementById("loginBox");
-
-const signupBox =
-document.getElementById("signupBox");
+let selectedLoginRole = "user";
 
 
-/* =====================================================
-   OPEN LOGIN
-===================================================== */
+function selectLoginRole(role){
 
-openLogin.addEventListener(
-    "click",
-    function(){
+    selectedLoginRole = role;
 
-        loginModal.classList.add("show");
+
+    document
+        .getElementById("normalRole")
+        .classList
+        .toggle(
+            "active",
+            role === "user"
+        );
+
+
+    document
+        .getElementById("adminRole")
+        .classList
+        .toggle(
+            "active",
+            role === "admin"
+        );
+
+}
+
+
+/* =========================================================
+   TABS
+========================================================= */
+
+function showLogin(){
+
+    document
+        .getElementById("loginForm")
+        .classList
+        .remove("hidden");
+
+
+    document
+        .getElementById("signupForm")
+        .classList
+        .add("hidden");
+
+
+    document
+        .getElementById("loginTab")
+        .classList
+        .add("active");
+
+
+    document
+        .getElementById("signupTab")
+        .classList
+        .remove("active");
+
+
+    clearMessage();
+
+}
+
+
+function showSignup(){
+
+    document
+        .getElementById("signupForm")
+        .classList
+        .remove("hidden");
+
+
+    document
+        .getElementById("loginForm")
+        .classList
+        .add("hidden");
+
+
+    document
+        .getElementById("signupTab")
+        .classList
+        .add("active");
+
+
+    document
+        .getElementById("loginTab")
+        .classList
+        .remove("active");
+
+
+    clearMessage();
+
+}
+
+
+/* =========================================================
+   MESSAGE
+========================================================= */
+
+function showMessage(
+    text,
+    type = "error"
+){
+
+    const message =
+        document.getElementById("message");
+
+
+    message.textContent = text;
+
+
+    if(type === "success"){
+
+        message.style.color = "#16a34a";
 
     }
-);
+    else{
 
-
-/* =====================================================
-   CLOSE LOGIN
-===================================================== */
-
-closeLogin.addEventListener(
-    "click",
-    function(){
-
-        loginModal.classList.remove("show");
+        message.style.color = "#dc2626";
 
     }
-);
+
+}
 
 
-/* =====================================================
-   OUTSIDE CLICK
-===================================================== */
+function clearMessage(){
 
-loginModal.addEventListener(
-    "click",
-    function(e){
+    document
+        .getElementById("message")
+        .textContent = "";
 
-        if(e.target === loginModal){
+}
 
-            loginModal.classList.remove("show");
+
+/* =========================================================
+   LOGIN
+========================================================= */
+
+async function loginUser(event){
+
+    event.preventDefault();
+
+
+    const email =
+        document
+        .getElementById("loginEmail")
+        .value
+        .trim();
+
+
+    const password =
+        document
+        .getElementById("loginPassword")
+        .value;
+
+
+    const button =
+        document.getElementById("loginButton");
+
+
+    button.disabled = true;
+
+    button.textContent = "Checking...";
+
+    clearMessage();
+
+
+    try{
+
+        /* -----------------------------------------
+           SIGN IN
+        ----------------------------------------- */
+
+        const {
+            data,
+            error
+        } =
+        await supabaseClient.auth
+        .signInWithPassword({
+
+            email: email,
+
+            password: password
+
+        });
+
+
+        if(error){
+
+            throw error;
 
         }
 
-    }
-);
 
+        if(!data.user){
 
-/* =====================================================
-   LOGIN TAB
-===================================================== */
-
-loginTab.addEventListener(
-    "click",
-    function(){
-
-        loginTab.classList.add("active");
-
-        signupTab.classList.remove("active");
-
-        loginBox.classList.add("active");
-
-        signupBox.classList.remove("active");
-
-    }
-);
-
-
-/* =====================================================
-   SIGN UP TAB
-===================================================== */
-
-signupTab.addEventListener(
-    "click",
-    function(){
-
-        signupTab.classList.add("active");
-
-        loginTab.classList.remove("active");
-
-        signupBox.classList.add("active");
-
-        loginBox.classList.remove("active");
-
-    }
-);
-
-
-/* =====================================================
-   LOGIN
-===================================================== */
-
-document
-.getElementById("loginForm")
-.addEventListener(
-    "submit",
-    async function(e){
-
-        e.preventDefault();
-
-
-        const email =
-            document
-            .getElementById("loginEmail")
-            .value
-            .trim();
-
-
-        const password =
-            document
-            .getElementById("loginPassword")
-            .value;
-
-
-        const button =
-            document
-            .getElementById("loginBtn");
-
-
-        const message =
-            document
-            .getElementById("loginMessage");
-
-
-        button.disabled = true;
-
-        button.textContent =
-            "Logging in...";
-
-        message.textContent = "";
-
-
-        try{
-
-            const { data, error } =
-                await supabaseClient
-                .auth
-                .signInWithPassword({
-
-                    email:email,
-
-                    password:password
-
-                });
-
-
-            if(error){
-
-                message.style.color =
-                    "#e53935";
-
-                message.textContent =
-                    error.message;
-
-                button.disabled = false;
-
-                button.textContent =
-                    "Login";
-
-                return;
-            }
-
-
-            message.style.color =
-                "#16a34a";
-
-            message.textContent =
-                "Login successful...";
-
-
-            setTimeout(
-                function(){
-
-                    window.location.href =
-                        "dashboard.html";
-
-                },
-                700
+            throw new Error(
+                "Login failed."
             );
 
         }
-        catch(error){
 
-            console.error(error);
 
-            message.style.color =
-                "#e53935";
+        /* -----------------------------------------
+           GET ACTUAL ROLE FROM DATABASE
+        ----------------------------------------- */
 
-            message.textContent =
-                "Something went wrong. Please try again.";
+        const {
+            data: roleData,
+            error: roleError
+        } =
+        await supabaseClient
+        .from("user_roles")
+        .select("role")
+        .eq(
+            "user_id",
+            data.user.id
+        )
+        .maybeSingle();
 
-            button.disabled = false;
 
-            button.textContent =
-                "Login";
+        if(roleError){
+
+            await supabaseClient.auth.signOut();
+
+            throw new Error(
+                "Permission check failed. Please contact Admin."
+            );
+
         }
+
+
+        /*
+          No role row = NOT ADMIN.
+          Treat it as normal user only.
+        */
+
+        const actualRole =
+            roleData?.role || "user";
+
+
+        /* -----------------------------------------
+           ADMIN SELECTED
+        ----------------------------------------- */
+
+        if(selectedLoginRole === "admin"){
+
+            if(actualRole !== "admin"){
+
+                await supabaseClient
+                    .auth
+                    .signOut();
+
+
+                throw new Error(
+                    "This account does not have Admin permission."
+                );
+
+            }
+
+        }
+
+
+        /* -----------------------------------------
+           NORMAL USER SELECTED
+        ----------------------------------------- */
+
+        if(selectedLoginRole === "user"){
+
+            if(actualRole !== "user"){
+
+                await supabaseClient
+                    .auth
+                    .signOut();
+
+
+                throw new Error(
+                    "This is an Admin account. Please select Admin Login."
+                );
+
+            }
+
+        }
+
+
+        /* -----------------------------------------
+           SAVE ROLE FOR UI ONLY
+           
+           IMPORTANT:
+           Database RLS remains the real security.
+        ----------------------------------------- */
+
+        sessionStorage.setItem(
+            "lb_role",
+            actualRole
+        );
+
+
+        sessionStorage.setItem(
+            "lb_user_email",
+            data.user.email || ""
+        );
+
+
+        /* -----------------------------------------
+           SUCCESS
+        ----------------------------------------- */
+
+        showMessage(
+            "Login successful. Opening dashboard...",
+            "success"
+        );
+
+
+        setTimeout(function(){
+
+            window.location.href =
+                "dashboard.html";
+
+        }, 500);
+
 
     }
-);
+    catch(error){
+
+        console.error(
+            "Login Error:",
+            error
+        );
 
 
-/* =====================================================
+        showMessage(
+            error.message ||
+            "Login failed. Please try again."
+        );
+
+
+        button.disabled = false;
+
+        button.textContent = "Login";
+
+    }
+
+}
+
+
+/* =========================================================
    SIGN UP
-===================================================== */
+========================================================= */
 
-document
-.getElementById("signupForm")
-.addEventListener(
-    "submit",
-    async function(e){
+async function signupUser(event){
 
-        e.preventDefault();
+    event.preventDefault();
 
 
-        const email =
-            document
-            .getElementById("signupEmail")
-            .value
-            .trim();
+    const email =
+        document
+        .getElementById("signupEmail")
+        .value
+        .trim();
 
 
-        const password =
-            document
-            .getElementById("signupPassword")
-            .value;
+    const password =
+        document
+        .getElementById("signupPassword")
+        .value;
 
 
-        const confirmPassword =
-            document
-            .getElementById("confirmPassword")
-            .value;
+    const confirmPassword =
+        document
+        .getElementById("signupConfirm")
+        .value;
 
 
-        const button =
-            document
-            .getElementById("signupBtn");
+    const button =
+        document.getElementById("signupButton");
 
 
-        const message =
-            document
-            .getElementById("signupMessage");
+    clearMessage();
 
 
-        /* PASSWORD CHECK */
+    /* -----------------------------------------
+       PASSWORD CHECK
+    ----------------------------------------- */
 
-        if(password !== confirmPassword){
+    if(password !== confirmPassword){
 
-            message.style.color =
-                "#e53935";
+        showMessage(
+            "Passwords do not match."
+        );
 
-            message.textContent =
-                "Passwords do not match.";
+        return;
 
-            return;
+    }
+
+
+    if(password.length < 6){
+
+        showMessage(
+            "Password must be at least 6 characters."
+        );
+
+        return;
+
+    }
+
+
+    button.disabled = true;
+
+    button.textContent = "Creating...";
+
+
+    try{
+
+        const {
+            data,
+            error
+        } =
+        await supabaseClient.auth
+        .signUp({
+
+            email: email,
+
+            password: password
+
+        });
+
+
+        if(error){
+
+            throw error;
+
         }
 
 
-        if(password.length < 6){
+        /*
+          New account automatically becomes
+          Normal User through the Supabase trigger.
+        */
 
-            message.style.color =
-                "#e53935";
 
-            message.textContent =
-                "Password must be at least 6 characters.";
+        if(data.session){
 
-            return;
+            await supabaseClient
+                .auth
+                .signOut();
+
         }
 
 
-        button.disabled = true;
+        showMessage(
+            "Account created successfully. You can now login as Normal User.",
+            "success"
+        );
+
+
+        document
+            .getElementById("signupForm")
+            .reset();
+
+
+        setTimeout(function(){
+
+            showLogin();
+
+            document
+                .getElementById("loginEmail")
+                .value = email;
+
+        }, 1200);
+
+
+    }
+    catch(error){
+
+        console.error(
+            "Signup Error:",
+            error
+        );
+
+
+        showMessage(
+            error.message ||
+            "Could not create account."
+        );
+
+
+        button.disabled = false;
 
         button.textContent =
-            "Creating Account...";
+            "Create Account";
 
-        message.textContent = "";
+    }
 
-
-        try{
-
-            const { data, error } =
-                await supabaseClient
-                .auth
-                .signUp({
-
-                    email:email,
-
-                    password:password
-
-                });
+}
 
 
-            if(error){
+/* =========================================================
+   FORGOT PASSWORD
+========================================================= */
 
-                message.style.color =
-                    "#e53935";
+async function forgotPassword(){
 
-                message.textContent =
-                    error.message;
+    const email =
+        document
+        .getElementById("loginEmail")
+        .value
+        .trim();
 
-                button.disabled = false;
 
-                button.textContent =
-                    "Create Account";
+    if(!email){
 
-                return;
+        showMessage(
+            "Please enter your email address first."
+        );
+
+        return;
+
+    }
+
+
+    try{
+
+        const {
+            error
+        } =
+        await supabaseClient
+        .auth
+        .resetPasswordForEmail(
+            email,
+            {
+                redirectTo:
+                    window.location.origin +
+                    "/reset-password.html"
             }
+        );
 
 
-            message.style.color =
-                "#16a34a";
+        if(error){
 
-
-            if(
-                data &&
-                data.user &&
-                data.user.identities &&
-                data.user.identities.length === 0
-            ){
-
-                message.textContent =
-                    "This email is already registered.";
-
-            }
-            else{
-
-                message.textContent =
-                    "Account created successfully. Please check your email if confirmation is required.";
-
-            }
-
-
-            button.disabled = false;
-
-            button.textContent =
-                "Create Account";
+            throw error;
 
         }
-        catch(error){
 
-            console.error(error);
 
-            message.style.color =
-                "#e53935";
+        showMessage(
+            "Password reset link has been sent to your email.",
+            "success"
+        );
 
-            message.textContent =
-                "Something went wrong. Please try again.";
+    }
+    catch(error){
 
-            button.disabled = false;
+        console.error(
+            "Reset Error:",
+            error
+        );
 
-            button.textContent =
-                "Create Account";
+
+        showMessage(
+            error.message ||
+            "Could not send reset email."
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   CHECK EXISTING SESSION
+========================================================= */
+
+async function checkExistingSession(){
+
+    try{
+
+        const {
+            data
+        } =
+        await supabaseClient
+        .auth
+        .getSession();
+
+
+        if(data.session){
+
+            /*
+              User is already logged in.
+              Let dashboard perform the actual
+              permission check.
+            */
+
+            window.location.href =
+                "dashboard.html";
+
         }
 
     }
-);
+    catch(error){
+
+        console.error(
+            "Session Check:",
+            error
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   START
+========================================================= */
+
+checkExistingSession();
 
 </script>
 
