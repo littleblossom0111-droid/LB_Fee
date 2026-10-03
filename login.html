@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Little Blossoms | Login</title>
+<title>Little Blossoms Preschool & Day Care</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -15,164 +15,234 @@
     box-sizing:border-box;
 }
 
-body{
-    min-height:100vh;
+html,body{
+    width:100%;
+    height:100%;
+    overflow:hidden;
     font-family:Arial,Helvetica,sans-serif;
+}
 
-    background:
+/* ================= BACKGROUND ================= */
+
+body{
+    background-image:
         linear-gradient(
-            rgba(0,0,0,.22),
-            rgba(0,0,0,.28)
+            rgba(0,0,0,.16),
+            rgba(0,0,0,.25)
         ),
         url("daivik1.png");
 
     background-size:cover;
     background-position:center;
-    background-attachment:fixed;
+    background-repeat:no-repeat;
+
+    color:white;
+}
+
+/* ================= MAIN HOME ================= */
+
+.home{
+    width:100%;
+    height:100vh;
+
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+
+    text-align:center;
+
+    padding:25px;
+
+    transition:.35s ease;
+}
+
+.home h1{
+    font-size:clamp(27px,7vw,48px);
+    font-weight:700;
+
+    text-shadow:
+        0 3px 15px rgba(0,0,0,.55);
+
+    margin-bottom:10px;
+}
+
+.home p{
+    font-size:clamp(14px,3.8vw,20px);
+
+    letter-spacing:.5px;
+
+    text-shadow:
+        0 2px 10px rgba(0,0,0,.55);
+
+    margin-bottom:35px;
+}
+
+/* ================= BUTTONS ================= */
+
+.home-buttons{
+    display:flex;
+    gap:12px;
+
+    flex-wrap:wrap;
+    justify-content:center;
+}
+
+.home-btn{
+    min-width:125px;
+
+    padding:13px 19px;
+
+    border-radius:30px;
+
+    border:1px solid rgba(255,255,255,.65);
+
+    background:rgba(255,255,255,.12);
+
+    backdrop-filter:blur(6px);
+    -webkit-backdrop-filter:blur(6px);
+
+    color:white;
+
+    font-size:14px;
+    font-weight:700;
+
+    cursor:pointer;
+
+    box-shadow:
+        0 8px 25px rgba(0,0,0,.18);
+
+    transition:.25s;
+}
+
+.home-btn:hover{
+    background:rgba(255,255,255,.25);
+    transform:translateY(-2px);
+}
+
+.home-btn:active{
+    transform:scale(.97);
+}
+
+/* ================= LOGIN OVERLAY ================= */
+
+.modal{
+    position:fixed;
+
+    inset:0;
 
     display:flex;
     align-items:center;
     justify-content:center;
 
     padding:20px;
+
+    background:rgba(0,0,0,.30);
+
+    backdrop-filter:blur(3px);
+    -webkit-backdrop-filter:blur(3px);
+
+    opacity:0;
+    visibility:hidden;
+
+    transition:.3s ease;
+
+    z-index:10;
 }
 
-/* BACKGROUND DARK OVERLAY */
-
-body::before{
-    content:"";
-    position:fixed;
-    inset:0;
-
-    background:
-        linear-gradient(
-            180deg,
-            rgba(0,0,0,.08),
-            rgba(0,0,0,.30)
-        );
-
-    z-index:-1;
+.modal.show{
+    opacity:1;
+    visibility:visible;
 }
 
-/* LOGIN CARD */
+/* ================= GLASS BOX ================= */
 
-.login-card{
+.login-box{
     width:100%;
-    max-width:420px;
+    max-width:390px;
 
-    padding:28px 24px;
+    position:relative;
 
-    border:1px solid rgba(255,255,255,.35);
+    padding:28px 23px;
 
-    border-radius:28px;
+    border-radius:25px;
 
     background:rgba(255,255,255,.16);
 
-    backdrop-filter:blur(18px);
-    -webkit-backdrop-filter:blur(18px);
+    border:1px solid rgba(255,255,255,.40);
+
+    backdrop-filter:blur(20px);
+    -webkit-backdrop-filter:blur(20px);
 
     box-shadow:
-        0 25px 70px rgba(0,0,0,.30);
+        0 25px 70px rgba(0,0,0,.40);
 
-    color:white;
+    transform:translateY(25px) scale(.96);
+
+    transition:.3s ease;
 }
 
-/* LOGO */
-
-.logo{
-    text-align:center;
-    margin-bottom:22px;
+.modal.show .login-box{
+    transform:translateY(0) scale(1);
 }
 
-.logo-icon{
-    width:68px;
-    height:68px;
+/* CLOSE */
 
-    margin:auto;
+.close{
+    position:absolute;
 
-    display:flex;
-    align-items:center;
-    justify-content:center;
+    right:15px;
+    top:12px;
+
+    width:32px;
+    height:32px;
 
     border-radius:50%;
 
-    background:rgba(255,255,255,.20);
+    border:1px solid rgba(255,255,255,.45);
 
-    border:1px solid rgba(255,255,255,.40);
+    background:rgba(0,0,0,.18);
 
-    font-size:34px;
+    color:white;
 
-    box-shadow:
-        0 8px 25px rgba(0,0,0,.20);
+    font-size:20px;
+
+    cursor:pointer;
 }
 
-.logo h1{
-    margin-top:12px;
+/* BOX TITLE */
 
-    font-size:25px;
+.box-title{
+    text-align:center;
+
+    margin-bottom:22px;
+}
+
+.box-title .icon{
+    font-size:34px;
+
+    margin-bottom:7px;
+}
+
+.box-title h2{
+    font-size:22px;
 
     text-shadow:
         0 2px 8px rgba(0,0,0,.35);
 }
 
-.logo p{
+.box-title p{
     margin-top:5px;
 
     font-size:12px;
 
-    opacity:.90;
-}
-
-/* TABS */
-
-.tabs{
-    display:grid;
-
-    grid-template-columns:1fr 1fr 1fr;
-
-    gap:5px;
-
-    padding:5px;
-
-    margin-bottom:22px;
-
-    border-radius:15px;
-
-    background:rgba(0,0,0,.18);
-}
-
-.tab{
-    border:0;
-
-    padding:11px 5px;
-
-    border-radius:11px;
-
-    background:transparent;
-
-    color:rgba(255,255,255,.78);
-
-    font-size:12px;
-    font-weight:700;
-
-    cursor:pointer;
-
-    transition:.25s;
-}
-
-.tab.active{
-    background:rgba(255,255,255,.92);
-
-    color:#7c3aed;
-
-    box-shadow:
-        0 5px 15px rgba(0,0,0,.18);
+    opacity:.85;
 }
 
 /* FORM */
 
 .form-group{
-    margin-bottom:16px;
+    margin-bottom:15px;
 }
 
 .form-group label{
@@ -183,62 +253,34 @@ body::before{
     font-size:13px;
 
     font-weight:700;
-
-    color:white;
 }
 
 .form-group input{
     width:100%;
 
-    padding:14px;
+    padding:13px 14px;
 
-    border-radius:13px;
+    border-radius:12px;
 
     border:1px solid rgba(255,255,255,.35);
 
     outline:none;
 
-    background:rgba(255,255,255,.18);
+    background:rgba(255,255,255,.17);
 
     color:white;
 
     font-size:14px;
-
-    backdrop-filter:blur(5px);
 }
 
 .form-group input::placeholder{
-    color:rgba(255,255,255,.78);
+    color:rgba(255,255,255,.75);
 }
 
 .form-group input:focus{
-    border-color:white;
-
     background:rgba(255,255,255,.24);
-}
 
-/* ROLE TITLE */
-
-.login-title{
-    text-align:center;
-
-    margin-bottom:17px;
-
-    font-size:14px;
-
-    font-weight:700;
-}
-
-.login-title span{
-    display:inline-block;
-
-    padding:7px 15px;
-
-    border-radius:20px;
-
-    background:rgba(255,255,255,.18);
-
-    border:1px solid rgba(255,255,255,.25);
+    border-color:white;
 }
 
 /* FORGOT */
@@ -246,7 +288,7 @@ body::before{
 .forgot{
     text-align:right;
 
-    margin-top:-5px;
+    margin-top:-3px;
 
     margin-bottom:17px;
 }
@@ -255,24 +297,29 @@ body::before{
     color:white;
 
     font-size:12px;
-
     font-weight:700;
-
-    text-decoration:none;
 
     cursor:pointer;
 }
 
-/* MAIN BUTTON */
+/* LOGIN BUTTON */
 
-.main-btn{
+.login-submit{
     width:100%;
 
     padding:14px;
 
     border:0;
 
-    border-radius:14px;
+    border-radius:13px;
+
+    color:white;
+
+    font-size:15px;
+
+    font-weight:700;
+
+    cursor:pointer;
 
     background:
         linear-gradient(
@@ -281,35 +328,20 @@ body::before{
             #8b5cf6
         );
 
-    color:white;
-
-    font-size:15px;
-
-    font-weight:800;
-
-    cursor:pointer;
-
     box-shadow:
-        0 8px 22px rgba(0,0,0,.25);
-
-    transition:.2s;
+        0 8px 20px rgba(0,0,0,.25);
 }
 
-.main-btn:hover{
-    transform:translateY(-1px);
-}
-
-.main-btn:disabled{
+.login-submit:disabled{
     opacity:.6;
-    cursor:not-allowed;
 }
 
 /* MESSAGE */
 
 .message{
-    min-height:20px;
+    min-height:18px;
 
-    margin-top:14px;
+    margin-top:13px;
 
     text-align:center;
 
@@ -318,45 +350,45 @@ body::before{
     font-weight:700;
 }
 
-/* FOOTER */
+/* SIGNUP MODE */
 
-.footer{
+.signup-note{
     text-align:center;
 
-    margin-top:18px;
+    margin-top:14px;
 
     font-size:11px;
 
-    color:rgba(255,255,255,.75);
-}
-
-/* HIDDEN */
-
-.hidden{
-    display:none!important;
+    opacity:.8;
 }
 
 /* MOBILE */
 
-@media(max-width:480px){
+@media(max-width:500px){
 
-    body{
-        padding:15px;
-        background-position:center;
+    .home{
+        padding:20px;
     }
 
-    .login-card{
-        padding:25px 19px;
-        border-radius:24px;
+    .home h1{
+        max-width:350px;
     }
 
-    .logo h1{
-        font-size:23px;
+    .home p{
+        margin-bottom:28px;
     }
 
-    .tab{
-        font-size:11px;
-        padding:10px 3px;
+    .home-buttons{
+        width:100%;
+        max-width:330px;
+    }
+
+    .home-btn{
+        width:100%;
+    }
+
+    .login-box{
+        padding:26px 20px;
     }
 }
 </style>
@@ -364,52 +396,41 @@ body::before{
 
 <body>
 
-<div class="login-card">
+<!-- =====================================================
+     HOME SCREEN
+===================================================== -->
 
-    <!-- LOGO -->
+<div class="home" id="home">
 
-    <div class="logo">
+    <h1>
+        Little Blossoms Preschool & Day Care
+    </h1>
 
-        <div class="logo-icon">
-            🌸
-        </div>
+    <p>
+        A place where little minds bloom 🌸
+    </p>
 
-        <h1>Little Blossoms</h1>
-
-        <p>Preschool & Day Care Management</p>
-
-    </div>
-
-
-    <!-- TABS -->
-
-    <div class="tabs">
+    <div class="home-buttons">
 
         <button
-            type="button"
-            id="userTab"
-            class="tab active"
-            onclick="selectMode('user')">
+            class="home-btn"
+            onclick="openLogin('user')">
 
             👤 User Login
 
         </button>
 
         <button
-            type="button"
-            id="adminTab"
-            class="tab"
-            onclick="selectMode('admin')">
+            class="home-btn"
+            onclick="openLogin('admin')">
 
             👑 Admin Login
 
         </button>
 
         <button
-            type="button"
-            id="signupTab"
-            class="tab"
-            onclick="selectMode('signup')">
+            class="home-btn"
+            onclick="openLogin('signup')">
 
             📝 Sign Up
 
@@ -417,157 +438,205 @@ body::before{
 
     </div>
 
+</div>
 
-    <!-- LOGIN AREA -->
 
-    <div id="loginArea">
+<!-- =====================================================
+     LOGIN MODAL
+===================================================== -->
 
-        <div class="login-title">
+<div
+    class="modal"
+    id="loginModal"
+    onclick="outsideClose(event)">
 
-            <span id="loginTitle">
-                👤 Normal User Login
-            </span>
+    <div class="login-box">
+
+        <button
+            class="close"
+            onclick="closeLogin()">
+
+            ×
+
+        </button>
+
+
+        <!-- ================= LOGIN ================= -->
+
+        <div id="loginArea">
+
+            <div class="box-title">
+
+                <div
+                    class="icon"
+                    id="loginIcon">
+
+                    👤
+
+                </div>
+
+                <h2 id="loginTitle">
+                    User Login
+                </h2>
+
+                <p>
+                    Little Blossoms Preschool & Day Care
+                </p>
+
+            </div>
+
+
+            <form onsubmit="loginUser(event)">
+
+                <div class="form-group">
+
+                    <label>
+                        Email Address
+                    </label>
+
+                    <input
+                        type="email"
+                        id="loginEmail"
+                        placeholder="Enter your email"
+                        required
+                        autocomplete="email">
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Password
+                    </label>
+
+                    <input
+                        type="password"
+                        id="loginPassword"
+                        placeholder="Enter your password"
+                        required
+                        autocomplete="current-password">
+
+                </div>
+
+
+                <div class="forgot">
+
+                    <a onclick="forgotPassword()">
+                        Forgot Password?
+                    </a>
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="login-submit"
+                    id="loginButton">
+
+                    Login
+
+                </button>
+
+            </form>
 
         </div>
 
 
-        <form onsubmit="loginUser(event)">
+        <!-- ================= SIGNUP ================= -->
 
-            <div class="form-group">
+        <div
+            id="signupArea"
+            style="display:none;">
 
-                <label>Email Address</label>
+            <div class="box-title">
 
-                <input
-                    type="email"
-                    id="loginEmail"
-                    placeholder="Enter email"
-                    required
-                    autocomplete="email">
+                <div class="icon">
+                    📝
+                </div>
 
-            </div>
+                <h2>
+                    Create Account
+                </h2>
 
-
-            <div class="form-group">
-
-                <label>Password</label>
-
-                <input
-                    type="password"
-                    id="loginPassword"
-                    placeholder="Enter password"
-                    required
-                    autocomplete="current-password">
+                <p>
+                    New accounts are Normal Users
+                </p>
 
             </div>
 
 
-            <div class="forgot">
+            <form onsubmit="signupUser(event)">
 
-                <a onclick="forgotPassword()">
-                    Forgot Password?
-                </a>
+                <div class="form-group">
 
+                    <label>
+                        Email Address
+                    </label>
+
+                    <input
+                        type="email"
+                        id="signupEmail"
+                        placeholder="Enter your email"
+                        required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Password
+                    </label>
+
+                    <input
+                        type="password"
+                        id="signupPassword"
+                        placeholder="Create password"
+                        minlength="6"
+                        required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Confirm Password
+                    </label>
+
+                    <input
+                        type="password"
+                        id="signupConfirm"
+                        placeholder="Confirm password"
+                        minlength="6"
+                        required>
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="login-submit"
+                    id="signupButton">
+
+                    Create Account
+
+                </button>
+
+            </form>
+
+            <div class="signup-note">
+                🔐 Your account will be created as Normal User
             </div>
-
-
-            <button
-                type="submit"
-                class="main-btn"
-                id="loginButton">
-
-                Login
-
-            </button>
-
-        </form>
-
-    </div>
-
-
-    <!-- SIGN UP -->
-
-    <div
-        id="signupArea"
-        class="hidden">
-
-        <div class="login-title">
-
-            <span>
-                📝 Create Normal User Account
-            </span>
 
         </div>
 
 
-        <form onsubmit="signupUser(event)">
-
-            <div class="form-group">
-
-                <label>Email Address</label>
-
-                <input
-                    type="email"
-                    id="signupEmail"
-                    placeholder="Enter email"
-                    required
-                    autocomplete="email">
-
-            </div>
-
-
-            <div class="form-group">
-
-                <label>Password</label>
-
-                <input
-                    type="password"
-                    id="signupPassword"
-                    placeholder="Create password"
-                    minlength="6"
-                    required
-                    autocomplete="new-password">
-
-            </div>
-
-
-            <div class="form-group">
-
-                <label>Confirm Password</label>
-
-                <input
-                    type="password"
-                    id="signupConfirm"
-                    placeholder="Confirm password"
-                    minlength="6"
-                    required
-                    autocomplete="new-password">
-
-            </div>
-
-
-            <button
-                type="submit"
-                class="main-btn"
-                id="signupButton">
-
-                Create Account
-
-            </button>
-
-        </form>
-
-    </div>
-
-
-    <div
-        class="message"
-        id="message">
-    </div>
-
-
-    <div class="footer">
-
-        🔐 Secure Little Blossoms Management System
+        <div
+            class="message"
+            id="message">
+        </div>
 
     </div>
 
@@ -576,9 +645,9 @@ body::before{
 
 <script>
 
-/* =========================================
+/* =====================================================
    SUPABASE
-========================================= */
+===================================================== */
 
 const SUPABASE_URL =
     "https://holelzxzhaiefaqezmce.supabase.co";
@@ -593,36 +662,23 @@ const supabaseClient =
     );
 
 
-/* =========================================
-   CURRENT MODE
-========================================= */
+/* =====================================================
+   LOGIN MODE
+===================================================== */
 
 let loginMode = "user";
 
 
-/* =========================================
-   SELECT MODE
-========================================= */
+/* =====================================================
+   OPEN LOGIN
+===================================================== */
 
-function selectMode(mode){
+function openLogin(mode){
 
     loginMode = mode;
 
-    document
-        .getElementById("userTab")
-        .classList
-        .toggle("active", mode === "user");
-
-    document
-        .getElementById("adminTab")
-        .classList
-        .toggle("active", mode === "admin");
-
-    document
-        .getElementById("signupTab")
-        .classList
-        .toggle("active", mode === "signup");
-
+    const modal =
+        document.getElementById("loginModal");
 
     const loginArea =
         document.getElementById("loginArea");
@@ -630,50 +686,119 @@ function selectMode(mode){
     const signupArea =
         document.getElementById("signupArea");
 
-
     clearMessage();
 
 
     if(mode === "signup"){
 
-        loginArea.classList.add("hidden");
+        loginArea.style.display = "none";
 
-        signupArea.classList.remove("hidden");
-
-        return;
-    }
-
-
-    loginArea.classList.remove("hidden");
-
-    signupArea.classList.add("hidden");
-
-
-    const title =
-        document.getElementById("loginTitle");
-
-
-    if(mode === "admin"){
-
-        title.textContent =
-            "👑 Admin Login";
+        signupArea.style.display = "block";
 
     }
     else{
 
-        title.textContent =
-            "👤 Normal User Login";
+        loginArea.style.display = "block";
+
+        signupArea.style.display = "none";
+
+
+        const title =
+            document.getElementById("loginTitle");
+
+        const icon =
+            document.getElementById("loginIcon");
+
+
+        if(mode === "admin"){
+
+            title.textContent =
+                "Admin Login";
+
+            icon.textContent = "👑";
+
+        }
+        else{
+
+            title.textContent =
+                "User Login";
+
+            icon.textContent = "👤";
+
+        }
+
+    }
+
+
+    modal.classList.add("show");
+
+    document.body.style.overflow = "hidden";
+
+}
+
+
+/* =====================================================
+   CLOSE LOGIN
+===================================================== */
+
+function closeLogin(){
+
+    document
+        .getElementById("loginModal")
+        .classList
+        .remove("show");
+
+    document.body.style.overflow = "";
+
+    clearMessage();
+
+}
+
+
+/* =====================================================
+   OUTSIDE CLICK
+===================================================== */
+
+function outsideClose(event){
+
+    if(
+        event.target ===
+        document.getElementById("loginModal")
+    ){
+
+        closeLogin();
 
     }
 
 }
 
 
-/* =========================================
-   MESSAGE
-========================================= */
+/* =====================================================
+   ESC KEY
+===================================================== */
 
-function showMessage(text,type="error"){
+document.addEventListener(
+    "keydown",
+    function(event){
+
+        if(event.key === "Escape"){
+
+            closeLogin();
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   MESSAGE
+===================================================== */
+
+function showMessage(
+    text,
+    type="error"
+){
 
     const message =
         document.getElementById("message");
@@ -696,13 +821,14 @@ function clearMessage(){
 }
 
 
-/* =========================================
+/* =====================================================
    LOGIN
-========================================= */
+===================================================== */
 
 async function loginUser(event){
 
     event.preventDefault();
+
 
     const email =
         document
@@ -710,10 +836,12 @@ async function loginUser(event){
         .value
         .trim();
 
+
     const password =
         document
         .getElementById("loginPassword")
         .value;
+
 
     const button =
         document.getElementById("loginButton");
@@ -728,8 +856,6 @@ async function loginUser(event){
 
     try{
 
-        /* LOGIN */
-
         const {
             data,
             error
@@ -737,8 +863,8 @@ async function loginUser(event){
         await supabaseClient.auth
         .signInWithPassword({
 
-            email,
-            password
+            email: email,
+            password: password
 
         });
 
@@ -777,9 +903,7 @@ async function loginUser(event){
 
         if(roleError){
 
-            await supabaseClient
-                .auth
-                .signOut();
+            await supabaseClient.auth.signOut();
 
             throw new Error(
                 "Unable to verify account permission."
@@ -792,15 +916,13 @@ async function loginUser(event){
             roleData?.role || "user";
 
 
-        /* ADMIN LOGIN */
+        /* ADMIN */
 
         if(loginMode === "admin"){
 
             if(actualRole !== "admin"){
 
-                await supabaseClient
-                    .auth
-                    .signOut();
+                await supabaseClient.auth.signOut();
 
                 throw new Error(
                     "This account does not have Admin permission."
@@ -811,15 +933,13 @@ async function loginUser(event){
         }
 
 
-        /* USER LOGIN */
+        /* USER */
 
         if(loginMode === "user"){
 
             if(actualRole !== "user"){
 
-                await supabaseClient
-                    .auth
-                    .signOut();
+                await supabaseClient.auth.signOut();
 
                 throw new Error(
                     "This is an Admin account. Please use Admin Login."
@@ -830,11 +950,12 @@ async function loginUser(event){
         }
 
 
+        /* UI ONLY */
+
         sessionStorage.setItem(
             "lb_role",
             actualRole
         );
-
 
         sessionStorage.setItem(
             "lb_user_email",
@@ -848,7 +969,7 @@ async function loginUser(event){
         );
 
 
-        setTimeout(()=>{
+        setTimeout(function(){
 
             window.location.href =
                 "dashboard.html";
@@ -875,9 +996,9 @@ async function loginUser(event){
 }
 
 
-/* =========================================
+/* =====================================================
    SIGN UP
-========================================= */
+===================================================== */
 
 async function signupUser(event){
 
@@ -946,8 +1067,8 @@ async function signupUser(event){
         await supabaseClient.auth
         .signUp({
 
-            email,
-            password
+            email: email,
+            password: password
 
         });
 
@@ -961,35 +1082,32 @@ async function signupUser(event){
 
         if(data.session){
 
-            await supabaseClient
-                .auth
-                .signOut();
+            await supabaseClient.auth.signOut();
 
         }
 
 
         showMessage(
-            "Account created. You can login as Normal User.",
+            "Account created successfully.",
             "success"
         );
 
 
-        document
-            .getElementById("signupEmail")
-            .value = "";
+        setTimeout(function(){
 
-        document
-            .getElementById("signupPassword")
-            .value = "";
+            closeLogin();
 
-        document
-            .getElementById("signupConfirm")
-            .value = "";
+            document
+                .getElementById("signupEmail")
+                .value = "";
 
+            document
+                .getElementById("signupPassword")
+                .value = "";
 
-        setTimeout(()=>{
-
-            selectMode("user");
+            document
+                .getElementById("signupConfirm")
+                .value = "";
 
         },1200);
 
@@ -1014,9 +1132,9 @@ async function signupUser(event){
 }
 
 
-/* =========================================
+/* =====================================================
    FORGOT PASSWORD
-========================================= */
+===================================================== */
 
 async function forgotPassword(){
 
@@ -1030,7 +1148,7 @@ async function forgotPassword(){
     if(!email){
 
         showMessage(
-            "Pehle email enter karo."
+            "Please enter your email first."
         );
 
         return;
@@ -1079,18 +1197,16 @@ async function forgotPassword(){
 }
 
 
-/* =========================================
-   EXISTING SESSION
-========================================= */
+/* =====================================================
+   SESSION CHECK
+===================================================== */
 
 async function checkSession(){
 
     const {
         data
     } =
-    await supabaseClient
-    .auth
-    .getSession();
+    await supabaseClient.auth.getSession();
 
 
     if(data.session){
