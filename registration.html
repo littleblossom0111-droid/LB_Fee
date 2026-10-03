@@ -2007,8 +2007,7 @@ function renderHistory(){
 
 
                     <td class="action">
-
-
+                        ${isAdmin ? `
                         <button
                             class="edit"
                             onclick="editPayment('${p.id}')">
@@ -2025,6 +2024,7 @@ function renderHistory(){
                             Delete
 
                         </button>
+                        ` : ""}
 
 
                     </td>
