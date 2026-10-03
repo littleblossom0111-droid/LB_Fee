@@ -734,6 +734,7 @@ let students = [];
 let payments = [];
 
 let editingId = null;
+let isAdmin = false;
 
 
 /* =====================================================
@@ -1498,6 +1499,11 @@ async function savePayment(){
 
     if(editingId){
 
+        if(!isAdmin){
+            alert("Only Admin can edit fee records.");
+            return;
+        }
+
         result =
             await supabaseClient
             .from("fee_payments")
@@ -1698,6 +1704,7 @@ function renderPayments(){
 
                     <td>
 
+${isAdmin ? `
                         <button
                             class="action edit"
                             onclick="editPayment('${p.id}')">
@@ -1714,6 +1721,7 @@ function renderPayments(){
                             Delete
 
                         </button>
+                        ` : ""}
 
                     </td>
 
@@ -1834,6 +1842,11 @@ function updateSummary(){
 
 async function editPayment(id){
 
+    if(!isAdmin){
+        alert("Only Admin can edit fee records.");
+        return;
+    }
+
     const payment =
         payments.find(
             p =>
@@ -1905,6 +1918,11 @@ async function editPayment(id){
 ===================================================== */
 
 async function deletePayment(id){
+
+    if(!isAdmin){
+        alert("Only Admin can delete fee records.");
+        return;
+    }
 
     if(
         !confirm(
