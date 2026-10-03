@@ -3809,7 +3809,18 @@ async function savePayment(){
        PAYLOAD
     ===================================================== */
 
+    const { data: authData } =
+    await db.auth.getUser();
+
+    if(!authData.user){
+        location.href = "login.html";
+        return;
+    }
+
     const payload = {
+
+        user_id:
+        authData.user.id,
 
         student_id:
         String(
