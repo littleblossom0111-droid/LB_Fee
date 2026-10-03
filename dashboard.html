@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
 
@@ -1487,6 +1487,27 @@ button{
 
 
 /* =========================================================
+   ROLE BADGE
+========================================================= */
+
+#roleBadge{
+
+    white-space:nowrap;
+
+}
+
+body.admin-mode #roleBadge{
+
+    background:#fff7ed;
+
+    color:#c2410c;
+
+    border-color:#fed7aa;
+
+}
+
+
+/* =========================================================
    TABLET
 ========================================================= */
 
@@ -1745,8 +1766,12 @@ button{
 
     <div class="header-actions">
 
-        <span class="badge">
-            ✨ Administrator
+        <span
+            class="badge"
+            id="roleBadge">
+
+            👤 Normal User
+
         </span>
 
 
@@ -1779,9 +1804,7 @@ button{
 <main class="container">
 
 
-    <!-- =====================================================
-         HERO
-    ====================================================== -->
+    <!-- HERO -->
 
     <section class="hero">
 
@@ -1820,8 +1843,6 @@ button{
     <section class="grid">
 
 
-        <!-- ACTIVE STUDENTS -->
-
         <div class="card students">
 
             <div class="topline">
@@ -1836,7 +1857,6 @@ button{
 
             </div>
 
-
             <div
                 class="value"
                 id="studentCount">
@@ -1844,7 +1864,6 @@ button{
                 0
 
             </div>
-
 
             <div class="sub">
 
@@ -1854,8 +1873,6 @@ button{
 
         </div>
 
-
-        <!-- FEES -->
 
         <div class="card fees">
 
@@ -1871,7 +1888,6 @@ button{
 
             </div>
 
-
             <div
                 class="value"
                 id="feesReceived">
@@ -1879,7 +1895,6 @@ button{
                 ₹0
 
             </div>
-
 
             <div class="sub">
 
@@ -1889,8 +1904,6 @@ button{
 
         </div>
 
-
-        <!-- REGISTRATION -->
 
         <div class="card registration">
 
@@ -1906,7 +1919,6 @@ button{
 
             </div>
 
-
             <div
                 class="value"
                 id="registrationFees">
@@ -1914,7 +1926,6 @@ button{
                 ₹0
 
             </div>
-
 
             <div class="sub">
 
@@ -1924,8 +1935,6 @@ button{
 
         </div>
 
-
-        <!-- EXPENSES -->
 
         <div class="card expenses">
 
@@ -1941,7 +1950,6 @@ button{
 
             </div>
 
-
             <div
                 class="value"
                 id="expenses">
@@ -1949,7 +1957,6 @@ button{
                 ₹0
 
             </div>
-
 
             <div class="sub">
 
@@ -1959,8 +1966,6 @@ button{
 
         </div>
 
-
-        <!-- PENDING -->
 
         <div class="card pending">
 
@@ -1976,7 +1981,6 @@ button{
 
             </div>
 
-
             <div
                 class="value"
                 id="pendingFees">
@@ -1984,7 +1988,6 @@ button{
                 ₹0
 
             </div>
-
 
             <div class="sub">
 
@@ -1994,8 +1997,6 @@ button{
 
         </div>
 
-
-        <!-- CLOSING BALANCE -->
 
         <div class="card balance">
 
@@ -2011,7 +2012,6 @@ button{
 
             </div>
 
-
             <div
                 class="value"
                 id="currentBalance">
@@ -2019,7 +2019,6 @@ button{
                 ₹0
 
             </div>
-
 
             <div class="sub">
 
@@ -2030,9 +2029,7 @@ button{
         </div>
 
 
-        <!-- =================================================
-             DANCE CLASSES
-        ================================================== -->
+        <!-- DANCE -->
 
         <div
             class="card dance-card"
@@ -2050,13 +2047,11 @@ button{
 
                 </div>
 
-
                 <span class="icon">
                     💃
                 </span>
 
             </div>
-
 
             <div
                 class="value"
@@ -2065,7 +2060,6 @@ button{
                 Dance Classes
 
             </div>
-
 
             <div class="sub">
 
@@ -2103,8 +2097,6 @@ button{
     <section class="quick">
 
 
-        <!-- STUDENTS -->
-
         <button
             class="action"
             onclick="go('students.html')">
@@ -2123,8 +2115,6 @@ button{
 
         </button>
 
-
-        <!-- FEES -->
 
         <button
             class="action"
@@ -2145,8 +2135,6 @@ button{
         </button>
 
 
-        <!-- REGISTRATION -->
-
         <button
             class="action"
             onclick="go('registration.html')">
@@ -2165,8 +2153,6 @@ button{
 
         </button>
 
-
-        <!-- EXPENSES -->
 
         <button
             class="action"
@@ -2187,8 +2173,6 @@ button{
         </button>
 
 
-        <!-- MONTHLY SUMMARY -->
-
         <button
             class="action"
             onclick="go('monthly-summary.html')">
@@ -2208,8 +2192,6 @@ button{
         </button>
 
 
-        <!-- STARTING / SURPLUS -->
-
         <button
             class="action"
             onclick="openAdjustmentModal()">
@@ -2228,8 +2210,6 @@ button{
 
         </button>
 
-
-        <!-- REFRESH -->
 
         <button
             class="action"
@@ -2268,8 +2248,6 @@ button{
     <section class="bottom">
 
 
-        <!-- FINANCIAL -->
-
         <div class="panel">
 
             <div class="panel-head">
@@ -2277,7 +2255,6 @@ button{
                 <h3>
                     Financial Overview
                 </h3>
-
 
                 <span
                     class="tag"
@@ -2423,8 +2400,6 @@ button{
         </div>
 
 
-        <!-- TRANSACTIONS -->
-
         <div class="panel">
 
             <div class="panel-head">
@@ -2445,9 +2420,7 @@ button{
                 id="transactionList">
 
                 <div class="empty">
-
                     Loading transactions...
-
                 </div>
 
             </div>
@@ -2496,8 +2469,6 @@ button{
 
         </div>
 
-
-        <!-- TYPE -->
 
         <div class="form-group">
 
@@ -2552,8 +2523,6 @@ button{
         </div>
 
 
-        <!-- AMOUNT -->
-
         <div class="form-group">
 
             <label>
@@ -2570,8 +2539,6 @@ button{
         </div>
 
 
-        <!-- DATE -->
-
         <div class="form-group">
 
             <label>
@@ -2584,8 +2551,6 @@ button{
 
         </div>
 
-
-        <!-- NOTE -->
 
         <div class="form-group">
 
@@ -2602,16 +2567,12 @@ button{
         </div>
 
 
-        <!-- BUTTONS -->
-
         <div class="modal-actions">
 
             <button
                 type="button"
                 class="cancel-btn"
-                onclick="
-                closeAdjustmentModal()
-                ">
+                onclick="closeAdjustmentModal()">
 
                 Cancel
 
@@ -2630,8 +2591,6 @@ button{
 
         </div>
 
-
-        <!-- HISTORY -->
 
         <div class="adjustment-history">
 
@@ -2655,9 +2614,7 @@ button{
             <div id="adjustmentHistory">
 
                 <div class="empty">
-
                     No entries
-
                 </div>
 
             </div>
@@ -2681,12 +2638,22 @@ const SUPABASE_URL =
 const SUPABASE_KEY =
 "sb_publishable_KoCQClKL582rggMuDJXhYQ_UhHOB4xZ";
 
-
 const db =
 supabase.createClient(
     SUPABASE_URL,
     SUPABASE_KEY
 );
+
+
+/* ============================================================
+   ROLE SYSTEM
+============================================================ */
+
+let currentUser = null;
+
+let currentRole = "user";
+
+let isAdmin = false;
 
 
 /* ============================================================
@@ -2842,6 +2809,42 @@ function go(page){
 
 
 /* ============================================================
+   APPLY ROLE UI
+============================================================ */
+
+function applyPermissions(){
+
+    const badge =
+    $("roleBadge");
+
+
+    if(badge){
+
+        if(isAdmin){
+
+            badge.textContent =
+            "👑 Administrator";
+
+        }
+        else{
+
+            badge.textContent =
+            "👤 Normal User";
+
+        }
+
+    }
+
+
+    document.body.classList.toggle(
+        "admin-mode",
+        isAdmin
+    );
+
+}
+
+
+/* ============================================================
    STUDENT MONTH FILTER
 ============================================================ */
 
@@ -2915,7 +2918,7 @@ async function table(name){
 
 
 /* ============================================================
-   SESSION
+   SESSION + ROLE
 ============================================================ */
 
 async function checkSession(){
@@ -2939,6 +2942,61 @@ async function checkSession(){
         return false;
 
     }
+
+
+    currentUser =
+    data.session.user;
+
+
+    const {
+        data: roleData,
+        error: roleError
+    } =
+    await db
+    .from("user_roles")
+    .select("role")
+    .eq(
+        "user_id",
+        currentUser.id
+    )
+    .single();
+
+
+    if(roleError){
+
+        console.error(
+            "Role Error:",
+            roleError
+        );
+
+
+        await db.auth.signOut();
+
+
+        alert(
+            "User permission is not configured."
+        );
+
+
+        location.replace(
+            "login.html"
+        );
+
+
+        return false;
+
+    }
+
+
+    currentRole =
+    roleData?.role || "user";
+
+
+    isAdmin =
+    currentRole === "admin";
+
+
+    applyPermissions();
 
 
     return true;
@@ -3549,15 +3607,10 @@ async function loadDashboard(){
 function showTransactions(
 
     fees,
-
     registrations,
-
     expenses,
-
     investments,
-
     adjustments,
-
     students
 
 ){
@@ -3903,6 +3956,11 @@ let selectedAdjustmentType =
 
 function openAdjustmentModal(){
 
+    /*
+       Both Admin and Normal User can ADD.
+       Delete remains Admin-only.
+    */
+
     $("adjustmentModal")
     .classList.add("show");
 
@@ -4038,19 +4096,15 @@ async function saveAdjustment(){
         .insert({
 
             amount:
-
             amount,
 
             adjustment_date:
-
             date,
 
             adjustment_type:
-
             selectedAdjustmentType,
 
             note:
-
             note || null
 
         });
@@ -4288,17 +4342,29 @@ async function loadAdjustmentHistory(){
                     </span>
 
 
-                    <button
-                        class="delete-adjustment"
-                        onclick="
-                        deleteAdjustment(
-                            '${item.id}'
-                        )
-                        ">
+                    ${
+                        isAdmin
 
-                        ×
+                        ?
 
-                    </button>
+                        `
+                        <button
+                            class="delete-adjustment"
+                            onclick="
+                            deleteAdjustment(
+                                '${item.id}'
+                            )
+                            ">
+
+                            ×
+
+                        </button>
+                        `
+
+                        :
+
+                        ""
+                    }
 
                 </div>
 
@@ -4364,6 +4430,23 @@ function nextMonth(month){
 
 async function deleteAdjustment(id){
 
+    /*
+       Front-end protection.
+       Actual database protection must also be
+       handled by Supabase RLS.
+    */
+
+    if(!isAdmin){
+
+        alert(
+            "Only Admin can delete records."
+        );
+
+        return;
+
+    }
+
+
     const yes =
     confirm(
         "Delete this Starting Amount / Surplus?"
@@ -4391,6 +4474,7 @@ async function deleteAdjustment(id){
     if(error){
 
         console.error(
+            "Delete Error:",
             error
         );
 
@@ -4407,7 +4491,6 @@ async function deleteAdjustment(id){
 
 
     await loadDashboard();
-
 
     await loadAdjustmentHistory();
 
