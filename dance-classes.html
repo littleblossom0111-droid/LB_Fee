@@ -2073,6 +2073,7 @@ document.getElementById(id);
 
 
 let students = [];
+let isAdmin = false;
 
 
 function money(value){
@@ -2238,6 +2239,14 @@ async function checkSession(){
 
     }
 
+    const { data: roleData } =
+        await db
+            .from("user_roles")
+            .select("role")
+            .eq("user_id", data.session.user.id)
+            .maybeSingle();
+
+    isAdmin = roleData?.role === "admin";
 
     return true;
 
@@ -2616,6 +2625,7 @@ function renderStudents(list){
 
                     <div class="actions">
 
+${isAdmin ? `
                         <button
                             class="action-btn edit-btn"
                             title="Edit"
@@ -2642,6 +2652,7 @@ function renderStudents(list){
                             🗑️
 
                         </button>
+                        ` : ""}
 
                     </div>
 
@@ -2828,6 +2839,11 @@ function closeModal(){
 ========================================================= */
 
 function editStudent(id){
+
+    if(!isAdmin){
+        showToast("Only Admin can edit dance student records.");
+        return;
+    }
 
     const student =
     students.find(
@@ -3125,6 +3141,11 @@ async function saveStudent(){
 ========================================================= */
 
 async function deleteStudent(id){
+
+    if(!isAdmin){
+        showToast("Only Admin can delete dance student records.");
+        return;
+    }
 
     const student =
     students.find(
