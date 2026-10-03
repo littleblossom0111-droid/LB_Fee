@@ -1399,6 +1399,11 @@ async function savePayment(){
 
     if(editingId){
 
+        if(!isAdmin){
+            showMessage("Only Admin can edit registration payment records.", "error");
+            return;
+        }
+
         const result =
             await supabaseClient
             .from(
