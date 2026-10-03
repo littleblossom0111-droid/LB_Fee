@@ -744,6 +744,7 @@ let students = [];
 let payments = [];
 
 let editingId = null;
+let isAdmin = false;
 
 
 /* =====================================================
@@ -770,6 +771,14 @@ async function checkLogin(){
         return false;
     }
 
+    const { data: roleData } =
+        await supabaseClient
+            .from("user_roles")
+            .select("role")
+            .eq("user_id", session.user.id)
+            .maybeSingle();
+
+    isAdmin = roleData?.role === "admin";
 
     return true;
 }
@@ -1499,6 +1508,11 @@ async function savePayment(){
 
 function editPayment(id){
 
+    if(!isAdmin){
+        showMessage("Only Admin can edit registration payment records.", "error");
+        return;
+    }
+
     const payment =
         payments.find(
             p =>
@@ -1577,6 +1591,11 @@ function editPayment(id){
 ===================================================== */
 
 async function deletePayment(id){
+
+    if(!isAdmin){
+        showMessage("Only Admin can delete registration payment records.", "error");
+        return;
+    }
 
     if(
         !confirm(
