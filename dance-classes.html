@@ -3047,6 +3047,11 @@ async function saveStudent(){
 
         if(id){
 
+            if(!isAdmin){
+                showToast("Only Admin can edit dance student records.");
+                return;
+            }
+
             const result =
             await db
             .from(
