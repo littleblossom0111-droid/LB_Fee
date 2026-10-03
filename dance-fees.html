@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -15,11 +15,9 @@
 
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
 
-
 <style>
 
 :root{
-
     --pink:#ec4899;
     --purple:#8b5cf6;
     --cyan:#06b6d4;
@@ -34,7 +32,6 @@
     --border:#ececf2;
 
     --shadow:0 12px 35px rgba(24,18,40,.07);
-
 }
 
 *{
@@ -44,43 +41,33 @@
 }
 
 body{
-
     font-family:"DM Sans",Arial,sans-serif;
 
     background:
-
     radial-gradient(
         circle at 0 0,
         rgba(236,72,153,.10),
         transparent 28%
     ),
-
     radial-gradient(
         circle at 100% 0,
         rgba(139,92,246,.10),
         transparent 25%
     ),
-
     var(--bg);
 
     color:var(--text);
-
     min-height:100vh;
-
 }
 
 button,
 input,
 select{
-
     font:inherit;
-
 }
 
 button{
-
     cursor:pointer;
-
 }
 
 
@@ -89,15 +76,11 @@ button{
 ========================================================= */
 
 .header{
-
     position:sticky;
-
     top:0;
-
     z-index:50;
 
     background:rgba(255,255,255,.94);
-
     backdrop-filter:blur(18px);
 
     border-bottom:1px solid rgba(0,0,0,.06);
@@ -105,31 +88,20 @@ button{
     padding:14px 26px;
 
     display:flex;
-
     justify-content:space-between;
-
     align-items:center;
-
     gap:15px;
-
 }
 
 .brand{
-
     display:flex;
-
     align-items:center;
-
     gap:12px;
-
 }
 
 .logo{
-
     width:46px;
-
     height:46px;
-
     border-radius:15px;
 
     background:linear-gradient(
@@ -141,77 +113,64 @@ button{
     color:white;
 
     display:grid;
-
     place-items:center;
 
     font-weight:800;
 
     box-shadow:
     0 10px 25px rgba(236,72,153,.25);
-
 }
 
 .brand h1{
-
     font:
     700 20px
     "Playfair Display",
     serif;
-
 }
 
 .brand small{
-
     display:block;
-
     color:#888;
-
     font-size:10px;
-
 }
 
 .header-actions{
-
     display:flex;
-
     gap:9px;
-
+    align-items:center;
 }
 
 .btn{
-
     border:0;
-
     border-radius:11px;
-
     padding:10px 14px;
-
     font-weight:700;
-
 }
 
 .back-btn{
-
     background:#f3f4f6;
-
     color:#374151;
-
 }
 
 .refresh-btn{
-
     background:#f3f4f6;
-
     color:#374151;
-
 }
 
 .logout-btn{
-
     background:#fff1f2;
-
     color:#e11d48;
+}
 
+.role-badge{
+    display:inline-flex;
+    align-items:center;
+    padding:9px 12px;
+    border-radius:11px;
+    background:#f5f3ff;
+    color:#7c3aed;
+    font-size:11px;
+    font-weight:800;
 }
 
 
@@ -220,13 +179,9 @@ button{
 ========================================================= */
 
 .container{
-
     max-width:1350px;
-
     margin:auto;
-
     padding:28px 24px 50px;
-
 }
 
 
@@ -235,39 +190,25 @@ button{
 ========================================================= */
 
 .hero{
-
     display:flex;
-
     justify-content:space-between;
-
     align-items:center;
-
     gap:20px;
-
     margin-bottom:22px;
-
 }
 
 .hero-left{
-
     display:flex;
-
     align-items:center;
-
     gap:15px;
-
 }
 
 .hero-icon{
-
     width:64px;
-
     height:64px;
-
     border-radius:20px;
 
     display:grid;
-
     place-items:center;
 
     font-size:30px;
@@ -277,26 +218,19 @@ button{
         #ecfeff,
         #cffafe
     );
-
 }
 
 .hero h2{
-
     font:
     700 34px
     "Playfair Display",
     serif;
-
 }
 
 .hero p{
-
     color:var(--muted);
-
     font-size:13px;
-
     margin-top:4px;
-
 }
 
 
@@ -305,43 +239,27 @@ button{
 ========================================================= */
 
 .month-box{
-
     display:flex;
-
     align-items:center;
-
     gap:8px;
-
     flex-wrap:wrap;
-
 }
 
 .month-box select{
-
     border:1px solid #e5e7eb;
-
     background:white;
-
     border-radius:11px;
-
     padding:11px 13px;
-
     outline:none;
-
     font-weight:700;
-
 }
 
 .collect-main-btn{
-
     border:0;
-
     border-radius:11px;
-
     padding:11px 16px;
 
     color:white;
-
     font-weight:800;
 
     background:
@@ -354,7 +272,6 @@ button{
     box-shadow:
     0 8px 20px
     rgba(139,92,246,.20);
-
 }
 
 
@@ -363,94 +280,58 @@ button{
 ========================================================= */
 
 .stats{
-
     display:grid;
-
-    grid-template-columns:
-    repeat(5,1fr);
-
+    grid-template-columns:repeat(5,1fr);
     gap:15px;
-
     margin-bottom:25px;
-
 }
 
 .stat{
-
     background:white;
-
     border:1px solid rgba(0,0,0,.04);
-
     border-radius:19px;
-
     padding:18px;
-
     box-shadow:var(--shadow);
-
 }
 
 .stat-label{
-
     font-size:10px;
-
     color:#777;
-
     font-weight:800;
-
     text-transform:uppercase;
-
     letter-spacing:.7px;
-
 }
 
 .stat-value{
-
     font-size:24px;
-
     font-weight:800;
-
     margin-top:13px;
-
 }
 
 .stat-sub{
-
     font-size:10px;
-
     color:#aaa;
-
     margin-top:4px;
-
 }
 
 .stat.students{
-
     border-top:3px solid var(--cyan);
-
 }
 
 .stat.expected{
-
     border-top:3px solid var(--purple);
-
 }
 
 .stat.collected{
-
     border-top:3px solid var(--green);
-
 }
 
 .stat.pending{
-
     border-top:3px solid var(--orange);
-
 }
 
 .stat.alltime{
-
     border-top:3px solid var(--pink);
-
 }
 
 
@@ -459,75 +340,45 @@ button{
 ========================================================= */
 
 .panel{
-
     background:white;
-
     border:1px solid var(--border);
-
     border-radius:21px;
-
     box-shadow:var(--shadow);
-
     padding:20px;
-
     margin-bottom:22px;
-
 }
 
 .panel-head{
-
     display:flex;
-
     justify-content:space-between;
-
     align-items:center;
-
     gap:15px;
-
     margin-bottom:17px;
-
 }
 
 .panel-title h3{
-
     font-size:17px;
-
 }
 
 .panel-title p{
-
     color:#999;
-
     font-size:10px;
-
     margin-top:3px;
-
 }
 
 .search{
-
     width:300px;
-
     border:1px solid #e5e7eb;
-
     outline:none;
-
     border-radius:11px;
-
     padding:10px 12px;
-
     background:#fafafa;
-
     font-size:12px;
-
 }
 
 .search:focus{
-
     border-color:#c084fc;
-
     background:white;
-
 }
 
 
@@ -536,57 +387,42 @@ button{
 ========================================================= */
 
 .table-wrap{
-
     width:100%;
-
     overflow-x:auto;
-
 }
 
 table{
-
     width:100%;
-
     border-collapse:collapse;
 
-    min-width:1050px;
-
+    /* Payment Mode add hone ke baad */
+    min-width:1200px;
 }
 
 thead th{
-
     text-align:left;
-
     font-size:9px;
-
     text-transform:uppercase;
-
     letter-spacing:.6px;
-
     color:#999;
 
     padding:11px 10px;
 
     background:#fafafa;
-
     border-bottom:1px solid #eee;
 
+    white-space:nowrap;
 }
 
 tbody td{
-
     padding:13px 10px;
-
     border-bottom:1px solid #f1f1f4;
-
     font-size:11px;
-
+    vertical-align:middle;
 }
 
 tbody tr:hover{
-
     background:#fcfcff;
-
 }
 
 
@@ -595,21 +431,14 @@ tbody tr:hover{
 ========================================================= */
 
 .student-cell{
-
     display:flex;
-
     align-items:center;
-
     gap:10px;
-
 }
 
 .avatar{
-
     width:38px;
-
     height:38px;
-
     border-radius:12px;
 
     background:linear-gradient(
@@ -619,31 +448,23 @@ tbody tr:hover{
     );
 
     display:grid;
-
     place-items:center;
 
     font-weight:800;
-
     color:#7c3aed;
 
+    flex-shrink:0;
 }
 
 .student-name{
-
     font-weight:800;
-
     font-size:12px;
-
 }
 
 .student-father{
-
     color:#aaa;
-
     font-size:9px;
-
     margin-top:2px;
-
 }
 
 
@@ -652,43 +473,68 @@ tbody tr:hover{
 ========================================================= */
 
 .badge{
-
     display:inline-flex;
-
     align-items:center;
-
     padding:5px 9px;
-
     border-radius:8px;
 
     font-size:9px;
-
     font-weight:800;
-
+    white-space:nowrap;
 }
 
 .badge.paid{
-
     background:#ecfdf5;
-
     color:#15803d;
-
 }
 
 .badge.partial{
-
     background:#fff7ed;
-
     color:#c2410c;
-
 }
 
 .badge.pending{
-
     background:#fff1f2;
-
     color:#be123c;
+}
 
+
+/* =========================================================
+   PAYMENT MODE BADGES
+========================================================= */
+
+.mode-badge{
+    display:inline-flex;
+    align-items:center;
+    gap:5px;
+
+    padding:6px 9px;
+    border-radius:9px;
+
+    font-size:9px;
+    font-weight:800;
+
+    white-space:nowrap;
+}
+
+.mode-cash{
+    background:#fff7ed;
+    color:#c2410c;
+}
+
+.mode-upi{
+    background:#eef2ff;
+    color:#4f46e5;
+}
+
+.mode-bank{
+    background:#ecfeff;
+    color:#0891b2;
+}
+
+.mode-other{
+    background:#f4f4f5;
+    color:#52525b;
 }
 
 
@@ -697,27 +543,18 @@ tbody tr:hover{
 ========================================================= */
 
 .fee{
-
     font-weight:800;
-
     color:#7c3aed;
-
 }
 
 .paid-money{
-
     font-weight:800;
-
     color:#15803d;
-
 }
 
 .pending-money{
-
     font-weight:800;
-
     color:#dc2626;
-
 }
 
 
@@ -726,9 +563,7 @@ tbody tr:hover{
 ========================================================= */
 
 .collect-btn{
-
     border:0;
-
     border-radius:9px;
 
     padding:8px 11px;
@@ -743,35 +578,25 @@ tbody tr:hover{
     color:white;
 
     font-size:10px;
-
     font-weight:800;
-
 }
 
 .view-btn{
-
     border:0;
-
     border-radius:9px;
 
     padding:8px 11px;
 
-    background:#f3f4f6;
-
-    color:#374151;
+    background:#fff1f2;
+    color:#e11d48;
 
     font-size:10px;
-
     font-weight:800;
-
 }
 
 .action-group{
-
     display:flex;
-
     gap:6px;
-
 }
 
 
@@ -780,72 +605,44 @@ tbody tr:hover{
 ========================================================= */
 
 .year-grid{
-
     display:grid;
-
-    grid-template-columns:
-    repeat(4,1fr);
-
+    grid-template-columns:repeat(4,1fr);
     gap:12px;
-
 }
 
 .year-card{
-
     border:1px solid #eeeef3;
-
     border-radius:15px;
-
     padding:15px;
-
     background:#fff;
-
 }
 
 .year-card-top{
-
     display:flex;
-
     justify-content:space-between;
-
     align-items:center;
-
     margin-bottom:10px;
-
 }
 
 .year-month{
-
     font-size:12px;
-
     font-weight:800;
-
 }
 
 .year-total{
-
     font-size:16px;
-
     font-weight:800;
-
     color:#7c3aed;
-
 }
 
 .year-details{
-
     display:flex;
-
     justify-content:space-between;
-
     color:#888;
-
     font-size:9px;
-
 }
 
 .year-total-card{
-
     background:
     linear-gradient(
         135deg,
@@ -854,39 +651,26 @@ tbody tr:hover{
     );
 
     border:1px solid #eadcf5;
-
     border-radius:17px;
 
     padding:18px;
-
     margin-bottom:15px;
 
     display:flex;
-
     justify-content:space-between;
-
     align-items:center;
-
 }
 
 .year-total-card small{
-
     color:#888;
-
     font-size:10px;
-
 }
 
 .year-total-card strong{
-
     display:block;
-
     margin-top:5px;
-
     font-size:25px;
-
     color:#7c3aed;
-
 }
 
 
@@ -895,23 +679,15 @@ tbody tr:hover{
 ========================================================= */
 
 .empty{
-
     text-align:center;
-
     padding:50px 15px;
-
     color:#aaa;
-
     font-size:12px;
-
 }
 
 .empty-icon{
-
     font-size:35px;
-
     margin-bottom:8px;
-
 }
 
 
@@ -920,17 +696,12 @@ tbody tr:hover{
 ========================================================= */
 
 .modal{
-
     position:fixed;
-
     inset:0;
-
     z-index:1000;
 
     display:none;
-
     align-items:center;
-
     justify-content:center;
 
     padding:18px;
@@ -938,126 +709,88 @@ tbody tr:hover{
     background:rgba(15,23,42,.50);
 
     backdrop-filter:blur(7px);
-
 }
 
 .modal.show{
-
     display:flex;
-
 }
 
 .modal-box{
-
     width:min(560px,100%);
-
     max-height:92vh;
-
     overflow:auto;
 
     background:white;
-
     border-radius:24px;
-
     padding:24px;
 
     box-shadow:
     0 25px 80px
     rgba(0,0,0,.23);
-
 }
 
 .modal-head{
-
     display:flex;
-
     justify-content:space-between;
-
     align-items:flex-start;
-
     margin-bottom:20px;
-
 }
 
 .modal-head h3{
-
     font:
     700 21px
     "Playfair Display",
     serif;
-
 }
 
 .modal-head p{
-
     color:#999;
-
     font-size:10px;
-
     margin-top:4px;
-
 }
 
 .close{
-
     width:35px;
-
     height:35px;
 
     border:0;
-
     border-radius:10px;
 
     background:#f4f4f5;
-
     color:#555;
 
     font-size:19px;
-
 }
 
 .form-grid{
-
     display:grid;
-
-    grid-template-columns:
-    1fr 1fr;
-
+    grid-template-columns:1fr 1fr;
     gap:13px;
-
 }
 
 .form-group.full{
-
     grid-column:1/-1;
-
 }
 
 .form-group label{
-
     display:block;
 
     font-size:9px;
-
     font-weight:800;
 
     color:#666;
 
     text-transform:uppercase;
-
     letter-spacing:.6px;
 
     margin-bottom:6px;
-
 }
 
 .form-group input,
 .form-group select{
-
     width:100%;
 
     border:1px solid #e5e7eb;
-
     outline:none;
 
     border-radius:12px;
@@ -1067,40 +800,31 @@ tbody tr:hover{
     background:#fafafa;
 
     font-size:12px;
-
 }
 
 .form-group input:focus,
 .form-group select:focus{
-
     border-color:#c084fc;
-
     background:white;
 
     box-shadow:
     0 0 0 3px
     rgba(168,85,247,.08);
-
 }
 
 .info-box{
-
     grid-column:1/-1;
 
     background:#faf5ff;
-
     border:1px solid #ede9fe;
 
     border-radius:14px;
 
     padding:13px;
-
 }
 
 .info-row{
-
     display:flex;
-
     justify-content:space-between;
 
     gap:15px;
@@ -1108,67 +832,46 @@ tbody tr:hover{
     margin:6px 0;
 
     font-size:11px;
-
 }
 
 .info-row span{
-
     color:#888;
-
 }
 
 .info-row strong{
-
     color:#7c3aed;
-
     text-align:right;
-
 }
 
 .amount-note{
-
     margin-top:5px;
-
     font-size:9px;
-
     color:#999;
-
 }
 
 .modal-actions{
-
     display:flex;
-
     gap:10px;
-
     margin-top:21px;
-
 }
 
 .modal-actions button{
-
     flex:1;
 
     border:0;
-
     border-radius:12px;
 
     padding:12px;
 
     font-weight:800;
-
 }
 
 .cancel{
-
     background:#f4f4f5;
-
     color:#555;
-
 }
 
 .save{
-
     background:
     linear-gradient(
         135deg,
@@ -1177,13 +880,10 @@ tbody tr:hover{
     );
 
     color:white;
-
 }
 
 .save:disabled{
-
     opacity:.6;
-
 }
 
 
@@ -1192,17 +892,14 @@ tbody tr:hover{
 ========================================================= */
 
 .toast{
-
     position:fixed;
 
     right:22px;
-
     bottom:22px;
 
     z-index:2000;
 
     background:#18181b;
-
     color:white;
 
     padding:13px 17px;
@@ -1210,7 +907,6 @@ tbody tr:hover{
     border-radius:12px;
 
     font-size:11px;
-
     font-weight:700;
 
     box-shadow:
@@ -1218,21 +914,16 @@ tbody tr:hover{
     rgba(0,0,0,.20);
 
     transform:translateY(20px);
-
     opacity:0;
 
     pointer-events:none;
 
     transition:.25s;
-
 }
 
 .toast.show{
-
     transform:translateY(0);
-
     opacity:1;
-
 }
 
 
@@ -1241,43 +932,32 @@ tbody tr:hover{
 ========================================================= */
 
 .loading{
-
     position:fixed;
-
     inset:0;
-
     z-index:3000;
 
     background:rgba(247,247,251,.97);
 
     display:grid;
-
     place-items:center;
-
 }
 
 .loader{
-
     text-align:center;
-
 }
 
 .loader-logo{
-
     width:58px;
-
     height:58px;
 
     border-radius:18px;
 
     display:grid;
-
     place-items:center;
 
     margin:auto;
 
     color:white;
-
     font-weight:800;
 
     background:
@@ -1286,17 +966,13 @@ tbody tr:hover{
         var(--pink),
         var(--purple)
     );
-
 }
 
 .spinner{
-
     width:27px;
-
     height:27px;
 
     border:3px solid #eee;
-
     border-top-color:var(--pink);
 
     border-radius:50%;
@@ -1305,25 +981,18 @@ tbody tr:hover{
     spin .8s linear infinite;
 
     margin:15px auto 0;
-
 }
 
 @keyframes spin{
-
     to{
         transform:rotate(360deg);
     }
-
 }
 
 .loader p{
-
     font-size:11px;
-
     color:#777;
-
     margin-top:10px;
-
 }
 
 
@@ -1334,17 +1003,11 @@ tbody tr:hover{
 @media(max-width:1100px){
 
     .stats{
-
-        grid-template-columns:
-        repeat(3,1fr);
-
+        grid-template-columns:repeat(3,1fr);
     }
 
     .year-grid{
-
-        grid-template-columns:
-        repeat(3,1fr);
-
+        grid-template-columns:repeat(3,1fr);
     }
 
 }
@@ -1352,17 +1015,11 @@ tbody tr:hover{
 @media(max-width:900px){
 
     .stats{
-
-        grid-template-columns:
-        repeat(2,1fr);
-
+        grid-template-columns:repeat(2,1fr);
     }
 
     .year-grid{
-
-        grid-template-columns:
-        repeat(2,1fr);
-
+        grid-template-columns:repeat(2,1fr);
     }
 
 }
@@ -1370,160 +1027,108 @@ tbody tr:hover{
 @media(max-width:600px){
 
     .header{
-
         padding:12px 14px;
-
     }
 
     .brand h1{
-
         font-size:17px;
-
     }
 
     .brand small{
-
         font-size:8px;
-
     }
 
     .header-actions .refresh-btn{
-
         display:none;
+    }
 
+    .role-badge{
+        display:none;
     }
 
     .btn{
-
         padding:8px 10px;
-
         font-size:10px;
-
     }
 
     .container{
-
         padding:20px 13px 35px;
-
     }
 
     .hero{
-
         display:block;
-
     }
 
     .hero-left{
-
         margin-bottom:15px;
-
     }
 
     .hero h2{
-
         font-size:28px;
-
     }
 
     .month-box{
-
         width:100%;
-
     }
 
     .month-box select{
-
         flex:1;
-
         min-width:100px;
-
     }
 
     .collect-main-btn{
-
         width:100%;
-
     }
 
     .stats{
-
-        grid-template-columns:
-        1fr 1fr;
-
+        grid-template-columns:1fr 1fr;
         gap:9px;
-
     }
 
     .stat{
-
         padding:14px;
-
     }
 
     .stat-value{
-
         font-size:19px;
-
     }
 
     .panel{
-
         padding:15px;
-
     }
 
     .panel-head{
-
         display:block;
-
     }
 
     .search{
-
         width:100%;
-
         margin-top:12px;
-
     }
 
     .form-grid{
-
         grid-template-columns:1fr;
-
     }
 
     .form-group.full,
     .info-box{
-
         grid-column:auto;
-
     }
 
     .year-grid{
-
         grid-template-columns:1fr;
-
     }
 
     .year-total-card{
-
         display:block;
-
     }
 
 }
 
-
-/* =========================================================
-   MOBILE TABLE
-========================================================= */
-
 @media(max-width:450px){
 
     table{
-
-        min-width:900px;
-
+        min-width:1200px;
     }
 
 }
@@ -1590,6 +1195,16 @@ tbody tr:hover{
 
     <div class="header-actions">
 
+        <!-- ROLE -->
+        <span
+            class="role-badge"
+            id="roleBadge">
+
+            👤 Normal User
+
+        </span>
+
+
         <button
             class="btn back-btn"
             onclick="goDanceStudents()">
@@ -1654,7 +1269,6 @@ tbody tr:hover{
 
 
         <div class="month-box">
-
 
             <button
                 class="collect-main-btn"
@@ -1799,7 +1413,6 @@ tbody tr:hover{
 
     <section class="panel">
 
-
         <div class="panel-head">
 
             <div class="panel-title">
@@ -1854,6 +1467,11 @@ tbody tr:hover{
 
                         <th>
                             Status
+                        </th>
+
+                        <!-- NEW -->
+                        <th>
+                            Payment Mode
                         </th>
 
                         <th>
@@ -1989,7 +1607,7 @@ tbody tr:hover{
         <div class="form-grid">
 
 
-            <!-- STUDENT DROPDOWN -->
+            <!-- STUDENT -->
 
             <div class="form-group full">
 
@@ -2009,10 +1627,9 @@ tbody tr:hover{
             </div>
 
 
-            <!-- STUDENT INFORMATION -->
+            <!-- INFORMATION -->
 
             <div class="info-box">
-
 
                 <div class="info-row">
 
@@ -2137,27 +1754,27 @@ tbody tr:hover{
             </div>
 
 
-            <!-- MODE -->
+            <!-- PAYMENT MODE -->
 
             <div class="form-group">
 
                 <label>
-                    Payment Mode
+                    Payment Mode *
                 </label>
 
                 <select
                     id="paymentMode">
 
                     <option value="Cash">
-                        Cash
+                        💵 Cash
                     </option>
 
                     <option value="UPI">
-                        UPI
+                        📱 UPI
                     </option>
 
                     <option value="Bank">
-                        Bank Transfer
+                        🏦 Bank Transfer
                     </option>
 
                     <option value="Other">
@@ -2296,6 +1913,17 @@ new Date().getFullYear();
 
 
 /* =========================================================
+   USER ROLE
+========================================================= */
+
+let currentUser = null;
+
+let currentRole = "user";
+
+let isAdmin = false;
+
+
+/* =========================================================
    HELPERS
 ========================================================= */
 
@@ -2405,7 +2033,69 @@ function getMonthName(month){
 
 
 /* =========================================================
-   SETUP MONTH/YEAR
+   PAYMENT MODE DISPLAY
+========================================================= */
+
+function paymentModeHTML(mode){
+
+    const value =
+    String(
+        mode || "Cash"
+    ).trim();
+
+
+    const lower =
+    value.toLowerCase();
+
+
+    if(lower === "upi"){
+
+        return `
+            <span class="mode-badge mode-upi">
+                📱 UPI
+            </span>
+        `;
+
+    }
+
+
+    if(lower === "cash"){
+
+        return `
+            <span class="mode-badge mode-cash">
+                💵 Cash
+            </span>
+        `;
+
+    }
+
+
+    if(
+        lower === "bank"
+        ||
+        lower === "bank transfer"
+    ){
+
+        return `
+            <span class="mode-badge mode-bank">
+                🏦 Bank
+            </span>
+        `;
+
+    }
+
+
+    return `
+        <span class="mode-badge mode-other">
+            💳 ${escapeHTML(value)}
+        </span>
+    `;
+
+}
+
+
+/* =========================================================
+   SETUP MONTH / YEAR
 ========================================================= */
 
 function setupMonthYear(){
@@ -2570,7 +2260,7 @@ function updateTableTitle(){
 
 
 /* =========================================================
-   SESSION
+   SESSION + ROLE
 ========================================================= */
 
 async function checkSession(){
@@ -2596,7 +2286,105 @@ async function checkSession(){
     }
 
 
+    currentUser =
+    data.session.user;
+
+
+    /*
+       IMPORTANT:
+
+       Admin/User selector par trust nahi karna.
+       Actual role Supabase se read hoga.
+    */
+
+    const {
+        data:roleData,
+        error:roleError
+    } =
+    await db
+    .from("user_roles")
+    .select("role")
+    .eq(
+        "user_id",
+        currentUser.id
+    )
+    .single();
+
+
+    if(roleError){
+
+        console.error(
+            "Role Error:",
+            roleError
+        );
+
+
+        await db.auth.signOut();
+
+
+        alert(
+            "User permission is not configured."
+        );
+
+
+        location.replace(
+            "login.html"
+        );
+
+
+        return false;
+
+    }
+
+
+    currentRole =
+    roleData?.role ||
+    "user";
+
+
+    isAdmin =
+    currentRole === "admin";
+
+
+    updateRoleUI();
+
+
     return true;
+
+}
+
+
+/* =========================================================
+   ROLE UI
+========================================================= */
+
+function updateRoleUI(){
+
+    const badge =
+    $("roleBadge");
+
+
+    if(badge){
+
+        badge.textContent =
+        isAdmin
+        ?
+        "👑 Administrator"
+        :
+        "👤 Normal User";
+
+    }
+
+
+    /*
+       Normal User:
+       + Collect Fee visible
+
+       Admin:
+       + Collect Fee visible
+       Edit visible
+       Delete visible
+    */
 
 }
 
@@ -2752,7 +2540,7 @@ async function loadPayments(){
 
 
 /* =========================================================
-   LOAD FULL YEAR PAYMENTS
+   LOAD FULL YEAR
 ========================================================= */
 
 async function loadYearOverview(){
@@ -2986,7 +2774,7 @@ function renderTable(){
 
             <tr>
 
-                <td colspan="8">
+                <td colspan="9">
 
                     <div class="empty">
 
@@ -3077,10 +2865,94 @@ function renderTable(){
             .toUpperCase();
 
 
+            /*
+               ADMIN ACTIONS
+
+               Normal user:
+               Collect only
+
+               Admin:
+               Edit + Delete
+            */
+
+            let actions = "";
+
+
+            if(payment){
+
+                if(isAdmin){
+
+                    actions = `
+
+                        <button
+                            class="collect-btn"
+                            onclick='openPaymentModal(${JSON.stringify(
+                                String(student.id)
+                            )})'>
+
+                            Edit Fee
+
+                        </button>
+
+
+                        <button
+                            class="view-btn"
+                            onclick='deletePayment(${JSON.stringify(
+                                String(payment.id)
+                            )})'>
+
+                            Delete
+
+                        </button>
+
+                    `;
+
+                }
+                else{
+
+                    actions = `
+
+                        <span
+                            class="badge paid"
+                            style="padding:7px 10px;">
+
+                            ${payment.amount_paid > 0
+                                ? "Recorded"
+                                : "Pending"
+                            }
+
+                        </span>
+
+                    `;
+
+                }
+
+            }
+            else{
+
+                actions = `
+
+                    <button
+                        class="collect-btn"
+                        onclick='openPaymentModal(${JSON.stringify(
+                            String(student.id)
+                        )})'>
+
+                        Collect
+
+                    </button>
+
+                `;
+
+            }
+
+
             return `
 
             <tr>
 
+
+                <!-- STUDENT -->
 
                 <td>
 
@@ -3128,6 +3000,8 @@ function renderTable(){
                 </td>
 
 
+                <!-- BATCH -->
+
                 <td>
 
                     ${
@@ -3143,6 +3017,8 @@ function renderTable(){
                 </td>
 
 
+                <!-- MONTHLY FEE -->
+
                 <td>
 
                     <span class="fee">
@@ -3156,6 +3032,8 @@ function renderTable(){
                 </td>
 
 
+                <!-- PAID -->
+
                 <td>
 
                     <span class="paid-money">
@@ -3168,6 +3046,8 @@ function renderTable(){
 
                 </td>
 
+
+                <!-- BALANCE -->
 
                 <td>
 
@@ -3187,6 +3067,8 @@ function renderTable(){
 
                 </td>
 
+
+                <!-- STATUS -->
 
                 <td>
 
@@ -3219,6 +3101,25 @@ function renderTable(){
                 </td>
 
 
+                <!-- PAYMENT MODE -->
+
+                <td>
+
+                    ${
+                        payment
+                        ?
+                        paymentModeHTML(
+                            payment.payment_mode
+                        )
+                        :
+                        `<span style="color:#aaa;">-</span>`
+                    }
+
+                </td>
+
+
+                <!-- PAYMENT DATE -->
+
                 <td>
 
                     ${
@@ -3234,50 +3135,13 @@ function renderTable(){
                 </td>
 
 
+                <!-- ACTIONS -->
+
                 <td>
 
                     <div class="action-group">
 
-
-                        <button
-                            class="collect-btn"
-                            onclick='openPaymentModal(${JSON.stringify(
-                                String(
-                                    student.id
-                                )
-                            )})'>
-
-                            ${
-                                payment
-                                ?
-                                "Edit Fee"
-                                :
-                                "Collect"
-                            }
-
-                        </button>
-
-
-                        ${
-                            payment
-                            ?
-                            `
-                            <button
-                                class="view-btn"
-                                onclick='deletePayment(${JSON.stringify(
-                                    String(
-                                        payment.id
-                                    )
-                                )})'>
-
-                                Delete
-
-                            </button>
-                            `
-                            :
-                            ""
-                        }
-
+                        ${actions}
 
                     </div>
 
@@ -3409,7 +3273,7 @@ async function selectStudentForPayment(
 
 
     /* =====================================================
-       CHECK EXISTING PAYMENT FOR THIS EXACT MONTH
+       EXACT MONTH PAYMENT
     ===================================================== */
 
     const {
@@ -3451,7 +3315,9 @@ async function selectStudentForPayment(
 
     if(data){
 
-        /* EXISTING MONTH PAYMENT */
+        /*
+           EXISTING PAYMENT
+        */
 
         $("paymentId")
         .value =
@@ -3461,7 +3327,7 @@ async function selectStudentForPayment(
         $("amountPaid")
         .value =
         data.amount_paid
-        ||
+        ??
         "";
 
 
@@ -3471,6 +3337,12 @@ async function selectStudentForPayment(
         ||
         today();
 
+
+        /*
+           IMPORTANT:
+           Existing Cash/UPI/Bank value
+           yaha load hoga.
+        */
 
         $("paymentMode")
         .value =
@@ -3505,7 +3377,9 @@ async function selectStudentForPayment(
     }
     else{
 
-        /* NEW MONTH */
+        /*
+           NEW MONTH
+        */
 
         $("paymentId")
         .value =
@@ -3513,9 +3387,7 @@ async function selectStudentForPayment(
 
 
         /*
-           IMPORTANT:
            Amount intentionally EMPTY.
-           User will enter actual amount.
         */
 
         $("amountPaid")
@@ -3656,8 +3528,7 @@ function clearPaymentForm(){
 
 
     /*
-       IMPORTANT:
-       No automatic amount.
+       Amount empty
     */
 
     $("amountPaid")
@@ -3694,6 +3565,31 @@ function clearPaymentForm(){
 async function openPaymentModal(
     studentId
 ){
+
+    /*
+       Normal User ko existing payment edit
+       nahi karne dena.
+    */
+
+    const existing =
+    getPayment(
+        studentId
+    );
+
+
+    if(
+        existing &&
+        !isAdmin
+    ){
+
+        alert(
+            "Only Admin can edit existing fee records."
+        );
+
+        return;
+
+    }
+
 
     $("feeModal")
     .classList.add(
@@ -3743,6 +3639,24 @@ async function savePayment(){
     .value;
 
 
+    /*
+       Existing record update sirf Admin.
+    */
+
+    if(
+        paymentId &&
+        !isAdmin
+    ){
+
+        alert(
+            "Only Admin can edit existing fee records."
+        );
+
+        return;
+
+    }
+
+
     const studentId =
     $("paymentStudentId")
     .value;
@@ -3784,7 +3698,7 @@ async function savePayment(){
 
 
     /* =====================================================
-       USER ENTERED AMOUNT
+       AMOUNT
     ===================================================== */
 
     const amountInput =
@@ -3845,7 +3759,9 @@ async function savePayment(){
 
     const paymentMode =
     $("paymentMode")
-    .value;
+    .value
+    ||
+    "Cash";
 
 
     const remark =
@@ -3855,7 +3771,7 @@ async function savePayment(){
 
 
     /* =====================================================
-       AUTO STATUS BASED ON AMOUNT
+       AUTO STATUS
     ===================================================== */
 
     let status;
@@ -3889,6 +3805,10 @@ async function savePayment(){
     status;
 
 
+    /* =====================================================
+       PAYLOAD
+    ===================================================== */
+
     const payload = {
 
         student_id:
@@ -3913,6 +3833,11 @@ async function savePayment(){
 
         payment_date:
         paymentDate,
+
+        /*
+           IMPORTANT:
+           Cash / UPI / Bank yahi save hoga.
+        */
 
         payment_mode:
         paymentMode,
@@ -4007,7 +3932,6 @@ async function savePayment(){
 
         await loadYearOverview();
 
-
         updateStats();
 
     }
@@ -4051,6 +3975,21 @@ async function savePayment(){
 async function deletePayment(
     id
 ){
+
+    /*
+       Frontend guard
+    */
+
+    if(!isAdmin){
+
+        alert(
+            "Only Admin can delete dance fee records."
+        );
+
+        return;
+
+    }
+
 
     const yes =
     confirm(
