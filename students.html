@@ -840,6 +840,7 @@ supabase.createClient(
 ================================= */
 
 let students = [];
+let isAdmin = false;
 
 const modal =
 document.getElementById("studentModal");
@@ -894,6 +895,14 @@ async function checkLogin(){
 
     }
 
+    const { data: roleData } =
+        await supabaseClient
+            .from("user_roles")
+            .select("role")
+            .eq("user_id", data.session.user.id)
+            .maybeSingle();
+
+    isAdmin = roleData?.role === "admin";
 
     return true;
 
@@ -1073,19 +1082,21 @@ function renderStudents(){
 
                     <td>
 
-                        <button
-                            class="action-btn edit"
-                            onclick="editStudent('${student.id}')"
-                        >
-                            Edit
-                        </button>
+                        ${isAdmin ? `
+                            <button
+                                class="action-btn edit"
+                                onclick="editStudent('${student.id}')"
+                            >
+                                Edit
+                            </button>
 
-                        <button
-                            class="action-btn delete"
-                            onclick="deleteStudent('${student.id}')"
-                        >
-                            Delete
-                        </button>
+                            <button
+                                class="action-btn delete"
+                                onclick="deleteStudent('${student.id}')"
+                            >
+                                Delete
+                            </button>
+                        ` : ""}
 
                     </td>
 
@@ -1214,6 +1225,11 @@ function openAddModal(){
 ================================= */
 
 function editStudent(id){
+
+    if(!isAdmin){
+        alert("Only Admin can edit student records.");
+        return;
+    }
 
     const student =
         students.find(
@@ -1403,6 +1419,13 @@ form.addEventListener(
 
         if(id){
 
+            if(!isAdmin){
+                showMessage("Only Admin can edit student records.", "error");
+                saveBtn.disabled = false;
+                saveBtn.textContent = "Update Student";
+                return;
+            }
+
             result =
                 await supabaseClient
                     .from("students")
@@ -1475,6 +1498,11 @@ form.addEventListener(
 ================================= */
 
 async function deleteStudent(id){
+
+    if(!isAdmin){
+        alert("Only Admin can delete student records.");
+        return;
+    }
 
     const student =
         students.find(
