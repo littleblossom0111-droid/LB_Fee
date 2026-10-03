@@ -296,3 +296,43 @@ create policy "LB dance_fee_collections owner restriction"
 
 -- Existing rows with NULL user_id remain visible to Admin accounts only.
 -- New records created by the updated app are automatically linked to auth.uid().
+
+
+-- ============================================================
+-- ADMIN-ONLY UPDATE / DELETE
+-- Normal users may INSERT their own rows and SELECT their own rows,
+-- but only users with role='admin' may UPDATE or DELETE any row.
+-- ============================================================
+
+do $$
+declare
+  t text;
+begin
+  foreach t in array array[
+    'students',
+    'fee_payments',
+    'registration_payments',
+    'expenses',
+    'investments',
+    'balance_adjustments',
+    'dance_students',
+    'dance_fee_collections'
+  ]
+  loop
+    execute format('drop policy if exists "LB %s admin update only" on public.%I', t, t);
+    execute format(
+      'create policy "LB %s admin update only" on public.%I as restrictive for update to authenticated using ((select private.lb_is_admin())) with check ((select private.lb_is_admin()))',
+      t, t
+    );
+
+    execute format('drop policy if exists "LB %s admin delete only" on public.%I', t, t);
+    execute format(
+      'create policy "LB %s admin delete only" on public.%I as restrictive for delete to authenticated using ((select private.lb_is_admin()))',
+      t, t
+    );
+  end loop;
+end $$;
+
+-- IMPORTANT:
+-- Run this SQL file once in Supabase SQL Editor.
+-- The GitHub code alone cannot enforce database-level permissions.
