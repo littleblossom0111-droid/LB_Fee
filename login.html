@@ -1082,34 +1082,42 @@ async function signupUser(event){
 
         if(data.session){
 
-            await supabaseClient.auth.signOut();
+            showMessage(
+                "Account created successfully. Opening your dashboard...",
+                "success"
+            );
+
+            sessionStorage.setItem(
+                "lb_role",
+                "user"
+            );
+
+            sessionStorage.setItem(
+                "lb_user_email",
+                data.user?.email || email
+            );
+
+            setTimeout(function(){
+
+                window.location.href =
+                    "dashboard.html";
+
+            },700);
+
+            return;
 
         }
 
 
         showMessage(
-            "Account created successfully.",
+            "Account created successfully. Please verify your email, then login.",
             "success"
         );
 
+        button.disabled = false;
 
-        setTimeout(function(){
-
-            closeLogin();
-
-            document
-                .getElementById("signupEmail")
-                .value = "";
-
-            document
-                .getElementById("signupPassword")
-                .value = "";
-
-            document
-                .getElementById("signupConfirm")
-                .value = "";
-
-        },1200);
+        button.textContent =
+            "Create Account";
 
 
     }
