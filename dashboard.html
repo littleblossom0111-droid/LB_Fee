@@ -1783,6 +1783,16 @@ body.admin-mode #roleBadge{
 
         </button>
 
+        <button
+            class="btn refresh"
+            id="adminUsersBtn"
+            style="display:none;background:#fff7ed;color:#c2410c;border:1px solid #fed7aa;"
+            onclick="go('admin-users.html')">
+
+            👥 User IDs
+
+        </button>
+
 
         <button
             class="btn logout"
@@ -2840,6 +2850,11 @@ function applyPermissions(){
         "admin-mode",
         isAdmin
     );
+
+    const adminUsersBtn = $("adminUsersBtn");
+    if(adminUsersBtn){
+        adminUsersBtn.style.display = isAdmin ? "inline-block" : "none";
+    }
 
 }
 
