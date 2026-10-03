@@ -155,7 +155,7 @@ async function verifyEmail(event){
         const {data,error}=await supabaseClient.auth.verifyOtp({
             email:email,
             token:token,
-            type:"signup"
+            type:"email"
         });
 
         if(error) throw error;
