@@ -1355,7 +1355,13 @@ async function savePayment(){
        Student name comes from students table.
     */
 
+    const { data: authData } =
+        await supabaseClient.auth.getUser();
+
     const payload = {
+
+        user_id:
+            authData.user.id,
 
         student_id:
             studentId,
