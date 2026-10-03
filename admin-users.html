@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Little Blossoms | Admin Users</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,sans-serif;background:linear-gradient(135deg,#fff5fb,#f5f3ff);color:#18181b;min-height:100vh}
+.header{background:#fff;padding:16px 20px;display:flex;justify-content:space-between;align-items:center;gap:12px;border-bottom:1px solid #eee;position:sticky;top:0;z-index:5}
+.brand{font-size:19px;font-weight:800}.brand small{display:block;font-size:10px;color:#888;margin-top:3px}
+.actions{display:flex;gap:8px}.btn{border:0;border-radius:10px;padding:10px 13px;font-weight:700;cursor:pointer}.dashboard{background:#f3f4f6;color:#333}.logout{background:#fff1f2;color:#e11d48}
+.wrap{max-width:1000px;margin:auto;padding:24px 15px 45px}
+.hero{display:flex;justify-content:space-between;align-items:end;gap:15px;margin-bottom:18px}.hero h1{font-size:28px}.hero p{color:#777;font-size:12px;margin-top:5px}
+.count{background:linear-gradient(135deg,#ec4899,#8b5cf6);color:#fff;border-radius:18px;padding:16px 22px;text-align:center;min-width:105px}.count b{display:block;font-size:27px}.count span{font-size:10px}
+.card{background:#fff;border:1px solid #eee;border-radius:18px;padding:16px;box-shadow:0 10px 30px rgba(30,20,50,.07)}
+.notice{font-size:11px;color:#666;background:#fafafa;border-radius:12px;padding:11px;margin-bottom:14px}
+.table{width:100%;border-collapse:collapse}.table th,.table td{text-align:left;padding:12px 8px;border-bottom:1px solid #f0f0f3;font-size:12px}.table th{font-size:10px;text-transform:uppercase;color:#888}.role{display:inline-block;padding:5px 8px;border-radius:8px;background:#f3f4f6;font-size:10px;font-weight:700}.admin{background:#fff7ed;color:#c2410c}.actions-cell{display:flex;gap:6px;flex-wrap:wrap}.danger{border:0;background:#fff1f2;color:#e11d48;border-radius:8px;padding:7px 9px;font-size:10px;font-weight:700;cursor:pointer}.pass{border:0;background:#eff6ff;color:#2563eb;border-radius:8px;padding:7px 9px;font-size:10px;font-weight:700;cursor:pointer}
+.empty{text-align:center;color:#999;padding:35px}.status{margin-top:12px;font-size:11px;font-weight:700}.success{color:#15803d}.error{color:#dc2626}
+@media(max-width:650px){.hero{align-items:stretch}.table th:nth-child(3),.table td:nth-child(3){display:none}.table th,.table td{padding:10px 5px}.hero h1{font-size:23px}.count{min-width:90px}.actions-cell{display:block}.actions-cell button{margin:2px}}
+</style>
+</head>
+<body>
+<header class="header">
+  <div class="brand">🌸 Little Blossoms<small>Administrator • Account Management</small></div>
+  <div class="actions">
+    <button class="btn dashboard" onclick="location.href='dashboard.html'">Dashboard</button>
+    <button class="btn logout" onclick="logout()">Logout</button>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="hero">
+    <div><h1>Registered Accounts</h1><p>Admin can view account IDs, set a new password, or delete normal users.</p></div>
+    <div class="count"><b id="totalCount">0</b><span>Total IDs</span></div>
+  </section>
+
+  <div class="card">
+    <div class="notice">
+      🔐 Passwords are never displayed because Supabase stores authentication passwords securely. Admin can set a <b>new password</b> for a Normal User instead.
+    </div>
+    <div id="tableWrap"><div class="empty">Loading accounts...</div></div>
+    <div id="status" class="status"></div>
+  </div>
+</main>
+
+<script>
+const SUPABASE_URL="https://holelzxzhaiefaqezmce.supabase.co";
+const SUPABASE_KEY="sb_publishable_KoCQClKL582rggMuDJXhYQ_UhHOB4xZ";
+const db=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+
+function esc(v){return String(v??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]))}
+function msg(text,ok=false){const el=document.getElementById("status");el.textContent=text;el.className="status "+(ok?"success":"error")}
+function fmt(v){return v?new Date(v).toLocaleString("en-IN"):"Never"}
+
+async function ensureAdmin(){
+  const {data}=await db.auth.getSession();
+  if(!data.session){location.replace("login.html");return false}
+  const {data:r,error}=await db.from("user_roles").select("role").eq("user_id",data.session.user.id).maybeSingle();
+  if(error||r?.role!=="admin"){alert("Admin permission required.");location.replace("dashboard.html");return false}
+  return true;
+}
+
+async function callAdmin(body){
+  const {data,error}=await db.functions.invoke("admin-user-management",{body});
+  if(error) throw error;
+  if(data?.error) throw new Error(data.error);
+  return data;
+}
+
+async function loadUsers(){
+  try{
+    const data=await callAdmin({action:"list"});
+    document.getElementById("totalCount").textContent=data.count||0;
+    if(!data.users?.length){
+      document.getElementById("tableWrap").innerHTML='<div class="empty">No accounts found.</div>';
+      return;
+    }
+    let html='<table class="table"><thead><tr><th>Email / ID</th><th>Role</th><th>Last Login</th><th>Action</th></tr></thead><tbody>';
+    for(const u of data.users){
+      const isAdmin=u.role==="admin";
+      html+=`<tr>
+        <td><b>${esc(u.email)}</b><div style="font-size:8px;color:#aaa;margin-top:4px;word-break:break-all">${esc(u.id)}</div></td>
+        <td><span class="role ${isAdmin?"admin":""}">${esc(u.role)}</span></td>
+        <td>${esc(fmt(u.last_sign_in_at))}</td>
+        <td><div class="actions-cell">
+          ${isAdmin?'<span style="font-size:10px;color:#999">Protected</span>':`<button class="pass" onclick="setPassword('${esc(u.id)}','${esc(u.email)}')">Set Password</button><button class="danger" onclick="deleteUser('${esc(u.id)}','${esc(u.email)}')">Delete</button>`}
+        </div></td>
+      </tr>`;
+    }
+    html+="</tbody></table>";
+    document.getElementById("tableWrap").innerHTML=html;
+  }catch(e){
+    console.error(e);msg(e.message||"Unable to load accounts.");
+  }
+}
+
+async function setPassword(id,email){
+  const password=prompt("Set new password for "+email+"\nMinimum 6 characters:");
+  if(password===null)return;
+  if(password.length<6){alert("Password must be at least 6 characters.");return}
+  if(!confirm("Set this new password for "+email+"?"))return;
+  try{
+    await callAdmin({action:"set_password",user_id:id,password});
+    msg("New password saved successfully.",true);
+  }catch(e){msg(e.message||"Unable to change password.")}
+}
+
+async function deleteUser(id,email){
+  if(!confirm("Delete account "+email+"?\n\nThis removes the Auth account and this user's Little Blossoms records. This cannot be undone."))return;
+  try{
+    await callAdmin({action:"delete",user_id:id});
+    msg("Account deleted successfully.",true);
+    await loadUsers();
+  }catch(e){msg(e.message||"Unable to delete account.")}
+}
+
+async function logout(){await db.auth.signOut();location.replace("login.html")}
+
+(async()=>{if(await ensureAdmin())await loadUsers()})();
+</script>
+</body>
+</html>
