@@ -1316,7 +1316,18 @@ form.addEventListener(
             ).value;
 
 
+        const { data: authData } =
+            await supabaseClient.auth.getUser();
+
+        if(!authData.user){
+            location.href = "login.html";
+            return;
+        }
+
         const studentData = {
+
+            user_id:
+                authData.user.id,
 
             name:
                 document.getElementById(
