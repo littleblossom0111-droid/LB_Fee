@@ -2959,7 +2959,13 @@ async function checkSession(){
         "user_id",
         currentUser.id
     )
-    .single();
+    .maybeSingle();
+
+
+    const isSharedStaff =
+        String(currentUser.email || "").toLowerCase()
+        ===
+        "littleblossom0111@gmail.com";
 
 
     if(roleError){
@@ -2969,27 +2975,26 @@ async function checkSession(){
             roleError
         );
 
+        if(!isSharedStaff){
+            await db.auth.signOut();
 
-        await db.auth.signOut();
+            alert(
+                "User permission is not configured."
+            );
 
+            location.replace(
+                "login.html"
+            );
 
-        alert(
-            "User permission is not configured."
-        );
-
-
-        location.replace(
-            "login.html"
-        );
-
-
-        return false;
+            return false;
+        }
 
     }
 
 
     currentRole =
-    roleData?.role || "user";
+    roleData?.role ||
+    (isSharedStaff ? "staff" : "user");
 
 
     isAdmin =
