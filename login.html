@@ -83,47 +83,28 @@ body{
 /* ================= BUTTONS ================= */
 
 .home-buttons{
-    display:flex;
-    flex-direction:column;
-    gap:8px;
-    width:210px;
+    width:230px;
 }
 
-.home-btn{
-    width:210px;
-    min-width:0;
-
-    padding:13px 19px;
-
-    border-radius:30px;
-
+.login-select{
+    width:230px;
+    padding:13px 16px;
+    border-radius:14px;
     border:1px solid rgba(255,255,255,.65);
-
-    background:rgba(255,255,255,.12);
-
-    backdrop-filter:blur(6px);
-    -webkit-backdrop-filter:blur(6px);
-
+    background:rgba(0,0,0,.28);
+    backdrop-filter:blur(8px);
+    -webkit-backdrop-filter:blur(8px);
     color:white;
-
     font-size:16px;
     font-weight:700;
-
+    outline:none;
     cursor:pointer;
-
-    box-shadow:
-        0 8px 25px rgba(0,0,0,.18);
-
-    transition:.25s;
+    box-shadow:0 8px 25px rgba(0,0,0,.22);
 }
 
-.home-btn:hover{
-    background:rgba(255,255,255,.25);
-    transform:translateY(-2px);
-}
-
-.home-btn:active{
-    transform:scale(.97);
+.login-select option{
+    background:#333;
+    color:white;
 }
 
 /* ================= LOGIN OVERLAY ================= */
@@ -372,9 +353,7 @@ body{
         padding:20px;
     }
 
-    .home-buttons{
-        width:210px;
-    }
+    .home-buttons{\n        width:230px;\n    }
 
     .home-btn{
         width:210px;
@@ -405,29 +384,17 @@ body{
 
     <div class="home-buttons">
 
-        <button
-            class="home-btn"
-            onclick="openLogin('user')">
+        <select
+            class="login-select"
+            id="loginSelect"
+            onchange="handleLoginSelect(this.value)">
 
-            👤 User Login
+            <option value="">Select Login</option>
+            <option value="user">👤 User Login</option>
+            <option value="admin">👑 Admin Login</option>
+            <option value="signup">📝 Sign Up</option>
 
-        </button>
-
-        <button
-            class="home-btn"
-            onclick="openLogin('admin')">
-
-            👑 Admin Login
-
-        </button>
-
-        <button
-            class="home-btn"
-            onclick="openLogin('signup')">
-
-            📝 Sign Up
-
-        </button>
+        </select>
 
     </div>
 
@@ -723,6 +690,13 @@ function openLogin(mode){
 
     document.body.style.overflow = "hidden";
 
+}
+
+
+function handleLoginSelect(mode){
+    if(!mode) return;
+    openLogin(mode);
+    document.getElementById("loginSelect").value = "";
 }
 
 
