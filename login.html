@@ -971,10 +971,7 @@ async function loginUser(event){
 
         setTimeout(function(){
 
-            window.location.href =
-                loginMode === "admin"
-                ? "admin-users.html"
-                : "dashboard.html";
+            window.location.href = "portal.html";
 
         },500);
 
@@ -1235,10 +1232,7 @@ async function checkSession(){
 
 
     if(data.session){
-
-        window.location.href =
-            "dashboard.html";
-
+        window.location.href = "portal.html";
     }
 
 }
