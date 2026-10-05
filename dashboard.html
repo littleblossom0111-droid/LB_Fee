@@ -50,20 +50,7 @@ body{
     Arial,
     sans-serif;
 
-    background:
-
-    radial-gradient(
-        circle at 0 0,
-        rgba(236,72,153,.09),
-        transparent 28%
-    ),
-
-    radial-gradient(
-        circle at 100% 0,
-        rgba(139,92,246,.08),
-        transparent 24%
-    ),
-    rgba(247,247,251,.78);
+    background:transparent;
 
     color:var(--text);
 
@@ -81,7 +68,10 @@ body{
     z-index:0;
     overflow:hidden;
     pointer-events:none;
-    background:transparent;
+    background:
+        radial-gradient(circle at 15% 20%, rgba(236,72,153,.18), transparent 28%),
+        radial-gradient(circle at 85% 15%, rgba(139,92,246,.16), transparent 30%),
+        linear-gradient(135deg,#f8f0ff 0%,#eef7ff 50%,#fff4fa 100%);
 }
 
 .star-field .star{
@@ -2714,17 +2704,17 @@ body.admin-mode #roleBadge{
         ["#fce7f3","#c084fc"]
     ];
 
-    const count = window.innerWidth <= 600 ? 55 : 85;
+    const count = window.innerWidth <= 600 ? 70 : 110;
 
     for(let i=0;i<count;i++){
         const star = document.createElement("span");
         const pair = colors[i % colors.length];
 
         star.className = "star";
-        star.style.setProperty("--size", (Math.random()*3.2 + 1.5).toFixed(1) + "px");
+        star.style.setProperty("--size", (Math.random()*3.5 + 2.0).toFixed(1) + "px");
         star.style.setProperty("--left", (Math.random()*100).toFixed(2) + "%");
         star.style.setProperty("--top", (Math.random()*100).toFixed(2) + "%");
-        star.style.setProperty("--opacity", (Math.random()*.38 + .42).toFixed(2));
+        star.style.setProperty("--opacity", (Math.random()*.25 + .70).toFixed(2));
         star.style.setProperty("--duration", (Math.random()*16 + 14).toFixed(1) + "s");
         star.style.setProperty("--twinkle", (Math.random()*3 + 2.5).toFixed(1) + "s");
         star.style.setProperty("--move-x", (Math.random()*70 - 35).toFixed(1) + "px");
