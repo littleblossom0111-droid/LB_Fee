@@ -1504,52 +1504,75 @@ async function deleteStudent(id){
             s => s.id === id
         );
 
-
     if(!student){
-
         return;
-
     }
-
 
     const confirmDelete =
         confirm(
             "Delete " +
             student.name +
-            "?\n\nThis action cannot be undone."
+            "?\n\nThis will also delete ALL fee and registration payment records linked to this student.\n\nThis action cannot be undone."
         );
-
 
     if(!confirmDelete){
-
         return;
-
     }
 
+    /*
+       IMPORTANT:
+       A student can have independent records in:
+       1. fee_payments
+       2. registration_payments
 
-    const {
-        error
-    } =
-    await supabaseClient
-        .from("students")
-        .delete()
-        .eq("id",id);
+       Delete both transaction types first so the
+       dashboard/history cannot keep showing money
+       after the student itself has been deleted.
+    */
 
+    const { error: feeError } =
+        await supabaseClient
+            .from("fee_payments")
+            .delete()
+            .eq("student_id", id);
 
-    if(error){
-
+    if(feeError){
         alert(
-            "Delete failed:\n" +
-            error.message
+            "Delete failed while removing fee records:\n" +
+            feeError.message
         );
-
         return;
-
     }
 
+    const { error: registrationError } =
+        await supabaseClient
+            .from("registration_payments")
+            .delete()
+            .eq("student_id", id);
+
+    if(registrationError){
+        alert(
+            "Delete failed while removing registration records:\n" +
+            registrationError.message
+        );
+        return;
+    }
+
+    const { error: studentError } =
+        await supabaseClient
+            .from("students")
+            .delete()
+            .eq("id", id);
+
+    if(studentError){
+        alert(
+            "Delete failed while removing student:\n" +
+            studentError.message
+        );
+        return;
+    }
 
     await loadStudents();
-
 }
 
 
