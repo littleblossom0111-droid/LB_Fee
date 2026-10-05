@@ -63,8 +63,7 @@ body{
         rgba(139,92,246,.08),
         transparent 24%
     ),
-
-    var(--bg);
+    rgba(247,247,251,.78);
 
     color:var(--text);
 
@@ -2715,17 +2714,17 @@ body.admin-mode #roleBadge{
         ["#fce7f3","#c084fc"]
     ];
 
-    const count = window.innerWidth <= 600 ? 38 : 58;
+    const count = window.innerWidth <= 600 ? 55 : 85;
 
     for(let i=0;i<count;i++){
         const star = document.createElement("span");
         const pair = colors[i % colors.length];
 
         star.className = "star";
-        star.style.setProperty("--size", (Math.random()*2.8 + 1.2).toFixed(1) + "px");
+        star.style.setProperty("--size", (Math.random()*3.2 + 1.5).toFixed(1) + "px");
         star.style.setProperty("--left", (Math.random()*100).toFixed(2) + "%");
         star.style.setProperty("--top", (Math.random()*100).toFixed(2) + "%");
-        star.style.setProperty("--opacity", (Math.random()*.42 + .28).toFixed(2));
+        star.style.setProperty("--opacity", (Math.random()*.38 + .42).toFixed(2));
         star.style.setProperty("--duration", (Math.random()*16 + 14).toFixed(1) + "s");
         star.style.setProperty("--twinkle", (Math.random()*3 + 2.5).toFixed(1) + "s");
         star.style.setProperty("--move-x", (Math.random()*70 - 35).toFixed(1) + "px");
