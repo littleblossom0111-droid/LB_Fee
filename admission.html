@@ -28,7 +28,7 @@ async function search(){
 const n=$("sn").value.trim(),d=$("sd").value,r=$("sr").value.trim(),sid=$("sid").value.trim(),a=$("sa").value,x=$("sx").value.trim();
 if(!n&&!d&&!r&&!sid&&!a&&!x){$("results").innerHTML='<div class="empty">Enter at least one search detail.</div>';return}
 let q=db.from("students").select("*").order("created_at",{ascending:false}).limit(100);
-if(n)q=q.ilike("student_name","%"+n+"%");
+if(n){const safeN=n.replace(/,/g," ");q=q.or("student_name.ilike.%"+safeN+"%,name.ilike.%"+safeN+"%");}
 if(d)q=q.eq("date_of_birth",d);
 if(r)q=q.ilike("registration_no","%"+r+"%");
 if(sid)q=q.eq("id",sid);
