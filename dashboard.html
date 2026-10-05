@@ -1795,6 +1795,17 @@ body.admin-mode #roleBadge{
 
 
         <button
+            class="btn refresh"
+            id="portalBackBtn"
+            style="display:none;"
+            onclick="go('portal.html')">
+
+            ← Back
+
+        </button>
+
+
+        <button
             class="btn logout"
             id="logoutBtn">
 
@@ -2121,25 +2132,6 @@ body.admin-mode #roleBadge{
 
             <small>
                 Add & manage students
-            </small>
-
-        </button>
-
-
-        <button
-            class="action"
-            onclick="go('admission.html')">
-
-            <div class="aicon">
-                📝
-            </div>
-
-            <b>
-                Registration / Admission
-            </b>
-
-            <small>
-                Open admission form & records
             </small>
 
         </button>
@@ -2665,6 +2657,8 @@ let currentRole = "user";
 
 let isAdmin = false;
 
+let isSharedStaff = false;
+
 
 /* ============================================================
    HELPERS
@@ -2856,6 +2850,12 @@ function applyPermissions(){
         adminUsersBtn.style.display = isAdmin ? "inline-block" : "none";
     }
 
+    const portalBackBtn = $("portalBackBtn");
+    if(portalBackBtn){
+        portalBackBtn.style.display =
+            (isAdmin || isSharedStaff) ? "inline-block" : "none";
+    }
+
 }
 
 
@@ -2977,7 +2977,7 @@ async function checkSession(){
     .maybeSingle();
 
 
-    const isSharedStaff =
+    isSharedStaff =
         String(currentUser.email || "").toLowerCase()
         ===
         "littleblossom0111@gmail.com";
