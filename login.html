@@ -47,17 +47,18 @@ body{
 
     display:flex;
     flex-direction:column;
-    align-items:center;
-    justify-content:center;
+    align-items:flex-start;
+    justify-content:flex-start;
 
-    text-align:center;
+    text-align:left;
 
     padding:25px;
 
     transition:.35s ease;
 }
 
-.home h1{
+ .home h1{
+    display:none;
     font-size:clamp(27px,7vw,48px);
     font-weight:700;
 
@@ -67,7 +68,8 @@ body{
     margin-bottom:10px;
 }
 
-.home p{
+ .home p{
+    display:none;
     font-size:clamp(14px,3.8vw,20px);
 
     letter-spacing:.5px;
@@ -82,14 +84,14 @@ body{
 
 .home-buttons{
     display:flex;
+    flex-direction:column;
     gap:12px;
-
-    flex-wrap:wrap;
-    justify-content:center;
+    width:190px;
 }
 
 .home-btn{
-    min-width:125px;
+    width:190px;
+    min-width:0;
 
     padding:13px 19px;
 
@@ -370,21 +372,12 @@ body{
         padding:20px;
     }
 
-    .home h1{
-        max-width:350px;
-    }
-
-    .home p{
-        margin-bottom:28px;
-    }
-
     .home-buttons{
-        width:100%;
-        max-width:330px;
+        width:190px;
     }
 
     .home-btn{
-        width:100%;
+        width:190px;
     }
 
     .login-box{
@@ -478,10 +471,6 @@ body{
                 <h2 id="loginTitle">
                     User Login
                 </h2>
-
-                <p>
-                    Little Blossoms Preschool & Day Care
-                </p>
 
             </div>
 
