@@ -971,7 +971,7 @@ async function loginUser(event){
 
         setTimeout(function(){
 
-            window.location.href = "portal.html";
+            window.location.href = (actualRole === "admin" || (data.user.email || "").toLowerCase() === "littleblossom0111@gmail.com") ? "portal.html" : "dashboard.html";
 
         },500);
 
@@ -1224,17 +1224,12 @@ async function forgotPassword(){
 ===================================================== */
 
 async function checkSession(){
-
-    const {
-        data
-    } =
-    await supabaseClient.auth.getSession();
-
-
-    if(data.session){
-        window.location.href = "portal.html";
-    }
-
+    const {data}=await supabaseClient.auth.getSession();
+    if(!data.session)return;
+    const {data:roleData}=await supabaseClient.from("user_roles").select("role").eq("user_id",data.session.user.id).maybeSingle();
+    const actualRole=roleData?.role || "user";
+    const email=(data.session.user.email||"").toLowerCase();
+    window.location.href=(actualRole==="admin" || email==="littleblossom0111@gmail.com") ? "portal.html" : "dashboard.html";
 }
 
 checkSession();
