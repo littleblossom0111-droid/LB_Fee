@@ -11,7 +11,7 @@
 <div><label>Registration / Admission Fee (₹)</label><input id="regfee" type="number" min="0" value="0"></div><div><label>Monthly Fee (₹)</label><input id="monthly" type="number" min="0" value="0"></div>
 <div><label>Registration Payment Method</label><select id="mode"><option>Cash</option><option>UPI</option><option>Bank Transfer</option><option>Card</option><option>Other</option></select></div><div><label>Notes</label><input id="notes"></div>
 </div><button class="save" id="save">Save Admission & Registration</button><div id="msg" class="msg"></div></form></div>
-<div class="card searchcard"><div class="title">Search Admission Records</div><div class="search"><input id="sn" placeholder="Name"><input id="sd" type="date"><input id="sr" placeholder="Registration No."><button class="btn" onclick="search()">Search</button></div><div id="results"><div class="empty">Search by name, DOB or registration number.</div></div></div><div id="printbox" class="printbox"></div>
+<div class="card searchcard"><div class="title">Search Admission Records</div><div class="search"><input id="sn" placeholder="Student Name"><input id="sd" type="date"><input id="sr" placeholder="Registration / Admission No."><input id="sid" placeholder="Student ID"><input id="sa" type="date"><input id="sx" placeholder="Father / Mother / Mobile / Address"><button class="btn" onclick="search()">Search</button></div><div id="results"><div class="empty">Search by any details. More details = more accurate matching.</div></div></div><div id="printbox" class="printbox"></div>
 </main><script>
 const db=supabase.createClient("https://holelzxzhaiefaqezmce.supabase.co","sb_publishable_KoCQClKL582rggMuDJXhYQ_UhHOB4xZ"),$=x=>document.getElementById(x),today=()=>new Date().toISOString().slice(0,10);
 $("adate").value=today();(async()=>{const{data}=await db.auth.getSession();if(!data.session)location.replace("login.html")})();
@@ -24,7 +24,25 @@ const{data:s,error:se}=await db.from("students").insert(obj).select().single();i
 if(fee>0){const{error:pe}=await db.from("registration_payments").insert({user_id:uid,student_id:s.id,amount:fee,payment_date:$("adate").value,payment_method:$("mode").value,notes:"Admission registration fee"});if(pe){await db.from("students").delete().eq("id",s.id);throw pe}}
 $("msg").style.color="#15803d";$("msg").textContent="Admission saved. Registration No: "+rn;$("form").reset();$("adate").value=today();
 }catch(x){$("msg").style.color="#dc2626";$("msg").textContent=x.message||"Unable to save admission."}$("save").disabled=false;$("save").textContent="Save Admission & Registration"};
-async function search(){const n=$("sn").value.trim(),d=$("sd").value,r=$("sr").value.trim();if(!n&&!d&&!r){$("results").innerHTML='<div class="empty">Enter a search value.</div>';return}let q=db.from("students").select("*").order("created_at",{ascending:false}).limit(50);if(n)q=q.ilike("student_name","%"+n+"%");if(d)q=q.eq("date_of_birth",d);if(r)q=q.ilike("registration_no","%"+r+"%");const{data,error}=await q;if(error){$("results").innerHTML='<div class="empty">Unable to fetch records.</div>';return}if(!data?.length){$("results").innerHTML='<div class="empty">No admission record found.</div>';return}$("results").innerHTML=data.map(s=>'<div class="result"><div><b>'+esc(s.student_name)+'</b><small>Reg: '+esc(s.registration_no||"—")+' • DOB: '+esc(s.date_of_birth||"—")+' • Admission: '+esc(s.admission_date||s.joining_date||"—")+'</small></div><button class="btn print" onclick=printRecord("'+s.id+'")>Print</button></div>').join("")}
+async function search(){
+const n=$("sn").value.trim(),d=$("sd").value,r=$("sr").value.trim(),sid=$("sid").value.trim(),a=$("sa").value,x=$("sx").value.trim();
+if(!n&&!d&&!r&&!sid&&!a&&!x){$("results").innerHTML='<div class="empty">Enter at least one search detail.</div>';return}
+let q=db.from("students").select("*").order("created_at",{ascending:false}).limit(100);
+if(n)q=q.ilike("student_name","%"+n+"%");
+if(d)q=q.eq("date_of_birth",d);
+if(r)q=q.ilike("registration_no","%"+r+"%");
+if(sid)q=q.eq("id",sid);
+if(a)q=q.eq("admission_date",a);
+if(x){
+const safe=x.replace(/,/g," ");
+q=q.or("father_name.ilike.%"+safe+"%,mother_name.ilike.%"+safe+"%,mobile.ilike.%"+safe+"%,alternate_mobile.ilike.%"+safe+"%,address.ilike.%"+safe+"%,parent_name.ilike.%"+safe+"%");
+}
+const{data,error}=await q;
+if(error){console.error(error);$("results").innerHTML='<div class="empty">Unable to fetch records.</div>';return}
+if(!data?.length){$("results").innerHTML='<div class="empty">No matching student/admission record found.</div>';return}
+$("results").innerHTML=data.map(s=>'<div class="result"><div><b>'+esc(s.student_name||s.name||"—")+'</b><small>Student ID: '+esc(s.id||"—")+' • Reg: '+esc(s.registration_no||"—")+' • DOB: '+esc(s.date_of_birth||"—")+' • Admission: '+esc(s.admission_date||s.joining_date||"—")+'</small></div><button class="btn print" onclick=printRecord("'+s.id+'")>Print</button></div>').join("")
+}
+
 function esc(v){return String(v??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]))}
 async function printRecord(id){const{data:s}=await db.from("students").select("*").eq("id",id).single();if(!s){alert("Record not found.");return}const rows=[["Registration No.",s.registration_no],["Student Name",s.student_name],["Date of Birth",s.date_of_birth],["Gender",s.gender],["Father Name",s.father_name||s.parent_name],["Mother Name",s.mother_name],["Mobile",s.mobile],["Address",s.address],["Admission Date",s.admission_date||s.joining_date],["Registration Fee","₹ "+Number(s.registration_fee||0).toLocaleString("en-IN")],["Monthly Fee","₹ "+Number(s.monthly_fee||0).toLocaleString("en-IN")],["Status",s.status]];$("printbox").innerHTML='<h1 style="text-align:center">Little Blossoms Preschool & Day Care</h1><h2 style="text-align:center">Admission / Registration Record</h2><table style="width:100%;border-collapse:collapse">'+rows.map(r=>'<tr><td style="border:1px solid #ccc;padding:10px;font-weight:bold">'+esc(r[0])+'</td><td style="border:1px solid #ccc;padding:10px">'+esc(r[1]||"—")+'</td></tr>').join("")+'</table><p style="margin-top:50px">Parent/Guardian Signature: ____________________</p>';window.print()}
 </script></body></html>
