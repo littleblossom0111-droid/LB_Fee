@@ -72,6 +72,74 @@ body{
 
 }
 
+
+/* =========================================================
+   ANIMATED HD STAR BACKGROUND
+========================================================= */
+.star-field{
+    position:fixed;
+    inset:0;
+    z-index:0;
+    overflow:hidden;
+    pointer-events:none;
+    background:transparent;
+}
+
+.star-field .star{
+    position:absolute;
+    display:block;
+    width:var(--size);
+    height:var(--size);
+    left:var(--left);
+    top:var(--top);
+    border-radius:50%;
+    background:var(--star-color);
+    opacity:var(--opacity);
+    box-shadow:
+        0 0 5px var(--star-color),
+        0 0 12px var(--star-glow);
+    animation:
+        starDrift var(--duration) ease-in-out infinite alternate,
+        starTwinkle var(--twinkle) ease-in-out infinite;
+    will-change:transform,opacity;
+}
+
+.star-field .star::after{
+    content:"";
+    position:absolute;
+    left:50%;
+    top:50%;
+    width:180%;
+    height:180%;
+    transform:translate(-50%,-50%);
+    border-radius:50%;
+    background:radial-gradient(circle, var(--star-glow) 0%, transparent 68%);
+    opacity:.45;
+}
+
+@keyframes starDrift{
+    0%{transform:translate3d(0,0,0) scale(.85) rotate(0deg);}
+    50%{transform:translate3d(var(--move-x),var(--move-y),0) scale(1.08) rotate(90deg);}
+    100%{transform:translate3d(calc(var(--move-x) * -0.55),calc(var(--move-y) * -0.55),0) scale(.92) rotate(180deg);}
+}
+
+@keyframes starTwinkle{
+    0%,100%{opacity:calc(var(--opacity) * .55);}
+    50%{opacity:var(--opacity);}
+}
+
+.header,
+.container{
+    position:relative;
+    z-index:1;
+}
+
+@media (prefers-reduced-motion:reduce){
+    .star-field .star{
+        animation:none;
+    }
+}
+
 button,
 input,
 select{
@@ -1711,6 +1779,10 @@ body.admin-mode #roleBadge{
 
 <body>
 
+<!-- Animated HD background stars -->
+<div class="star-field" id="starField" aria-hidden="true"></div>
+
+
 
 <!-- =========================================================
      LOADING
@@ -2629,6 +2701,43 @@ body.admin-mode #roleBadge{
 
 
 <script>
+
+/* Create lightweight animated stars */
+(function createStars(){
+    const field = document.getElementById("starField");
+    if(!field) return;
+
+    const colors = [
+        ["#ffffff","#f0abfc"],
+        ["#ffffff","#c4b5fd"],
+        ["#fde68a","#f9a8d4"],
+        ["#e0f2fe","#93c5fd"],
+        ["#fce7f3","#c084fc"]
+    ];
+
+    const count = window.innerWidth <= 600 ? 38 : 58;
+
+    for(let i=0;i<count;i++){
+        const star = document.createElement("span");
+        const pair = colors[i % colors.length];
+
+        star.className = "star";
+        star.style.setProperty("--size", (Math.random()*2.8 + 1.2).toFixed(1) + "px");
+        star.style.setProperty("--left", (Math.random()*100).toFixed(2) + "%");
+        star.style.setProperty("--top", (Math.random()*100).toFixed(2) + "%");
+        star.style.setProperty("--opacity", (Math.random()*.42 + .28).toFixed(2));
+        star.style.setProperty("--duration", (Math.random()*16 + 14).toFixed(1) + "s");
+        star.style.setProperty("--twinkle", (Math.random()*3 + 2.5).toFixed(1) + "s");
+        star.style.setProperty("--move-x", (Math.random()*70 - 35).toFixed(1) + "px");
+        star.style.setProperty("--move-y", (Math.random()*55 - 27.5).toFixed(1) + "px");
+        star.style.setProperty("--star-color", pair[0]);
+        star.style.setProperty("--star-glow", pair[1]);
+        star.style.animationDelay = (-Math.random()*18).toFixed(2) + "s, -" + (Math.random()*5).toFixed(2) + "s";
+
+        field.appendChild(star);
+    }
+})();
+
 
 /* ============================================================
    SUPABASE
