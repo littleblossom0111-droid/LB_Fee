@@ -647,6 +647,24 @@ tbody tr:hover{
     </div>
 
 
+    <!-- ADMIN FEE HISTORY SETTINGS -->
+    <div class="form-box" id="feeHistoryAdmin" style="display:none;">
+        <h3>⚙️ Admin Fee History</h3>
+        <p style="color:#777;font-size:13px;margin-top:6px;">Change fee from a selected month without changing older months.</p>
+        <br>
+        <div class="form-grid">
+            <div><label>Student *</label><select id="historyStudentSelect"><option value="">Select Student</option></select></div>
+            <div><label>Change From Month *</label><input type="month" id="historyEffectiveMonth"></div>
+            <div><label>New Monthly Fee *</label><input type="number" id="historyNewFee" min="0" step="0.01" placeholder="Enter new fee"></div>
+            <div style="display:flex;align-items:end;gap:8px;">
+                <button class="save" style="margin-top:0;" onclick="saveFeeChange(false)">Apply From This Month</button>
+                <button class="save" style="margin-top:0;background:#dc2626;" onclick="saveFeeChange(true)">Change Full History</button>
+            </div>
+        </div>
+        <div id="historyMessage" style="text-align:center;margin-top:12px;font-size:13px;min-height:18px;"></div>
+        <div style="margin-top:15px;background:#fff7ed;border:1px solid #fed7aa;padding:12px;border-radius:10px;font-size:12px;color:#9a3412;"><b>Important:</b> Apply From This Month keeps previous months unchanged. Change Full History intentionally changes the complete history.</div>
+    </div>
+
     <!-- HISTORY -->
 
     <h3 style="margin-bottom:12px">
@@ -735,6 +753,7 @@ let payments = [];
 
 let editingId = null;
 let isAdmin = false;
+let feeHistory = [];
 
 
 /* =====================================================
@@ -810,6 +829,13 @@ async function init(){
     */
 
     await loadStudents();
+
+    if(isAdmin){
+        document.getElementById("feeHistoryAdmin").style.display = "block";
+        populateHistoryStudentSelect();
+    }
+
+    await loadFeeHistory();
 
 
     /*
@@ -912,6 +938,73 @@ async function loadStudents(){
 
 
 /* =====================================================
+   FEE HISTORY
+===================================================== */
+
+async function loadFeeHistory(){
+    const {data,error}=await supabaseClient.from("student_fee_history").select("*").order("effective_from",{ascending:true});
+    if(error){ console.error("Fee history loading error:",error); feeHistory=[]; return; }
+    feeHistory=data||[];
+}
+
+function populateHistoryStudentSelect(){
+    const select=document.getElementById("historyStudentSelect");
+    if(!select) return;
+    select.innerHTML="<option value=\"\">Select Student</option>";
+    students.forEach(student=>{
+        const option=document.createElement("option");
+        option.value=student.id;
+        option.textContent=student.name||"Unnamed Student";
+        select.appendChild(option);
+    });
+}
+
+function getMonthlyFee(studentId,selectedMonth){
+    const monthDate=selectedMonth+"-01";
+    const rows=feeHistory.filter(h=>String(h.student_id)===String(studentId)&&String(h.effective_from)<=monthDate).sort((a,b)=>String(b.effective_from).localeCompare(String(a.effective_from)));
+    if(rows.length) return Number(rows[0].monthly_fee||0);
+    const student=students.find(s=>String(s.id)===String(studentId));
+    return Number(student?.monthly_fee||0);
+}
+
+async function saveFeeChange(fullHistory){
+    if(!isAdmin){ alert("Only Admin can change fee history."); return; }
+    const studentId=document.getElementById("historyStudentSelect").value;
+    const effectiveMonth=document.getElementById("historyEffectiveMonth").value;
+    const newFee=Number(document.getElementById("historyNewFee").value||0);
+    const msg=document.getElementById("historyMessage");
+    if(!studentId||!effectiveMonth){ msg.style.color="#dc2626"; msg.textContent="Student and effective month are required."; return; }
+    if(newFee<0){ msg.style.color="#dc2626"; msg.textContent="Fee cannot be negative."; return; }
+    const student=students.find(s=>String(s.id)===String(studentId));
+    if(!student){ msg.style.color="#dc2626"; msg.textContent="Student not found."; return; }
+    if(fullHistory&&!confirm("This will change ALL historical months for this student. Continue?")) return;
+    const {data:authData}=await supabaseClient.auth.getUser();
+    if(!authData.user){ msg.style.color="#dc2626"; msg.textContent="Session expired. Please login again."; return; }
+    let error=null;
+    if(fullHistory){
+        const del=await supabaseClient.from("student_fee_history").delete().eq("student_id",studentId);
+        if(del.error) error=del.error;
+        else {
+            const start=student.joining_date?String(student.joining_date).substring(0,7)+"-01":effectiveMonth+"-01";
+            const ins=await supabaseClient.from("student_fee_history").insert({student_id:studentId,effective_from:start,monthly_fee:newFee,created_by:authData.user.id});
+            error=ins.error||null;
+        }
+    }else{
+        const up=await supabaseClient.from("student_fee_history").upsert({student_id:studentId,effective_from:effectiveMonth+"-01",monthly_fee:newFee,created_by:authData.user.id},{onConflict:"student_id,effective_from"});
+        error=up.error||null;
+    }
+    if(error){ console.error(error); msg.style.color="#dc2626"; msg.textContent=error.message||"Fee change failed."; return; }
+    const currentMonth=new Date().toISOString().substring(0,7);
+    if(fullHistory||effectiveMonth<=currentMonth){ await supabaseClient.from("students").update({monthly_fee:newFee}).eq("id",studentId); }
+    await loadFeeHistory();
+    msg.style.color="#16a34a";
+    msg.textContent=fullHistory?"Complete fee history changed successfully.":"Fee changed from selected month. Previous months are unchanged.";
+    await calculateFee();
+    updateSummary();
+}
+
+
+/* =====================================================
    LOAD PAYMENTS
 ===================================================== */
 
@@ -988,9 +1081,7 @@ async function getPreviousPending(
 
 
     const monthlyFee =
-        Number(
-            student.monthly_fee || 0
-        );
+        getMonthlyFee(studentId, selectedMonth);
 
 
     const selectedDate =
@@ -1182,9 +1273,7 @@ async function calculateFee(){
 
 
     const monthlyFee =
-        Number(
-            student.monthly_fee || 0
-        );
+        getMonthlyFee(studentId, month);
 
 
     const previousPending =
@@ -1656,9 +1745,7 @@ function renderPayments(){
 
                 const monthly =
                     student
-                    ? Number(
-                        student.monthly_fee || 0
-                    )
+                    ? getMonthlyFee(student.id, String(p.fee_month || "").substring(0,7))
                     : 0;
 
 
@@ -1789,9 +1876,7 @@ function updateSummary(){
     .forEach(
         s => {
 
-            due += Number(
-                s.monthly_fee || 0
-            );
+            due += getMonthlyFee(s.id, selected);
 
         }
     );
