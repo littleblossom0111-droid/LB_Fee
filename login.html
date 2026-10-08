@@ -1042,59 +1042,85 @@ async function signupUser(event){
         }
 
 
-        /* CREATE NORMAL USER ROLE AFTER SUCCESSFUL SIGNUP */
+        /*
+           If Supabase requires email confirmation, there is no session yet.
+           In that case, do NOT try to write user_roles from the client.
+           The role is created safely after verification in verify-email.html.
+        */
+        if(data.session && data.user){
 
-        const { error: roleError } =
-            await supabaseClient
-            .from("user_roles")
-            .upsert(
-                {
-                    user_id: data.user.id,
-                    role: "user"
-                },
-                {
-                    onConflict: "user_id"
-                }
-            );
+            const { error: roleError } =
+                await supabaseClient
+                .from("user_roles")
+                .upsert(
+                    {
+                        user_id: data.user.id,
+                        role: "user"
+                    },
+                    {
+                        onConflict: "user_id"
+                    }
+                );
 
-        if(roleError){
+            if(roleError){
 
-            console.error(roleError);
+                console.error(roleError);
+
+                await supabaseClient.auth.signOut();
+
+                throw new Error(
+                    "Account was created, but user permission could not be saved. Please contact admin."
+                );
+
+            }
 
             await supabaseClient.auth.signOut();
 
-            throw new Error(
-                "Account was created, but user permission could not be saved. Please contact admin."
+            showMessage(
+                "Create Successful ✓",
+                "success"
             );
 
+            button.disabled = false;
+            button.textContent = "Create Account";
+
+            document.getElementById("signupPassword").value = "";
+            document.getElementById("signupConfirm").value = "";
+
+            setTimeout(function(){
+                document.getElementById("signupArea").style.display = "none";
+                document.getElementById("loginArea").style.display = "block";
+                document.getElementById("loginTitle").textContent = "User Login";
+                document.getElementById("loginIcon").textContent = "👤";
+                document.getElementById("loginEmail").value = email;
+                document.getElementById("loginPassword").focus();
+                showMessage("Account created successfully. Login now.", "success");
+            },900);
+
+        }else{
+
+            /*
+               Email confirmation is enabled.
+               Store only the pending email locally so verify-email.html
+               can request/verify the OTP and create the normal-user role.
+            */
+            localStorage.setItem("lb_pending_signup_email", email);
+
+            showMessage(
+                "Account created. Check your email for the verification code.",
+                "success"
+            );
+
+            button.disabled = false;
+            button.textContent = "Create Account";
+
+            document.getElementById("signupPassword").value = "";
+            document.getElementById("signupConfirm").value = "";
+
+            setTimeout(function(){
+                window.location.href = "verify-email.html";
+            },900);
         }
-
-        /* Signup is complete. Keep the user logged out.
-           They must now login with email + password. */
-        await supabaseClient.auth.signOut();
-
-        showMessage(
-            "Create Successful ✓",
-            "success"
-        );
-
-        button.disabled = false;
-
-        button.textContent =
-            "Create Account";
-
-        document.getElementById("signupPassword").value = "";
-        document.getElementById("signupConfirm").value = "";
-
-        setTimeout(function(){
-            document.getElementById("signupArea").style.display = "none";
-            document.getElementById("loginArea").style.display = "block";
-            document.getElementById("loginTitle").textContent = "User Login";
-            document.getElementById("loginIcon").textContent = "👤";
-            document.getElementById("loginEmail").value = email;
-            document.getElementById("loginPassword").focus();
-            showMessage("Account created successfully. Login now.", "success");
-        }, 900);
 
 
     }
