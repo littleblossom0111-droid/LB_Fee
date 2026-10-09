@@ -582,6 +582,47 @@ button{
 
 }
 
+.dance-total-card .balance-visibility-toggle{
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:7px;
+    margin:14px auto 0;
+    padding:7px 13px;
+    border:1px solid #e9d5ff;
+    border-radius:999px;
+    background:#faf5ff;
+    color:#7e22ce;
+    font:inherit;
+    font-size:12px;
+    font-weight:700;
+    cursor:pointer;
+    position:relative;
+    z-index:2;
+
+}
+
+.dance-total-card .balance-visibility-toggle:focus-visible{
+
+    outline:2px solid #9333ea;
+    outline-offset:2px;
+
+}
+
+.dance-total-card.is-balance-hidden #closingPlusDance{
+
+    filter:blur(7px);
+    user-select:none;
+
+}
+
+.dance-total-card.is-balance-hidden #closingPlusDance::selection{
+
+    background:transparent;
+
+}
+
 .dance-card .icon{
 
     background:
@@ -2139,6 +2180,17 @@ body.admin-mode #roleBadge{
 
             </div>
 
+            <button
+                type="button"
+                id="toggleClosingDanceVisibility"
+                class="balance-visibility-toggle"
+                onclick="toggleClosingDanceVisibility(event)"
+                aria-label="Hide closing balance and dance collection"
+                aria-pressed="false">
+                <span id="closingDanceEye" aria-hidden="true">👁</span>
+                <span id="closingDanceEyeText">Hide amount</span>
+            </button>
+
         </div>
 
 
@@ -3294,6 +3346,37 @@ function calculatePending(
 /* ============================================================
    LOAD DASHBOARD
 ============================================================ */
+
+function toggleClosingDanceVisibility(event){
+
+    if(event){
+        event.preventDefault();
+        event.stopPropagation();
+    }
+
+    const card = document.querySelector(".dance-total-card");
+    const amount = $("closingPlusDance");
+    const button = $("toggleClosingDanceVisibility");
+    const eye = $("closingDanceEye");
+    const label = $("closingDanceEyeText");
+
+    if(!card || !amount || !button || !eye || !label)
+        return;
+
+    const isHidden = card.classList.toggle("is-balance-hidden");
+
+    eye.textContent = isHidden ? "🙈" : "👁";
+    label.textContent = isHidden ? "Show amount" : "Hide amount";
+    button.setAttribute("aria-pressed", String(isHidden));
+    button.setAttribute(
+        "aria-label",
+        isHidden
+            ? "Show closing balance and dance collection"
+            : "Hide closing balance and dance collection"
+    );
+
+}
+
 
 async function loadDashboard(){
 
