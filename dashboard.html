@@ -2111,6 +2111,37 @@ body.admin-mode #roleBadge{
         </div>
 
 
+                <div class="card dance-total-card">
+
+            <div class="topline">
+
+                <span class="label">
+                    Closing Balance + Dance Collection
+                </span>
+
+                <span class="icon">
+                    💃
+                </span>
+
+            </div>
+
+            <div
+                class="value"
+                id="closingPlusDance">
+
+                ₹0
+
+            </div>
+
+            <div class="sub">
+
+                Closing balance + dance fees collected in selected month
+
+            </div>
+
+        </div>
+
+
         <!-- DANCE -->
 
         <div
@@ -3291,7 +3322,9 @@ async function loadDashboard(){
 
             investments,
 
-            adjustments
+            adjustments,
+
+            danceCollections
 
         ] =
         await Promise.all([
@@ -3310,7 +3343,9 @@ async function loadDashboard(){
 
             table(
                 "balance_adjustments"
-            )
+            ),
+
+            table("dance_fee_collections")
 
         ]);
 
@@ -3347,6 +3382,45 @@ async function loadDashboard(){
                 selectedMonth;
 
             }
+        );
+
+
+        const selectedMonthParts =
+        selectedMonth.split("-");
+
+        const selectedYearNumber =
+        Number(selectedMonthParts[0]);
+
+        const selectedMonthNumber =
+        Number(selectedMonthParts[1]);
+
+        const monthlyDanceCollections =
+        danceCollections.filter(
+            payment => {
+
+                const paymentMonth =
+                Number(payment.fee_month || 0);
+
+                const paymentYear =
+                Number(payment.fee_year || 0);
+
+                return (
+                    paymentMonth === selectedMonthNumber &&
+                    paymentYear === selectedYearNumber
+                );
+
+            }
+        );
+
+        const totalDanceCollected =
+        monthlyDanceCollections.reduce(
+            (total, payment) => {
+
+                return total +
+                Number(payment.amount_paid || 0);
+
+            },
+            0
         );
 
 
@@ -3637,6 +3711,11 @@ async function loadDashboard(){
         $("currentBalance")
         .textContent =
         money(closingBalance);
+
+
+        $("closingPlusDance")
+        .textContent =
+        money(closingBalance + totalDanceCollected);
 
 
         $("openingBalance")
