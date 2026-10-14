@@ -25,18 +25,37 @@ html,body{
 /* ================= BACKGROUND ================= */
 
 body{
-    background-image:
-        linear-gradient(
-            rgba(0,0,0,.16),
-            rgba(0,0,0,.25)
-        ),
-        url("login-bg.png");
-
+    position:relative;
+    isolation:isolate;
+    background:#17202a;
+    color:white;
+}
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    z-index:-1;
     background-size:cover;
     background-position:center;
     background-repeat:no-repeat;
-
-    color:white;
+    animation:lbFeeBackgroundRotate 18s infinite;
+}
+@keyframes lbFeeBackgroundRotate{
+    0%,30%{
+        background-image:linear-gradient(rgba(0,0,0,.24),rgba(0,0,0,.34)),url("login-bg.png");
+    }
+    33%,63%{
+        background-image:linear-gradient(rgba(0,0,0,.24),rgba(0,0,0,.34)),url("https://littleblossom0111-droid.github.io/Littleblossomsdbpride/images/hkp.png");
+    }
+    66%,96%{
+        background-image:linear-gradient(rgba(0,0,0,.24),rgba(0,0,0,.34)),url("https://littleblossom0111-droid.github.io/Littleblossomsdbpride/images/hkps.jpg");
+    }
+    100%{
+        background-image:linear-gradient(rgba(0,0,0,.24),rgba(0,0,0,.34)),url("login-bg.png");
+    }
+}
+@media(prefers-reduced-motion:reduce){
+    body::before{animation-duration:36s}
 }
 
 /* ================= MAIN HOME ================= */
